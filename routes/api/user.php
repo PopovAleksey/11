@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::as('SignIn')->post('sign-in', [UserController::class, 'signIn']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::as('Info')->get('/', [UserController::class, 'info']);
+    Route::as('Token')->post('token', [UserController::class, 'getToken']);
 });
