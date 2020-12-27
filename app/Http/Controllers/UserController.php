@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Request;
+
 use App\Http\Requests\User\SignInRequest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     public function signIn(SignInRequest $request): JsonResponse
     {
         $data = $request->mappedCollection();
-        $token = 'Test';
+
+        $token = \App\Models\User::find(1)->createToken("My_Test_Token")->plainTextToken;
 
         return response()->json([
             'token' => $token,
@@ -27,5 +30,12 @@ class UserController extends Controller
         return response()->json([
             'token' => $token->plainTextToken
         ]);
+    }
+
+    public function info(Request $request): JsonResponse
+    {
+        $user = Auth::user();
+        $reqUser = $request->header('Authorization');
+        return response()->json(['user' => $user, 'token' => $reqUser]);
     }
 }
