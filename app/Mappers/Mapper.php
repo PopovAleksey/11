@@ -88,7 +88,7 @@ class Mapper
 
     private function collectionArray(array $value, string $field, string $comment): array
     {
-        preg_match('/@var array<(.+)\>(.+)?/', $comment, $match);
+        preg_match("/@var array<(.+)>(.+)?/", $comment, $match);
         $classIntoArray = data_get($match, 1);
 
         if (!class_exists($classIntoArray)) {
