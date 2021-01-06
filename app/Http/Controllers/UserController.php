@@ -4,12 +4,23 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\User\SignInRequest;
+use App\Mappers\Requests\User\SignInDTO;
+use App\Mappers\Requests\User\TestDTO;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class UserController
+ * @package App\Http\Controllers
+ */
 class UserController extends Controller
 {
+    /**
+     * @param SignInRequest $request
+     * @return JsonResponse
+     * @throws \ReflectionException
+     */
     public function signIn(SignInRequest $request): JsonResponse
     {
         $data = $request->mappedCollection();
@@ -18,24 +29,34 @@ class UserController extends Controller
 
         return response()->json([
             'token' => $token,
-            'data' => $data->get()
+            'data'  => $data->toArray(),
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function getToken(Request $request): JsonResponse
     {
         $token = \App\Models\User::find(1)->createToken($request->token_name);
+
         #$token = $request->user()->createToken($request->token_name);
 
         return response()->json([
-            'token' => $token->plainTextToken
+            'token' => $token->plainTextToken,
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function info(Request $request): JsonResponse
     {
-        $user = Auth::user();
+        $user    = Auth::user();
         $reqUser = $request->header('Authorization');
+
         return response()->json(['user' => $user, 'token' => $reqUser]);
     }
 }

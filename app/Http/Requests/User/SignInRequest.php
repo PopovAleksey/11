@@ -3,7 +3,7 @@
 namespace App\Http\Requests\User;
 
 use App\Http\Requests\Request;
-use App\Mappers\Requests\User\SignInMapper;
+use App\Mappers\Requests\User\SignInDTO;
 
 class SignInRequest extends Request
 {
@@ -20,8 +20,8 @@ class SignInRequest extends Request
         ];
     }
 
-    public function mappedCollection(): SignInMapper
+    public function mappedCollection(): SignInDTO
     {
-        return app(SignInMapper::class)->handler($this->input());
+        return app(SignInDTO::class)->handler($this->input());
     }
 }
