@@ -37,6 +37,7 @@ class TestDTO extends Mapper
 
         return $this;
     }
+
     /**
      * @return string|null
      */

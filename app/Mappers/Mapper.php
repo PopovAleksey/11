@@ -34,7 +34,7 @@ class Mapper
 
         return collect($properties)->mapWithKeys(function (ReflectionProperty $property) use ($classObject) {
             $propertyName     = $property->getName();
-            $propertyType = $property->getType()->getName();
+            $propertyType     = $property->getType()->getName();
             $propertyComment  = $property->getDocComment();
             $getterMethodName = 'get' . ucfirst($propertyName);
 

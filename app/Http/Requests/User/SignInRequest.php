@@ -5,6 +5,10 @@ namespace App\Http\Requests\User;
 use App\Http\Requests\Request;
 use App\Mappers\Requests\User\SignInDTO;
 
+/**
+ * Class SignInRequest
+ * @package App\Http\Requests\User
+ */
 class SignInRequest extends Request
 {
     /**
@@ -15,13 +19,16 @@ class SignInRequest extends Request
     public function rules(): array
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required'
+            'email'    => 'required|email',
+            'password' => 'required',
         ];
     }
 
+    /**
+     * @return SignInDTO
+     */
     public function mappedCollection(): SignInDTO
     {
-        return app(SignInDTO::class)->handler($this->input());
+        return app(SignInDTO::class)->handler($this->validated());
     }
 }

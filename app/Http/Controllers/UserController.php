@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\User\SignInRequest;
-use App\Mappers\Requests\User\SignInDTO;
-use App\Mappers\Requests\User\TestDTO;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
