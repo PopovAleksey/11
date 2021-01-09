@@ -6,13 +6,12 @@ namespace App\Services;
 
 use App\Exceptions\RuntimeException;
 use App\Interfaces\Models\User;
-use App\Interfaces\Services\DevelopmentService;
 
 /**
  * Class Development
  * @package App\Services
  */
-class Development extends Service implements DevelopmentService
+class DevelopmentService extends Service implements \App\Interfaces\Services\DevelopmentService
 {
     /**
      * @var User

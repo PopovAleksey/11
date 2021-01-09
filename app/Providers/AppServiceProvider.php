@@ -6,7 +6,6 @@ use App\Interfaces\Models\User;
 use App\Interfaces\Repositories\UserRepository;
 use App\Interfaces\Services\DevelopmentService;
 use App\Interfaces\Services\UserService;
-use App\Services\Development;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -45,7 +44,7 @@ class AppServiceProvider extends ServiceProvider
 
     private function bindServices(): void
     {
-        $this->app->bind(DevelopmentService::class, Development::class);
+        $this->app->bind(DevelopmentService::class, \App\Services\DevelopmentService::class);
 
         $this->app->bind(UserService::class, \App\Services\User\UserService::class);
     }
