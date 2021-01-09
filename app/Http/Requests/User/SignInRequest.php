@@ -3,7 +3,6 @@
 namespace App\Http\Requests\User;
 
 use App\Http\Requests\Request;
-use App\Mappers\Requests\User\SignInDTO;
 
 /**
  * Class SignInRequest
@@ -20,7 +19,7 @@ class SignInRequest extends Request
     {
         return [
             'email'    => 'required|email',
-            'password' => 'required',
+            'password' => 'required|string',
         ];
     }
 

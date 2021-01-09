@@ -1,8 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Development\DevelopmentController;
 use Illuminate\Support\Facades\Route;
-use \App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +14,7 @@ use \App\Http\Controllers\UserController;
 |
 */
 
-
-Route::as('SignIn')->post('sign-in', [UserController::class, 'signIn']);
-
-Route::middleware('auth:sanctum')->group(function () {
-    Route::as('Info')->get('/', [UserController::class, 'info']);
+Route::middleware('env.local')->group(function () {
+    Route::as('GetRandomUser')->get('get/random/user', [DevelopmentController::class, 'getRandomEmailOdDefaultUsers']);
 });
+

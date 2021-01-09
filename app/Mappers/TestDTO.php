@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Mappers\Requests\User;
+namespace App\Mappers;
 
-use App\Mappers\Mapper;
 
 /**
  * Class TestDTO
@@ -10,17 +9,17 @@ use App\Mappers\Mapper;
  */
 class TestDTO extends Mapper
 {
-    private ?string $hi     = null;
+    private ?string $string = null;
     private bool    $is;
     private ?int    $number = null;
 
     /**
-     * @var \App\Mappers\Requests\User\TestDTO[]
+     * @var \App\Mappers\TestDTO[]
      */
     protected array $exampleForArrayWithClass;
 
     /**
-     * @return \App\Mappers\Requests\User\TestDTO[]
+     * @return \App\Mappers\TestDTO[]
      */
     public function getExampleForArrayWithClass(): array
     {
@@ -28,7 +27,7 @@ class TestDTO extends Mapper
     }
 
     /**
-     * @param \App\Mappers\Requests\User\TestDTO[] $exampleForArrayWithClass
+     * @param \App\Mappers\TestDTO[] $exampleForArrayWithClass
      * @return $this
      */
     public function setExampleForArrayWithClass(array $exampleForArrayWithClass): self
@@ -41,18 +40,18 @@ class TestDTO extends Mapper
     /**
      * @return string|null
      */
-    public function getHi(): ?string
+    public function getString(): ?string
     {
-        return $this->hi;
+        return $this->string;
     }
 
     /**
-     * @param string|null $hi
+     * @param string|null $string
      * @return $this\
      */
-    public function setHi(?string $hi): self
+    public function setString(?string $string): self
     {
-        $this->hi = $hi;
+        $this->string = $string;
 
         return $this;
     }

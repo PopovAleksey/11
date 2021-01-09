@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mappers\Requests\User;
+namespace App\Http\Requests\User;
 
 use App\Mappers\Mapper;
 
@@ -11,7 +11,7 @@ use App\Mappers\Mapper;
 class SignInDTO extends Mapper
 {
     private string $email;
-    private int    $password;
+    private string $password;
 
     /**
      * @param string $email
@@ -25,12 +25,12 @@ class SignInDTO extends Mapper
     }
 
     /**
-     * @param int $password
+     * @param string $password
      * @return $this
      */
-    public function setPassword(int $password): self
+    public function setPassword(string $password): self
     {
-        $this->password = $password;
+        $this->password = md5($password);
 
         return $this;
     }
@@ -44,9 +44,9 @@ class SignInDTO extends Mapper
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getPassword(): int
+    public function getPassword(): string
     {
         return $this->password;
     }

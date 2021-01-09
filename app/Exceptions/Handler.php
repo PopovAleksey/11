@@ -2,6 +2,8 @@
 
 namespace App\Exceptions;
 
+use App\Exceptions\User\RuntimeException;
+use App\Exceptions\User\SignInException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -36,5 +38,19 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function render($request, Throwable $e)
+    {
+        switch ($e) {
+            case $e instanceof SignInException:
+                return response()->json(['message' => "User not found",], 401);
+
+            case $e instanceof RuntimeException:
+                return response()->json(['message' => $e->getMessage()], 500);
+
+            default:
+                return parent::render($request, $e);
+        }
     }
 }

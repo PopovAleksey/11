@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\User\SignInRequest;
+use App\Interfaces\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,35 +15,26 @@ use Illuminate\Support\Facades\Auth;
  */
 class UserController extends Controller
 {
+    private UserService $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     /**
      * @param SignInRequest $request
      * @return JsonResponse
-     * @throws \ReflectionException
      */
     public function signIn(SignInRequest $request): JsonResponse
     {
         $data = $request->mappedCollection();
 
-        $token = \App\Models\User::find(1)->createToken("My_Test_Token")->plainTextToken;
+        $userService = $this->userService->singIn($data);
 
         return response()->json([
-            'token' => $token,
-            'data'  => $data->toArray(),
-        ]);
-    }
-
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function getToken(Request $request): JsonResponse
-    {
-        $token = \App\Models\User::find(1)->createToken($request->token_name);
-
-        #$token = $request->user()->createToken($request->token_name);
-
-        return response()->json([
-            'token' => $token->plainTextToken,
+            'token' => $userService->createToken(),
+            'data'  => $userService->getUser(),
         ]);
     }
 
@@ -52,9 +44,11 @@ class UserController extends Controller
      */
     public function info(Request $request): JsonResponse
     {
-        $user    = Auth::user();
-        $reqUser = $request->header('Authorization');
+        $token = $request->header('Authorization');
 
-        return response()->json(['user' => $user, 'token' => $reqUser]);
+        return response()->json([
+            'user' => Auth::user(),
+            'token' => $token
+        ]);
     }
 }
