@@ -3,8 +3,7 @@
 
 namespace App\Services\User;
 
-
-use App\Mappers\Mapper;
+use PopovAleksey\Mapper;
 
 class UserServiceDTO extends Mapper
 {
