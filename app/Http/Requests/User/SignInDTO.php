@@ -3,7 +3,7 @@
 namespace App\Http\Requests\User;
 
 
-use PopovAleksey\Mapper;
+use PopovAleksey\Mapper\Mapper;
 
 /**
  * Class SignInDTO

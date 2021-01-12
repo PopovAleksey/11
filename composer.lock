@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e21b857c17d1dab5c8bc007589bb1b87",
+    "content-hash": "f577f6750158678d3686b337b39f09e4",
     "packages": [
         {
             "name": "aleksey-popov/mapper-skeleton",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PopovAleksey/MapperComposerSkeleton.git",
-                "reference": "78c47c6f38fc9ed9cc5ba1d9874656470ae40b07"
+                "reference": "66cd285dcb44a25679f426c9d596b00984be4a0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PopovAleksey/MapperComposerSkeleton/zipball/78c47c6f38fc9ed9cc5ba1d9874656470ae40b07",
-                "reference": "78c47c6f38fc9ed9cc5ba1d9874656470ae40b07",
+                "url": "https://api.github.com/repos/PopovAleksey/MapperComposerSkeleton/zipball/66cd285dcb44a25679f426c9d596b00984be4a0b",
+                "reference": "66cd285dcb44a25679f426c9d596b00984be4a0b",
                 "shasum": ""
             },
             "require": {
@@ -51,9 +51,9 @@
             ],
             "support": {
                 "issues": "https://github.com/PopovAleksey/MapperComposerSkeleton/issues",
-                "source": "https://github.com/PopovAleksey/MapperComposerSkeleton/tree/1.0.1"
+                "source": "https://github.com/PopovAleksey/MapperComposerSkeleton/tree/1.0.2"
             },
-            "time": "2021-01-11T19:19:51+00:00"
+            "time": "2021-01-12T18:15:09+00:00"
         },
         {
             "name": "asm89/stack-cors",
@@ -943,16 +943,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.21.0",
+            "version": "v8.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "a61cab167c35f465a923737ee6e6fb99cd5fde88"
+                "reference": "dcc4b0da849bc8a869af1cf126da00265bd1165d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/a61cab167c35f465a923737ee6e6fb99cd5fde88",
-                "reference": "a61cab167c35f465a923737ee6e6fb99cd5fde88",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/dcc4b0da849bc8a869af1cf126da00265bd1165d",
+                "reference": "dcc4b0da849bc8a869af1cf126da00265bd1165d",
                 "shasum": ""
             },
             "require": {
@@ -1106,7 +1106,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-01-05T15:43:10+00:00"
+            "time": "2021-01-12T15:30:54+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -2466,16 +2466,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v6.2.4",
+            "version": "v6.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "56f0ab23f54c4ccbb0d5dcc67ff8552e0c98d59e"
+                "reference": "698a6a9f54d7eb321274de3ad19863802c879fb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/56f0ab23f54c4ccbb0d5dcc67ff8552e0c98d59e",
-                "reference": "56f0ab23f54c4ccbb0d5dcc67ff8552e0c98d59e",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/698a6a9f54d7eb321274de3ad19863802c879fb7",
+                "reference": "698a6a9f54d7eb321274de3ad19863802c879fb7",
                 "shasum": ""
             },
             "require": {
@@ -2525,7 +2525,7 @@
             ],
             "support": {
                 "issues": "https://github.com/swiftmailer/swiftmailer/issues",
-                "source": "https://github.com/swiftmailer/swiftmailer/tree/v6.2.4"
+                "source": "https://github.com/swiftmailer/swiftmailer/tree/v6.2.5"
             },
             "funding": [
                 {
@@ -2537,7 +2537,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-12-08T18:02:06+00:00"
+            "time": "2021-01-12T09:35:59+00:00"
         },
         {
             "name": "symfony/console",
