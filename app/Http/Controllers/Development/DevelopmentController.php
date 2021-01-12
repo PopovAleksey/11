@@ -30,7 +30,7 @@ class DevelopmentController extends Controller
     /**
      * @return JsonResponse
      */
-    public function getRandomEmailOdDefaultUsers(): JsonResponse
+    public function getRandomEmailOfDefaultUsers(): JsonResponse
     {
         $email = $this->developmentService->getRandomEmail();
 

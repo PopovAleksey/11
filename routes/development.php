@@ -15,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('env.local')->group(function () {
-    Route::as('GetRandomUser')->get('get/random/user', [DevelopmentController::class, 'getRandomEmailOdDefaultUsers']);
+    Route::as('GetRandomUser')->get('get/random/user', [DevelopmentController::class, 'getRandomEmailOfDefaultUsers']);
 });
 
