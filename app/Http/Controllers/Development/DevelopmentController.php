@@ -13,18 +13,10 @@ use Illuminate\Http\JsonResponse;
  */
 class DevelopmentController extends Controller
 {
-    /**
-     * @var DevelopmentService
-     */
-    private DevelopmentService $developmentService;
-
-    /**
-     * DevelopmentController constructor.
-     * @param DevelopmentService $developmentService
-     */
-    public function __construct(DevelopmentService $developmentService)
+    public function __construct(
+        private DevelopmentService $developmentService
+    )
     {
-        $this->developmentService = $developmentService;
     }
 
     /**

@@ -14,15 +14,10 @@ use App\Services\User\UserServiceDTO;
  */
 class UserRepository extends Repository implements \App\Interfaces\Repositories\UserRepository
 {
-    private User $userModel;
-
-    /**
-     * UserRepository constructor.
-     * @param User $user
-     */
-    public function __construct(User $user)
+    public function __construct(
+        private User $userModel
+    )
     {
-        $this->userModel = $user;
     }
 
     /**

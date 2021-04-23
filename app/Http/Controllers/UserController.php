@@ -15,11 +15,10 @@ use Illuminate\Support\Facades\Auth;
  */
 class UserController extends Controller
 {
-    private UserService $userService;
-
-    public function __construct(UserService $userService)
+    public function __construct(
+        private UserService $userService
+    )
     {
-        $this->userService = $userService;
     }
 
     /**
@@ -47,8 +46,8 @@ class UserController extends Controller
         $token = $request->header('Authorization');
 
         return response()->json([
-            'user' => Auth::user(),
-            'token' => $token
+            'user'  => Auth::user(),
+            'token' => $token,
         ]);
     }
 }

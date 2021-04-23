@@ -17,18 +17,10 @@ use Illuminate\Support\Facades\Auth;
  */
 class UserService extends Service implements \App\Interfaces\Services\UserService
 {
-    /**
-     * @var UserRepository
-     */
-    private UserRepository $useRepository;
-
-    /**
-     * UserService constructor.
-     * @param UserRepository $userRepository
-     */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(
+        private UserRepository $userRepository
+    )
     {
-        $this->useRepository = $userRepository;
     }
 
     /**
@@ -46,7 +38,7 @@ class UserService extends Service implements \App\Interfaces\Services\UserServic
             ->setEmail($signInDTO->getEmail())
             ->setPassword($signInDTO->getPassword());
 
-        $this->userModel = $this->useRepository->signInByEmailAndPassword($userDTO);
+        $this->userModel = $this->userRepository->signInByEmailAndPassword($userDTO);
 
         return $this;
     }
@@ -59,11 +51,7 @@ class UserService extends Service implements \App\Interfaces\Services\UserServic
     {
         $this->userModel = $this->userModel ?? Auth::user();
 
-        if ($this->userModel === null) {
-            throw new RuntimeException('You cannot get NULL user model');
-        }
-
-        return $this->userModel;
+        return $this->userModel ?? throw new RuntimeException('You cannot get NULL user model');
     }
 
     /**

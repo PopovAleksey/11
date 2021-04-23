@@ -14,17 +14,13 @@ use App\Interfaces\Models\User;
 class DevelopmentService extends Service implements \App\Interfaces\Services\DevelopmentService
 {
     /**
-     * @var User
-     */
-    private User $userModel;
-
-    /**
      * Development constructor.
      * @param User $userModel
      */
-    public function __construct(User $userModel)
+    public function __construct(
+        private User $userModel
+    )
     {
-        $this->userModel = $userModel;
     }
 
     /**
@@ -33,7 +29,7 @@ class DevelopmentService extends Service implements \App\Interfaces\Services\Dev
      */
     public function getRandomEmail(): string
     {
-        $users  = $this->userModel->get()->keyBy('id');
+        $users  = $this->userModel->get()?->keyBy('id');
         $randID = array_rand($users->toArray());
         $user   = $users->get($randID);
 
