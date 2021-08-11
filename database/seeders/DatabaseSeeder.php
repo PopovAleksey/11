@@ -2,20 +2,25 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use Apiato\Core\Loaders\SeederLoaderTrait;
 use Illuminate\Database\Seeder;
 
+/**
+ * Class DatabaseSeeder
+ *
+ * @author  Mahmoud Zalt  <mahmoud@zalt.me>
+ */
 class DatabaseSeeder extends Seeder
 {
+    use SeederLoaderTrait;
+
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        if (app()->environment('local')) {
-            User::factory(10)->create();
-        }
+        $this->runLoadingSeeders();
     }
 }
