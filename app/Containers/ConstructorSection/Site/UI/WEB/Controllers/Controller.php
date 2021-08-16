@@ -28,7 +28,7 @@ class Controller extends WebController
     public function index(): Factory|View|Application
     {
         $sites = $this->allSitesAction->run();
-dd($sites);
+
         return view('constructorSection@site::sites-list', $sites);
     }
 

@@ -4,7 +4,6 @@ namespace App\Containers\ConstructorSection\Site\UI\WEB\Requests;
 
 use App\Containers\ConstructorSection\Site\DTO\SiteDTO;
 use App\Ship\Parents\Requests\Request;
-use PopovAleksey\Mapper\Mapper;
 
 class CreateSiteRequest extends Request
 {
@@ -37,7 +36,7 @@ class CreateSiteRequest extends Request
     public function rules(): array
     {
         return [
-            'id' => 'required'
+            'id' => 'required',
         ];
     }
 
