@@ -1,32 +1,33 @@
 <?php
 
-namespace App\Containers\AppSection\Authentication\UI\WEB\Requests;
+namespace App\Containers\ConstructorSection\Site\UI\WEB\Requests;
 
+use App\Containers\ConstructorSection\Site\DTO\SiteDTO;
 use App\Ship\Parents\Requests\Request;
-use PopovAleksey\Mapper\Mapper;
 
-class LogoutRequest extends Request
+class UpdateSiteRequest extends Request
 {
     /**
      * Define which Roles and/or Permissions has access to this request.
      */
     protected array $access = [
-        'permissions' => null
+        'permissions' => '',
+        'roles'       => '',
     ];
 
     /**
      * Id's that needs decoding before applying the validation rules.
      */
     protected array $decode = [
-
+        'id',
     ];
 
     /**
-     * Defining the URL parameters (`/stores/999/items`) allows applying
+     * Defining the URL parameters (e.g, `/user/{id}`) allows applying
      * validation rules on them and allows accessing them like request data.
      */
     protected array $urlParameters = [
-
+        'id',
     ];
 
     /**
@@ -35,7 +36,7 @@ class LogoutRequest extends Request
     public function rules(): array
     {
         return [
-
+            'id' => 'required'
         ];
     }
 
@@ -49,8 +50,8 @@ class LogoutRequest extends Request
         ]);
     }
 
-    public function mapped(): Mapper
+    public function mapped(): SiteDTO
     {
-        return (new Mapper());
+        return (new SiteDTO());
     }
 }

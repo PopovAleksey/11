@@ -1,0 +1,10 @@
+<?php
+
+namespace App\Ship\Parents\Tasks;
+
+interface TaskInterface
+{
+    public function addRequestCriteria($repository = null): self;
+
+    public function removeRequestCriteria($repository = null): self;
+}

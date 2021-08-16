@@ -33,6 +33,7 @@
         "ext-openssl": "*",
         "ext-pdo": "*",
         "ext-tokenizer": "*",
+        "aleksey-popov/mapper-skeleton": "^1.0",
         "apiato/core": "^6.0.4",
         "apiato/documentation-generator-container": "^1.0.0",
         "apiato/welcome-container": "^1.0.0",
