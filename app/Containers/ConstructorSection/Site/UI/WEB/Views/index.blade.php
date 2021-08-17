@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="/css/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/font/bootstrap-icons.css" rel="stylesheet">
     <title>Constructor - @yield('title')</title>
 </head>
 <body>
@@ -15,7 +16,7 @@
 
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Create Site
+                <i class="bi bi-file-earmark-plus-fill"></i> Add Site
             </button>
 
 
@@ -30,7 +31,7 @@
                     @show
                 </ul>
 
-                <a href="{{route('post_logout')}}" type="button" class="btn btn-danger">Logout</a>
+                <a href="{{route('post_logout')}}" type="button" class="btn btn-danger"><i class="bi bi-door-open-fill"></i> Logout</a>
             </div>
         </div>
     </nav>

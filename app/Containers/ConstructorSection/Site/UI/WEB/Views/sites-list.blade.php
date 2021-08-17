@@ -15,23 +15,29 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-        </tr>
+        @foreach ($data as $site)
+            <tr>
+                <th scope="row">{{ data_get($site, 'id') }}</th>
+                <td>{{ data_get($site, 'name') }}</td>
+                <td>{{ data_get($site, 'domain') }}</td>
+                <td>
+                    @if(data_get($site, 'active') === 1)
+                        <button title="Active" type="button" class="btn btn-success">
+                            <i class="bi bi-check-all"></i>
+                        </button>
+                    @else
+                        <button title="Disabled" type="button" class="btn btn-warning">
+                            <i class="bi bi-x"></i>
+                        </button>
+                    @endif
+                </td>
+                <td class="d-flex justify-content-end">
+                    <button title="Edit" type="button" class="btn btn-primary" onclick="location.href='{{route('web_site_show', ['id' => data_get($site, 'id')])}}'">
+                        <i class="bi bi-gear-wide-connected"></i> Configuration
+                    </button>
+                </td>
+            </tr>
+        @endforeach
         </tbody>
     </table>
 @endsection

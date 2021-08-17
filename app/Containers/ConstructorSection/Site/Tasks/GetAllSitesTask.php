@@ -15,8 +15,8 @@ class GetAllSitesTask extends Task implements GetAllSitesTaskInterface
     public function run()
     {
 
-        dd($this->repository->paginate());
-        dd($this->repository->paginate()->map(fn($data) => dump($data)));
+        #dd($this->repository->paginate());
+        #dd($this->repository->paginate()->map(fn($data) => dump($data)));
         return $this->repository->paginate();
     }
 }
