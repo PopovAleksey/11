@@ -42,6 +42,7 @@
         "fruitcake/laravel-cors": "^1.0.6",
         "guzzlehttp/guzzle": "^7.2.0",
         "laravel/framework": "^8.34.1",
+        "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.6.0",
         "wikimedia/composer-merge-plugin": "^2.0.1"
     },
