@@ -13,14 +13,4 @@ abstract class Repository extends AbstractRepository
     {
         parent::boot();
     }
-
-    public function model(): string
-    {
-        return parent::model();
-    }
-
-    public function paginate($limit = null, $columns = ['*'], $method = "paginate")
-    {
-        return parent::paginate($limit, $columns, $method);
-    }
 }

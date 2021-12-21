@@ -10,10 +10,10 @@ class AddLevelColumnToRolesTable extends Migration
      */
     public function up(): void
     {
-        /*Schema::table(config('permission.table_names.roles'), function (Blueprint $table) {
+        Schema::table(config('permission.table_names.roles'), function (Blueprint $table) {
             $table->unsignedInteger('level')->default(0);
 
-        });*/
+        });
     }
 
     /**
@@ -21,9 +21,9 @@ class AddLevelColumnToRolesTable extends Migration
      */
     public function down(): void
     {
-        /*Schema::table(config('permission.table_names.roles'), function (Blueprint $table) {
+        Schema::table(config('permission.table_names.roles'), function (Blueprint $table) {
             $table->dropColumn('level');
 
-        });*/
+        });
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Containers\AppSection\Authentication\UI\WEB\Requests;
 
 use App\Ship\Parents\Requests\Request;
-use PopovAleksey\Mapper\Mapper;
 
 class LogoutRequest extends Request
 {
@@ -47,10 +46,5 @@ class LogoutRequest extends Request
         return $this->check([
             'hasAccess',
         ]);
-    }
-
-    public function mapped(): Mapper
-    {
-        return (new Mapper());
     }
 }

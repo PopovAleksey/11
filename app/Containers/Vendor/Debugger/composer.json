@@ -1,0 +1,19 @@
+{
+    "name": "apiato/debugger-container",
+    "description": "An Apiato container which helps to debug requests and queries",
+    "type": "apiato-container",
+    "license": "MIT",
+    "require": {
+        "jenssegers/agent": "^2.6.4"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest"
+    },
+    "extra": {
+        "apiato": {
+            "container": {
+                "name": "Debugger"
+            }
+        }
+    }
+}

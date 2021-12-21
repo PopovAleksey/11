@@ -1,7 +1,0 @@
-CREATE USER 'PageConstructor'@'%' IDENTIFIED BY 'kai7EJmnzvd0U';
-
-CREATE DATABASE IF NOT EXISTS PageConstructor;
-
-GRANT ALL PRIVILEGES ON PageConstructor.* TO 'PageConstructor'@'%';
-
-FLUSH PRIVILEGES;
