@@ -7,7 +7,7 @@ use App\Containers\AppSection\Authorization\Traits\AuthorizationTrait;
 use App\Ship\Parents\Models\UserModel;
 use Illuminate\Notifications\Notifiable;
 
-class User extends UserModel
+class User extends UserModel implements UserInterface
 {
     use AuthorizationTrait;
     use AuthenticationTrait;
@@ -44,5 +44,12 @@ class User extends UserModel
     protected $casts = [
         'is_admin' => 'boolean',
         'email_verified_at' => 'datetime',
+    ];
+
+    protected $dates      = [
+        'birth',
+        'email_verified_at',
+        'created_at',
+        'updated_at',
     ];
 }

@@ -5,10 +5,10 @@ namespace App\Containers\AppSection\Authentication\Tasks;
 use App\Ship\Parents\Tasks\Task;
 use Illuminate\Support\Facades\Auth;
 
-class LoginTask extends Task
+class LoginTask extends Task implements LoginTaskInterface
 {
-    public function run(string $username, string $password, string $field = 'email', bool $remember = false): bool
+    public function run(string $email, string $password, bool $remember = false): bool
     {
-        return Auth::attempt([$field => $username, 'password' => $password], $remember);
+        return Auth::attempt(['email' => $email, 'password' => $password], $remember);
     }
 }

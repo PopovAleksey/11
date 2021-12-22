@@ -2,6 +2,7 @@
 
 namespace App\Containers\AppSection\Authentication\UI\WEB\Requests;
 
+use App\Containers\AppSection\Authentication\Data\Dto\LoginDto;
 use App\Ship\Parents\Requests\Request;
 
 class LoginRequest extends Request
@@ -10,8 +11,8 @@ class LoginRequest extends Request
      * Define which Roles and/or Permissions has access to this request.
      */
     protected array $access = [
-        'permissions' => null,
-        'roles' => null,
+        'permissions' => NULL,
+        'roles'       => NULL,
     ];
 
     /**
@@ -34,13 +35,11 @@ class LoginRequest extends Request
      */
     public function rules(): array
     {
-        $rules = [
-            'password' => 'required|min:3|max:30',
+        return [
+            'email'      => ['required', 'email'],
+            'password'   => ['required', 'min:3', 'max:30'],
+            'rememberMe' => ['bool'],
         ];
-
-        $rules = loginAttributeValidationRulesMerger($rules);
-
-        return $rules;
     }
 
     /**
@@ -51,5 +50,15 @@ class LoginRequest extends Request
         return $this->check([
             'hasAccess',
         ]);
+    }
+
+    public function mapped(): LoginDto
+    {
+        $data = $this->validated();
+
+        return (new LoginDto())
+            ->setEmail(data_get($data, 'email'))
+            ->setPassword(data_get($data, 'password'))
+            ->setRememberMe(data_get($data,'rememberMe', true));
     }
 }

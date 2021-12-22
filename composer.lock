@@ -4,8 +4,57 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "500ed2a4db09de6bacec2713b9d12e0f",
+    "content-hash": "f725f8533febaedd91e36af8476d9fc4",
     "packages": [
+        {
+            "name": "aleksey-popov/mapper-skeleton",
+            "version": "1.0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PopovAleksey/MapperSkeletonPHP7.4.git",
+                "reference": "c034d9b23ad5cb0b7909e29e4dbd2bb9a2df82df"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PopovAleksey/MapperSkeletonPHP7.4/zipball/c034d9b23ad5cb0b7909e29e4dbd2bb9a2df82df",
+                "reference": "c034d9b23ad5cb0b7909e29e4dbd2bb9a2df82df",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/collections": "^8.0",
+                "php": ">=7.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PopovAleksey\\Mapper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aleksey Popov",
+                    "email": "popov.scar@gmail.com",
+                    "homepage": "https://popov.photos"
+                }
+            ],
+            "description": "Mapper Constructor",
+            "homepage": "http://popov.photos",
+            "keywords": [
+                "contstructor",
+                "laravel",
+                "mapper",
+                "pattern"
+            ],
+            "support": {
+                "issues": "https://github.com/PopovAleksey/MapperSkeletonPHP7.4/issues",
+                "source": "https://github.com/PopovAleksey/MapperSkeletonPHP7.4/tree/1.0.9"
+            },
+            "time": "2021-06-02T21:33:10+00:00"
+        },
         {
             "name": "apiato/container-installer",
             "version": "v2.0.8",
