@@ -3,6 +3,7 @@
 namespace App\Containers\AppSection\User\UI\API\Requests;
 
 use App\Ship\Parents\Requests\Request;
+use PopovAleksey\Mapper\Mapper;
 
 class ForgotPasswordRequest extends Request
 {
@@ -42,5 +43,10 @@ class ForgotPasswordRequest extends Request
         return $this->check([
             'hasAccess',
         ]);
+    }
+
+    public function mapped(): Mapper
+    {
+        return new Mapper();
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Containers\AppSection\User\UI\API\Requests;
 
+use App\Containers\AppSection\User\Data\Dto\UserDto;
 use App\Ship\Parents\Requests\Request;
+use PopovAleksey\Mapper\Mapper;
 
 class CreateAdminRequest extends Request
 {
@@ -11,7 +13,7 @@ class CreateAdminRequest extends Request
      */
     protected array $access = [
         'permissions' => 'create-admins',
-        'roles' => '',
+        'roles'       => '',
     ];
 
     /**
@@ -32,9 +34,9 @@ class CreateAdminRequest extends Request
     public function rules(): array
     {
         return [
-            'email' => 'required|email|max:40|unique:users,email',
-            'password' => 'required|min:3|max:30',
-            'name' => 'min:2|max:50',
+            'email'    => ['required', 'email', 'max:40', 'unique:users,email'],
+            'password' => ['required', 'min:3', 'max:30'],
+            'name'     => ['min:2', 'max:50'],
         ];
     }
 
@@ -43,5 +45,15 @@ class CreateAdminRequest extends Request
         return $this->check([
             'hasAccess',
         ]);
+    }
+
+    public function mapped(): UserDto
+    {
+        $data = $this->validated();
+
+        return (new UserDto())
+            ->setName(data_get($data, 'name'))
+            ->setPassword(data_get($data, 'password'))
+            ->setEmail(data_get($data, 'email'));
     }
 }

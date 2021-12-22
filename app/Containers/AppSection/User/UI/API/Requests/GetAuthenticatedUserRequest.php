@@ -3,6 +3,7 @@
 namespace App\Containers\AppSection\User\UI\API\Requests;
 
 use App\Ship\Parents\Requests\Request;
+use PopovAleksey\Mapper\Mapper;
 
 class GetAuthenticatedUserRequest extends Request
 {
@@ -41,5 +42,10 @@ class GetAuthenticatedUserRequest extends Request
         return $this->check([
             'hasAccess',
         ]);
+    }
+
+    public function mapped(): Mapper
+    {
+        return new Mapper();
     }
 }

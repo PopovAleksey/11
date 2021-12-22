@@ -3,6 +3,7 @@
 namespace App\Containers\AppSection\Authorization\UI\API\Requests;
 
 use App\Ship\Parents\Requests\Request;
+use PopovAleksey\Mapper\Mapper;
 
 class FindRoleRequest extends Request
 {
@@ -41,5 +42,10 @@ class FindRoleRequest extends Request
         return $this->check([
             'hasAccess',
         ]);
+    }
+
+    public function mapped(): Mapper
+    {
+        return new Mapper();
     }
 }

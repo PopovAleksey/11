@@ -4,6 +4,7 @@ namespace App\Containers\AppSection\User\UI\API\Requests;
 
 use App\Containers\AppSection\User\Traits\IsOwnerTrait;
 use App\Ship\Parents\Requests\Request;
+use PopovAleksey\Mapper\Mapper;
 
 class UpdateUserRequest extends Request
 {
@@ -51,5 +52,10 @@ class UpdateUserRequest extends Request
         return $this->check([
             'hasAccess|isOwner',
         ]);
+    }
+
+    public function mapped(): Mapper
+    {
+        return new Mapper();
     }
 }

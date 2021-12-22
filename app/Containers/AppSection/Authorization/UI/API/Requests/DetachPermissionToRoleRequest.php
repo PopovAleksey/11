@@ -3,6 +3,7 @@
 namespace App\Containers\AppSection\Authorization\UI\API\Requests;
 
 use App\Ship\Parents\Requests\Request;
+use PopovAleksey\Mapper\Mapper;
 
 class DetachPermissionToRoleRequest extends Request
 {
@@ -44,5 +45,10 @@ class DetachPermissionToRoleRequest extends Request
         return $this->check([
             'hasAccess',
         ]);
+    }
+
+    public function mapped(): Mapper
+    {
+        return new Mapper();
     }
 }
