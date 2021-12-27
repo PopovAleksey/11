@@ -161,6 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        L5Swagger\L5SwaggerServiceProvider::class,
 
         /*
          * NOTE: all packages service providers must be registered inside their container's main service providers.

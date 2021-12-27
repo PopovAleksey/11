@@ -5,6 +5,7 @@ namespace App\Ship\Providers;
 use App\Ship\Parents\Providers\MainProvider;
 use App\Ship\Parents\Providers\RoutesProvider;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
+use L5Swagger\L5SwaggerServiceProvider;
 
 class ShipProvider extends MainProvider
 {
@@ -12,7 +13,7 @@ class ShipProvider extends MainProvider
      * Register any Service Providers on the Ship layer (including third party packages).
      */
     public array $serviceProviders = [
-        RoutesProvider::class
+        RoutesProvider::class,
     ];
 
     /**
@@ -38,6 +39,7 @@ class ShipProvider extends MainProvider
          */
         if ($this->app->isLocal()) {
             $this->app->register(IdeHelperServiceProvider::class);
+            $this->app->register(L5SwaggerServiceProvider::class);
         }
 
         parent::register();
