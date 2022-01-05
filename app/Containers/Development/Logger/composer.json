@@ -1,0 +1,6 @@
+{
+  "name": "apiato/logger",
+  "description": "Logger Container for apiato.",
+  "require": {
+  }
+}
