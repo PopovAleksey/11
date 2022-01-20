@@ -20,12 +20,13 @@ class Controller extends WebController
 {
     public function index(GetAllLanguagesRequest $request)
     {
+        #dd(config('constructor-language.countries'));
         return view('constructor@language::list');
     }
 
     public function show(FindLanguageByIdRequest $request)
     {
-        $language = app(FindLanguageByIdAction::class)->run($request);
+        #$language = app(FindLanguageByIdAction::class)->run($request);
         // ..
     }
 
