@@ -20,10 +20,7 @@ class Controller extends WebController
 {
     public function index(GetAllLanguagesRequest $request)
     {
-        #return view('core@authentication::constructor-base', ['name' => 'Test Testovich']);
-        return view('constructor@language::list', ['name' => 'Test Testovich']);
-        $languages = app(GetAllLanguagesAction::class)->run($request);
-        // ..
+        return view('constructor@language::list');
     }
 
     public function show(FindLanguageByIdRequest $request)
@@ -34,7 +31,7 @@ class Controller extends WebController
 
     public function create(CreateLanguageRequest $request)
     {
-        // ..
+        return view('constructor@language::list');
     }
 
     public function store(StoreLanguageRequest $request)
@@ -45,7 +42,8 @@ class Controller extends WebController
 
     public function edit(EditLanguageRequest $request)
     {
-        $language = app(FindLanguageByIdAction::class)->run($request);
+        return view('constructor@language::list');
+        //$language = app(FindLanguageByIdAction::class)->run($request);
         // ..
     }
 
