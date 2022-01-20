@@ -35,7 +35,6 @@
         "ext-tokenizer": "*",
         "aleksey-popov/mapper-skeleton": "^1.0",
         "apiato/core": "^6.2.5",
-        "apiato/documentation-generator-container": "^1.0.0",
         "apiato/welcome-container": "^1.0.0",
         "darkaonline/l5-swagger": "^8.0",
         "doctrine/dbal": "^3.1.2",
@@ -50,7 +49,6 @@
     "require-dev": {
         "ext-intl": "*",
         "ext-json": "*",
-        "apiato/debugger-container": "^1.1.0",
         "facade/ignition": "^2.5.13",
         "fakerphp/faker": "^1.13.0",
         "laravel/homestead": "^12.0",

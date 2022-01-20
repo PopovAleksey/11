@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 8.77.1.
+ * Generated for Laravel 8.80.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -2337,6 +2337,19 @@
                         return $instance->compileString($value);
         }
                     /**
+         * Evaluate and render a Blade string to HTML.
+         *
+         * @param string $string
+         * @param array $data
+         * @param bool $deleteCachedView
+         * @return string 
+         * @static 
+         */ 
+        public static function render($string, $data = [], $deleteCachedView = false)
+        {
+                        return \Illuminate\View\Compilers\BladeCompiler::render($string, $data, $deleteCachedView);
+        }
+                    /**
          * Strip the parentheses from the given expression.
          *
          * @param string $expression
@@ -3185,6 +3198,18 @@
         {
                         /** @var \Illuminate\Support\Testing\Fakes\BusFake $instance */
                         $instance->assertBatched($callback);
+        }
+                    /**
+         * Assert the number of batches that have been dispatched.
+         *
+         * @param int $count
+         * @return void 
+         * @static 
+         */ 
+        public static function assertBatchCount($count)
+        {
+                        /** @var \Illuminate\Support\Testing\Fakes\BusFake $instance */
+                        $instance->assertBatchCount($count);
         }
                     /**
          * Get all of the jobs matching a truth-test callback.
@@ -4315,102 +4340,6 @@
             /**
      * 
      *
-     * @see \Illuminate\Encryption\Encrypter
-     */ 
-        class Crypt {
-                    /**
-         * Determine if the given key and cipher combination is valid.
-         *
-         * @param string $key
-         * @param string $cipher
-         * @return bool 
-         * @static 
-         */ 
-        public static function supported($key, $cipher)
-        {
-                        return \Illuminate\Encryption\Encrypter::supported($key, $cipher);
-        }
-                    /**
-         * Create a new encryption key for the given cipher.
-         *
-         * @param string $cipher
-         * @return string 
-         * @static 
-         */ 
-        public static function generateKey($cipher)
-        {
-                        return \Illuminate\Encryption\Encrypter::generateKey($cipher);
-        }
-                    /**
-         * Encrypt the given value.
-         *
-         * @param mixed $value
-         * @param bool $serialize
-         * @return string 
-         * @throws \Illuminate\Contracts\Encryption\EncryptException
-         * @static 
-         */ 
-        public static function encrypt($value, $serialize = true)
-        {
-                        /** @var \Illuminate\Encryption\Encrypter $instance */
-                        return $instance->encrypt($value, $serialize);
-        }
-                    /**
-         * Encrypt a string without serialization.
-         *
-         * @param string $value
-         * @return string 
-         * @throws \Illuminate\Contracts\Encryption\EncryptException
-         * @static 
-         */ 
-        public static function encryptString($value)
-        {
-                        /** @var \Illuminate\Encryption\Encrypter $instance */
-                        return $instance->encryptString($value);
-        }
-                    /**
-         * Decrypt the given value.
-         *
-         * @param string $payload
-         * @param bool $unserialize
-         * @return mixed 
-         * @throws \Illuminate\Contracts\Encryption\DecryptException
-         * @static 
-         */ 
-        public static function decrypt($payload, $unserialize = true)
-        {
-                        /** @var \Illuminate\Encryption\Encrypter $instance */
-                        return $instance->decrypt($payload, $unserialize);
-        }
-                    /**
-         * Decrypt the given string without unserialization.
-         *
-         * @param string $payload
-         * @return string 
-         * @throws \Illuminate\Contracts\Encryption\DecryptException
-         * @static 
-         */ 
-        public static function decryptString($payload)
-        {
-                        /** @var \Illuminate\Encryption\Encrypter $instance */
-                        return $instance->decryptString($payload);
-        }
-                    /**
-         * Get the encryption key.
-         *
-         * @return string 
-         * @static 
-         */ 
-        public static function getKey()
-        {
-                        /** @var \Illuminate\Encryption\Encrypter $instance */
-                        return $instance->getKey();
-        }
-         
-    }
-            /**
-     * 
-     *
      * @see https://carbon.nesbot.com/docs/
      * @see https://github.com/briannesbitt/Carbon/blob/master/src/Carbon/Factory.php
      * @method static \Illuminate\Support\Carbon create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null)
@@ -4433,7 +4362,7 @@
      * @method static \Illuminate\Support\Carbon now($tz = null)
      * @method static \Illuminate\Support\Carbon parse($time = null, $tz = null)
      * @method static \Illuminate\Support\Carbon setHumanDiffOptions($humanDiffOptions)
-     * @method static \Illuminate\Support\Carbon setTestNow($testNow = null)
+     * @method static void setTestNow($testNow = null)
      * @method static \Illuminate\Support\Carbon setUtf8($utf8)
      * @method static \Illuminate\Support\Carbon today($tz = null)
      * @method static \Illuminate\Support\Carbon tomorrow($tz = null)
@@ -4561,6 +4490,22 @@
         {
                         /** @var \Illuminate\Database\DatabaseManager $instance */
                         return $instance->connection($name);
+        }
+                    /**
+         * Register a custom Doctrine type.
+         *
+         * @param string $class
+         * @param string $name
+         * @param string $type
+         * @return void 
+         * @throws \Doctrine\DBAL\DBALException
+         * @throws \RuntimeException
+         * @static 
+         */ 
+        public static function registerDoctrineType($class, $name, $type)
+        {
+                        /** @var \Illuminate\Database\DatabaseManager $instance */
+                        $instance->registerDoctrineType($class, $name, $type);
         }
                     /**
          * Disconnect from the given database and remove from local cache.
@@ -7627,17 +7572,6 @@
                         return $instance->driver($driver);
         }
                     /**
-         * 
-         *
-         * @return array 
-         * @static 
-         */ 
-        public static function getChannels()
-        {
-                        /** @var \Illuminate\Log\LogManager $instance */
-                        return $instance->getChannels();
-        }
-                    /**
          * Get the default log driver name.
          *
          * @return string|null 
@@ -7684,6 +7618,17 @@
         {
                         /** @var \Illuminate\Log\LogManager $instance */
                         return $instance->forgetChannel($driver);
+        }
+                    /**
+         * Get all of the resolved log channels.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function getChannels()
+        {
+                        /** @var \Illuminate\Log\LogManager $instance */
+                        return $instance->getChannels();
         }
                     /**
          * System is unusable.
@@ -9604,6 +9549,18 @@
         {
                         /** @var \Illuminate\Http\Request $instance */
                         return $instance->merge($input);
+        }
+                    /**
+         * Merge new input into the request's input, but only when that key is missing from the request.
+         *
+         * @param array $input
+         * @return \Illuminate\Http\Request 
+         * @static 
+         */ 
+        public static function mergeIfMissing($input)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->mergeIfMissing($input);
         }
                     /**
          * Replace the input for the current request.
@@ -12841,8 +12798,6 @@
          * @param string $name
          * @param string $type
          * @return void 
-         * @throws \Doctrine\DBAL\DBALException
-         * @throws \RuntimeException
          * @static 
          */ 
         public static function registerCustomDoctrineType($class, $name, $type)
@@ -17181,542 +17136,6 @@
      
 }
 
-    namespace Jenssegers\Agent\Facades { 
-            /**
-     * 
-     *
-     */ 
-        class Agent {
-                    /**
-         * Get all detection rules. These rules include the additional
-         * platforms and browsers and utilities.
-         *
-         * @return array 
-         * @static 
-         */ 
-        public static function getDetectionRulesExtended()
-        {
-                        return \Jenssegers\Agent\Agent::getDetectionRulesExtended();
-        }
-                    /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function getRules()
-        {
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->getRules();
-        }
-                    /**
-         * 
-         *
-         * @return \Jaybizzle\CrawlerDetect\CrawlerDetect 
-         * @static 
-         */ 
-        public static function getCrawlerDetect()
-        {
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->getCrawlerDetect();
-        }
-                    /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function getBrowsers()
-        {
-                        return \Jenssegers\Agent\Agent::getBrowsers();
-        }
-                    /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function getOperatingSystems()
-        {
-                        return \Jenssegers\Agent\Agent::getOperatingSystems();
-        }
-                    /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function getPlatforms()
-        {
-                        return \Jenssegers\Agent\Agent::getPlatforms();
-        }
-                    /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function getDesktopDevices()
-        {
-                        return \Jenssegers\Agent\Agent::getDesktopDevices();
-        }
-                    /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function getProperties()
-        {
-                        return \Jenssegers\Agent\Agent::getProperties();
-        }
-                    /**
-         * Get accept languages.
-         *
-         * @param string $acceptLanguage
-         * @return array 
-         * @static 
-         */ 
-        public static function languages($acceptLanguage = null)
-        {
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->languages($acceptLanguage);
-        }
-                    /**
-         * Get the browser name.
-         *
-         * @param string|null $userAgent
-         * @return string|bool 
-         * @static 
-         */ 
-        public static function browser($userAgent = null)
-        {
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->browser($userAgent);
-        }
-                    /**
-         * Get the platform name.
-         *
-         * @param string|null $userAgent
-         * @return string|bool 
-         * @static 
-         */ 
-        public static function platform($userAgent = null)
-        {
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->platform($userAgent);
-        }
-                    /**
-         * Get the device name.
-         *
-         * @param string|null $userAgent
-         * @return string|bool 
-         * @static 
-         */ 
-        public static function device($userAgent = null)
-        {
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->device($userAgent);
-        }
-                    /**
-         * Check if the device is a desktop computer.
-         *
-         * @param string|null $userAgent deprecated
-         * @param array $httpHeaders deprecated
-         * @return bool 
-         * @static 
-         */ 
-        public static function isDesktop($userAgent = null, $httpHeaders = null)
-        {
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->isDesktop($userAgent, $httpHeaders);
-        }
-                    /**
-         * Check if the device is a mobile phone.
-         *
-         * @param string|null $userAgent deprecated
-         * @param array $httpHeaders deprecated
-         * @return bool 
-         * @static 
-         */ 
-        public static function isPhone($userAgent = null, $httpHeaders = null)
-        {
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->isPhone($userAgent, $httpHeaders);
-        }
-                    /**
-         * Get the robot name.
-         *
-         * @param string|null $userAgent
-         * @return string|bool 
-         * @static 
-         */ 
-        public static function robot($userAgent = null)
-        {
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->robot($userAgent);
-        }
-                    /**
-         * Check if device is a robot.
-         *
-         * @param string|null $userAgent
-         * @return bool 
-         * @static 
-         */ 
-        public static function isRobot($userAgent = null)
-        {
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->isRobot($userAgent);
-        }
-                    /**
-         * Get the device type
-         *
-         * @param null $userAgent
-         * @param null $httpHeaders
-         * @return string 
-         * @static 
-         */ 
-        public static function deviceType($userAgent = null, $httpHeaders = null)
-        {
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->deviceType($userAgent, $httpHeaders);
-        }
-                    /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function version($propertyName, $type = 'text')
-        {
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->version($propertyName, $type);
-        }
-                    /**
-         * Get the current script version.
-         * 
-         * This is useful for the demo.php file,
-         * so people can check on what version they are testing
-         * for mobile devices.
-         *
-         * @return string The version number in semantic version format.
-         * @static 
-         */ 
-        public static function getScriptVersion()
-        {            //Method inherited from \Mobile_Detect         
-                        return \Jenssegers\Agent\Agent::getScriptVersion();
-        }
-                    /**
-         * Set the HTTP Headers. Must be PHP-flavored. This method will reset existing headers.
-         *
-         * @param array $httpHeaders The headers to set. If null, then using PHP's _SERVER to extract
-         *                           the headers. The default null is left for backwards compatibility.
-         * @static 
-         */ 
-        public static function setHttpHeaders($httpHeaders = null)
-        {            //Method inherited from \Mobile_Detect         
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->setHttpHeaders($httpHeaders);
-        }
-                    /**
-         * Retrieves the HTTP headers.
-         *
-         * @return array 
-         * @static 
-         */ 
-        public static function getHttpHeaders()
-        {            //Method inherited from \Mobile_Detect         
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->getHttpHeaders();
-        }
-                    /**
-         * Retrieves a particular header. If it doesn't exist, no exception/error is caused.
-         * 
-         * Simply null is returned.
-         *
-         * @param string $header The name of the header to retrieve. Can be HTTP compliant such as
-         *                       "User-Agent" or "X-Device-User-Agent" or can be php-esque with the
-         *                       all-caps, HTTP_ prefixed, underscore seperated awesomeness.
-         * @return string|null The value of the header.
-         * @static 
-         */ 
-        public static function getHttpHeader($header)
-        {            //Method inherited from \Mobile_Detect         
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->getHttpHeader($header);
-        }
-                    /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function getMobileHeaders()
-        {            //Method inherited from \Mobile_Detect         
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->getMobileHeaders();
-        }
-                    /**
-         * Get all possible HTTP headers that
-         * can contain the User-Agent string.
-         *
-         * @return array List of HTTP headers.
-         * @static 
-         */ 
-        public static function getUaHttpHeaders()
-        {            //Method inherited from \Mobile_Detect         
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->getUaHttpHeaders();
-        }
-                    /**
-         * Set CloudFront headers
-         * http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/header-caching.html#header-caching-web-device
-         *
-         * @param array $cfHeaders List of HTTP headers
-         * @return boolean If there were CloudFront headers to be set
-         * @static 
-         */ 
-        public static function setCfHeaders($cfHeaders = null)
-        {            //Method inherited from \Mobile_Detect         
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->setCfHeaders($cfHeaders);
-        }
-                    /**
-         * Retrieves the cloudfront headers.
-         *
-         * @return array 
-         * @static 
-         */ 
-        public static function getCfHeaders()
-        {            //Method inherited from \Mobile_Detect         
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->getCfHeaders();
-        }
-                    /**
-         * Set the User-Agent to be used.
-         *
-         * @param string $userAgent The user agent string to set.
-         * @return string|null 
-         * @static 
-         */ 
-        public static function setUserAgent($userAgent = null)
-        {            //Method inherited from \Mobile_Detect         
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->setUserAgent($userAgent);
-        }
-                    /**
-         * Retrieve the User-Agent.
-         *
-         * @return string|null The user agent if it's set.
-         * @static 
-         */ 
-        public static function getUserAgent()
-        {            //Method inherited from \Mobile_Detect         
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->getUserAgent();
-        }
-                    /**
-         * Set the detection type. Must be one of self::DETECTION_TYPE_MOBILE or
-         * self::DETECTION_TYPE_EXTENDED. Otherwise, nothing is set.
-         *
-         * @deprecated since version 2.6.9
-         * @param string $type The type. Must be a self::DETECTION_TYPE_* constant. The default
-         *                     parameter is null which will default to self::DETECTION_TYPE_MOBILE.
-         * @static 
-         */ 
-        public static function setDetectionType($type = null)
-        {            //Method inherited from \Mobile_Detect         
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->setDetectionType($type);
-        }
-                    /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function getMatchingRegex()
-        {            //Method inherited from \Mobile_Detect         
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->getMatchingRegex();
-        }
-                    /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function getMatchesArray()
-        {            //Method inherited from \Mobile_Detect         
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->getMatchesArray();
-        }
-                    /**
-         * Retrieve the list of known phone devices.
-         *
-         * @return array List of phone devices.
-         * @static 
-         */ 
-        public static function getPhoneDevices()
-        {            //Method inherited from \Mobile_Detect         
-                        return \Jenssegers\Agent\Agent::getPhoneDevices();
-        }
-                    /**
-         * Retrieve the list of known tablet devices.
-         *
-         * @return array List of tablet devices.
-         * @static 
-         */ 
-        public static function getTabletDevices()
-        {            //Method inherited from \Mobile_Detect         
-                        return \Jenssegers\Agent\Agent::getTabletDevices();
-        }
-                    /**
-         * Alias for getBrowsers() method.
-         *
-         * @return array List of user agents.
-         * @static 
-         */ 
-        public static function getUserAgents()
-        {            //Method inherited from \Mobile_Detect         
-                        return \Jenssegers\Agent\Agent::getUserAgents();
-        }
-                    /**
-         * Retrieve the list of known utilities.
-         *
-         * @return array List of utilities.
-         * @static 
-         */ 
-        public static function getUtilities()
-        {            //Method inherited from \Mobile_Detect         
-                        return \Jenssegers\Agent\Agent::getUtilities();
-        }
-                    /**
-         * Method gets the mobile detection rules. This method is used for the magic methods $detect->is*().
-         *
-         * @deprecated since version 2.6.9
-         * @return array All the rules (but not extended).
-         * @static 
-         */ 
-        public static function getMobileDetectionRules()
-        {            //Method inherited from \Mobile_Detect         
-                        return \Jenssegers\Agent\Agent::getMobileDetectionRules();
-        }
-                    /**
-         * Method gets the mobile detection rules + utilities.
-         * 
-         * The reason this is separate is because utilities rules
-         * don't necessary imply mobile. This method is used inside
-         * the new $detect->is('stuff') method.
-         *
-         * @deprecated since version 2.6.9
-         * @return array All the rules + extended.
-         * @static 
-         */ 
-        public static function getMobileDetectionRulesExtended()
-        {            //Method inherited from \Mobile_Detect         
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->getMobileDetectionRulesExtended();
-        }
-                    /**
-         * Check the HTTP headers for signs of mobile.
-         * 
-         * This is the fastest mobile check possible; it's used
-         * inside isMobile() method.
-         *
-         * @return bool 
-         * @static 
-         */ 
-        public static function checkHttpHeadersForMobile()
-        {            //Method inherited from \Mobile_Detect         
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->checkHttpHeadersForMobile();
-        }
-                    /**
-         * Check if the device is mobile.
-         * 
-         * Returns true if any type of mobile device detected, including special ones
-         *
-         * @param null $userAgent deprecated
-         * @param null $httpHeaders deprecated
-         * @return bool 
-         * @static 
-         */ 
-        public static function isMobile($userAgent = null, $httpHeaders = null)
-        {            //Method inherited from \Mobile_Detect         
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->isMobile($userAgent, $httpHeaders);
-        }
-                    /**
-         * Check if the device is a tablet.
-         * 
-         * Return true if any type of tablet device is detected.
-         *
-         * @param string $userAgent deprecated
-         * @param array $httpHeaders deprecated
-         * @return bool 
-         * @static 
-         */ 
-        public static function isTablet($userAgent = null, $httpHeaders = null)
-        {            //Method inherited from \Mobile_Detect         
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->isTablet($userAgent, $httpHeaders);
-        }
-                    /**
-         * This method checks for a certain property in the
-         * userAgent.
-         *
-         * @todo : The httpHeaders part is not yet used.
-         * @param string $key
-         * @param string $userAgent deprecated
-         * @param string $httpHeaders deprecated
-         * @return bool|int|null 
-         * @static 
-         */ 
-        public static function is($key, $userAgent = null, $httpHeaders = null)
-        {            //Method inherited from \Mobile_Detect         
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->is($key, $userAgent, $httpHeaders);
-        }
-                    /**
-         * Some detection rules are relative (not standard),
-         * because of the diversity of devices, vendors and
-         * their conventions in representing the User-Agent or
-         * the HTTP headers.
-         * 
-         * This method will be used to check custom regexes against
-         * the User-Agent string.
-         *
-         * @param $regex
-         * @param string $userAgent
-         * @return bool 
-         * @todo : search in the HTTP headers too.
-         * @static 
-         */ 
-        public static function match($regex, $userAgent = null)
-        {            //Method inherited from \Mobile_Detect         
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->match($regex, $userAgent);
-        }
-                    /**
-         * Prepare the version number.
-         *
-         * @todo Remove the error supression from str_replace() call.
-         * @param string $ver The string version, like "2.6.21.2152";
-         * @return float 
-         * @static 
-         */ 
-        public static function prepareVersionNo($ver)
-        {            //Method inherited from \Mobile_Detect         
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->prepareVersionNo($ver);
-        }
-                    /**
-         * Retrieve the mobile grading, using self::MOBILE_GRADE_* constants.
-         *
-         * @return string One of the self::MOBILE_GRADE_* constants.
-         * @static 
-         */ 
-        public static function mobileGrade()
-        {            //Method inherited from \Mobile_Detect         
-                        /** @var \Jenssegers\Agent\Agent $instance */
-                        return $instance->mobileGrade();
-        }
-         
-    }
-     
-}
-
     namespace Sentry\Laravel { 
             /**
      * 
@@ -17909,8 +17328,6 @@
                     /**
          * Returns the transaction that is on the Hub.
          *
-         * @psalm-suppress MoreSpecificReturnType
-         * @psalm-suppress LessSpecificReturnStatement
          * @static 
          */ 
         public static function getTransaction()
@@ -18046,7 +17463,6 @@ namespace  {
             class Cache extends \Illuminate\Support\Facades\Cache {}
             class Config extends \Illuminate\Support\Facades\Config {}
             class Cookie extends \Illuminate\Support\Facades\Cookie {}
-            class Crypt extends \Illuminate\Support\Facades\Crypt {}
             class Date extends \Illuminate\Support\Facades\Date {}
             class DB extends \Illuminate\Support\Facades\DB {}
             class Eloquent extends \Illuminate\Database\Eloquent\Model {             
@@ -20558,6 +19974,35 @@ namespace  {
             }
              
                 /**
+             * Add a "where fulltext" clause to the query.
+             *
+             * @param string|string[] $columns
+             * @param string $value
+             * @param string $boolean
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */ 
+            public static function whereFullText($columns, $value, $options = [], $boolean = 'and')
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->whereFullText($columns, $value, $options, $boolean);
+            }
+             
+                /**
+             * Add a "or where fulltext" clause to the query.
+             *
+             * @param string|string[] $columns
+             * @param string $value
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */ 
+            public static function orWhereFullText($columns, $value, $options = [])
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWhereFullText($columns, $value, $options);
+            }
+             
+                /**
              * Add a "group by" clause to the query.
              *
              * @param array|string $groups
@@ -21486,7 +20931,6 @@ namespace  {
             class Debugbar extends \Barryvdh\Debugbar\Facades\Debugbar {}
             class L5Swagger extends \L5Swagger\L5SwaggerFacade {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
-            class Agent extends \Jenssegers\Agent\Facades\Agent {}
             class Sentry extends \Sentry\Laravel\Facade {}
      
 }
