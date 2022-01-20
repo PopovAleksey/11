@@ -36,6 +36,7 @@
         "aleksey-popov/mapper-skeleton": "^1.0",
         "apiato/core": "^6.2.5",
         "apiato/welcome-container": "^1.0.0",
+        "barryvdh/laravel-ide-helper": "^2.11",
         "darkaonline/l5-swagger": "^8.0",
         "doctrine/dbal": "^3.1.2",
         "fideloper/proxy": "^4.4.1",
@@ -43,6 +44,7 @@
         "guzzlehttp/guzzle": "^7.3.0",
         "laravel/framework": "^8.73.0",
         "laravel/tinker": "^2.6.0",
+        "monolog/monolog": "^2.3",
         "sentry/sentry-laravel": "^2.10",
         "wikimedia/composer-merge-plugin": "^2.0.1"
     },
