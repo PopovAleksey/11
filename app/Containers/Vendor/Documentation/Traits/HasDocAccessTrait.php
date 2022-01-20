@@ -3,8 +3,8 @@
 namespace App\Containers\Vendor\Documentation\Traits;
 
 use Apiato\Core\Foundation\Facades\Apiato;
-use App\Containers\AppSection\Authentication\Tasks\GetAuthenticatedUserTask;
-use App\Containers\AppSection\User\Models\User;
+use App\Containers\Core\Authentication\Tasks\GetAuthenticatedUserTask;
+use App\Containers\Core\User\Models\User;
 
 trait HasDocAccessTrait
 {

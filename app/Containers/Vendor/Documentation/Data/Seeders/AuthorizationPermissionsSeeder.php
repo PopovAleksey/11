@@ -3,7 +3,7 @@
 namespace App\Containers\Vendor\Documentation\Data\Seeders;
 
 use Apiato\Core\Foundation\Facades\Apiato;
-use App\Containers\AppSection\Authorization\Tasks\CreatePermissionTask;
+use App\Containers\Core\Authorization\Tasks\CreatePermissionTask;
 use App\Ship\Parents\Seeders\Seeder;
 
 class AuthorizationPermissionsSeeder extends Seeder
