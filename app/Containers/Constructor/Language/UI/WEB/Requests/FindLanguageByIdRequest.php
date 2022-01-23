@@ -36,7 +36,6 @@ class FindLanguageByIdRequest extends Request
     public function rules(): array
     {
         return [
-            'id' => 'required'
         ];
     }
 

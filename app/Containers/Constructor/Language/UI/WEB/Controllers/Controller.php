@@ -2,36 +2,37 @@
 
 namespace App\Containers\Constructor\Language\UI\WEB\Controllers;
 
-use App\Containers\Constructor\Language\UI\WEB\Requests\CreateLanguageRequest;
-use App\Containers\Constructor\Language\UI\WEB\Requests\DeleteLanguageRequest;
-use App\Containers\Constructor\Language\UI\WEB\Requests\GetAllLanguagesRequest;
-use App\Containers\Constructor\Language\UI\WEB\Requests\FindLanguageByIdRequest;
-use App\Containers\Constructor\Language\UI\WEB\Requests\UpdateLanguageRequest;
-use App\Containers\Constructor\Language\UI\WEB\Requests\StoreLanguageRequest;
-use App\Containers\Constructor\Language\UI\WEB\Requests\EditLanguageRequest;
 use App\Containers\Constructor\Language\Actions\CreateLanguageAction;
-use App\Containers\Constructor\Language\Actions\FindLanguageByIdAction;
-use App\Containers\Constructor\Language\Actions\GetAllLanguagesAction;
-use App\Containers\Constructor\Language\Actions\UpdateLanguageAction;
 use App\Containers\Constructor\Language\Actions\DeleteLanguageAction;
+use App\Containers\Constructor\Language\Actions\UpdateLanguageAction;
+use App\Containers\Constructor\Language\UI\WEB\Requests\DeleteLanguageRequest;
+use App\Containers\Constructor\Language\UI\WEB\Requests\EditLanguageRequest;
+use App\Containers\Constructor\Language\UI\WEB\Requests\StoreLanguageRequest;
+use App\Containers\Constructor\Language\UI\WEB\Requests\UpdateLanguageRequest;
 use App\Ship\Parents\Controllers\WebController;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 
 class Controller extends WebController
 {
-    public function index(GetAllLanguagesRequest $request)
+    public function index(): Factory|View|Application
     {
-        #dd(config('constructor-language.countries'));
         return view('constructor@language::list');
     }
 
-    public function show(FindLanguageByIdRequest $request)
+    public function show(int $id): Factory|View|Application
     {
+        return view('constructor@language::list');
+
+        return response()->json(['test' => 123]);
         #$language = app(FindLanguageByIdAction::class)->run($request);
         // ..
     }
 
-    public function create(CreateLanguageRequest $request)
+    public function create(): Factory|View|Application
     {
+        dd(config('constructor-language.countries'));
         return view('constructor@language::list');
     }
 
@@ -56,7 +57,7 @@ class Controller extends WebController
 
     public function destroy(DeleteLanguageRequest $request)
     {
-         $result = app(DeleteLanguageAction::class)->run($request);
-         // ..
+        $result = app(DeleteLanguageAction::class)->run($request);
+        // ..
     }
 }
