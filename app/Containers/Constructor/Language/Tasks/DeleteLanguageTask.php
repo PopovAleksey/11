@@ -2,26 +2,27 @@
 
 namespace App\Containers\Constructor\Language\Tasks;
 
-use App\Containers\Constructor\Language\Data\Repositories\LanguageRepository;
+use App\Containers\Constructor\Language\Data\Repositories\LanguageRepositoryInterface;
 use App\Ship\Exceptions\DeleteResourceFailedException;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 
-class DeleteLanguageTask extends Task
+class DeleteLanguageTask extends Task implements DeleteLanguageTaskInterface
 {
-    protected LanguageRepository $repository;
-
-    public function __construct(LanguageRepository $repository)
+    public function __construct(private LanguageRepositoryInterface $repository)
     {
-        $this->repository = $repository;
     }
 
+    /**
+     * @param $id
+     * @return int|null
+     * @throws \App\Ship\Exceptions\DeleteResourceFailedException
+     */
     public function run($id): ?int
     {
         try {
             return $this->repository->delete($id);
-        }
-        catch (Exception $exception) {
+        } catch (Exception) {
             throw new DeleteResourceFailedException();
         }
     }

@@ -2,20 +2,31 @@
 
 namespace App\Containers\Constructor\Language\Tasks;
 
-use App\Containers\Constructor\Language\Data\Repositories\LanguageRepository;
+use App\Containers\Constructor\Language\Data\Dto\LanguageDto;
+use App\Containers\Constructor\Language\Data\Repositories\LanguageRepositoryInterface;
+use App\Containers\Constructor\Language\Models\Language;
 use App\Ship\Parents\Tasks\Task;
+use Illuminate\Support\Collection;
 
-class GetAllLanguagesTask extends Task
+class GetAllLanguagesTask extends Task implements GetAllLanguagesTaskInterface
 {
-    protected LanguageRepository $repository;
-
-    public function __construct(LanguageRepository $repository)
+    public function __construct(private LanguageRepositoryInterface $repository)
     {
-        $this->repository = $repository;
     }
 
-    public function run()
+    /**
+     * @return \Illuminate\Support\Collection[LanguageDto]
+     */
+    public function run(): Collection
     {
-        return $this->repository->paginate();
+        return $this->repository->all()->collect()->map(static function (Language $language) {
+            return (new LanguageDto())
+                ->setId($language->id)
+                ->setName($language->name)
+                ->setShortName($language->short_name)
+                ->setIsActive($language->active)
+                ->setCreateAt($language->created_at)
+                ->setUpdateAt($language->updated_at);
+        });
     }
 }

@@ -2,19 +2,30 @@
 
 namespace App\Containers\Constructor\Language\Actions;
 
-use App\Containers\Constructor\Language\Models\Language;
-use App\Containers\Constructor\Language\Tasks\UpdateLanguageTask;
+use App\Containers\Constructor\Language\Data\Dto\LanguageDto;
+use App\Containers\Constructor\Language\Tasks\UpdateLanguageTaskInterface;
+use App\Ship\Exceptions\ValidationFailedException;
 use App\Ship\Parents\Actions\Action;
-use App\Ship\Parents\Requests\Request;
 
-class UpdateLanguageAction extends Action
+class UpdateLanguageAction extends Action implements UpdateLanguageActionInterface
 {
-    public function run(Request $request): Language
+    public function __construct(private UpdateLanguageTaskInterface $languageTask)
     {
-        $data = $request->sanitizeInput([
-            // add your request data here
-        ]);
+    }
 
-        return app(UpdateLanguageTask::class)->run($request->id, $data);
+    /**
+     * @param \App\Containers\Constructor\Language\Data\Dto\LanguageDto $data
+     * @return bool
+     * @throws \App\Ship\Exceptions\ValidationFailedException
+     */
+    public function run(LanguageDto $data): bool
+    {
+        if ($data->getId() === NULL) {
+            throw new ValidationFailedException();
+        }
+
+        $this->languageTask->run($data);
+
+        return true;
     }
 }

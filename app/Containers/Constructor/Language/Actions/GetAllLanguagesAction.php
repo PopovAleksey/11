@@ -2,14 +2,18 @@
 
 namespace App\Containers\Constructor\Language\Actions;
 
-use App\Containers\Constructor\Language\Tasks\GetAllLanguagesTask;
+use App\Containers\Constructor\Language\Tasks\GetAllLanguagesTaskInterface;
 use App\Ship\Parents\Actions\Action;
-use App\Ship\Parents\Requests\Request;
+use Illuminate\Support\Collection;
 
-class GetAllLanguagesAction extends Action
+class GetAllLanguagesAction extends Action implements GetAllLanguagesActionInterface
 {
-    public function run(Request $request)
+    public function __construct(private GetAllLanguagesTaskInterface $allLanguagesTask)
     {
-        return app(GetAllLanguagesTask::class)->addRequestCriteria()->run();
+    }
+
+    public function run(): Collection
+    {
+        return $this->allLanguagesTask->run();
     }
 }

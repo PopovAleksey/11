@@ -11,6 +11,10 @@ return [
     |
     */
 
+    'models' => [
+        'language' => \App\Containers\Constructor\Language\Models\Language::class
+    ],
+
     'countries' => [
         ['name' => 'Afghanistan', 'code' => 'AF'],
         ['name' => 'Åland Islands', 'code' => 'AX'],

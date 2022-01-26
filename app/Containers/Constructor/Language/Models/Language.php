@@ -4,10 +4,12 @@ namespace App\Containers\Constructor\Language\Models;
 
 use App\Ship\Parents\Models\Model;
 
-class Language extends Model
+class Language extends Model implements LanguageInterface
 {
     protected $fillable = [
-
+        'name',
+        'short_name',
+        'active'
     ];
 
     protected $attributes = [
@@ -19,7 +21,10 @@ class Language extends Model
     ];
 
     protected $casts = [
-
+        'id'         => 'integer',
+        'name'       => 'string',
+        'short_name' => 'string',
+        'active'     => 'boolean',
     ];
 
     protected $dates = [

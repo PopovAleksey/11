@@ -2,50 +2,20 @@
 
 namespace App\Containers\Constructor\Language\UI\WEB\Requests;
 
+use App\Containers\Constructor\Language\Data\Dto\LanguageDto;
 use App\Ship\Parents\Requests\Request;
 
 class StoreLanguageRequest extends Request
 {
-    /**
-     * Define which Roles and/or Permissions has access to this request.
-     */
-    protected array $access = [
-        'permissions' => '',
-        'roles'       => '',
-    ];
-
-    /**
-     * Id's that needs decoding before applying the validation rules.
-     */
-    protected array $decode = [
-        // 'id',
-    ];
-
-    /**
-     * Defining the URL parameters (e.g, `/user/{id}`) allows applying
-     * validation rules on them and allows accessing them like request data.
-     */
-    protected array $urlParameters = [
-        // 'id',
-    ];
-
-    /**
-     * Get the validation rules that apply to the request.
-     */
     public function rules(): array
     {
         return [
-            // 'id' => 'required'
+            'code' => ['required', 'string', 'max:2'],
         ];
     }
 
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
+    public function mapped(): LanguageDto
     {
-        return $this->check([
-            'hasAccess',
-        ]);
+        return (new LanguageDto())->setShortName($this->get('code'));
     }
 }

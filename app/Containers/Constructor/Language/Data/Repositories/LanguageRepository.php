@@ -4,13 +4,17 @@ namespace App\Containers\Constructor\Language\Data\Repositories;
 
 use App\Ship\Parents\Repositories\Repository;
 
-class LanguageRepository extends Repository
+class LanguageRepository extends Repository implements LanguageRepositoryInterface
 {
-    /**
-     * @var array
-     */
     protected $fieldSearchable = [
-        'id' => '=',
-        // ...
+        'id'         => '=',
+        'name'       => 'like',
+        'short_name' => '=',
+        'action'     => '=',
     ];
+
+    public function model(): string
+    {
+        return config('constructor-language.models.language');
+    }
 }

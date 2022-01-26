@@ -2,14 +2,19 @@
 
 namespace App\Containers\Constructor\Language\Actions;
 
-use App\Containers\Constructor\Language\Tasks\DeleteLanguageTask;
+use App\Containers\Constructor\Language\Tasks\DeleteLanguageTaskInterface;
 use App\Ship\Parents\Actions\Action;
-use App\Ship\Parents\Requests\Request;
 
-class DeleteLanguageAction extends Action
+class DeleteLanguageAction extends Action implements DeleteLanguageActionInterface
 {
-    public function run(Request $request)
+    public function __construct(private DeleteLanguageTaskInterface $deleteLanguageTask)
     {
-        return app(DeleteLanguageTask::class)->run($request->id);
+    }
+
+    public function run(int $id): bool
+    {
+        $this->deleteLanguageTask->run($id);
+
+        return true;
     }
 }

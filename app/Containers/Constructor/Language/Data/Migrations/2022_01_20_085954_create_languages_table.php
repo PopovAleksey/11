@@ -12,9 +12,10 @@ class CreateLanguagesTable extends Migration
     {
         Schema::create('languages', static function (Blueprint $table) {
             $table->id();
-
+            $table->string('name')->unique();
+            $table->string('short_name')->unique();
+            $table->boolean('active')->default(true);
             $table->timestamps();
-            //$table->softDeletes();
         });
     }
 
