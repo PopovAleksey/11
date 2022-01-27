@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Containers\{{section-name}}\{{container-name}}\Tasks;
+
+use App\Containers\{{section-name}}\{{container-name}}\Data\Repositories\{{model}}RepositoryInterface;
+use App\Ship\Exceptions\DeleteResourceFailedException;
+use App\Ship\Parents\Tasks\Task;
+use Exception;
+
+class Delete{{model}}Task extends Task implements Delete{{model}}TaskInterface
+{
+    public function __construct(private {{model}}RepositoryInterface $repository)
+    {
+    }
+
+    public function run(int $id): ?bool
+    {
+        try {
+            return $this->repository->delete($id);
+        }
+        catch (Exception $exception) {
+            throw new DeleteResourceFailedException();
+        }
+    }
+}
+
+interface Delete{{model}}TaskInterface
+{
+    public function run(int $id): ?bool;
+}

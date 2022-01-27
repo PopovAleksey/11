@@ -4,7 +4,7 @@ namespace App\Containers\Development\Logger\Models;
 
 use App\Ship\Parents\Models\Model;
 
-class Logger extends Model
+class Logger extends Model implements LoggerInterface
 {
     protected $table = 'loggers';
 

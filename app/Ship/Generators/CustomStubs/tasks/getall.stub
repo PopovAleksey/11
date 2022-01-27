@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Containers\{{section-name}}\{{container-name}}\Tasks;
+
+use App\Containers\{{section-name}}\{{container-name}}\Data\Dto\{{model}}Dto;
+use App\Containers\{{section-name}}\{{container-name}}\Data\Repositories\{{model}}RepositoryInterface;
+use App\Containers\{{section-name}}\{{container-name}}\Models\{{model}}Interface;
+use App\Ship\Parents\Tasks\Task;
+use Illuminate\Support\Collection;
+
+class GetAll{{models}}Task extends Task implements GetAll{{models}}TaskInterface
+{
+    public function __construct(private {{model}}RepositoryInterface $repository)
+    {
+    }
+
+    public function run(): Collection
+    {
+        return $this->repository->all()->collect()->map(static function ({{model}}Interface ${{model}}) {
+                    return (new {{model}}Dto())
+                                ->setId(${{model}}->id)
+                                ->setCreateAt(${{model}}->created_at)
+                                ->setUpdateAt(${{model}}->updated_at);
+                });
+    }
+}
+
+interface GetAll{{models}}TaskInterface
+{
+    public function run(): Collection;
+}

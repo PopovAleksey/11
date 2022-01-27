@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Containers\{{section-name}}\{{container-name}}\Actions;
+
+use App\Containers\{{section-name}}\{{container-name}}\Tasks\GetAll{{models}}TaskInterface;
+use App\Ship\Parents\Actions\Action;
+use Illuminate\Support\Collection;
+
+class GetAll{{models}}Action extends Action implements GetAll{{models}}ActionInterface
+{
+    public function __construct(
+        private GetAll{{models}}TaskInterface $getAll{{model}}Task
+    )
+    {
+    }
+
+    public function run(): Collection
+    {
+        return $this->getAll{{model}}Task->run();
+    }
+}
+
+interface GetAll{{models}}ActionInterface
+{
+    public function run(): Collection;
+}

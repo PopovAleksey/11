@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Containers\{{section-name}}\{{container-name}}\Tasks;
+
+use App\Containers\{{section-name}}\{{container-name}}\Data\Repositories\{{model}}RepositoryInterface;
+use App\Ship\Exceptions\UpdateResourceFailedException;
+use App\Ship\Parents\Tasks\Task;
+use Exception;
+
+class Update{{model}}Task extends Task implements Update{{model}}TaskInterface
+{
+    public function __construct(private {{model}}RepositoryInterface $repository)
+    {
+    }
+
+    public function run({{model}}Dto $data): {{model}}Dto
+    {
+        try {
+            ${{model}} = $this->repository->update($data->toArray(), $data->getId());
+
+            return (new {{model}}Dto())
+                        ->setId(${{model}}->id)
+                        ->setCreateAt(${{model}}->created_at)
+                        ->setUpdateAt(${{model}}->updated_at);
+        }
+        catch (Exception $exception) {
+            throw new UpdateResourceFailedException();
+        }
+    }
+}
+
+interface Update{{model}}TaskInterface
+{
+    public function run({{model}}Dto $data): {{model}}Dto;
+}

@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Containers\{{section-name}}\{{container-name}}\Actions;
+
+use App\Containers\{{section-name}}\{{container-name}}\Data\Dto\{{model}}Dto;
+use App\Containers\{{section-name}}\{{container-name}}\Tasks\Update{{model}}TaskInterface;
+use App\Ship\Parents\Actions\Action;
+
+class Update{{model}}Action extends Action implements Update{{model}}ActionInterface
+{
+    public function __construct(
+        private Update{{model}}TaskInterface $update{{model}}Task
+    )
+    {
+    }
+
+    public function run({{model}}Dto $data): {{model}}Dto
+    {
+        return $this->update{{model}}Task->run({{model}}Dto $data);
+    }
+}
+
+interface Update{{model}}ActionInterface
+{
+    public function run({{model}}Dto $data): {{model}}Dto;
+}

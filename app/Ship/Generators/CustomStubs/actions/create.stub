@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Containers\{{section-name}}\{{container-name}}\Actions;
+
+use App\Containers\{{section-name}}\{{container-name}}\Data\Dto\{{model}}Dto;
+use App\Containers\{{section-name}}\{{container-name}}\Tasks\Create{{model}}TaskInterface;
+use App\Ship\Parents\Actions\Action;
+
+class Create{{model}}Action extends Action implements Create{{model}}ActionInterface
+{
+    public function __construct(
+        private Create{{model}}TaskInterface $create{{model}}Task
+    )
+    {
+    }
+
+    public function run({{model}}Dto $data): bool
+    {
+        return $this->create{{model}}Task->run($data);
+    }
+}
+
+interface Create{{model}}ActionInterface
+{
+    public function run({{model}}Dto $data): bool;
+}

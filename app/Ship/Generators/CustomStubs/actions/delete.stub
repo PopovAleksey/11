@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Containers\{{section-name}}\{{container-name}}\Actions;
+
+use App\Containers\{{section-name}}\{{container-name}}\Tasks\Delete{{model}}TaskInterface;
+use App\Ship\Parents\Actions\Action;
+
+class Delete{{model}}Action extends Action implements Delete{{model}}ActionInterface
+{
+    public function __construct(
+        private Delete{{model}}TaskInterface $delete{{model}}Task
+    )
+    {
+    }
+
+    public function run(int $id): bool
+    {
+        return $this->delete{{model}}Task->run($id);
+    }
+}
+
+interface Delete{{model}}ActionInterface
+{
+    public function run(int $id): bool;
+}

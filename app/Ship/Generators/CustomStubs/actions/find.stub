@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Containers\{{section-name}}\{{container-name}}\Actions;
+
+use App\Containers\{{section-name}}\{{container-name}}\Data\Dto\{{model}}Dto;
+use App\Containers\{{section-name}}\{{container-name}}\Tasks\Find{{model}}ByIdTaskInterface;
+use App\Ship\Parents\Actions\Action;
+
+class Find{{model}}ByIdAction extends Action implements Find{{model}}ByIdActionInterface
+{
+    public function __construct(
+        private Find{{model}}ByIdTaskInterface $find{{model}}ByIdTask
+    )
+    {
+    }
+
+    public function run(int $id): {{model}}Dto
+    {
+        return $this->find{{model}}ByIdTask->run($id);
+    }
+}
+
+interface Find{{model}}ByIdActionInterface
+{
+    public function run(int $id): {{model}}Dto;
+}

@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Containers\{{section-name}}\{{container-name}}\Tasks;
+
+use App\Containers\{{section-name}}\{{container-name}}\Data\Dto\{{model}}Dto;
+use App\Containers\{{section-name}}\{{container-name}}\Data\Repositories\{{model}}RepositoryInterface;
+use App\Ship\Exceptions\CreateResourceFailedException;
+use App\Ship\Parents\Tasks\Task;
+use Exception;
+
+class Create{{model}}Task extends Task implements Create{{model}}TaskInterface
+{
+    public function __construct(private {{model}}RepositoryInterface $repository)
+    {
+    }
+
+    public function run({{model}}Dto $data)
+    {
+        try {
+            return $this->repository->create($data->toArray());
+        }
+        catch (Exception $exception) {
+            throw new CreateResourceFailedException();
+        }
+    }
+}
+
+interface Create{{model}}TaskInterface
+{
+    public function run({{model}}Dto $data);
+}

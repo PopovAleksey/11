@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Containers\{{section-name}}\{{container-name}}\Models;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
+use App\Ship\Parents\Models\Model;
+
+class {{class-name}} extends Model implements {{class-name}}Interface
+{
+    protected $fillable = [
+
+    ];
+
+    protected $attributes = [
+
+    ];
+
+    protected $hidden = [
+
+    ];
+
+    protected $casts = [
+
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
+     * A resource key to be used in the serialized responses.
+     */
+    protected string $resourceKey = '{{resource-key}}';
+}
+
+/**
+ * @package App\Containers\{{section-name}}\{{container-name}}\Models
+ * @method static Builder query()
+ * @property integer $id
+ * @property Carbon  $created_at
+ * @property Carbon  $updated_at
+ */
+interface {{class-name}}Interface
+{
+}
