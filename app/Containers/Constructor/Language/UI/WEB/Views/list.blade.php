@@ -12,6 +12,10 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
     <style>
         .bootstrap-switch-container {
             display: contents;
@@ -37,12 +41,23 @@
     <script src="{{ asset('plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
     <!-- Select2 -->
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+    <!-- SweetAlert2 -->
+    <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
+    <!-- Toastr -->
+    <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
 
     <script>
         $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'bottom',
+                showConfirmButton: false,
+                timer: 3000
+            });
 
             $("input[data-bootstrap-switch]").each(function () {
                 $(this).bootstrapSwitch('state', $(this).prop('checked'))
@@ -57,8 +72,10 @@
                                 'active': state === true ? 1 : 0
                             },
                             error: function (error) {
-                                console.log('Error!');
-                                console.log(error);
+                                Toast.fire({
+                                    icon: 'error',
+                                    title: error.responseJSON.message
+                                })
                             }
                         })
                     });
@@ -89,8 +106,10 @@
                         location.reload();
                     },
                     error: function (error) {
-                        console.log('Error!');
-                        console.log(error);
+                        Toast.fire({
+                            icon: 'error',
+                            title: error.responseJSON.message
+                        })
                     }
                 });
             });
@@ -117,8 +136,10 @@
                         location.reload();
                     },
                     error: function (error) {
-                        console.log('Error!');
-                        console.log(error);
+                        Toast.fire({
+                            icon: 'error',
+                            title: error.responseJSON.message
+                        })
                     }
                 });
             });
