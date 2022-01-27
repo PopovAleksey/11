@@ -31,8 +31,27 @@
                         <p>Languages</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('constructor_language_index') }}" class="nav-link">
+                        <i class="fas fa-cogs"></i>&nbsp;
+                        <p>Settings</p>
+                    </a>
+                </li>
 
                 <li class="nav-header">Content</li>
+
+                <li class="nav-item">
+                    <a href="{{ route('constructor_language_index') }}" class="nav-link">
+                        <i class="fas fa-cubes"></i>&nbsp;
+                        <p>Pages Builder</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('constructor_language_index') }}" class="nav-link">
+                        <i class="far fa-file-code"></i>&nbsp;
+                        <p>Templates</p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
