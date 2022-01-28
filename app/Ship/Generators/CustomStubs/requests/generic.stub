@@ -2,8 +2,8 @@
 
 namespace App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface}}\Requests;
 
-use App\Containers\{{section-name}}\{{container-name}}\Data\Dto\{{model}}Dto;
 use App\Ship\Parents\Requests\Request;
+use PopovAleksey\Mapper\Mapper;
 
 class {{class-name}} extends Request
 {

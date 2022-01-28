@@ -16,7 +16,7 @@ class Update{{model}}Action extends Action implements Update{{model}}ActionInter
 
     public function run({{model}}Dto $data): {{model}}Dto
     {
-        return $this->update{{model}}Task->run({{model}}Dto $data);
+        return $this->update{{model}}Task->run($data);
     }
 }
 

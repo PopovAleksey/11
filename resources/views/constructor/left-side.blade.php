@@ -41,9 +41,9 @@
                 <li class="nav-header">Content</li>
 
                 <li class="nav-item">
-                    <a href="{{ route('constructor_language_index') }}" class="nav-link">
+                    <a href="{{ route('constructor_page_index') }}" class="nav-link">
                         <i class="fas fa-cubes"></i>&nbsp;
-                        <p>Pages Builder</p>
+                        <p>Page Types</p>
                     </a>
                 </li>
                 <li class="nav-item">

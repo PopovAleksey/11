@@ -2,6 +2,7 @@
 
 namespace App\Containers\{{section-name}}\{{container-name}}\Tasks;
 
+use App\Containers\{{section-name}}\{{container-name}}\Data\Dto\{{model}}Dto;
 use App\Containers\{{section-name}}\{{container-name}}\Data\Repositories\{{model}}RepositoryInterface;
 use App\Ship\Exceptions\UpdateResourceFailedException;
 use App\Ship\Parents\Tasks\Task;

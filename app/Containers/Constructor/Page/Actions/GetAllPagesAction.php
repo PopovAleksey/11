@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Containers\Constructor\Page\Actions;
+
+use App\Containers\Constructor\Page\Tasks\GetAllPagesTaskInterface;
+use App\Ship\Parents\Actions\Action;
+use Illuminate\Support\Collection;
+
+class GetAllPagesAction extends Action implements GetAllPagesActionInterface
+{
+    public function __construct(
+        private GetAllPagesTaskInterface $getAllPageTask
+    )
+    {
+    }
+
+    public function run(): Collection
+    {
+        return $this->getAllPageTask->run();
+    }
+}
