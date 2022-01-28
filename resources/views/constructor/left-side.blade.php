@@ -20,19 +20,19 @@
                 data-accordion="false">
                 <li class="nav-header">CORE</li>
                 <li class="nav-item">
-                    <a href="{{ route('constructor_language_index') }}" class="nav-link">
+                    <a href="{{ route('constructor_language_index') }}" class="nav-link {{ route('constructor_language_index', [], false) === '/' . request()->path() ? 'active' : ''}}">
                         <i class="fas fa-users"></i>&nbsp;
                         <p>Users</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('constructor_language_index') }}" class="nav-link">
+                    <a href="{{ route('constructor_language_index') }}" class="nav-link {{ route('constructor_language_index', [], false) === '/' . request()->path() ? 'active' : ''}}">
                         <i class="fas fa-language"></i>&nbsp;
                         <p>Languages</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('constructor_language_index') }}" class="nav-link">
+                    <a href="{{ route('constructor_language_index') }}" class="nav-link {{ route('constructor_language_index', [], false) === '/' . request()->path() ? 'active' : ''}}">
                         <i class="fas fa-cogs"></i>&nbsp;
                         <p>Settings</p>
                     </a>
@@ -41,13 +41,13 @@
                 <li class="nav-header">Content</li>
 
                 <li class="nav-item">
-                    <a href="{{ route('constructor_page_index') }}" class="nav-link">
+                    <a href="{{ route('constructor_page_index') }}" class="nav-link {{ route('constructor_page_index', [], false) === '/' . request()->path() ? 'active' : ''}}">
                         <i class="fas fa-cubes"></i>&nbsp;
                         <p>Page Types</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('constructor_language_index') }}" class="nav-link">
+                    <a href="{{ route('constructor_language_index') }}" class="nav-link {{ route('constructor_language_index', [], false) === '/' . request()->path() ? 'active' : ''}}">
                         <i class="far fa-file-code"></i>&nbsp;
                         <p>Templates</p>
                     </a>
