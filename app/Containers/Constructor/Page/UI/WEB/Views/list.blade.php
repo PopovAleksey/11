@@ -101,6 +101,10 @@
                         'type': pageType
                     },
                     success: function (response) {
+                        if (response.id === undefined) {
+                            $('#create-page').prop("disabled", false);
+                            return;
+                        }
                         location.href = '{{ route('constructor_page_edit', ':id') }}'.replace(':id', response.id);
                     },
                     error: function (error) {

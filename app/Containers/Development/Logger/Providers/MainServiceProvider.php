@@ -18,20 +18,6 @@ use App\Ship\Parents\Providers\MainProvider;
 class MainServiceProvider extends MainProvider
 {
     /**
-     * Container Service Providers.
-     */
-    public array $serviceProviders = [
-        // InternalServiceProviderExample::class,
-    ];
-
-    /**
-     * Container Aliases
-     */
-    public array $aliases = [
-        // 'Foo' => Bar::class,
-    ];
-
-    /**
      * Register anything in the container.
      */
     public function register(): void

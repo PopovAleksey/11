@@ -31,8 +31,10 @@ class SQLLoggerTask extends Task implements SQLLoggerTaskInterface
                     return;
                 }
 
+                $request = (string) (request()?->method() . ': ' . request()?->path());
+
                 $logger = (new LoggerDto())
-                    ->setRequest((string) request()?->path())
+                    ->setRequest($request)
                     ->setType('sql')
                     ->setQuery($query->sql)
                     ->setBindings($query->bindings)

@@ -3,9 +3,12 @@
 namespace App\Containers\Development\Logger\Models;
 
 use App\Ship\Parents\Models\Model;
+use DB;
 
 class Logger extends Model implements LoggerInterface
 {
+    protected $connection = 'mysql_logger';
+
     protected $table = 'loggers';
 
     protected $fillable = [
