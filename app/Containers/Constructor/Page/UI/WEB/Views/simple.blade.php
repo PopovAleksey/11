@@ -39,7 +39,7 @@
 
                 $('#vert-tabs-field-' + nextTab)
                     .html('<div class="input-group mb-3">' +
-                        '<input type="text" class="form-control" id="field-name-' + nextTab + '" value="Tab ' + nextTab + '">' +
+                        '<input type="text" class="form-control" id="field-name" data-id="' + nextTab + '" value="Tab ' + nextTab + '">' +
                         '<div class="input-group-prepend">' +
                         '<button type="button" class="btn btn-danger" id="remove-element" data-id="' + nextTab + '">' +
                         '<i class="far fa-trash-alt"></i> Remove Element' +
@@ -100,11 +100,11 @@
                     $('#vert-tabs-tab a:last').tab('show');
                 });
 
-                $('input#field-name-' + nextTab).on('change', function () {
-                    var elementAttrId = $(this).attr('id');
+                $('input#field-name').on('change', function () {
+                    var elementAttrId = $(this).attr('data-id');
                     var value = $(this).val();
 
-                    $('#vert-tabs-tab #' + elementAttrId).text(value === '' ? 'Tab ' + nextTab : value);
+                    $('#vert-tabs-tab #field-name-' + elementAttrId).text(value === '' ? 'Tab ' + nextTab : value);
                 });
 
                 $('select#field-type').on('change', function () {
