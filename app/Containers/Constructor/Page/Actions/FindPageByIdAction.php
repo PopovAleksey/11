@@ -14,8 +14,8 @@ class FindPageByIdAction extends Action implements FindPageByIdActionInterface
     {
     }
 
-    public function run(int $id): PageDto
+    public function run(int $id, bool $withFields = false): PageDto
     {
-        return $this->findPageByIdTask->run($id);
+        return $this->findPageByIdTask->run($id, $withFields);
     }
 }

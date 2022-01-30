@@ -30,8 +30,7 @@ class Controller extends WebController
     public function index(): Factory|View|Application
     {
         return view('constructor@page::list', [
-            'domain' => config('app.url'),
-            'list'   => $this->getAllPagesAction->run(),
+            'list' => $this->getAllPagesAction->run(),
         ]);
     }
 
@@ -51,9 +50,12 @@ class Controller extends WebController
 
     public function edit(int $id): Factory|View|Application
     {
-        $page = $this->findPageByIdAction->run($id);
+        $page = $this->findPageByIdAction->run($id, withFields: true);
 
-        return view('constructor.base');
+        return match ($page->getType()) {
+            'simple' => view('constructor@page::simple', ['data' => $page]),
+
+        };
     }
 
     public function update(int $id, UpdatePageRequest $request): JsonResponse

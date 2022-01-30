@@ -12,6 +12,8 @@ use App\Containers\Constructor\Page\Actions\GetAllPagesAction;
 use App\Containers\Constructor\Page\Actions\GetAllPagesActionInterface;
 use App\Containers\Constructor\Page\Actions\UpdatePageAction;
 use App\Containers\Constructor\Page\Actions\UpdatePageActionInterface;
+use App\Containers\Constructor\Page\Data\Repositories\PageFieldRepository;
+use App\Containers\Constructor\Page\Data\Repositories\PageFieldRepositoryInterface;
 use App\Containers\Constructor\Page\Data\Repositories\PageRepository;
 use App\Containers\Constructor\Page\Data\Repositories\PageRepositoryInterface;
 use App\Containers\Constructor\Page\Models\Page;
@@ -62,6 +64,7 @@ class MainServiceProvider extends MainProvider
     private function bindRepositories(): void
     {
         $this->app->bind(PageRepositoryInterface::class, PageRepository::class);
+        $this->app->bind(PageFieldRepositoryInterface::class, PageFieldRepository::class);
     }
 
     private function bindModels(): void

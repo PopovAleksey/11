@@ -6,5 +6,5 @@ use App\Containers\Constructor\Page\Data\Dto\PageDto;
 
 interface FindPageByIdActionInterface
 {
-    public function run(int $id): PageDto;
+    public function run(int $id, bool $withFields = false): PageDto;
 }

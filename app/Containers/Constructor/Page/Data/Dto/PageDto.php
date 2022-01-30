@@ -7,19 +7,23 @@ use PopovAleksey\Mapper\Mapper;
 
 class PageDto extends Mapper
 {
-    private ?int    $id       = NULL;
-    private ?string $name     = NULL;
-    private ?string $type     = NULL;
-    private ?bool   $active   = NULL;
-    private ?Carbon $createAt = NULL;
-    private ?Carbon $updateAt = NULL;
+    private ?int    $id       = null;
+    private ?string $name     = null;
+    private ?string $type     = null;
+    private ?bool   $active   = null;
+    /**
+     * @var App\Containers\Constructor\Page\Data\Dto\PageFieldDto[]
+     */
+    private ?array  $fields   = null;
+    private ?Carbon $createAt = null;
+    private ?Carbon $updateAt = null;
 
     /**
      * @return int|null
      */
     public function getId(): ?int
     {
-        return $this->id ?? NULL;
+        return $this->id ?? null;
     }
 
     /**
@@ -91,11 +95,30 @@ class PageDto extends Mapper
     }
 
     /**
+     * @param \App\Containers\Constructor\Page\Data\Dto\PageFieldDto[] $fields
+     */
+    public function setFields(?array $fields): self
+    {
+        $this->fields = $fields;
+
+        return $this;
+    }
+
+    /**
+     * @return \App\Containers\Constructor\Page\Data\Dto\PageFieldDto[]|null
+     */
+    public function getFields(): ?array
+    {
+        return $this->fields;
+    }
+
+
+    /**
      * @return \Illuminate\Support\Carbon|null
      */
     public function getCreateAt(): ?Carbon
     {
-        return $this->createAt ?? NULL;
+        return $this->createAt ?? null;
     }
 
     /**
@@ -114,7 +137,7 @@ class PageDto extends Mapper
      */
     public function getUpdateAt(): ?Carbon
     {
-        return $this->updateAt ?? NULL;
+        return $this->updateAt ?? null;
     }
 
     /**
