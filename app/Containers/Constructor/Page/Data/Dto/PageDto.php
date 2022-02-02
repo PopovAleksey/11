@@ -7,14 +7,14 @@ use PopovAleksey\Mapper\Mapper;
 
 class PageDto extends Mapper
 {
-    private ?int    $id       = null;
-    private ?string $name     = null;
-    private ?string $type     = null;
-    private ?bool   $active   = null;
+    private ?int    $id     = null;
+    private ?string $name   = null;
+    private ?string $type   = null;
+    private ?bool   $active = null;
     /**
      * @var App\Containers\Constructor\Page\Data\Dto\PageFieldDto[]
      */
-    private ?array  $fields   = null;
+    private array   $fields   = [];
     private ?Carbon $createAt = null;
     private ?Carbon $updateAt = null;
 
@@ -99,15 +99,15 @@ class PageDto extends Mapper
      */
     public function setFields(?array $fields): self
     {
-        $this->fields = $fields;
+        $this->fields = $fields ?? [];
 
         return $this;
     }
 
     /**
-     * @return \App\Containers\Constructor\Page\Data\Dto\PageFieldDto[]|null
+     * @return \App\Containers\Constructor\Page\Data\Dto\PageFieldDto[]
      */
-    public function getFields(): ?array
+    public function getFields(): array
     {
         return $this->fields;
     }

@@ -20,7 +20,74 @@
 
     <script>
         $(function () {
-            var nextTab = 1;
+
+            function createNameFieldForm(dataId, inputValue) {
+                let nameForm = document.createElement('div');
+                nameForm.classList.add('input-group', 'mb-3');
+
+                let nameInput = document.createElement('input');
+                nameInput.classList.add('form-control');
+                nameInput.setAttribute('type', 'text');
+                nameInput.setAttribute('id', 'field-name');
+                nameInput.setAttribute('data-id', dataId);
+                nameInput.setAttribute('value', inputValue);
+
+                let removeElement = document.createElement('div');
+                removeElement.classList.add('input-group-prepend');
+
+                let removeButton = document.createElement('button');
+                removeButton.classList.add('btn', 'btn-danger');
+                removeButton.setAttribute('id', 'remove-element');
+                removeButton.setAttribute('data-id', dataId);
+
+                let removeButtonText = document.createTextNode('Remove Field');
+
+                let removeButtonIcon = document.createElement('i');
+                removeButtonIcon.classList.add('far', 'fa-trash-alt');
+
+                removeButton.appendChild(removeButtonIcon);
+                removeButton.appendChild(removeButtonText);
+                removeElement.appendChild(removeButton);
+                nameForm.appendChild(nameInput)
+                nameForm.appendChild(removeElement);
+
+                return nameForm;
+            }
+
+            function createTypeFieldForm(dataId, selectedType = null) {
+                let typeForm = document.createElement('div');
+                typeForm.classList.add('form-group');
+
+                let selectTypes = document.createElement('select');
+                selectTypes.classList.add('form-control');
+                selectTypes.setAttribute('id', 'field-type');
+                selectTypes.setAttribute('data-id', dataId);
+                Object.entries({
+                    input: 'Input',
+                    textarea: 'Textarea',
+                    select: 'Select',
+                    selectMultiple: 'Select Multiple',
+                    radio: 'Radio',
+                    checkbox: 'Checkbox',
+                    file: 'File'
+                }).forEach(function ([key, value]) {
+                    let selectOption = document.createElement('option');
+                    selectOption.setAttribute('value', key);
+                    selectOption.innerText = value;
+
+                    if (key === selectedType) {
+                        selectOption.setAttribute('selected', true);
+                    }
+
+                    selectTypes.appendChild(selectOption);
+                });
+
+                typeForm.appendChild(selectTypes);
+
+                return typeForm;
+            }
+
+            let nextTab = 1;
 
             $('button#add-element').on('click', function () {
                 $('#vert-tabs-tab a:last')
@@ -37,7 +104,13 @@
                     .html('')
                     .appendTo('#vert-tabs-tabContent');
 
-                $('#vert-tabs-field-' + nextTab)
+
+                let nameForm = createNameFieldForm(nextTab, 'Tab ' + nextTab);
+                let typeForm = createTypeFieldForm(nextTab);
+
+                $('#vert-tabs-field-' + nextTab).html(nameForm).append(typeForm);
+
+                /*$('#vert-tabs-field-' + nextTab)
                     .html('<div class="input-group mb-3">' +
                         '<input type="text" class="form-control" id="field-name" data-id="' + nextTab + '" value="Tab ' + nextTab + '">' +
                         '<div class="input-group-prepend">' +
@@ -88,7 +161,7 @@
                         '</div>' +
                         '<input type="text" name="value" placeholder="Possible Values Separete ;" class="form-control" />' +
                         '</div></div</div>')
-                ;
+                ;*/
 
 
                 $('button#remove-element').on('click', function () {
