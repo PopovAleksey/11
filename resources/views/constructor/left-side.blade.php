@@ -47,7 +47,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('constructor_language_index') }}" class="nav-link {{ route('constructor_language_index', [], false) === '/' . request()->path() ? 'active' : ''}}">
+                    <a href="{{ route('constructor_template_index') }}" class="nav-link {{ route('constructor_template_index', [], false) === '/' . request()->path() ? 'active' : ''}}">
                         <i class="far fa-file-code"></i>&nbsp;
                         <p>Templates</p>
                     </a>
