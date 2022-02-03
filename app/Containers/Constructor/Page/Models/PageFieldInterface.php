@@ -22,4 +22,11 @@ use Illuminate\Support\Carbon;
  */
 interface PageFieldInterface
 {
+    public const INPUT_TYPE           = 'input';
+    public const TEXTAREA_TYPE        = 'textarea';
+    public const SELECT_TYPE          = 'select';
+    public const SELECT_MULTIPLE_TYPE = 'selectMultiple';
+    public const RADIO_TYPE           = 'radio';
+    public const CHECKBOX_TYPE        = 'checkbox';
+    public const FILE_TYPE            = 'file';
 }
