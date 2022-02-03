@@ -11,8 +11,4 @@ return [
     |
     */
 
-    'models' => [
-        'page' => \App\Containers\Constructor\Page\Models\Page::class,
-    ],
-
 ];

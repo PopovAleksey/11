@@ -13,6 +13,7 @@ class PageRepository extends Repository implements PageRepositoryInterface
     protected $fieldSearchable = [
         'id'     => '=',
         'name'   => 'like',
+        'parent_page_id' => '=',
         'action' => '=',
     ];
 

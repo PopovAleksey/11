@@ -33,7 +33,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('constructor_language_index') }}" class="nav-link {{ route('constructor_language_index', [], false) === '/' . request()->path() ? 'active' : ''}}">
-                        <i class="fas fa-cogs"></i>&nbsp;
+                        <i class="fas fa-user-cog"></i>&nbsp;
                         <p>Settings</p>
                     </a>
                 </li>
@@ -50,6 +50,12 @@
                     <a href="{{ route('constructor_language_index') }}" class="nav-link {{ route('constructor_language_index', [], false) === '/' . request()->path() ? 'active' : ''}}">
                         <i class="far fa-file-code"></i>&nbsp;
                         <p>Templates</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('constructor_language_index') }}" class="nav-link {{ route('constructor_language_index', [], false) === '/' . request()->path() ? 'active' : ''}}">
+                        <i class="fas fa-link"></i>&nbsp;
+                        <p>SEO</p>
                     </a>
                 </li>
             </ul>

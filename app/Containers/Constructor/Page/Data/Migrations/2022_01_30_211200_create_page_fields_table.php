@@ -12,7 +12,7 @@ class CreatePageFieldsTable extends Migration
     {
         Schema::create('page_fields', static function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('page_id')->unsigned()->index('FK_page_fields_pages');
+            $table->bigInteger('page_id')->unsigned()->index('INDEX_page_fields_pages');
             $table->string('name');
             $table->enum(
                 'type',

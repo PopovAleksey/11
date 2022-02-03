@@ -21,9 +21,18 @@ class DeletePageTask extends Task implements DeletePageTaskInterface
     public function run(int $id): ?bool
     {
         try {
+            /**
+             * @var \App\Containers\Constructor\Page\Models\PageInterface $page
+             */
+            $page = $this->repository->find($id);
+
+            if ($page->parent_page_id !== null) {
+                throw new DeleteResourceFailedException('You can\'t delete child page!');
+            }
+
             return $this->repository->delete($id);
-        }
-        catch (Exception $exception) {
+
+        } catch (Exception) {
             throw new DeleteResourceFailedException();
         }
     }

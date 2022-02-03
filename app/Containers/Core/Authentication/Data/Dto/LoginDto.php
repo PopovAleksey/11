@@ -6,11 +6,17 @@ use PopovAleksey\Mapper\Mapper;
 
 class LoginDto extends Mapper
 {
-    private ?string $email = NULL;
+    private ?string $email      = null;
+    private ?string $password   = null;
+    private bool    $rememberMe = true;
 
-    private ?string $password = NULL;
-
-    private bool $rememberMe = true;
+    /**
+     * @return string|null
+     */
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
 
     /**
      * @param string|null $email
@@ -26,9 +32,9 @@ class LoginDto extends Mapper
     /**
      * @return string|null
      */
-    public function getEmail(): ?string
+    public function getPassword(): ?string
     {
-        return $this->email;
+        return $this->password;
     }
 
     /**
@@ -43,11 +49,11 @@ class LoginDto extends Mapper
     }
 
     /**
-     * @return string|null
+     * @return bool
      */
-    public function getPassword(): ?string
+    public function isRememberMe(): bool
     {
-        return $this->password;
+        return $this->rememberMe;
     }
 
     /**
@@ -59,13 +65,5 @@ class LoginDto extends Mapper
         $this->rememberMe = $rememberMe;
 
         return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isRememberMe(): bool
-    {
-        return $this->rememberMe;
     }
 }

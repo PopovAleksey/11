@@ -6,6 +6,7 @@ use App\Containers\Constructor\Page\Data\Dto\PageDto;
 use App\Containers\Constructor\Page\Data\Dto\PageFieldDto;
 use App\Containers\Constructor\Page\Data\Repositories\PageRepositoryInterface;
 use App\Containers\Constructor\Page\Models\PageFieldInterface;
+use App\Containers\Constructor\Page\Models\PageInterface;
 use App\Ship\Exceptions\NotFoundException;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
@@ -40,6 +41,20 @@ class FindPageByIdTask extends Task implements FindPageByIdTaskInterface
 
             if ($withFields === false) {
                 return $pageDto;
+            }
+
+            if ($pageDto->getType() === PageInterface::BLOG_TYPE) {
+                $childPage = $page->child_page;
+
+                $childPageDto = (new PageDto())
+                    ->setId($childPage->id)
+                    ->setName($childPage->name)
+                    ->setType($childPage->type)
+                    ->setActive($childPage->active)
+                    ->setCreateAt($childPage->created_at)
+                    ->setUpdateAt($childPage->updated_at);
+
+                $pageDto->setChildPage($childPageDto);
             }
 
             $fields = $page->fields->map(static function (PageFieldInterface $field) {
