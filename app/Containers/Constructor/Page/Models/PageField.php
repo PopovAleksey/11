@@ -12,7 +12,7 @@ class PageField extends Model implements PageFieldInterface
         'type',
         'placeholder',
         'mask',
-        'value',
+        'values',
         'active',
     ];
 
@@ -22,7 +22,7 @@ class PageField extends Model implements PageFieldInterface
         'type'        => 'string',
         'placeholder' => 'string',
         'mask'        => 'string',
-        'value'       => 'array',
+        'values'       => 'array',
         'active'      => 'boolean',
     ];
 

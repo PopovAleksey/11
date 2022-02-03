@@ -16,7 +16,7 @@ class CreatePageFieldsTable extends Migration
             $table->string('name');
             $table->enum(
                 'type',
-                ['input', 'textarea', 'select', 'select-multiple', 'radio', 'checkbox', 'file']
+                ['input', 'textarea', 'select', 'selectMultiple', 'radio', 'checkbox', 'file']
             )->default('input');
             $table->string('placeholder')->nullable();
             $table->string('mask')->nullable();

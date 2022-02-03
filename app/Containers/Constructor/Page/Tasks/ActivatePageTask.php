@@ -8,7 +8,7 @@ use App\Ship\Exceptions\UpdateResourceFailedException;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 
-class UpdatePageTask extends Task implements UpdatePageTaskInterface
+class ActivatePageTask extends Task implements ActivatePageTaskInterface
 {
     public function __construct(private PageRepositoryInterface $repository)
     {
@@ -22,13 +22,10 @@ class UpdatePageTask extends Task implements UpdatePageTaskInterface
     public function run(PageDto $data): PageDto
     {
         try {
-            $insert = $data->toArray();
-            unset($insert['fields']);
-
             /**
              * @var \App\Containers\Constructor\Page\Models\PageInterface $page
              */
-            $page = $this->repository->update($insert, $data->getId());
+            $page = $this->repository->update(['active' => $data->getActive()], $data->getId());
 
             return (new PageDto())
                 ->setId($page->id)

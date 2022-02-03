@@ -142,6 +142,22 @@ class PageFieldDto extends Mapper
     }
 
     /**
+     * @return string
+     */
+    public function getInputValue(): string
+    {
+        return last($this->getValues());
+    }
+
+    /**
+     * @return string
+     */
+    public function getListValue(): string
+    {
+        return implode(';', $this->getValues());
+    }
+
+    /**
      * @param array|string|null $values
      * @return $this
      */

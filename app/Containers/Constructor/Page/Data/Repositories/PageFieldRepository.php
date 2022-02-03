@@ -12,7 +12,12 @@ class PageFieldRepository extends Repository implements PageFieldRepositoryInter
      */
     protected $fieldSearchable = [
         'id' => '=',
-        // ...
+        'name'   => 'like',
+        'type' => '=',
+        'placeholder' => '=',
+        'mask'   => 'like',
+        'values'   => 'like',
+        'action' => '=',
     ];
 
 

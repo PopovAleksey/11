@@ -2,6 +2,8 @@
 
 namespace App\Containers\Constructor\Page\Providers;
 
+use App\Containers\Constructor\Page\Actions\ActivatePageAction;
+use App\Containers\Constructor\Page\Actions\ActivatePageActionInterface;
 use App\Containers\Constructor\Page\Actions\CreatePageAction;
 use App\Containers\Constructor\Page\Actions\CreatePageActionInterface;
 use App\Containers\Constructor\Page\Actions\DeletePageAction;
@@ -17,15 +19,25 @@ use App\Containers\Constructor\Page\Data\Repositories\PageFieldRepositoryInterfa
 use App\Containers\Constructor\Page\Data\Repositories\PageRepository;
 use App\Containers\Constructor\Page\Data\Repositories\PageRepositoryInterface;
 use App\Containers\Constructor\Page\Models\Page;
+use App\Containers\Constructor\Page\Models\PageField;
+use App\Containers\Constructor\Page\Models\PageFieldInterface;
 use App\Containers\Constructor\Page\Models\PageInterface;
+use App\Containers\Constructor\Page\Tasks\ActivatePageTask;
+use App\Containers\Constructor\Page\Tasks\ActivatePageTaskInterface;
+use App\Containers\Constructor\Page\Tasks\CreateFieldTask;
+use App\Containers\Constructor\Page\Tasks\CreateFieldTaskInterface;
 use App\Containers\Constructor\Page\Tasks\CreatePageTask;
 use App\Containers\Constructor\Page\Tasks\CreatePageTaskInterface;
+use App\Containers\Constructor\Page\Tasks\DeleteFieldTask;
+use App\Containers\Constructor\Page\Tasks\DeleteFieldTaskInterface;
 use App\Containers\Constructor\Page\Tasks\DeletePageTask;
 use App\Containers\Constructor\Page\Tasks\DeletePageTaskInterface;
 use App\Containers\Constructor\Page\Tasks\FindPageByIdTask;
 use App\Containers\Constructor\Page\Tasks\FindPageByIdTaskInterface;
 use App\Containers\Constructor\Page\Tasks\GetAllPagesTask;
 use App\Containers\Constructor\Page\Tasks\GetAllPagesTaskInterface;
+use App\Containers\Constructor\Page\Tasks\UpdateFieldTask;
+use App\Containers\Constructor\Page\Tasks\UpdateFieldTaskInterface;
 use App\Containers\Constructor\Page\Tasks\UpdatePageTask;
 use App\Containers\Constructor\Page\Tasks\UpdatePageTaskInterface;
 use App\Ship\Parents\Providers\MainProvider;
@@ -50,6 +62,7 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(FindPageByIdActionInterface::class, FindPageByIdAction::class);
         $this->app->bind(GetAllPagesActionInterface::class, GetAllPagesAction::class);
         $this->app->bind(UpdatePageActionInterface::class, UpdatePageAction::class);
+        $this->app->bind(ActivatePageActionInterface::class, ActivatePageAction::class);
     }
 
     private function bindTasks(): void
@@ -59,6 +72,12 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(FindPageByIdTaskInterface::class, FindPageByIdTask::class);
         $this->app->bind(GetAllPagesTaskInterface::class, GetAllPagesTask::class);
         $this->app->bind(UpdatePageTaskInterface::class, UpdatePageTask::class);
+        
+        $this->app->bind(ActivatePageTaskInterface::class, ActivatePageTask::class);
+
+        $this->app->bind(CreateFieldTaskInterface::class, CreateFieldTask::class);
+        $this->app->bind(UpdateFieldTaskInterface::class, UpdateFieldTask::class);
+        $this->app->bind(DeleteFieldTaskInterface::class, DeleteFieldTask::class);
     }
 
     private function bindRepositories(): void
@@ -70,5 +89,6 @@ class MainServiceProvider extends MainProvider
     private function bindModels(): void
     {
         $this->app->bind(PageInterface::class, Page::class);
+        $this->app->bind(PageFieldInterface::class, PageField::class);
     }
 }
