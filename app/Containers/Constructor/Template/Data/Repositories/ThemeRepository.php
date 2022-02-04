@@ -11,8 +11,9 @@ class ThemeRepository extends Repository implements ThemeRepositoryInterface
      * @var array
      */
     protected $fieldSearchable = [
-        'id' => '=',
-        // ...
+        'id'     => '=',
+        'name'   => 'like',
+        'active' => '=',
     ];
 
     public function model(): string

@@ -21,7 +21,7 @@ class CreateTemplatesTable extends Migration
             ])->default(TemplateInterface::PAGE_TYPE);
             $table->bigInteger('theme_id')->unsigned()->index('INDEX_templates_themes');
             $table->bigInteger('page_id')->unsigned()->nullable()->index('INDEX_templates_pages');
-            $table->bigInteger('language_id')->unsigned()->index('INDEX_templates_languages');
+            $table->bigInteger('language_id')->unsigned()->nullable()->index('INDEX_templates_languages');
             $table->longText('html')->nullable();
             $table->timestamps();
 

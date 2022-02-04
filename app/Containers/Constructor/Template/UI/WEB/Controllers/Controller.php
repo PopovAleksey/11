@@ -2,15 +2,17 @@
 
 namespace App\Containers\Constructor\Template\UI\WEB\Controllers;
 
-use Apiato\Core\Foundation\Facades\Apiato;
-use App\Containers\Constructor\Page\Actions\GetAllPagesActionInterface;
+use App\Containers\Constructor\Template\Actions\ActivateThemeActionInterface;
 use App\Containers\Constructor\Template\Actions\CreateTemplateActionInterface;
 use App\Containers\Constructor\Template\Actions\DeleteTemplateActionInterface;
 use App\Containers\Constructor\Template\Actions\FindTemplateByIdActionInterface;
 use App\Containers\Constructor\Template\Actions\GetAllTemplatesActionInterface;
+use App\Containers\Constructor\Template\Actions\GetAllThemesActionInterface;
 use App\Containers\Constructor\Template\Actions\UpdateTemplateActionInterface;
+use App\Containers\Constructor\Template\Actions\UpdateThemeActionInterface;
 use App\Containers\Constructor\Template\UI\WEB\Requests\StoreTemplateRequest;
 use App\Containers\Constructor\Template\UI\WEB\Requests\UpdateTemplateRequest;
+use App\Containers\Constructor\Template\UI\WEB\Requests\UpdateThemeRequest;
 use App\Ship\Parents\Controllers\WebController;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -20,22 +22,26 @@ use Illuminate\Http\JsonResponse;
 class Controller extends WebController
 {
     public function __construct(
-        private GetAllTemplatesActionInterface     $getAllTemplatesAction,
-        private CreateTemplateActionInterface      $createTemplateAction,
-        private FindTemplateByIdActionInterface    $findTemplateByIdAction,
-        private UpdateTemplateActionInterface      $updateTemplateAction,
-        private DeleteTemplateActionInterface      $deleteTemplateAction
+        private GetAllTemplatesActionInterface  $getAllTemplatesAction,
+        private CreateTemplateActionInterface   $createTemplateAction,
+        private FindTemplateByIdActionInterface $findTemplateByIdAction,
+        private UpdateTemplateActionInterface   $updateTemplateAction,
+        private DeleteTemplateActionInterface   $deleteTemplateAction,
+        private GetAllThemesActionInterface     $getAllThemesAction,
+        private UpdateThemeActionInterface      $updateThemeAction,
+        private ActivateThemeActionInterface    $activateThemeAction
     )
     {
     }
 
     public function index(): Factory|View|Application
     {
-        $templates = $this->getAllTemplatesAction->run();
 
-        dd(callAction('Constructor', 'Page', 'sGetAllPagesActionInterface'));
-        dd(app('App\Containers\Constructor\Page\Actions\GetAllPagesActionInterface')->run());
-        return view('constructor.base');
+        //callAction('Constructor@Page::GetAllPagesActionInterface'),
+
+        return view('constructor@template::list', [
+            'list' => $this->getAllThemesAction->run(),
+        ]);
     }
 
     public function show(int $id): Factory|View|Application
@@ -71,6 +77,22 @@ class Controller extends WebController
         $this->updateTemplateAction->run($data);
 
         return response()->json()->setStatusCode(200);
+    }
+
+    /**
+     * @param int                                                                     $id
+     * @param \App\Containers\Constructor\Template\UI\WEB\Requests\UpdateThemeRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function activate(int $id, UpdateThemeRequest $request): JsonResponse
+    {
+        $data = $request->mapped()->setName(null)->setId($id);
+
+        $theme = $this->activateThemeAction->run($data);
+
+        return response()
+            ->json(['id' => $theme->getId()])
+            ->setStatusCode(200);
     }
 
     public function destroy(int $id): JsonResponse

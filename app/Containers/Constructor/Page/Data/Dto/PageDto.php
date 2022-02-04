@@ -12,7 +12,7 @@ class PageDto extends Mapper
     private ?string $type   = null;
     private ?bool   $active = null;
     /**
-     * @var App\Containers\Constructor\Page\Data\Dto\PageFieldDto[]
+     * @var \App\Containers\Constructor\Page\Data\Dto\PageFieldDto[]
      */
     private array    $fields    = [];
     private ?PageDto $childPage = null;

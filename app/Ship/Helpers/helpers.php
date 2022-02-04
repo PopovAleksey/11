@@ -10,14 +10,35 @@
 | All files under app/{section_name}/{container_name}/Helpers/ folder will be autoloaded by Apiato.
 |
 */
+
+use Apiato\Core\Foundation\Facades\Apiato;
+
 if (!function_exists('callFromContainer')) {
     /**
-     * @format Section@Container::interfaceClassName
-     *
+     * @param string $call
      * @return mixed
      */
-    function callAction(string $call)
+    function callAction(string $call): mixed
     {
-        #return app("App\Containers\\$section\\$container\Actions\\$interfaceClasName")->run();
+        preg_match("/^(\w+)@(\w+)::(\w+)$/", $call, $matches);
+        $section   = data_get($matches, 1);
+        $container = data_get($matches, 2);
+        $action    = data_get($matches, 3);
+
+        if (!in_array($section, Apiato::getSectionNames(), true)) {
+            return null;
+        }
+
+        if (!in_array($container, Apiato::getSectionContainerNames($section), true)) {
+            return null;
+        }
+
+        preg_match("/^(\w+)ActionInterface$/", $action, $matches);
+
+        if (empty($matches)) {
+            return null;
+        }
+
+        return app("App\Containers\\$section\\$container\Actions\\$action")->run();
     }
 }

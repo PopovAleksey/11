@@ -11,8 +11,12 @@ class TemplateRepository extends Repository implements TemplateRepositoryInterfa
      * @var array
      */
     protected $fieldSearchable = [
-        'id' => '=',
-        // ...
+        'id'          => '=',
+        'type'        => '=',
+        'theme_id'    => '=',
+        'page_id'     => '=',
+        'language_id' => '=',
+        'html'        => 'like',
     ];
 
     public function model(): string

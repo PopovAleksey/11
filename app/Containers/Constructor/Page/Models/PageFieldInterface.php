@@ -18,7 +18,7 @@ use Illuminate\Support\Carbon;
  * @property bool                                                       $active
  * @property Carbon                                                     $created_at
  * @property Carbon                                                     $updated_at
- * @property-read \App\Containers\Constructor\Page\Models\PageInterface $page
+ * @property-read PageInterface $page
  */
 interface PageFieldInterface
 {
