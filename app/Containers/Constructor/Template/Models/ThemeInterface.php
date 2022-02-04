@@ -12,10 +12,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon  $created_at
  * @property Carbon  $updated_at
  */
-interface TemplateInterface
+interface ThemeInterface
 {
-    public const BASE_TYPE = 'base';
-    public const JS_TYPE   = 'js';
-    public const CSS_TYPE  = 'css';
-    public const PAGE_TYPE = 'page';
 }

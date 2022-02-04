@@ -2,6 +2,8 @@
 
 namespace App\Containers\Constructor\Template\UI\WEB\Controllers;
 
+use Apiato\Core\Foundation\Facades\Apiato;
+use App\Containers\Constructor\Page\Actions\GetAllPagesActionInterface;
 use App\Containers\Constructor\Template\Actions\CreateTemplateActionInterface;
 use App\Containers\Constructor\Template\Actions\DeleteTemplateActionInterface;
 use App\Containers\Constructor\Template\Actions\FindTemplateByIdActionInterface;
@@ -31,6 +33,8 @@ class Controller extends WebController
     {
         $templates = $this->getAllTemplatesAction->run();
 
+        dd(callAction('Constructor', 'Page', 'sGetAllPagesActionInterface'));
+        dd(app('App\Containers\Constructor\Page\Actions\GetAllPagesActionInterface')->run());
         return view('constructor.base');
     }
 

@@ -1,6 +1,6 @@
 {
-  "name": "apiato/page",
-  "description": "Page Container for apiato.",
+  "name": "aleksey-popov/page-constructor-page",
+  "description": "Page Constructor",
   "require": {
   }
 }

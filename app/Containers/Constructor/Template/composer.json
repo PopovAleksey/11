@@ -1,6 +1,6 @@
 {
-  "name": "apiato/template",
-  "description": "Template Container for apiato.",
+  "name": "aleksey-popov/page-constructor-template",
+  "description": "Template Constructor",
   "require": {
   }
 }
