@@ -86,23 +86,21 @@
             });
 
             $('#create-page').on('click', function () {
-                let pageType = $('.select-type').find(':selected').val();
-                let pageName = $('.page-name').val();
-                if (pageType === '' || pageName === '') {
+                let themeName = $('.page-name').val();
+                if (themeName === '') {
                     return;
                 }
 
                 $('#create-page').prop("disabled", true);
 
                 $.ajax({
-                    url: '{{ route('constructor_page_store') }}',
+                    url: '{{ route('constructor_theme_create') }}',
                     type: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
                     data: {
-                        'name': pageName,
-                        'type': pageType
+                        'name': themeName
                     },
                     success: function (response) {
                         if (response.id === undefined) {
@@ -247,21 +245,12 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Create new Page</h4>
+                                        <h4 class="modal-title">Create new Theme</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="form-group">
-                                            <label>Page Type</label>
-                                            <select class="form-control select-type" style="width: 100%;">
-                                                <option value="simple">Simple Page</option>
-                                                <option value="blog">Blog Page</option>
-                                                <option value="category">Category</option>
-                                            </select>
-                                        </div>
-
                                         <div class="form-group">
                                             <label>Name</label>
                                             <input type="text" class="form-control page-name"

@@ -6,10 +6,16 @@ use App\Containers\Constructor\Template\Actions\ActivateThemeAction;
 use App\Containers\Constructor\Template\Actions\ActivateThemeActionInterface;
 use App\Containers\Constructor\Template\Actions\CreateTemplateAction;
 use App\Containers\Constructor\Template\Actions\CreateTemplateActionInterface;
+use App\Containers\Constructor\Template\Actions\CreateThemeAction;
+use App\Containers\Constructor\Template\Actions\CreateThemeActionInterface;
 use App\Containers\Constructor\Template\Actions\DeleteTemplateAction;
 use App\Containers\Constructor\Template\Actions\DeleteTemplateActionInterface;
+use App\Containers\Constructor\Template\Actions\DeleteThemeAction;
+use App\Containers\Constructor\Template\Actions\DeleteThemeActionInterface;
 use App\Containers\Constructor\Template\Actions\FindTemplateByIdAction;
 use App\Containers\Constructor\Template\Actions\FindTemplateByIdActionInterface;
+use App\Containers\Constructor\Template\Actions\FindThemeByIdAction;
+use App\Containers\Constructor\Template\Actions\FindThemeByIdActionInterface;
 use App\Containers\Constructor\Template\Actions\GetAllTemplatesAction;
 use App\Containers\Constructor\Template\Actions\GetAllTemplatesActionInterface;
 use App\Containers\Constructor\Template\Actions\GetAllThemesAction;
@@ -30,8 +36,12 @@ use App\Containers\Constructor\Template\Tasks\ActivateThemeTask;
 use App\Containers\Constructor\Template\Tasks\ActivateThemeTaskInterface;
 use App\Containers\Constructor\Template\Tasks\CreateTemplateTask;
 use App\Containers\Constructor\Template\Tasks\CreateTemplateTaskInterface;
+use App\Containers\Constructor\Template\Tasks\CreateThemeTask;
+use App\Containers\Constructor\Template\Tasks\CreateThemeTaskInterface;
 use App\Containers\Constructor\Template\Tasks\DeleteTemplateTask;
 use App\Containers\Constructor\Template\Tasks\DeleteTemplateTaskInterface;
+use App\Containers\Constructor\Template\Tasks\DeleteThemeTask;
+use App\Containers\Constructor\Template\Tasks\DeleteThemeTaskInterface;
 use App\Containers\Constructor\Template\Tasks\FindTemplateByIdTask;
 use App\Containers\Constructor\Template\Tasks\FindTemplateByIdTaskInterface;
 use App\Containers\Constructor\Template\Tasks\GetAllTemplatesTask;
@@ -42,6 +52,8 @@ use App\Containers\Constructor\Template\Tasks\UpdateTemplateTask;
 use App\Containers\Constructor\Template\Tasks\UpdateTemplateTaskInterface;
 use App\Containers\Constructor\Template\Tasks\UpdateThemeTask;
 use App\Containers\Constructor\Template\Tasks\UpdateThemeTaskInterface;
+use App\Containers\Constuctor\Template\Tasks\FindThemeByIdTask;
+use App\Containers\Constuctor\Template\Tasks\FindThemeByIdTaskInterface;
 use App\Ship\Parents\Providers\MainProvider;
 
 
@@ -66,8 +78,11 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(UpdateTemplateActionInterface::class, UpdateTemplateAction::class);
 
         $this->app->bind(GetAllThemesActionInterface::class, GetAllThemesAction::class);
+        $this->app->bind(CreateThemeActionInterface::class, CreateThemeAction::class);
+        $this->app->bind(FindThemeByIdActionInterface::class, FindThemeByIdAction::class);
         $this->app->bind(UpdateThemeActionInterface::class, UpdateThemeAction::class);
         $this->app->bind(ActivateThemeActionInterface::class, ActivateThemeAction::class);
+        $this->app->bind(DeleteThemeActionInterface::class, DeleteThemeAction::class);
     }
 
     private function bindTasks(): void
@@ -79,8 +94,11 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(UpdateTemplateTaskInterface::class, UpdateTemplateTask::class);
 
         $this->app->bind(GetAllThemesTaskInterface::class, GetAllThemesTask::class);
+        $this->app->bind(CreateThemeTaskInterface::class, CreateThemeTask::class);
+        $this->app->bind(FindThemeByIdTaskInterface::class, FindThemeByIdTask::class);
         $this->app->bind(UpdateThemeTaskInterface::class, UpdateThemeTask::class);
         $this->app->bind(ActivateThemeTaskInterface::class, ActivateThemeTask::class);
+        $this->app->bind(DeleteThemeTaskInterface::class, DeleteThemeTask::class);
     }
 
     private function bindRepositories(): void
