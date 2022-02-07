@@ -165,7 +165,7 @@
                             @foreach($theme->getTemplates() as $item)
                                 <tr>
                                     <td>{{ $item->getId() }}</td>
-                                    <td>{{ $item->getType() }}</td>
+                                    <td>{{ $item->getType() }}{{ $item->getType() === \App\Containers\Constructor\Template\Models\TemplateInterface::PAGE_TYPE ? ' [' . $item?->getPage()->getName() . ']' : '' }}</td>
                                     <td>{{ $item->getLanguage() ?? 'General' }}</td>
                                     <td class="dt-right">
                                         <div class="btn-group">

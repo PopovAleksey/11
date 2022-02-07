@@ -87,7 +87,7 @@ class FindTemplateByIdTask extends Task implements FindTemplateByIdTaskInterface
                 ->setUpdateAt($pageField->updated_at);
         })->toArray();
 
-        return (new PageDto())
+        $pageDto = (new PageDto())
             ->setId($pageModel->id)
             ->setName($pageModel->name)
             ->setActive($pageModel->active)
@@ -95,6 +95,15 @@ class FindTemplateByIdTask extends Task implements FindTemplateByIdTaskInterface
             ->setFields($fields)
             ->setCreateAt($pageModel->created_at)
             ->setUpdateAt($pageModel->updated_at);
+
+        if (
+            $pageModel->type === PageInterface::BLOG_TYPE &&
+            $childPageDto = $this->buildPageDto($pageModel->child_page)
+        ) {
+            $pageDto->setChildPage($childPageDto);
+        }
+
+        return $pageDto;
     }
 
     /**
