@@ -1,7 +1,7 @@
 @extends('constructor.base')
 
-@section('title', 'Themes | List')
-@section('page-title', 'Themes List')
+@section('title', 'Theme ' . $theme->getName() . ' | List')
+@section('page-title', 'Theme ' . $theme->getName())
 
 @section('css')
     <!-- DataTables -->
@@ -59,55 +59,35 @@
                 timer: 3000
             });
 
-            $("input[data-bootstrap-switch]").each(function () {
-                $(this).bootstrapSwitch('state', $(this).prop('checked'))
-                    .on('switchChange.bootstrapSwitch', function (event, state) {
-                        $.ajax({
-                            url: '{{ route('constructor_theme_activate', ':id') }}'.replace(':id', $(this).attr('data-id')),
-                            type: 'PATCH',
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            },
-                            data: {
-                                'active': state === true ? 1 : 0
-                            },
-
-                            success: function () {
-                                location.href = '{{ route('constructor_template_index') }}';
-                            },
-                            error: function (error) {
-                                Toast.fire({
-                                    icon: 'error',
-                                    title: error.responseJSON.message
-                                })
-                            }
-                        })
-                    });
-            });
-
             $('#create-page').on('click', function () {
-                let themeName = $('.page-name').val();
-                if (themeName === '') {
+                let templateType = $('.select-type').val();
+                let pageId = $('.select-page').val();
+                let languageId = $('.select-language').val();
+
+                if (templateType === '') {
                     return;
                 }
 
                 $('#create-page').prop("disabled", true);
 
                 $.ajax({
-                    url: '{{ route('constructor_theme_store') }}',
+                    url: '{{ route('constructor_template_store') }}',
                     type: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
                     data: {
-                        'name': themeName
+                        'type': templateType,
+                        'theme_id': {{ $theme->getId() }},
+                        'page_id': pageId,
+                        'language_id': languageId
                     },
                     success: function (response) {
                         if (response.id === undefined) {
                             $('#create-page').prop("disabled", false);
                             return;
                         }
-                        location.href = '{{ route('constructor_theme_edit', ':id') }}'.replace(':id', response.id);
+                        location.href = '{{ route('constructor_template_edit', ':id') }}'.replace(':id', response.id);
                     },
                     error: function (error) {
                         Toast.fire({
@@ -133,7 +113,7 @@
                 $('#delete-page').prop("disabled", true);
 
                 $.ajax({
-                    url: '{{ route('constructor_theme_destroy', ':id') }}'.replace(':id', deletePageId),
+                    url: '{{ route('constructor_template_destroy', ':id') }}'.replace(':id', deletePageId),
                     type: 'DELETE',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -156,7 +136,8 @@
 
 @section('breadcrumb')
     @parent
-    <li class="breadcrumb-item active">Themes</li>
+    <li class="breadcrumb-item"><a href="{{ route('constructor_template_index') }}">Themes</a></li>
+    <li class="breadcrumb-item active">{{ $theme->getName() }}</li>
 @stop
 
 @section('content')
@@ -169,36 +150,27 @@
                         <button type="button" class="btn bg-gradient-primary create-language" data-toggle="modal"
                                 data-target="#modal-create">
                             <i class="fas fa-plus-square"></i>&nbsp;
-                            Add Theme
+                            Add Template
                         </button>
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
-                                <th class="dt-center">Is Active</th>
+                                <th>Type</th>
+                                <th>Language</th>
                                 <th class="dt-right">Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($list as $item)
+                            @foreach($theme->getTemplates() as $item)
                                 <tr>
                                     <td>{{ $item->getId() }}</td>
-                                    <td>{{ $item->getName() }}</td>
-                                    <td class="dt-center">
-                                        <div class="bootstrap-switch-container" style="width: 126px; margin-left: 0px;">
-                                            <input type="checkbox" name="my-checkbox"
-                                                   data-id="{{ $item->getId() }}"
-                                                   {{ $item->getActive() === true ? 'checked=""' : '' }}
-                                                   data-bootstrap-switch=""
-                                                   data-off-color="danger"
-                                                   data-on-color="success">
-                                        </div>
-                                    </td>
+                                    <td>{{ $item->getType() }}</td>
+                                    <td>{{ $item->getLanguage() ?? 'General' }}</td>
                                     <td class="dt-right">
                                         <div class="btn-group">
                                             <button type="button" class="btn bg-gradient-primary btn-sm"
-                                                    onclick="location.href='{{ route('constructor_theme_edit', $item->getId()) }}'">
+                                                    onclick="location.href='{{ route('constructor_template_edit', $item->getId()) }}'">
                                                 <i class="fas fa-cog"></i>
                                                 Configuration
                                             </button>
@@ -226,13 +198,12 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Are you sure that you want remove one of the language. It will delete all
-                                            information and content of this language.</p>
+                                        <p>Are you sure that you want remove one of the template?</p>
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                                         <button type="button" class="btn btn-danger" id="delete-page">Yes, remove
-                                            this language!
+                                            this template!
                                         </button>
                                     </div>
                                 </div>
@@ -252,9 +223,29 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group">
-                                            <label>Name</label>
-                                            <input type="text" class="form-control page-name"
-                                                   placeholder="Enter name ...">
+                                            <label>Template Type</label>
+                                            <select class="form-control select-type" style="width: 100%;">
+                                                @foreach ($types as $type)
+                                                    <option value="{{ $type }}">{{ $type }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>For Page</label>
+                                            <select class="form-control select-page" style="width: 100%;">
+                                                @foreach ($pages as $page)
+                                                    <option value="{{ $page->getId() }}">{{ $page->getName() }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Language</label>
+                                            <select class="form-control select-language" style="width: 100%;">
+                                                <option value="">General</option>
+                                                @foreach ($languages as $language)
+                                                    <option value="{{ $language->getId() }}">{{ $language->getName() }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="modal-footer justify-content-between">

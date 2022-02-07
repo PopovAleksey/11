@@ -2,6 +2,8 @@
 
 namespace App\Containers\Constructor\Template\Models;
 
+use App\Containers\Constructor\Language\Models\Language;
+use App\Containers\Constructor\Language\Models\LanguageInterface;
 use App\Containers\Constructor\Page\Models\Page;
 use App\Containers\Constructor\Page\Models\PageInterface;
 use App\Ship\Parents\Models\Model;
@@ -44,11 +46,19 @@ class Template extends Model implements TemplateInterface
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model|\App\Containers\Constructor\Page\Models\PageInterface
+     * @return \Illuminate\Database\Eloquent\Model|\App\Containers\Constructor\Page\Models\PageInterface|null
      */
-    public function getPageAttribute(): \Illuminate\Database\Eloquent\Model|PageInterface
+    public function getPageAttribute(): \Illuminate\Database\Eloquent\Model|PageInterface|null
     {
         return $this->hasOne(Page::class, 'id', 'page_id')->first();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Model|\App\Containers\Constructor\Language\Models\LanguageInterface|null
+     */
+    public function getLanguageAttribute(): \Illuminate\Database\Eloquent\Model|LanguageInterface|null
+    {
+        return $this->hasOne(Language::class, 'id', 'language_id')->first();
     }
 
 

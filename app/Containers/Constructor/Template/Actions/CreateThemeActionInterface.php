@@ -6,5 +6,5 @@ use App\Containers\Constructor\Template\Data\Dto\ThemeDto;
 
 interface CreateThemeActionInterface
 {
-    public function run(ThemeDto $data): bool;
+    public function run(ThemeDto $data): int;
 }

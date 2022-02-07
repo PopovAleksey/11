@@ -15,7 +15,7 @@ use Apiato\Core\Foundation\Facades\Apiato;
 
 if (!function_exists('callFromContainer')) {
     /**
-     * @param string $call
+     * @param string $call = 'Section@Container::ActionInterface'
      * @return mixed
      */
     function callAction(string $call): mixed

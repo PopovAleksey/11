@@ -6,5 +6,5 @@ use App\Containers\Constructor\Template\Data\Dto\TemplateDto;
 
 interface CreateTemplateTaskInterface
 {
-    public function run(TemplateDto $data);
+    public function run(TemplateDto $data): int;
 }

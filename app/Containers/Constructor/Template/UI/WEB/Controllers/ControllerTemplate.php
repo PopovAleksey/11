@@ -5,7 +5,6 @@ namespace App\Containers\Constructor\Template\UI\WEB\Controllers;
 use App\Containers\Constructor\Template\Actions\CreateTemplateActionInterface;
 use App\Containers\Constructor\Template\Actions\DeleteTemplateActionInterface;
 use App\Containers\Constructor\Template\Actions\FindTemplateByIdActionInterface;
-use App\Containers\Constructor\Template\Actions\GetAllTemplatesActionInterface;
 use App\Containers\Constructor\Template\Actions\UpdateTemplateActionInterface;
 use App\Containers\Constructor\Template\UI\WEB\Requests\StoreTemplateRequest;
 use App\Containers\Constructor\Template\UI\WEB\Requests\UpdateTemplateRequest;
@@ -18,7 +17,6 @@ use Illuminate\Http\JsonResponse;
 class ControllerTemplate extends WebController
 {
     public function __construct(
-        private GetAllTemplatesActionInterface  $getAllTemplatesAction,
         private CreateTemplateActionInterface   $createTemplateAction,
         private FindTemplateByIdActionInterface $findTemplateByIdAction,
         private UpdateTemplateActionInterface   $updateTemplateAction,
@@ -27,23 +25,11 @@ class ControllerTemplate extends WebController
     {
     }
 
-    public function show(int $id): Factory|View|Application
-    {
-        $template = $this->findTemplateByIdAction->run($id);
-
-        return view('constructor.base');
-    }
-
-    public function create(): Factory|View|Application
-    {
-        return view('constructor.base');
-    }
-
     public function store(StoreTemplateRequest $request): JsonResponse
     {
-        $this->createTemplateAction->run($request->mapped());
+        $templateId = $this->createTemplateAction->run($request->mapped());
 
-        return response()->json()->setStatusCode(200);
+        return response()->json(['id' => $templateId])->setStatusCode(200);
     }
 
     public function edit(int $id): Factory|View|Application

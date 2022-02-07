@@ -44,6 +44,8 @@ use App\Containers\Constructor\Template\Tasks\DeleteThemeTask;
 use App\Containers\Constructor\Template\Tasks\DeleteThemeTaskInterface;
 use App\Containers\Constructor\Template\Tasks\FindTemplateByIdTask;
 use App\Containers\Constructor\Template\Tasks\FindTemplateByIdTaskInterface;
+use App\Containers\Constructor\Template\Tasks\FindThemeByIdTask;
+use App\Containers\Constructor\Template\Tasks\FindThemeByIdTaskInterface;
 use App\Containers\Constructor\Template\Tasks\GetAllTemplatesTask;
 use App\Containers\Constructor\Template\Tasks\GetAllTemplatesTaskInterface;
 use App\Containers\Constructor\Template\Tasks\GetAllThemesTask;
@@ -52,8 +54,6 @@ use App\Containers\Constructor\Template\Tasks\UpdateTemplateTask;
 use App\Containers\Constructor\Template\Tasks\UpdateTemplateTaskInterface;
 use App\Containers\Constructor\Template\Tasks\UpdateThemeTask;
 use App\Containers\Constructor\Template\Tasks\UpdateThemeTaskInterface;
-use App\Containers\Constuctor\Template\Tasks\FindThemeByIdTask;
-use App\Containers\Constuctor\Template\Tasks\FindThemeByIdTaskInterface;
 use App\Ship\Parents\Providers\MainProvider;
 
 

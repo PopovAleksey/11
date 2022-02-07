@@ -14,7 +14,7 @@ class CreateTemplateAction extends Action implements CreateTemplateActionInterfa
     {
     }
 
-    public function run(TemplateDto $data): bool
+    public function run(TemplateDto $data): int
     {
         return $this->createTemplateTask->run($data);
     }

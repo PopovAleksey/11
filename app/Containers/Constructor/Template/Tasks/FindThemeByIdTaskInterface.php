@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Containers\Constuctor\Template\Tasks;
+namespace App\Containers\Constructor\Template\Tasks;
 
 use App\Containers\Constructor\Template\Data\Dto\ThemeDto;
 

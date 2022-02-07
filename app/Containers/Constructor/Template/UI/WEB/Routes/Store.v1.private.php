@@ -8,7 +8,7 @@ Route::post('constructor/theme/store', [ControllerTheme::class, 'store'])
     ->name('constructor_theme_store')
     ->middleware(['auth:web']);
 
-Route::post('constructor/templates/store', [ControllerTemplate::class, 'store'])
+Route::post('constructor/template/store', [ControllerTemplate::class, 'store'])
     ->name('constructor_template_store')
     ->middleware(['auth:web']);
 

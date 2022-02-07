@@ -8,7 +8,7 @@ Route::get('constructor/theme/{id}', [ControllerTheme::class, 'show'])
     ->name('constructor_theme_show')
     ->middleware(['auth:web']);
 
-Route::get('constructor/templates/{id}', [ControllerTemplate::class, 'show'])
+Route::get('constructor/template/{id}', [ControllerTemplate::class, 'show'])
     ->name('constructor_template_show')
     ->middleware(['auth:web']);
 

@@ -6,5 +6,5 @@ use App\Containers\Constructor\Template\Data\Dto\ThemeDto;
 
 interface CreateThemeTaskInterface
 {
-    public function run(ThemeDto $data);
+    public function run(ThemeDto $data): ThemeDto;
 }
