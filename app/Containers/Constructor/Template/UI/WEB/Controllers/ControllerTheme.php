@@ -35,6 +35,9 @@ class ControllerTheme extends WebController
     {
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+     */
     public function index(): Factory|View|Application
     {
         return view('constructor@template::list', [
@@ -42,13 +45,23 @@ class ControllerTheme extends WebController
         ]);
     }
 
+    /**
+     * @param \App\Containers\Constructor\Template\UI\WEB\Requests\StoreThemeRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(StoreThemeRequest $request): JsonResponse
     {
         $id = $this->createThemeAction->run($request->mapped());
 
-        return response()->json(['id' => $id])->setStatusCode(200);
+        return response()
+            ->json(['id' => $id])
+            ->setStatusCode(200);
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+     */
     public function edit(int $id): Factory|View|Application
     {
         $types = [
@@ -66,13 +79,20 @@ class ControllerTheme extends WebController
         ]);
     }
 
+    /**
+     * @param int                                                                        $id
+     * @param \App\Containers\Constructor\Template\UI\WEB\Requests\UpdateTemplateRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(int $id, UpdateTemplateRequest $request): JsonResponse
     {
         $data = $request->mapped()->setId($id);
 
         $this->updateThemeAction->run($data);
 
-        return response()->json()->setStatusCode(200);
+        return response()
+            ->json()
+            ->setStatusCode(200);
     }
 
     /**
@@ -91,6 +111,10 @@ class ControllerTheme extends WebController
             ->setStatusCode(200);
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function destroy(int $id): JsonResponse
     {
         $this->deleteThemeAction->run($id);

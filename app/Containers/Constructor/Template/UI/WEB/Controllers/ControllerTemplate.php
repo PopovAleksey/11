@@ -35,7 +35,7 @@ class ControllerTemplate extends WebController
     public function edit(int $id): Factory|View|Application
     {
         $template = $this->findTemplateByIdAction->run($id);
-
+dd($template);
         return view('constructor.base');
     }
 
