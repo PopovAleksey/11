@@ -50,8 +50,10 @@
 @section('breadcrumb')
     @parent
     <li class="breadcrumb-item"><a href="{{ route('constructor_template_index') }}">Themes</a></li>
-    <li class="breadcrumb-item"><a
-                href="{{ route('constructor_theme_edit', ['id' => $template->getTheme()->getId()]) }}">{{ $template->getTheme()->getName() }}</a>
+    <li class="breadcrumb-item">
+        <a href="{{ route('constructor_theme_edit', ['id' => $template->getTheme()->getId()]) }}">
+            {{ $template->getTheme()->getName() }}
+        </a>
     </li>
     <li class="breadcrumb-item active">{{ $template->getType() }}{{ $template->getType() === \App\Containers\Constructor\Template\Models\TemplateInterface::PAGE_TYPE ? ' [' . $template?->getPage()->getName() . ']' : '' }}</li>
 @stop
