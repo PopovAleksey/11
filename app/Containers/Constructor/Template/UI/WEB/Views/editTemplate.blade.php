@@ -64,16 +64,18 @@
             <div class="col-12 col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        @if($template->getPage()->getType() === \App\Containers\Constructor\Page\Models\PageInterface::BLOG_TYPE)
+                        @if($template->getPage()?->getType() === \App\Containers\Constructor\Page\Models\PageInterface::BLOG_TYPE)
                         <div class="btn-group margin-10">
-                            <button type="button" class="btn btn-info" id="page-content" data-id="">Content</button>
+                            <button type="button" class="btn btn-info" id="blog-content" data-id="">Content</button>
                         </div>
                         @endif
                         <div class="btn-group margin-10">
-                            @foreach($template->getPage()->getFields() as $field)
-                                <button type="button" class="btn btn-default" id="blog-field"
+                            @if($template->getPage() !== null)
+                            @foreach($template->getPage()?->getFields() as $field)
+                                <button type="button" class="btn btn-default" id="page-field"
                                         data-id="{{$field->getId()}}">{{$field->getName()}}</button>
                             @endforeach
+                            @endif
                         </div>
                     </div>
                     <div class="card-body">
