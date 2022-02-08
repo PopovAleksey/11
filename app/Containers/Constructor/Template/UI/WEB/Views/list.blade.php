@@ -226,13 +226,12 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Are you sure that you want remove one of the language. It will delete all
-                                            information and content of this language.</p>
+                                        <p>Are you sure that you want to remove one of the theme.</p>
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                                         <button type="button" class="btn btn-danger" id="delete-page">Yes, remove
-                                            this language!
+                                            this theme!
                                         </button>
                                     </div>
                                 </div>

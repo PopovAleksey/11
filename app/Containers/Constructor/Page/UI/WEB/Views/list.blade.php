@@ -206,11 +206,11 @@
                                     <td class="dt-right">
                                         <div class="btn-group">
                                             @if ($item->getType() === \App\Containers\Constructor\Page\Models\PageInterface::BLOG_TYPE)
-                                            <button type="button" class="btn bg-gradient-warning btn-sm"
-                                                    onclick="location.href='{{ route('constructor_page_edit', $item->getChildPage()->getId()) }}'">
-                                                <i class="fas fa-cogs"></i>
-                                                Configuration Content
-                                            </button>
+                                                <button type="button" class="btn bg-gradient-warning btn-sm"
+                                                        onclick="location.href='{{ route('constructor_page_edit', $item->getChildPage()->getId()) }}'">
+                                                    <i class="fas fa-cogs"></i>
+                                                    Configuration Content
+                                                </button>
                                             @endif
                                             <button type="button" class="btn bg-gradient-primary btn-sm"
                                                     onclick="location.href='{{ route('constructor_page_edit', $item->getId()) }}'">
@@ -241,13 +241,12 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Are you sure that you want remove one of the language. It will delete all
-                                            information and content of this language.</p>
+                                        <p>Are you sure that you want to remove one of the pages.</p>
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                                         <button type="button" class="btn btn-danger" id="delete-page">Yes, remove
-                                            this language!
+                                            this page!
                                         </button>
                                     </div>
                                 </div>

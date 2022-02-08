@@ -39,10 +39,6 @@ class FindPageByIdTask extends Task implements FindPageByIdTaskInterface
                 ->setCreateAt($page->created_at)
                 ->setUpdateAt($page->updated_at);
 
-            if ($withFields === false) {
-                return $pageDto;
-            }
-
             if ($pageDto->getType() === PageInterface::BLOG_TYPE) {
                 $childPage = $page->child_page;
 
@@ -55,6 +51,10 @@ class FindPageByIdTask extends Task implements FindPageByIdTaskInterface
                     ->setUpdateAt($childPage->updated_at);
 
                 $pageDto->setChildPage($childPageDto);
+            }
+
+            if ($withFields === false) {
+                return $pageDto;
             }
 
             $fields = $page->fields->map(static function (PageFieldInterface $field) {

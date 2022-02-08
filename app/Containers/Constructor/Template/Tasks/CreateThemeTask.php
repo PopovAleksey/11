@@ -21,15 +21,9 @@ class CreateThemeTask extends Task implements CreateThemeTaskInterface
     public function run(ThemeDto $data): ThemeDto
     {
         try {
-            if ($data->getActive() === true) {
-                $activeThemeIds = $this->repository
-                    ->findByField('active', true)
-                    ->map(fn(ThemeInterface $theme) => $theme->id);
-
-                if ($activeThemeIds->count() > 0) {
-                    $this->repository->update(['active' => false], $activeThemeIds->toArray());
-                }
-            }
+            $this->repository
+                ->findByField('active', true)
+                ->each(fn(ThemeInterface $theme) => $this->repository->update(['active' => false], $theme->id));
 
             /**
              * @var ThemeInterface $theme

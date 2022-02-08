@@ -25,20 +25,33 @@ class ControllerTemplate extends WebController
     {
     }
 
+    /**
+     * @param \App\Containers\Constructor\Template\UI\WEB\Requests\StoreTemplateRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(StoreTemplateRequest $request): JsonResponse
     {
-        $templateId = $this->createTemplateAction->run($request->mapped());
-
-        return response()->json(['id' => $templateId])->setStatusCode(200);
+        return response()
+            ->json(['id' => $this->createTemplateAction->run($request->mapped())])
+            ->setStatusCode(200);
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+     */
     public function edit(int $id): Factory|View|Application
     {
-        $template = $this->findTemplateByIdAction->run($id);
-dd($template);
-        return view('constructor.base');
+        return view('constructor@template::editTemplate', [
+            'template' => $this->findTemplateByIdAction->run($id),
+        ]);
     }
 
+    /**
+     * @param int                                                                        $id
+     * @param \App\Containers\Constructor\Template\UI\WEB\Requests\UpdateTemplateRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(int $id, UpdateTemplateRequest $request): JsonResponse
     {
         $data = $request->mapped()->setId($id);
@@ -48,6 +61,10 @@ dd($template);
         return response()->json()->setStatusCode(200);
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function destroy(int $id): JsonResponse
     {
         $this->deleteTemplateAction->run($id);
