@@ -20,7 +20,7 @@
                 data-accordion="false">
                 <li class="nav-header">CORE</li>
                 <li class="nav-item">
-                    <a href="{{ route('constructor_language_index') }}" class="nav-link {{ route('constructor_language_index', [], false) === '/' . request()->path() ? 'active' : ''}}">
+                    <a href="#" class="nav-link">
                         <i class="fas fa-users"></i>&nbsp;
                         <p>Users</p>
                     </a>
@@ -32,7 +32,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('constructor_language_index') }}" class="nav-link {{ route('constructor_language_index', [], false) === '/' . request()->path() ? 'active' : ''}}">
+                    <a href="#" class="nav-link">
                         <i class="fas fa-user-cog"></i>&nbsp;
                         <p>Settings</p>
                     </a>
@@ -53,7 +53,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('constructor_language_index') }}" class="nav-link {{ route('constructor_language_index', [], false) === '/' . request()->path() ? 'active' : ''}}">
+                    <a href="#" class="nav-link">
                         <i class="fas fa-link"></i>&nbsp;
                         <p>SEO</p>
                     </a>
