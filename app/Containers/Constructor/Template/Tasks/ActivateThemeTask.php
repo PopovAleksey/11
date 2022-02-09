@@ -27,9 +27,7 @@ class ActivateThemeTask extends Task implements ActivateThemeTaskInterface
             if ($data->getActive() === true) {
                 $this->repository
                     ->findByField('active', true)
-                    ->each(function (ThemeInterface $theme) {
-                        $this->repository->update(['active' => false], $theme->id);
-                    });
+                    ->each(fn(ThemeInterface $theme) => $this->repository->update(['active' => false], $theme->id));
             }
 
             $theme = $this->repository->update($data->toArray(), $data->getId());

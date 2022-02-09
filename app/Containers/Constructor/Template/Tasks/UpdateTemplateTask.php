@@ -14,17 +14,25 @@ class UpdateTemplateTask extends Task implements UpdateTemplateTaskInterface
     {
     }
 
+    /**
+     * @param \App\Containers\Constructor\Template\Data\Dto\TemplateDto $data
+     * @return \App\Containers\Constructor\Template\Data\Dto\TemplateDto
+     * @throws \App\Ship\Exceptions\UpdateResourceFailedException
+     */
     public function run(TemplateDto $data): TemplateDto
     {
         try {
-            $Template = $this->repository->update($data->toArray(), $data->getId());
+            /**
+             * @var \App\Containers\Constructor\Template\Models\TemplateInterface $template
+             */
+            $template = $this->repository->update($data->toArray(), $data->getId());
 
             return (new TemplateDto())
-                        ->setId($Template->id)
-                        ->setCreateAt($Template->created_at)
-                        ->setUpdateAt($Template->updated_at);
-        }
-        catch (Exception $exception) {
+                ->setId($template->id)
+                ->setCreateAt($template->created_at)
+                ->setUpdateAt($template->updated_at);
+
+        } catch (Exception) {
             throw new UpdateResourceFailedException();
         }
     }

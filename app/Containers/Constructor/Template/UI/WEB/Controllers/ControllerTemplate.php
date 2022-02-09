@@ -56,9 +56,11 @@ class ControllerTemplate extends WebController
     {
         $data = $request->mapped()->setId($id);
 
-        $this->updateTemplateAction->run($data);
+        $template = $this->updateTemplateAction->run($data);
 
-        return response()->json()->setStatusCode(200);
+        return response()
+            ->json(['id' => $template->getId()])
+            ->setStatusCode(200);
     }
 
     /**
