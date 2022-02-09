@@ -16,8 +16,6 @@ use App\Containers\Constructor\Template\Actions\FindTemplateByIdAction;
 use App\Containers\Constructor\Template\Actions\FindTemplateByIdActionInterface;
 use App\Containers\Constructor\Template\Actions\FindThemeByIdAction;
 use App\Containers\Constructor\Template\Actions\FindThemeByIdActionInterface;
-use App\Containers\Constructor\Template\Actions\GetAllTemplatesAction;
-use App\Containers\Constructor\Template\Actions\GetAllTemplatesActionInterface;
 use App\Containers\Constructor\Template\Actions\GetAllThemesAction;
 use App\Containers\Constructor\Template\Actions\GetAllThemesActionInterface;
 use App\Containers\Constructor\Template\Actions\UpdateTemplateAction;
@@ -46,8 +44,6 @@ use App\Containers\Constructor\Template\Tasks\FindTemplateByIdTask;
 use App\Containers\Constructor\Template\Tasks\FindTemplateByIdTaskInterface;
 use App\Containers\Constructor\Template\Tasks\FindThemeByIdTask;
 use App\Containers\Constructor\Template\Tasks\FindThemeByIdTaskInterface;
-use App\Containers\Constructor\Template\Tasks\GetAllTemplatesTask;
-use App\Containers\Constructor\Template\Tasks\GetAllTemplatesTaskInterface;
 use App\Containers\Constructor\Template\Tasks\GetAllThemesTask;
 use App\Containers\Constructor\Template\Tasks\GetAllThemesTaskInterface;
 use App\Containers\Constructor\Template\Tasks\UpdateTemplateTask;
@@ -74,7 +70,6 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(CreateTemplateActionInterface::class, CreateTemplateAction::class);
         $this->app->bind(DeleteTemplateActionInterface::class, DeleteTemplateAction::class);
         $this->app->bind(FindTemplateByIdActionInterface::class, FindTemplateByIdAction::class);
-        $this->app->bind(GetAllTemplatesActionInterface::class, GetAllTemplatesAction::class);
         $this->app->bind(UpdateTemplateActionInterface::class, UpdateTemplateAction::class);
 
         $this->app->bind(GetAllThemesActionInterface::class, GetAllThemesAction::class);
@@ -90,7 +85,6 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(CreateTemplateTaskInterface::class, CreateTemplateTask::class);
         $this->app->bind(DeleteTemplateTaskInterface::class, DeleteTemplateTask::class);
         $this->app->bind(FindTemplateByIdTaskInterface::class, FindTemplateByIdTask::class);
-        $this->app->bind(GetAllTemplatesTaskInterface::class, GetAllTemplatesTask::class);
         $this->app->bind(UpdateTemplateTaskInterface::class, UpdateTemplateTask::class);
 
         $this->app->bind(GetAllThemesTaskInterface::class, GetAllThemesTask::class);

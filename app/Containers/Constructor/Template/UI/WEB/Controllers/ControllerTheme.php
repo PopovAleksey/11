@@ -70,7 +70,7 @@ class ControllerTheme extends WebController
             TemplateInterface::CSS_TYPE,
             TemplateInterface::JS_TYPE,
         ];
-        #dd($this->findThemeByIdAction->run($id));
+
         return view('constructor@template::editTheme', [
             'types'     => $types,
             'languages' => $this->getAllLanguagesAction->run(),
@@ -80,11 +80,11 @@ class ControllerTheme extends WebController
     }
 
     /**
-     * @param int                                                                        $id
-     * @param \App\Containers\Constructor\Template\UI\WEB\Requests\UpdateTemplateRequest $request
+     * @param int                                                                     $id
+     * @param \App\Containers\Constructor\Template\UI\WEB\Requests\UpdateThemeRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(int $id, UpdateTemplateRequest $request): JsonResponse
+    public function update(int $id, UpdateThemeRequest $request): JsonResponse
     {
         $data = $request->mapped()->setId($id);
 
