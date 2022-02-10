@@ -20,8 +20,6 @@ use App\Containers\Constructor\Template\Actions\GetAllThemesAction;
 use App\Containers\Constructor\Template\Actions\GetAllThemesActionInterface;
 use App\Containers\Constructor\Template\Actions\UpdateTemplateAction;
 use App\Containers\Constructor\Template\Actions\UpdateTemplateActionInterface;
-use App\Containers\Constructor\Template\Actions\UpdateThemeAction;
-use App\Containers\Constructor\Template\Actions\UpdateThemeActionInterface;
 use App\Containers\Constructor\Template\Data\Repositories\TemplateRepository;
 use App\Containers\Constructor\Template\Data\Repositories\TemplateRepositoryInterface;
 use App\Containers\Constructor\Template\Data\Repositories\ThemeRepository;
@@ -48,8 +46,6 @@ use App\Containers\Constructor\Template\Tasks\GetAllThemesTask;
 use App\Containers\Constructor\Template\Tasks\GetAllThemesTaskInterface;
 use App\Containers\Constructor\Template\Tasks\UpdateTemplateTask;
 use App\Containers\Constructor\Template\Tasks\UpdateTemplateTaskInterface;
-use App\Containers\Constructor\Template\Tasks\UpdateThemeTask;
-use App\Containers\Constructor\Template\Tasks\UpdateThemeTaskInterface;
 use App\Ship\Parents\Providers\MainProvider;
 
 
@@ -75,7 +71,6 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(GetAllThemesActionInterface::class, GetAllThemesAction::class);
         $this->app->bind(CreateThemeActionInterface::class, CreateThemeAction::class);
         $this->app->bind(FindThemeByIdActionInterface::class, FindThemeByIdAction::class);
-        $this->app->bind(UpdateThemeActionInterface::class, UpdateThemeAction::class);
         $this->app->bind(ActivateThemeActionInterface::class, ActivateThemeAction::class);
         $this->app->bind(DeleteThemeActionInterface::class, DeleteThemeAction::class);
     }
@@ -90,7 +85,6 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(GetAllThemesTaskInterface::class, GetAllThemesTask::class);
         $this->app->bind(CreateThemeTaskInterface::class, CreateThemeTask::class);
         $this->app->bind(FindThemeByIdTaskInterface::class, FindThemeByIdTask::class);
-        $this->app->bind(UpdateThemeTaskInterface::class, UpdateThemeTask::class);
         $this->app->bind(ActivateThemeTaskInterface::class, ActivateThemeTask::class);
         $this->app->bind(DeleteThemeTaskInterface::class, DeleteThemeTask::class);
     }

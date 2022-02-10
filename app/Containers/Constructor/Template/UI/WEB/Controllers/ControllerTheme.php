@@ -9,10 +9,8 @@ use App\Containers\Constructor\Template\Actions\CreateThemeActionInterface;
 use App\Containers\Constructor\Template\Actions\DeleteThemeActionInterface;
 use App\Containers\Constructor\Template\Actions\FindThemeByIdActionInterface;
 use App\Containers\Constructor\Template\Actions\GetAllThemesActionInterface;
-use App\Containers\Constructor\Template\Actions\UpdateThemeActionInterface;
 use App\Containers\Constructor\Template\Models\TemplateInterface;
 use App\Containers\Constructor\Template\UI\WEB\Requests\StoreThemeRequest;
-use App\Containers\Constructor\Template\UI\WEB\Requests\UpdateTemplateRequest;
 use App\Containers\Constructor\Template\UI\WEB\Requests\UpdateThemeRequest;
 use App\Ship\Parents\Controllers\WebController;
 use Illuminate\Contracts\Foundation\Application;
@@ -26,7 +24,6 @@ class ControllerTheme extends WebController
         private GetAllThemesActionInterface    $getAllThemesAction,
         private CreateThemeActionInterface     $createThemeAction,
         private FindThemeByIdActionInterface   $findThemeByIdAction,
-        private UpdateThemeActionInterface     $updateThemeAction,
         private ActivateThemeActionInterface   $activateThemeAction,
         private DeleteThemeActionInterface     $deleteThemeAction,
         private GetAllPagesActionInterface     $getAllPagesAction,
@@ -77,22 +74,6 @@ class ControllerTheme extends WebController
             'pages'     => $this->getAllPagesAction->run(),
             'theme'     => $this->findThemeByIdAction->run($id),
         ]);
-    }
-
-    /**
-     * @param int                                                                     $id
-     * @param \App\Containers\Constructor\Template\UI\WEB\Requests\UpdateThemeRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function update(int $id, UpdateThemeRequest $request): JsonResponse
-    {
-        $data = $request->mapped()->setId($id);
-
-        $this->updateThemeAction->run($data);
-
-        return response()
-            ->json()
-            ->setStatusCode(200);
     }
 
     /**
