@@ -23,37 +23,39 @@ class SQLLoggerTask extends Task implements SQLLoggerTaskInterface
     public function run(): void
     {
         if (
-            config('app.debug') &&
-            !app()->environment('production')
+            !config('app.debug') ||
+            app()->environment('production')
         ) {
-            DB::listen(function (QueryExecuted $query) {
-                if ($this->isInsertToLoggerTable($query->sql)) {
-                    return;
-                }
-
-                $request = (string) (request()?->method() . ': ' . request()?->path());
-
-                $logger = (new LoggerDto())
-                    ->setRequest($request)
-                    ->setType('sql')
-                    ->setQuery($query->sql)
-                    ->setBindings($query->bindings)
-                    ->setTime($query->time);
-
-                try {
-                    $this->repository->create([
-                        'hash'     => $this->uniqHash,
-                        'request'  => $logger->getRequest(),
-                        'type'     => $logger->getType(),
-                        'query'    => $logger->getQuery(),
-                        'bindings' => $logger->getBindings(),
-                        'time'     => $logger->getMilliseconds(),
-                    ]);
-                }catch (Exception $e){
-                    app('sentry')->captureException($e);
-                }
-            });
+            return;
         }
+
+        DB::listen(function (QueryExecuted $query) {
+            if ($this->isInsertToLoggerTable($query->sql)) {
+                return;
+            }
+
+            $request = request()?->method() . ': ' . request()?->path();
+
+            $logger = (new LoggerDto())
+                ->setRequest($request)
+                ->setType('sql')
+                ->setQuery($query->sql)
+                ->setBindings($query->bindings)
+                ->setTime($query->time);
+
+            try {
+                $this->repository->create([
+                    'hash'     => $this->uniqHash,
+                    'request'  => $logger->getRequest(),
+                    'type'     => $logger->getType(),
+                    'query'    => $logger->getQuery(),
+                    'bindings' => $logger->getBindings(),
+                    'time'     => $logger->getMilliseconds(),
+                ]);
+            } catch (Exception $e) {
+                app('sentry')->captureException($e);
+            }
+        });
     }
 
     protected function isInsertToLoggerTable(string $queryString): bool
