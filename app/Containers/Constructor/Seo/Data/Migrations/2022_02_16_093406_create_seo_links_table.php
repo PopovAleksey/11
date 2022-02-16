@@ -16,7 +16,7 @@ class CreateSeoLinksTable extends Migration
             $table->bigInteger('page_id')->unsigned()->index('INDEX_seo_links_pages');
             $table->bigInteger('page_field_id')->unsigned()->index('INDEX_seo_links_page_fields');
             $table->bigInteger('language_id')->unsigned()->index('INDEX_seo_links_languages');
-            $table->string('link');
+            $table->string('link')->nullable();
             $table->enum('case_type', [
                 SeoInterface::CAMEL_CASE,
                 SeoInterface::PASCAL_CASE,

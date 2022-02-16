@@ -53,7 +53,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('constructor_seo_index') }}" class="nav-link {{ route('constructor_seo_index', [], false) === '/' . request()->path() ? 'active' : ''}}">
                         <i class="fas fa-link"></i>&nbsp;
                         <p>SEO</p>
                     </a>

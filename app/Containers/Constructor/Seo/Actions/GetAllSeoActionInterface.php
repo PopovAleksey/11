@@ -4,7 +4,7 @@ namespace App\Containers\Constructor\Seo\Actions;
 
 use Illuminate\Support\Collection;
 
-interface GetAllSeosActionInterface
+interface GetAllSeoActionInterface
 {
     public function run(): Collection;
 }

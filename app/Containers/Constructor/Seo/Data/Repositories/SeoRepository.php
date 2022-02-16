@@ -10,7 +10,13 @@ class SeoRepository extends Repository implements SeoRepositoryInterface
      * @var array
      */
     protected $fieldSearchable = [
-        'id' => '=',
-        // ...
+        'id'            => '=',
+        'page_id'       => '=',
+        'page_field_id' => '=',
+        'language_id'   => '=',
+        'link'          => 'like',
+        'case_type'     => '=',
+        'static'        => '=',
+        'active'        => '=',
     ];
 }

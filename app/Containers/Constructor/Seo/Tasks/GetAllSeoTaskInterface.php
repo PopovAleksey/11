@@ -4,7 +4,7 @@ namespace App\Containers\Constructor\Seo\Tasks;
 
 use Illuminate\Support\Collection;
 
-interface GetAllSeosTaskInterface
+interface GetAllSeoTaskInterface
 {
     public function run(): Collection;
 }
