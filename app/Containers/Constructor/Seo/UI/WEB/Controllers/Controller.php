@@ -8,8 +8,10 @@ use App\Containers\Constructor\Page\Actions\GetAllPagesActionInterface;
 use App\Containers\Constructor\Seo\Actions\CreateSeoActionInterface;
 use App\Containers\Constructor\Seo\Actions\DeleteSeoActionInterface;
 use App\Containers\Constructor\Seo\Actions\GetAllSeoActionInterface;
+use App\Containers\Constructor\Seo\Actions\UpdateSeoActionInterface;
 use App\Containers\Constructor\Seo\Models\SeoInterface;
 use App\Containers\Constructor\Seo\UI\WEB\Requests\StoreSeoRequest;
+use App\Containers\Constructor\Seo\UI\WEB\Requests\UpdateSeoRequest;
 use App\Ship\Parents\Controllers\WebController;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -23,8 +25,8 @@ class Controller extends WebController
         private GetAllPagesActionInterface     $getAllPagesAction,
         private GetAllLanguagesActionInterface $getAllLanguagesAction,
         private CreateSeoActionInterface       $createSeoAction,
-        /*private FindSeoByIdActionInterface    $findSeoByIdAction,
-        private UpdateSeoActionInterface      $updateSeoAction,*/
+        /*private FindSeoByIdActionInterface    $findSeoByIdAction,*/
+        private UpdateSeoActionInterface      $updateSeoAction,
         private DeleteSeoActionInterface      $deleteSeoAction
     )
     {
@@ -58,6 +60,15 @@ class Controller extends WebController
         return response()->json(['id' => $seoId])->setStatusCode(200);
     }
 
+    public function update(int $id, UpdateSeoRequest $request): JsonResponse
+    {
+        $data = $request->mapped()->setId($id);
+
+        $this->updateSeoAction->run($data);
+
+        return response()->json()->setStatusCode(200);
+    }
+
     public function destroy(int $id): JsonResponse
     {
         $this->deleteSeoAction->run($id);
@@ -77,14 +88,5 @@ class Controller extends WebController
         $seo = $this->findSeoByIdAction->run($id);
 
         return view('constructor.base');
-    }
-
-    public function update(int $id, UpdateSeoRequest $request): JsonResponse
-    {
-        $data = $request->mapped()->setId($id);
-
-        $this->updateSeoAction->run($data);
-
-        return response()->json()->setStatusCode(200);
     }*/
 }

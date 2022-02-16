@@ -60,15 +60,22 @@
             $("input[data-bootstrap-switch]").each(function () {
                 $(this).bootstrapSwitch('state', $(this).prop('checked'))
                     .on('switchChange.bootstrapSwitch', function (event, state) {
+                        let type = $(this).attr('data-type');
+                        let updateData = {};
+
+                        if (type === 'active') {
+                            updateData = {active: state === true ? 1 : 0};
+                        } else if (type === 'static') {
+                            updateData = {static: state === true ? 1 : 0};
+                        }
+
                         $.ajax({
-                            url: '{{ route('constructor_language_update', ':id') }}'.replace(':id', $(this).attr('data-id')),
+                            url: '{{ route('constructor_seo_update', ':id') }}'.replace(':id', $(this).attr('data-id')),
                             type: 'PATCH',
                             headers: {
                                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
                             },
-                            data: {
-                                'active': state === true ? 1 : 0
-                            },
+                            data: updateData,
                             error: function (error) {
                                 Toast.fire({
                                     icon: 'error',
@@ -186,6 +193,7 @@
                                                    data-id="{{ $item->getId() }}"
                                                    {{ $item->isStatic() === true ? 'checked=""' : '' }}
                                                    data-bootstrap-switch=""
+                                                   data-type="static"
                                                    data-off-color="danger"
                                                    data-on-color="success">
                                         </div>
@@ -196,6 +204,7 @@
                                                    data-id="{{ $item->getId() }}"
                                                    {{ $item->isActive() === true ? 'checked=""' : '' }}
                                                    data-bootstrap-switch=""
+                                                   data-type="active"
                                                    data-off-color="danger"
                                                    data-on-color="success">
                                         </div>
