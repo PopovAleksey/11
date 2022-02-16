@@ -19,7 +19,7 @@ class CreatePagesTable extends Migration
                 PageInterface::SIMPLE_TYPE,
                 PageInterface::BLOG_TYPE,
                 PageInterface::CATEGORY_TYPE,
-            ])->default('simple');
+            ])->default(PageInterface::SIMPLE_TYPE);
             $table->boolean('active')->default(true);
 
             $table->timestamps();

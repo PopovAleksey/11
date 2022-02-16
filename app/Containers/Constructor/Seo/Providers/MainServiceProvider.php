@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Containers\Constructor\Seo\Providers;
+
+use App\Ship\Parents\Providers\MainProvider;
+
+
+class MainServiceProvider extends MainProvider
+{
+    public function register(): void
+    {
+        parent::register();
+
+        $this->bindActions();
+        $this->bindTasks();
+        $this->bindRepositories();
+        $this->bindModels();
+    }
+
+    private function bindActions(): void
+    {
+            // $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+            // ...
+    }
+
+    private function bindTasks(): void
+    {
+    }
+
+    private function bindRepositories(): void
+    {
+    }
+
+    private function bindModels(): void
+    {
+    }
+}
