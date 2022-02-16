@@ -2,37 +2,35 @@
 
 namespace App\Containers\Constructor\Seo\Data\Dto;
 
+use App\Containers\Constructor\Language\Data\Dto\LanguageDto;
+use App\Containers\Constructor\Page\Data\Dto\PageDto;
+use App\Containers\Constructor\Page\Data\Dto\PageFieldDto;
 use Illuminate\Support\Carbon;
 use PopovAleksey\Mapper\Mapper;
 
 class SeoDto extends Mapper
 {
-    private ?int    $id          = null;
-    private ?int    $pageId      = null;
-    private ?int    $pageFieldId = null;
-    private ?int    $languageId  = null;
-    private ?string $link        = null;
-    private ?string $caseType    = null;
-    private ?bool   $static      = null;
-    private ?bool   $active      = null;
-    private ?Carbon $createAt    = null;
-    private ?Carbon $updateAt    = null;
-
-    public function setId(?int $id): self
-    {
-        $this->id = $id;
-
-        return $this;
-    }
+    private ?int          $id          = null;
+    private ?int          $pageId      = null;
+    private ?int          $pageFieldId = null;
+    private ?int          $languageId  = null;
+    private ?string       $caseType    = null;
+    private ?bool         $static      = null;
+    private ?bool         $active      = null;
+    private ?PageDto      $page        = null;
+    private ?PageFieldDto $field       = null;
+    private ?LanguageDto  $language    = null;
+    private ?Carbon       $createAt    = null;
+    private ?Carbon       $updateAt    = null;
 
     public function getId(): ?int
     {
         return $this->id ?? null;
     }
 
-    public function setPageId(?int $pageId): self
+    public function setId(?int $id): self
     {
-        $this->pageId = $pageId;
+        $this->id = $id;
 
         return $this;
     }
@@ -42,9 +40,9 @@ class SeoDto extends Mapper
         return $this->pageId ?? null;
     }
 
-    public function setPageFieldId(?int $pageFieldId): self
+    public function setPageId(?int $pageId): self
     {
-        $this->pageFieldId = $pageFieldId;
+        $this->pageId = $pageId;
 
         return $this;
     }
@@ -54,9 +52,9 @@ class SeoDto extends Mapper
         return $this->pageFieldId ?? null;
     }
 
-    public function setLanguageId(?int $languageId): self
+    public function setPageFieldId(?int $pageFieldId): self
     {
-        $this->languageId = $languageId;
+        $this->pageFieldId = $pageFieldId;
 
         return $this;
     }
@@ -66,21 +64,9 @@ class SeoDto extends Mapper
         return $this->languageId ?? null;
     }
 
-    public function setLink(?string $link): self
+    public function setLanguageId(?int $languageId): self
     {
-        $this->link = $link;
-
-        return $this;
-    }
-
-    public function getLink(): ?string
-    {
-        return $this->link ?? null;
-    }
-
-    public function setCaseType(?string $caseType): self
-    {
-        $this->caseType = $caseType;
+        $this->languageId = $languageId;
 
         return $this;
     }
@@ -90,6 +76,18 @@ class SeoDto extends Mapper
         return $this->caseType ?? null;
     }
 
+    public function setCaseType(?string $caseType): self
+    {
+        $this->caseType = $caseType;
+
+        return $this;
+    }
+
+    public function isStatic(): ?bool
+    {
+        return $this->static ?? null;
+    }
+
     public function setStatic(?bool $static): self
     {
         $this->static = $static;
@@ -97,9 +95,9 @@ class SeoDto extends Mapper
         return $this;
     }
 
-    public function getStatic(): ?bool
+    public function isActive(): ?bool
     {
-        return $this->static ?? null;
+        return $this->active ?? null;
     }
 
     public function setActive(?bool $active): self
@@ -109,14 +107,38 @@ class SeoDto extends Mapper
         return $this;
     }
 
-    public function getActive(): ?bool
+    public function getPage(): ?PageDto
     {
-        return $this->active ?? null;
+        return $this->page;
     }
 
-    public function setCreateAt(?Carbon $createAt): self
+    public function setPage(?PageDto $page): self
     {
-        $this->createAt = $createAt;
+        $this->page = $page;
+
+        return $this;
+    }
+
+    public function getField(): ?PageFieldDto
+    {
+        return $this->field;
+    }
+
+    public function setField(?PageFieldDto $field): self
+    {
+        $this->field = $field;
+
+        return $this;
+    }
+
+    public function getLanguage(): ?LanguageDto
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?LanguageDto $language): self
+    {
+        $this->language = $language;
 
         return $this;
     }
@@ -126,9 +148,9 @@ class SeoDto extends Mapper
         return $this->createAt ?? null;
     }
 
-    public function setUpdateAt(?Carbon $updateAt): self
+    public function setCreateAt(?Carbon $createAt): self
     {
-        $this->updateAt = $updateAt;
+        $this->createAt = $createAt;
 
         return $this;
     }
@@ -136,6 +158,13 @@ class SeoDto extends Mapper
     public function getUpdateAt(): ?Carbon
     {
         return $this->updateAt ?? null;
+    }
+
+    public function setUpdateAt(?Carbon $updateAt): self
+    {
+        $this->updateAt = $updateAt;
+
+        return $this;
     }
 
 

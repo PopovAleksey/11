@@ -14,8 +14,8 @@ class GetAllPagesAction extends Action implements GetAllPagesActionInterface
     {
     }
 
-    public function run(): Collection
+    public function run(bool $withFields = false): Collection
     {
-        return $this->getAllPageTask->run();
+        return $this->getAllPageTask->run($withFields);
     }
 }

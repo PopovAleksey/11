@@ -4,19 +4,18 @@ use App\Containers\Constructor\Seo\Models\SeoInterface;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateSeoLinksTable extends Migration
+class CreateSeoTable extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('seo_links', static function (Blueprint $table) {
+        Schema::create('seo', static function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('page_id')->unsigned()->index('INDEX_seo_links_pages');
-            $table->bigInteger('page_field_id')->unsigned()->index('INDEX_seo_links_page_fields');
-            $table->bigInteger('language_id')->unsigned()->index('INDEX_seo_links_languages');
-            $table->string('link')->nullable();
+            $table->bigInteger('page_id')->unsigned()->index('INDEX_seo_pages');
+            $table->bigInteger('page_field_id')->unsigned()->index('INDEX_seo_page_fields');
+            $table->bigInteger('language_id')->unsigned()->index('INDEX_seo_languages');
             $table->enum('case_type', [
                 SeoInterface::CAMEL_CASE,
                 SeoInterface::PASCAL_CASE,
@@ -29,19 +28,19 @@ class CreateSeoLinksTable extends Migration
 
             $table->timestamps();
 
-            $table->foreign('page_id', 'FK_seo_links_pages_foreign')
+            $table->foreign('page_id', 'FK_seo_pages_foreign')
                 ->references('id')
                 ->on('pages')
                 ->onUpdate('NO ACTION')
                 ->onDelete('CASCADE');
 
-            $table->foreign('page_field_id', 'FK_seo_links_page_fields_foreign')
+            $table->foreign('page_field_id', 'FK_seo_page_fields_foreign')
                 ->references('id')
                 ->on('page_fields')
                 ->onUpdate('NO ACTION')
                 ->onDelete('CASCADE');
 
-            $table->foreign('language_id', 'FK_seo_links_languages_foreign')
+            $table->foreign('language_id', 'FK_seo_languages_foreign')
                 ->references('id')
                 ->on('languages')
                 ->onUpdate('NO ACTION')
@@ -54,6 +53,6 @@ class CreateSeoLinksTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('seo_links');
+        Schema::dropIfExists('seo');
     }
 }

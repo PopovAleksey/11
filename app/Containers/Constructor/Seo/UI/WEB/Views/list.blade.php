@@ -1,7 +1,7 @@
 @extends('constructor.base')
 
-@section('title', 'Languages | List')
-@section('page-title', 'Languages List')
+@section('title', 'SEO | List')
+@section('page-title', 'SEO List')
 
 @section('css')
     <!-- DataTables -->
@@ -39,8 +39,6 @@
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
     <script src="{{ asset('plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
-    <!-- Select2 -->
-    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
     <!-- SweetAlert2 -->
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <!-- Toastr -->
@@ -81,13 +79,7 @@
                     });
             });
 
-            $('.select-country').select2().on("change", function () {
-                let countryShortName = $('.select-country').find(':selected').val().toLowerCase();
-                $('.country-short-name').val(countryShortName.charAt(0).toLocaleUpperCase() + countryShortName.slice(1));
-                $('.country-path').val(countryShortName);
-            });
-
-            $('#add-language').on('click', function () {
+            $('#add-seo-setting').on('click', function () {
                 let countryShortName = $('.select-country').find(':selected').val();
                 if (countryShortName === '') {
                     return;
@@ -149,7 +141,7 @@
 
 @section('breadcrumb')
     @parent
-    <li class="breadcrumb-item active">Languages</li>
+    <li class="breadcrumb-item active">SEO</li>
 @stop
 
 @section('content')
@@ -159,18 +151,20 @@
                 <div class="card">
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <button type="button" class="btn bg-gradient-primary create-language" data-toggle="modal"
+                        <button type="button" class="btn bg-gradient-primary create-seo" data-toggle="modal"
                                 data-target="#modal-create">
                             <i class="fas fa-plus-square"></i>&nbsp;
-                            Add Language
+                            Add SEO Setting
                         </button>
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Language</th>
-                                <th>Short Name</th>
-                                <th>Path</th>
+                                <th>Page</th>
+                                <th>Field</th>
+                                <th>Case Type</th>
+                                <th class="dt-center">Is Static</th>
                                 <th class="dt-center">Is Active</th>
                                 <th class="dt-right">Action</th>
                             </tr>
@@ -179,9 +173,20 @@
                             @foreach($list as $item)
                                 <tr>
                                     <td>{{ $item->getId() }}</td>
-                                    <td>{{ $item->getName() }}</td>
-                                    <td>{{ $item->getShortName() }}</td>
-                                    <td>{{ $domain }}/<b>{{ strtolower($item->getShortName()) }}</b>/index.html</td>
+                                    <td>{{ $item->getLanguage()?->getShortName() }}</td>
+                                    <td>{{ $item->getPage()?->getName() }}</td>
+                                    <td>{{ $item->getField()?->getName() }}</td>
+                                    <td>{{ $item->getCaseType() }}</td>
+                                    <td class="dt-center">
+                                        <div class="bootstrap-switch-container" style="width: 126px; margin-left: 0px;">
+                                            <input type="checkbox" name="my-checkbox"
+                                                   data-id="{{ $item->getId() }}"
+                                                   {{ $item->isStatic() === true ? 'checked=""' : '' }}
+                                                   data-bootstrap-switch=""
+                                                   data-off-color="danger"
+                                                   data-on-color="success">
+                                        </div>
+                                    </td>
                                     <td class="dt-center">
                                         <div class="bootstrap-switch-container" style="width: 126px; margin-left: 0px;">
                                             <input type="checkbox" name="my-checkbox"
@@ -244,39 +249,29 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group">
-                                            <label>Country</label>
+                                            <label>Page Field</label>
                                             <select class="form-control select-country" style="width: 100%;">
-                                                <option value="">Choose country ...</option>
-                                                @foreach ($countries as $country)
-                                                    <option value="{{ $country['code'] }}">{{ $country['name'] }}</option>
+                                                @foreach ($pages as $page)
+                                                    @foreach($page->getFields() as $field)
+                                                        <option value="{{ $field->getId() }}">{{ $page->getName() }}: {{ $field->getName() }}</option>
+                                                    @endforeach
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Language</label>
+                                            <select class="form-control select-country" style="width: 100%;">
+                                                @foreach ($languages as $language)
+                                                    <option value="{{ $language->getId() }}">{{ $language->getName() }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label>Short Name</label>
-                                            <input type="text" class="form-control country-short-name"
-                                                   placeholder="Choose country ..." disabled>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Path</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">{{ $domain }}/</span>
-                                                </div>
-                                                <input type="text" class="form-control country-path"
-                                                       placeholder="Choose country ..." disabled>
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text">/index.html</span>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel
                                         </button>
-                                        <button type="button" class="btn btn-success" id="add-language">Add</button>
+                                        <button type="button" class="btn btn-success" id="add-seo-setting">Add</button>
                                     </div>
                                 </div>
                                 <!-- /.modal-content -->

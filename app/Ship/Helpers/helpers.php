@@ -18,7 +18,7 @@ if (!function_exists('callFromContainer')) {
      * @param string $call = 'Section@Container::ActionInterface'
      * @return mixed
      */
-    function callAction(string $call): mixed
+    function callAction(string $call, ...$args): mixed
     {
         preg_match("/^(\w+)@(\w+)::(\w+)$/", $call, $matches);
         $section   = data_get($matches, 1);
@@ -39,6 +39,6 @@ if (!function_exists('callFromContainer')) {
             return null;
         }
 
-        return app("App\Containers\\$section\\$container\Actions\\$action")->run();
+        return app("App\Containers\\$section\\$container\Actions\\$action")->run($args);
     }
 }

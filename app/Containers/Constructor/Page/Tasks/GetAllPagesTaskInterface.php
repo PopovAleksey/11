@@ -6,5 +6,5 @@ use Illuminate\Support\Collection;
 
 interface GetAllPagesTaskInterface
 {
-    public function run(): Collection;
+    public function run(bool $withFields = false): Collection;
 }
