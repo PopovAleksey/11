@@ -14,7 +14,3 @@ class SeoRepository extends Repository implements SeoRepositoryInterface
         // ...
     ];
 }
-
-interface SeoRepositoryInterface
-{
-}
