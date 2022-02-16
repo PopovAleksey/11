@@ -20,7 +20,3 @@ class CreateSeoAction extends Action implements CreateSeoActionInterface
     }
 }
 
-interface CreateSeoActionInterface
-{
-    public function run(SeoDto $data): bool;
-}

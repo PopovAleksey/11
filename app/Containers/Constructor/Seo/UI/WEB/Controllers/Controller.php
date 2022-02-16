@@ -2,13 +2,13 @@
 
 namespace App\Containers\Constructor\Seo\UI\WEB\Controllers;
 
-use App\Containers\Constructor\Seo\UI\WEB\Requests\UpdateSeoRequest;
-use App\Containers\Constructor\Seo\UI\WEB\Requests\StoreSeoRequest;
 use App\Containers\Constructor\Seo\Actions\CreateSeoActionInterface;
+use App\Containers\Constructor\Seo\Actions\DeleteSeoActionInterface;
 use App\Containers\Constructor\Seo\Actions\FindSeoByIdActionInterface;
 use App\Containers\Constructor\Seo\Actions\GetAllSeosActionInterface;
 use App\Containers\Constructor\Seo\Actions\UpdateSeoActionInterface;
-use App\Containers\Constructor\Seo\Actions\DeleteSeoActionInterface;
+use App\Containers\Constructor\Seo\UI\WEB\Requests\StoreSeoRequest;
+use App\Containers\Constructor\Seo\UI\WEB\Requests\UpdateSeoRequest;
 use App\Ship\Parents\Controllers\WebController;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;

@@ -19,8 +19,3 @@ class UpdateSeoAction extends Action implements UpdateSeoActionInterface
         return $this->updateSeoTask->run($data);
     }
 }
-
-interface UpdateSeoActionInterface
-{
-    public function run(SeoDto $data): SeoDto;
-}

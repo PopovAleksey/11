@@ -19,7 +19,3 @@ class DeleteSeoAction extends Action implements DeleteSeoActionInterface
     }
 }
 
-interface DeleteSeoActionInterface
-{
-    public function run(int $id): bool;
-}

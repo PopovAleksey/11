@@ -19,8 +19,3 @@ class GetAllSeosAction extends Action implements GetAllSeosActionInterface
         return $this->getAllSeoTask->run();
     }
 }
-
-interface GetAllSeosActionInterface
-{
-    public function run(): Collection;
-}

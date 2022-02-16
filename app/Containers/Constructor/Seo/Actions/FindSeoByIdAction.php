@@ -19,8 +19,3 @@ class FindSeoByIdAction extends Action implements FindSeoByIdActionInterface
         return $this->findSeoByIdTask->run($id);
     }
 }
-
-interface FindSeoByIdActionInterface
-{
-    public function run(int $id): SeoDto;
-}

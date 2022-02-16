@@ -23,8 +23,3 @@ class DeleteSeoTask extends Task implements DeleteSeoTaskInterface
         }
     }
 }
-
-interface DeleteSeoTaskInterface
-{
-    public function run(int $id): ?bool;
-}

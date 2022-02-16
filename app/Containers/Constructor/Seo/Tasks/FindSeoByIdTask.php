@@ -29,8 +29,3 @@ class FindSeoByIdTask extends Task implements FindSeoByIdTaskInterface
         }
     }
 }
-
-interface FindSeoByIdTaskInterface
-{
-    public function run(int $id): SeoDto;
-}

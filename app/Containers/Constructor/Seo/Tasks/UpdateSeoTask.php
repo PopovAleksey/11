@@ -29,8 +29,3 @@ class UpdateSeoTask extends Task implements UpdateSeoTaskInterface
         }
     }
 }
-
-interface UpdateSeoTaskInterface
-{
-    public function run(SeoDto $data): SeoDto;
-}

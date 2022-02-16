@@ -24,8 +24,3 @@ class GetAllSeosTask extends Task implements GetAllSeosTaskInterface
                 });
     }
 }
-
-interface GetAllSeosTaskInterface
-{
-    public function run(): Collection;
-}

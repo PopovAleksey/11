@@ -25,7 +25,3 @@ class CreateSeoTask extends Task implements CreateSeoTaskInterface
     }
 }
 
-interface CreateSeoTaskInterface
-{
-    public function run(SeoDto $data);
-}
