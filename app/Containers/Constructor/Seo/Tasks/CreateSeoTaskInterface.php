@@ -6,5 +6,5 @@ use App\Containers\Constructor\Seo\Data\Dto\SeoDto;
 
 interface CreateSeoTaskInterface
 {
-    public function run(SeoDto $data);
+    public function run(SeoDto $data): int;
 }

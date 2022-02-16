@@ -80,19 +80,23 @@
             });
 
             $('#add-seo-setting').on('click', function () {
-                let countryShortName = $('.select-country').find(':selected').val();
-                if (countryShortName === '') {
+                let fieldId = $('.select-field').find(':selected').val();
+                let languageId = $('.select-language').find(':selected').val();
+                let caseType = $('.select-case-type').find(':selected').val();
+                if (fieldId === '' || languageId === '' || caseType === '') {
                     return;
                 }
 
                 $.ajax({
-                    url: '{{ route('constructor_language_store') }}',
+                    url: '{{ route('constructor_seo_store') }}',
                     type: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
                     data: {
-                        'code': countryShortName
+                        'field_id': fieldId,
+                        'language_id': languageId,
+                        'case_type': caseType
                     },
                     success: function () {
                         location.reload();
@@ -106,20 +110,19 @@
                 });
             });
 
-            let deleteLanguageId = null;
+            let deleteSeoId = null;
 
             $('button[data-target="#modal-delete"]').on('click', function () {
-                deleteLanguageId = $(this).attr('data-id');
-                console.log(deleteLanguageId);
+                deleteSeoId = $(this).attr('data-id');
             });
 
-            $('#delete-language').on('click', function () {
-                if (deleteLanguageId === null) {
+            $('#delete-seo').on('click', function () {
+                if (deleteSeoId === null) {
                     return;
                 }
 
                 $.ajax({
-                    url: '{{ route('constructor_language_destroy', ':id') }}'.replace(':id', deleteLanguageId),
+                    url: '{{ route('constructor_seo_destroy', ':id') }}'.replace(':id', deleteSeoId),
                     type: 'DELETE',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -173,7 +176,7 @@
                             @foreach($list as $item)
                                 <tr>
                                     <td>{{ $item->getId() }}</td>
-                                    <td>{{ $item->getLanguage()?->getShortName() }}</td>
+                                    <td>{{ $item->getLanguage()?->getName() }}</td>
                                     <td>{{ $item->getPage()?->getName() }}</td>
                                     <td>{{ $item->getField()?->getName() }}</td>
                                     <td>{{ $item->getCaseType() }}</td>
@@ -199,6 +202,13 @@
                                     </td>
                                     <td class="dt-right">
                                         <div class="btn-group">
+                                            <button type="button" class="btn bg-gradient-info btn-sm"
+                                                    data-id="{{ $item->getId() }}"
+                                                    data-toggle="modal"
+                                                    data-target="#modal-show-links">
+                                                <i class="far fa-eye"></i>
+                                                Show Example Links
+                                            </button>
                                             <button type="button" class="btn bg-gradient-warning btn-sm"
                                                     data-id="{{ $item->getId() }}"
                                                     data-toggle="modal"
@@ -223,13 +233,12 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Are you sure that you want remove one of the language. It will delete all
-                                            information and content of this language.</p>
+                                        <p>Are you sure that you want to remove one of the SEO setting?</p>
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                        <button type="button" class="btn btn-danger" id="delete-language">Yes, remove
-                                            this language!
+                                        <button type="button" class="btn btn-danger" id="delete-seo">Yes, remove
+                                            this SEO setting!
                                         </button>
                                     </div>
                                 </div>
@@ -250,19 +259,28 @@
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label>Page Field</label>
-                                            <select class="form-control select-country" style="width: 100%;">
+                                            <select class="form-control select-field" style="width: 100%;">
                                                 @foreach ($pages as $page)
                                                     @foreach($page->getFields() as $field)
-                                                        <option value="{{ $field->getId() }}">{{ $page->getName() }}: {{ $field->getName() }}</option>
+                                                        <option value="{{ $field->getId() }}">{{ $page->getName() }}
+                                                            : {{ $field->getName() }}</option>
                                                     @endforeach
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Language</label>
-                                            <select class="form-control select-country" style="width: 100%;">
+                                            <select class="form-control select-language" style="width: 100%;">
                                                 @foreach ($languages as $language)
                                                     <option value="{{ $language->getId() }}">{{ $language->getName() }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Case Type</label>
+                                            <select class="form-control select-case-type" style="width: 100%;">
+                                                @foreach ($caseTypes as $caseType)
+                                                    <option value="{{ $caseType }}">{{ $caseType }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -272,6 +290,29 @@
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel
                                         </button>
                                         <button type="button" class="btn btn-success" id="add-seo-setting">Add</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+
+                        <div class="modal fade" id="modal-show-links">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">List of Links</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+
+
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                                        </button>
                                     </div>
                                 </div>
                                 <!-- /.modal-content -->

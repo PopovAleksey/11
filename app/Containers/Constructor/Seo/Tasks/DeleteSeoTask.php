@@ -13,12 +13,16 @@ class DeleteSeoTask extends Task implements DeleteSeoTaskInterface
     {
     }
 
+    /**
+     * @param int $id
+     * @return bool|null
+     * @throws \App\Ship\Exceptions\DeleteResourceFailedException
+     */
     public function run(int $id): ?bool
     {
         try {
             return $this->repository->delete($id);
-        }
-        catch (Exception $exception) {
+        } catch (Exception) {
             throw new DeleteResourceFailedException();
         }
     }

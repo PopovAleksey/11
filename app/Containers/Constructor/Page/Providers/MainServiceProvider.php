@@ -32,6 +32,8 @@ use App\Containers\Constructor\Page\Tasks\DeleteFieldTask;
 use App\Containers\Constructor\Page\Tasks\DeleteFieldTaskInterface;
 use App\Containers\Constructor\Page\Tasks\DeletePageTask;
 use App\Containers\Constructor\Page\Tasks\DeletePageTaskInterface;
+use App\Containers\Constructor\Page\Tasks\FindFieldByIdTask;
+use App\Containers\Constructor\Page\Tasks\FindFieldByIdTaskInterface;
 use App\Containers\Constructor\Page\Tasks\FindPageByIdTask;
 use App\Containers\Constructor\Page\Tasks\FindPageByIdTaskInterface;
 use App\Containers\Constructor\Page\Tasks\GetAllPagesTask;
@@ -70,9 +72,10 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(CreatePageTaskInterface::class, CreatePageTask::class);
         $this->app->bind(DeletePageTaskInterface::class, DeletePageTask::class);
         $this->app->bind(FindPageByIdTaskInterface::class, FindPageByIdTask::class);
+        $this->app->bind(FindFieldByIdTaskInterface::class, FindFieldByIdTask::class);
         $this->app->bind(GetAllPagesTaskInterface::class, GetAllPagesTask::class);
         $this->app->bind(UpdatePageTaskInterface::class, UpdatePageTask::class);
-        
+
         $this->app->bind(ActivatePageTaskInterface::class, ActivatePageTask::class);
 
         $this->app->bind(CreateFieldTaskInterface::class, CreateFieldTask::class);

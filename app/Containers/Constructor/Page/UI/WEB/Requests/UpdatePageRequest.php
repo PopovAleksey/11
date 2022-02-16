@@ -4,19 +4,30 @@ namespace App\Containers\Constructor\Page\UI\WEB\Requests;
 
 use App\Containers\Constructor\Page\Data\Dto\PageDto;
 use App\Containers\Constructor\Page\Data\Dto\PageFieldDto;
+use App\Containers\Constructor\Page\Models\PageFieldInterface;
 use App\Ship\Parents\Requests\Request;
 
 class UpdatePageRequest extends Request
 {
     public function rules(): array
     {
+        $types = collect([
+            PageFieldInterface::INPUT_TYPE,
+            PageFieldInterface::TEXTAREA_TYPE,
+            PageFieldInterface::SELECT_TYPE,
+            PageFieldInterface::SELECT_MULTIPLE_TYPE,
+            PageFieldInterface::RADIO_TYPE,
+            PageFieldInterface::CHECKBOX_TYPE,
+            PageFieldInterface::FILE_TYPE,
+        ])->implode(',');
+
         return [
             'name'                 => ['string', 'min:1', 'max:100'],
             'active'               => ['boolean'],
             'fields'               => ['array'],
             'fields.*.id'          => ['nullable', 'integer'],
             'fields.*.name'        => ['required', 'string', 'min:1', 'max:100'],
-            'fields.*.type'        => ['required', 'string', 'in:input,textarea,select,select-multiple,radio,checkbox,file'],
+            'fields.*.type'        => ['required', 'string', 'in:' . $types],
             'fields.*.placeholder' => ['nullable', 'string', 'max:100'],
             'fields.*.mask'        => ['nullable', 'string', 'max:100'],
             'fields.*.value'       => ['nullable', 'string'],

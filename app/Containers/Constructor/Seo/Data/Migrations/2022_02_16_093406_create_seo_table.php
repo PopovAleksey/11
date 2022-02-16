@@ -26,6 +26,7 @@ class CreateSeoTable extends Migration
                 ->comment('true - not change link during changing a value of referenced field; false - change link if customer changing a value if referenced field in page_field_id');
             $table->boolean('active')->default(true);
 
+            $table->unique(['page_id', 'page_field_id', 'language_id']);
             $table->timestamps();
 
             $table->foreign('page_id', 'FK_seo_pages_foreign')

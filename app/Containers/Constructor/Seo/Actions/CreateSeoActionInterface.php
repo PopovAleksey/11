@@ -6,5 +6,5 @@ use App\Containers\Constructor\Seo\Data\Dto\SeoDto;
 
 interface CreateSeoActionInterface
 {
-    public function run(SeoDto $data): bool;
+    public function run(SeoDto $data): int;
 }

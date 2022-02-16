@@ -14,12 +14,27 @@ class CreateSeoTask extends Task implements CreateSeoTaskInterface
     {
     }
 
-    public function run(SeoDto $data)
+    /**
+     * @param \App\Containers\Constructor\Seo\Data\Dto\SeoDto $data
+     * @return int
+     * @throws \App\Ship\Exceptions\CreateResourceFailedException
+     */
+    public function run(SeoDto $data): int
     {
         try {
-            return $this->repository->create($data->toArray());
-        }
-        catch (Exception $exception) {
+            /**
+             * @var \App\Containers\Constructor\Seo\Models\SeoInterface $seo
+             */
+            $seo = $this->repository->create([
+                'page_id'       => $data->getPageId(),
+                'page_field_id' => $data->getPageFieldId(),
+                'language_id'   => $data->getLanguageId(),
+                'case_type'     => $data->getCaseType(),
+            ]);
+
+            return $seo->id;
+
+        } catch (Exception) {
             throw new CreateResourceFailedException();
         }
     }
