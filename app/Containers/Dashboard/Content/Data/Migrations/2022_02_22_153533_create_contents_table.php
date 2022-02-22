@@ -10,7 +10,7 @@ class CreateContentsTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('contents', function (Blueprint $table) {
+        Schema::create('contents', static function (Blueprint $table) {
             $table->id();
 
             $table->timestamps();
