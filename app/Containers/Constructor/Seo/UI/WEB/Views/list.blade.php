@@ -117,6 +117,14 @@
                 });
             });
 
+            let showLinksSeoId = null;
+
+            $('button[data-target="#modal-show-links"]').on('click', function () {
+                showLinksSeoId = $(this).attr('data-id');
+                $('tbody.seo').hide();
+                $('tbody.seo#seo-' + showLinksSeoId).show();
+            });
+
             let deleteSeoId = null;
 
             $('button[data-target="#modal-delete"]').on('click', function () {
@@ -316,8 +324,25 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 10px">#</th>
+                                                <th>Link</th>
+                                            </tr>
+                                            </thead>
+                                            @foreach($list as $item)
+                                                <tbody class="seo" id="seo-{{ $item->getId() }}">
+                                                @foreach($item->getLinks() as $link)
+                                                    <tr>
+                                                        <td>{{ $link->getId() }}</td>
+                                                        <td>{{ $link->getLink() }}</td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
 
-
+                                            @endforeach
+                                        </table>
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close

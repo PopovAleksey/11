@@ -9,6 +9,7 @@ use App\Containers\Constructor\Page\Models\PageField;
 use App\Containers\Constructor\Page\Models\PageFieldInterface;
 use App\Containers\Constructor\Page\Models\PageInterface;
 use App\Ship\Parents\Models\Model;
+use Illuminate\Database\Eloquent\Collection;
 
 class Seo extends Model implements SeoInterface
 {
@@ -40,7 +41,7 @@ class Seo extends Model implements SeoInterface
     /**
      * A resource key to be used in the serialized responses.
      */
-    protected string $resourceKey = 'SeoLinks';
+    protected string $resourceKey = 'Seo';
 
     /**
      * @return \Illuminate\Database\Eloquent\Model|\App\Containers\Constructor\Page\Models\PageInterface
@@ -64,6 +65,14 @@ class Seo extends Model implements SeoInterface
     public function getLanguageAttribute(): \Illuminate\Database\Eloquent\Model|LanguageInterface
     {
         return $this->hasOne(Language::class, 'id', 'language_id')->first();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getLinksAttribute(): Collection
+    {
+        return $this->hasMany(SeoLink::class, 'seo_id')->orderBy('created_at')->get();
     }
 }
 

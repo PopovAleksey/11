@@ -25,7 +25,6 @@ class Controller extends WebController
         private GetAllPagesActionInterface     $getAllPagesAction,
         private GetAllLanguagesActionInterface $getAllLanguagesAction,
         private CreateSeoActionInterface       $createSeoAction,
-        /*private FindSeoByIdActionInterface    $findSeoByIdAction,*/
         private UpdateSeoActionInterface      $updateSeoAction,
         private DeleteSeoActionInterface      $deleteSeoAction
     )
@@ -75,18 +74,4 @@ class Controller extends WebController
 
         return response()->json()->setStatusCode(200);
     }
-
-    /*public function show(int $id): Factory|View|Application
-    {
-        $seo = $this->findSeoByIdAction->run($id);
-
-        return view('constructor.base');
-    }
-
-    public function edit(int $id): Factory|View|Application
-    {
-        $seo = $this->findSeoByIdAction->run($id);
-
-        return view('constructor.base');
-    }*/
 }

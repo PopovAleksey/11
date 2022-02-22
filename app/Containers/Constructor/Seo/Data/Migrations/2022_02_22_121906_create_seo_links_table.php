@@ -10,11 +10,19 @@ class CreateSeoLinksTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('seo_links', function (Blueprint $table) {
+        Schema::create('seo_links', static function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('seo_id')->unsigned()->index('INDEX_seo_links_seo');
+            $table->bigInteger('content_id')->unsigned()->index('INDEX_seo_links_content');
+            $table->text('link');
 
             $table->timestamps();
-            //$table->softDeletes();
+
+            $table->foreign('seo_id', 'FK_seo_links_seo_foreign')
+                ->references('id')
+                ->on('seo')
+                ->onUpdate('NO ACTION')
+                ->onDelete('CASCADE');
         });
     }
 

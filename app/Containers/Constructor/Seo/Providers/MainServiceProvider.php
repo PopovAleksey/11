@@ -10,10 +10,14 @@ use App\Containers\Constructor\Seo\Actions\GetAllSeoAction;
 use App\Containers\Constructor\Seo\Actions\GetAllSeoActionInterface;
 use App\Containers\Constructor\Seo\Actions\UpdateSeoAction;
 use App\Containers\Constructor\Seo\Actions\UpdateSeoActionInterface;
+use App\Containers\Constructor\Seo\Data\Repositories\SeoLinkRepository;
+use App\Containers\Constructor\Seo\Data\Repositories\SeoLinkRepositoryInterface;
 use App\Containers\Constructor\Seo\Data\Repositories\SeoRepository;
 use App\Containers\Constructor\Seo\Data\Repositories\SeoRepositoryInterface;
 use App\Containers\Constructor\Seo\Models\Seo;
 use App\Containers\Constructor\Seo\Models\SeoInterface;
+use App\Containers\Constructor\Seo\Models\SeoLink;
+use App\Containers\Constructor\Seo\Models\SeoLinkInterface;
 use App\Containers\Constructor\Seo\Tasks\CreateSeoTask;
 use App\Containers\Constructor\Seo\Tasks\CreateSeoTaskInterface;
 use App\Containers\Constructor\Seo\Tasks\DeleteSeoTask;
@@ -56,10 +60,12 @@ class MainServiceProvider extends MainProvider
     private function bindRepositories(): void
     {
         $this->app->bind(SeoRepositoryInterface::class, SeoRepository::class);
+        $this->app->bind(SeoLinkRepositoryInterface::class, SeoLinkRepository::class);
     }
 
     private function bindModels(): void
     {
         $this->app->bind(SeoInterface::class, Seo::class);
+        $this->app->bind(SeoLinkInterface::class, SeoLink::class);
     }
 }

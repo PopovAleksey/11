@@ -6,8 +6,10 @@ use App\Containers\Constructor\Language\Data\Dto\LanguageDto;
 use App\Containers\Constructor\Page\Data\Dto\PageDto;
 use App\Containers\Constructor\Page\Data\Dto\PageFieldDto;
 use App\Containers\Constructor\Seo\Data\Dto\SeoDto;
+use App\Containers\Constructor\Seo\Data\Dto\SeoLinkDto;
 use App\Containers\Constructor\Seo\Data\Repositories\SeoRepositoryInterface;
 use App\Containers\Constructor\Seo\Models\SeoInterface;
+use App\Containers\Constructor\Seo\Models\SeoLinkInterface;
 use App\Ship\Parents\Tasks\Task;
 use Illuminate\Support\Collection;
 
@@ -52,6 +54,16 @@ class GetAllSeoTask extends Task implements GetAllSeoTaskInterface
                 ->setCreateAt($language->created_at)
                 ->setUpdateAt($language->updated_at);
 
+            $links = $seo->links->map(static function (SeoLinkInterface $seoLink) {
+                return (new SeoLinkDto())
+                    ->setId($seoLink->id)
+                    ->setSeoId($seoLink->seo_id)
+                    ->setContentId($seoLink->content_id)
+                    ->setLink($seoLink->link)
+                    ->setCreateAt($seoLink->created_at)
+                    ->setUpdateAt($seoLink->updated_at);
+            })->toArray();
+
             return (new SeoDto())
                 ->setId($seo->id)
                 ->setPageId($seo->page_id)
@@ -63,6 +75,7 @@ class GetAllSeoTask extends Task implements GetAllSeoTaskInterface
                 ->setPage($pageDto)
                 ->setField($fieldDto)
                 ->setLanguage($languageDto)
+                ->setLinks($links)
                 ->setCreateAt($seo->created_at)
                 ->setUpdateAt($seo->updated_at);
         });

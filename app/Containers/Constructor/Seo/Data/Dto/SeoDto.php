@@ -8,7 +8,7 @@ use App\Containers\Constructor\Page\Data\Dto\PageFieldDto;
 use Illuminate\Support\Carbon;
 use PopovAleksey\Mapper\Mapper;
 
-class SeoDto extends Mapper
+final class SeoDto extends Mapper
 {
     private ?int          $id          = null;
     private ?int          $pageId      = null;
@@ -20,6 +20,7 @@ class SeoDto extends Mapper
     private ?PageDto      $page        = null;
     private ?PageFieldDto $field       = null;
     private ?LanguageDto  $language    = null;
+    private array         $links       = [];
     private ?Carbon       $createAt    = null;
     private ?Carbon       $updateAt    = null;
 
@@ -141,6 +142,18 @@ class SeoDto extends Mapper
         $this->language = $language;
 
         return $this;
+    }
+
+    public function setLinks(array $links): self
+    {
+        $this->links = $links;
+
+        return $this;
+    }
+
+    public function getLinks(): array
+    {
+        return $this->links ?? [];
     }
 
     public function getCreateAt(): ?Carbon

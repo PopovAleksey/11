@@ -20,6 +20,7 @@ use Illuminate\Support\Carbon;
  * @property-read \App\Containers\Constructor\Page\Models\PageInterface         $page
  * @property-read \App\Containers\Constructor\Page\Models\PageFieldInterface    $pageField
  * @property-read \App\Containers\Constructor\Language\Models\LanguageInterface $language
+ * @property-read \Illuminate\Database\Eloquent\Collection                      $links
  */
 interface SeoInterface
 {
