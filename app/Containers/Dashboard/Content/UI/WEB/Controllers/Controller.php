@@ -18,11 +18,11 @@ use Illuminate\Http\JsonResponse;
 class Controller extends WebController
 {
     public function __construct(
-        private GetAllContentsActionInterface     $getAllContentsAction,
-        private CreateContentActionInterface      $createContentAction,
-        private FindContentByIdActionInterface    $findContentByIdAction,
-        private UpdateContentActionInterface      $updateContentAction,
-        private DeleteContentActionInterface      $deleteContentAction
+        private GetAllContentsActionInterface  $getAllContentsAction,
+        private CreateContentActionInterface   $createContentAction,
+        private FindContentByIdActionInterface $findContentByIdAction,
+        private UpdateContentActionInterface   $updateContentAction,
+        private DeleteContentActionInterface   $deleteContentAction
     )
     {
     }
@@ -31,7 +31,7 @@ class Controller extends WebController
     {
         $contents = $this->getAllContentsAction->run();
 
-        return view('constructor.base');
+        return view('dashboard.base');
     }
 
     public function show(int $id): Factory|View|Application

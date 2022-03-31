@@ -2,8 +2,8 @@
 
 namespace App\Containers\Dashboard\Content\UI\WEB\Requests;
 
+use App\Containers\Dashboard\Content\Data\Dto\ContentDto;
 use App\Ship\Parents\Requests\Request;
-use PopovAleksey\Mapper\Mapper;
 
 class StoreContentRequest extends Request
 {
@@ -14,8 +14,8 @@ class StoreContentRequest extends Request
         ];
     }
 
-    public function mapped(): Mapper
+    public function mapped(): ContentDto
     {
-        return (new Mapper());
+        return (new ContentDto());
     }
 }
