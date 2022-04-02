@@ -14,7 +14,7 @@ class CreateContentValuesTable extends Migration
             $table->id();
             $table->bigInteger('content_id')->unsigned()->index('INDEX_content_values_contents');
             $table->bigInteger('page_field_id')->unsigned()->index('INDEX_content_values_page_fields');
-            $table->fullText('value')->nullable();
+            $table->text('value')->nullable();
 
             $table->timestamps();
 
