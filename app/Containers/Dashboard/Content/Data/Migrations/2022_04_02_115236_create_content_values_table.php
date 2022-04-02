@@ -17,6 +17,18 @@ class CreateContentValuesTable extends Migration
             $table->fullText('value')->nullable();
 
             $table->timestamps();
+
+            $table->foreign('content_id', 'FK_content_values_contents_foreign')
+                ->references('id')
+                ->on('contents')
+                ->onUpdate('NO ACTION')
+                ->onDelete('CASCADE');
+
+            $table->foreign('page_field_id', 'FK_content_values_page_fields_foreign')
+                ->references('id')
+                ->on('page_fields')
+                ->onUpdate('NO ACTION')
+                ->onDelete('CASCADE');
         });
     }
 

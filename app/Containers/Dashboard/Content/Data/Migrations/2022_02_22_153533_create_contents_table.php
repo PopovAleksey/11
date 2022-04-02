@@ -17,6 +17,18 @@ class CreateContentsTable extends Migration
             $table->boolean('active')->default(true);
 
             $table->timestamps();
+
+            $table->foreign('language_id', 'FK_contents_languages_foreign')
+                ->references('id')
+                ->on('languages')
+                ->onUpdate('NO ACTION')
+                ->onDelete('CASCADE');
+
+            $table->foreign('page_id', 'FK_contents_pages_foreign')
+                ->references('id')
+                ->on('pages')
+                ->onUpdate('NO ACTION')
+                ->onDelete('CASCADE');
         });
     }
 
