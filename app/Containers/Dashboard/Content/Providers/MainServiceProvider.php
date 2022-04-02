@@ -14,8 +14,12 @@ use App\Containers\Dashboard\Content\Actions\UpdateContentAction;
 use App\Containers\Dashboard\Content\Actions\UpdateContentActionInterface;
 use App\Containers\Dashboard\Content\Data\Repositories\ContentRepository;
 use App\Containers\Dashboard\Content\Data\Repositories\ContentRepositoryInterface;
+use App\Containers\Dashboard\Content\Data\Repositories\ContentValueRepository;
+use App\Containers\Dashboard\Content\Data\Repositories\ContentValueRepositoryInterface;
 use App\Containers\Dashboard\Content\Models\Content;
 use App\Containers\Dashboard\Content\Models\ContentInterface;
+use App\Containers\Dashboard\Content\Models\ContentValue;
+use App\Containers\Dashboard\Content\Models\ContentValueInterface;
 use App\Containers\Dashboard\Content\Tasks\CreateContentTask;
 use App\Containers\Dashboard\Content\Tasks\CreateContentTaskInterface;
 use App\Containers\Dashboard\Content\Tasks\DeleteContentTask;
@@ -62,10 +66,12 @@ class MainServiceProvider extends MainProvider
     private function bindRepositories(): void
     {
         $this->app->bind(ContentRepositoryInterface::class, ContentRepository::class);
+        $this->app->bind(ContentValueRepositoryInterface::class, ContentValueRepository::class);
     }
 
     private function bindModels(): void
     {
         $this->app->bind(ContentInterface::class, Content::class);
+        $this->app->bind(ContentValueInterface::class, ContentValue::class);
     }
 }
