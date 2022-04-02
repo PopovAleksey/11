@@ -11,10 +11,10 @@ class PageRepository extends Repository implements PageRepositoryInterface
      * @var array
      */
     protected $fieldSearchable = [
-        'id'     => '=',
-        'name'   => 'like',
+        'id'             => '=',
+        'name'           => 'like',
         'parent_page_id' => '=',
-        'action' => '=',
+        'action'         => '=',
     ];
 
     public function model(): string

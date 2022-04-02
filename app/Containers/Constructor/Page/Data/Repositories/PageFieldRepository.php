@@ -11,15 +11,14 @@ class PageFieldRepository extends Repository implements PageFieldRepositoryInter
      * @var array
      */
     protected $fieldSearchable = [
-        'id' => '=',
-        'name'   => 'like',
-        'type' => '=',
+        'id'          => '=',
+        'name'        => 'like',
+        'type'        => '=',
         'placeholder' => '=',
-        'mask'   => 'like',
-        'values'   => 'like',
-        'action' => '=',
+        'mask'        => 'like',
+        'values'      => 'like',
+        'action'      => '=',
     ];
-
 
     public function model(): string
     {

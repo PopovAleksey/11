@@ -18,6 +18,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
+                <li class="nav-header">Content</li>
                 <li class="nav-item">
                     <a href="{{ route('dashboard_content_index') }}" class="nav-link {{ route('dashboard_content_index', [], false) === '/' . request()->path() ? 'active' : ''}}">
                         <i class="fas fa-server"></i>&nbsp;

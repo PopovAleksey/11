@@ -12,9 +12,11 @@ class CreateContentsTable extends Migration
     {
         Schema::create('contents', static function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('language_id')->unsigned()->index('INDEX_contents_languages');
+            $table->bigInteger('page_id')->unsigned()->index("INDEX_contents_pages");
+            $table->boolean('active')->default(true);
 
             $table->timestamps();
-            //$table->softDeletes();
         });
     }
 
