@@ -34,6 +34,12 @@
                         </a>
                     </li>
                 @endforeach
+                <li class="nav-header">Settings</li>
+                <a href="{{ route('dashboard_content_index') }}"
+                   class="nav-link {{ route('dashboard_content_index', [], false) === '/' . request()->path() ? 'active' : ''}}">
+                    <i class="fa-solid fa-list-check"></i>&nbsp;
+                    <p>Menu</p>
+                </a>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
