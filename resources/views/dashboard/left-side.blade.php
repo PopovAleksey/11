@@ -35,11 +35,13 @@
                     </li>
                 @endforeach
                 <li class="nav-header">Settings</li>
-                <a href="{{ route('dashboard_content_index') }}"
-                   class="nav-link {{ route('dashboard_content_index', [], false) === '/' . request()->path() ? 'active' : ''}}">
-                    <i class="fa-solid fa-list-check"></i>&nbsp;
-                    <p>Menu</p>
-                </a>
+                <li class="nav-item">
+                    <a href="{{ route('dashboard_content_index') }}"
+                       class="nav-link {{ route('dashboard_content_index', [], false) === '/' . request()->path() ? 'active' : ''}}">
+                        <i class="fas fa-tasks"></i>&nbsp;
+                        <p>Menu Configuration</p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
