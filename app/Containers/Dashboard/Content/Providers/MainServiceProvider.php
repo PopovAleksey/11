@@ -10,6 +10,8 @@ use App\Containers\Dashboard\Content\Actions\FindContentByIdAction;
 use App\Containers\Dashboard\Content\Actions\FindContentByIdActionInterface;
 use App\Containers\Dashboard\Content\Actions\GetAllContentsAction;
 use App\Containers\Dashboard\Content\Actions\GetAllContentsActionInterface;
+use App\Containers\Dashboard\Content\Actions\GetMenuListAction;
+use App\Containers\Dashboard\Content\Actions\GetMenuListActionInterface;
 use App\Containers\Dashboard\Content\Actions\UpdateContentAction;
 use App\Containers\Dashboard\Content\Actions\UpdateContentActionInterface;
 use App\Containers\Dashboard\Content\Data\Repositories\ContentRepository;
@@ -52,6 +54,7 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(FindContentByIdActionInterface::class, FindContentByIdAction::class);
         $this->app->bind(UpdateContentActionInterface::class, UpdateContentAction::class);
         $this->app->bind(DeleteContentActionInterface::class, DeleteContentAction::class);
+        $this->app->bind(GetMenuListActionInterface::class, GetMenuListAction::class);
     }
 
     private function bindTasks(): void

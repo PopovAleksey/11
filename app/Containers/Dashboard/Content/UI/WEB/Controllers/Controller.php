@@ -6,6 +6,7 @@ use App\Containers\Dashboard\Content\Actions\CreateContentActionInterface;
 use App\Containers\Dashboard\Content\Actions\DeleteContentActionInterface;
 use App\Containers\Dashboard\Content\Actions\FindContentByIdActionInterface;
 use App\Containers\Dashboard\Content\Actions\GetAllContentsActionInterface;
+use App\Containers\Dashboard\Content\Actions\GetMenuListActionInterface;
 use App\Containers\Dashboard\Content\Actions\UpdateContentActionInterface;
 use App\Containers\Dashboard\Content\UI\WEB\Requests\StoreContentRequest;
 use App\Containers\Dashboard\Content\UI\WEB\Requests\UpdateContentRequest;
@@ -14,10 +15,13 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Collection;
 
 class Controller extends WebController
 {
     public function __construct(
+        private GetMenuListActionInterface $getMenuListAction,
+
         private GetAllContentsActionInterface  $getAllContentsAction,
         private CreateContentActionInterface   $createContentAction,
         private FindContentByIdActionInterface $findContentByIdAction,
@@ -27,18 +31,25 @@ class Controller extends WebController
     {
     }
 
+    private function menuBuilder(): Collection
+    {
+        $pages = $this->getMenuListAction->run();
+
+        return collect(['menu' => $pages]);
+    }
+
     public function index(): Factory|View|Application
     {
         $contents = $this->getAllContentsAction->run();
 
-        return view('dashboard.base');
+        return view('dashboard.base', $this->menuBuilder()->merge(['content' => $contents]));
     }
 
     public function show(int $id): Factory|View|Application
     {
-        $content = $this->findContentByIdAction->run($id);
+        #$content = $this->findContentByIdAction->run($id);
 
-        return view('constructor.base');
+        return view('dashboard.base', $this->menuBuilder());
     }
 
     public function create(): Factory|View|Application
