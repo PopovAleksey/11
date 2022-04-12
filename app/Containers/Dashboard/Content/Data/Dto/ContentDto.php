@@ -2,18 +2,23 @@
 
 namespace App\Containers\Dashboard\Content\Data\Dto;
 
+use App\Containers\Constructor\Page\Data\Dto\PageDto;
 use Illuminate\Support\Carbon;
 use PopovAleksey\Mapper\Mapper;
 
 class ContentDto extends Mapper
 {
-    private ?int    $id          = null;
-    private ?int    $language_id = null;
-    private ?int    $page_id     = null;
-    private ?bool   $active      = null;
-    private array   $values      = [];
-    private ?Carbon $createAt    = null;
-    private ?Carbon $updateAt    = null;
+    private ?int  $id          = null;
+    private ?int  $language_id = null;
+    private ?int  $page_id     = null;
+    private ?bool $active      = null;
+    /**
+     * @var \App\Containers\Dashboard\Content\Data\Dto\ContentValueDto[]
+     */
+    private array    $values   = [];
+    private ?PageDto $page     = null;
+    private ?Carbon  $createAt = null;
+    private ?Carbon  $updateAt = null;
 
     /**
      * @return int|null
@@ -108,6 +113,22 @@ class ContentDto extends Mapper
         $this->values = $values;
 
         return $this;
+    }
+
+    /**
+     * @return \App\Containers\Constructor\Page\Data\Dto\PageDto|null
+     */
+    public function getPage(): ?PageDto
+    {
+        return $this->page;
+    }
+
+    /**
+     * @param \App\Containers\Constructor\Page\Data\Dto\PageDto|null $page
+     */
+    public function setPage(?PageDto $page): void
+    {
+        $this->page = $page;
     }
 
     /**

@@ -12,6 +12,7 @@ class ContentValueRepository extends Repository implements ContentValueRepositor
      */
     protected $fieldSearchable = [
         'id'            => '=',
+        'language_id'   => '=',
         'content_id'    => '=',
         'page_field_id' => '=',
         'value'         => 'like',

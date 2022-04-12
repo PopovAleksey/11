@@ -2,18 +2,22 @@
 
 namespace App\Containers\Dashboard\Content\Data\Dto;
 
+use App\Containers\Constructor\Language\Data\Dto\LanguageDto;
+use App\Containers\Constructor\Page\Data\Dto\PageFieldDto;
 use Illuminate\Support\Carbon;
 use PopovAleksey\Mapper\Mapper;
 
 class ContentValueDto extends Mapper
 {
-    private ?int        $id            = null;
-    private ?int        $content_id    = null;
-    private ?int        $page_field_id = null;
-    private ?string     $value         = null;
-    private ?ContentDto $content       = null;
-    private ?Carbon     $createAt      = null;
-    private ?Carbon     $updateAt      = null;
+    private ?int          $id            = null;
+    private ?int          $content_id    = null;
+    private ?int          $page_field_id = null;
+    private ?string       $value         = null;
+    private ?ContentDto   $content       = null;
+    private ?LanguageDto  $language      = null;
+    private ?PageFieldDto $page_field    = null;
+    private ?Carbon       $createAt      = null;
+    private ?Carbon       $updateAt      = null;
 
     /**
      * @return int|null
@@ -109,6 +113,39 @@ class ContentValueDto extends Mapper
 
         return $this;
     }
+
+    /**
+     * @param \App\Containers\Constructor\Language\Data\Dto\LanguageDto|null $language
+     */
+    public function setLanguage(?LanguageDto $language): void
+    {
+        $this->language = $language;
+    }
+
+    /**
+     * @return \App\Containers\Constructor\Language\Data\Dto\LanguageDto|null
+     */
+    public function getLanguage(): ?LanguageDto
+    {
+        return $this->language;
+    }
+
+    /**
+     * @param \App\Containers\Constructor\Page\Data\Dto\PageFieldDto|null $page_field
+     */
+    public function setPageField(?PageFieldDto $page_field): void
+    {
+        $this->page_field = $page_field;
+    }
+
+    /**
+     * @return \App\Containers\Constructor\Page\Data\Dto\PageFieldDto|null
+     */
+    public function getPageField(): ?PageFieldDto
+    {
+        return $this->page_field;
+    }
+
 
     /**
      * @return \Illuminate\Support\Carbon|null

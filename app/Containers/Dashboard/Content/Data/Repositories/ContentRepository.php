@@ -12,7 +12,6 @@ class ContentRepository extends Repository implements ContentRepositoryInterface
      */
     protected $fieldSearchable = [
         'id'          => '=',
-        'language_id' => '=',
         'page_id'     => '=',
         'active'      => '=',
     ];

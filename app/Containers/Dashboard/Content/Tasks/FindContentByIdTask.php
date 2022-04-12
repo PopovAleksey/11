@@ -14,17 +14,24 @@ class FindContentByIdTask extends Task implements FindContentByIdTaskInterface
     {
     }
 
+    /**
+     * @param int $id
+     * @return \App\Containers\Dashboard\Content\Data\Dto\ContentDto
+     * @throws \App\Ship\Exceptions\NotFoundException
+     */
     public function run(int $id): ContentDto
     {
         try {
-            $Content = $this->repository->find($id);
+            /**
+             * @var \App\Containers\Dashboard\Content\Models\ContentInterface $content
+             */
+            $content = $this->repository->find($id);
 
             return (new ContentDto())
-                        ->setId($Content->id)
-                        ->setCreateAt($Content->created_at)
-                        ->setUpdateAt($Content->updated_at);
-        }
-        catch (Exception $exception) {
+                ->setId($content->id)
+                ->setCreateAt($content->created_at)
+                ->setUpdateAt($content->updated_at);
+        } catch (Exception) {
             throw new NotFoundException();
         }
     }

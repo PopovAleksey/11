@@ -52,7 +52,7 @@ class Seo extends Model implements SeoInterface
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model|\App\Containers\Constructor\Page\Models\PageInterface
+     * @return \Illuminate\Database\Eloquent\Model|\App\Containers\Constructor\Page\Models\PageFieldInterface
      */
     public function getPageFieldAttribute(): \Illuminate\Database\Eloquent\Model|PageFieldInterface
     {
