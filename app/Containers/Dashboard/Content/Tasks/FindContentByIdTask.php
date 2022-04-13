@@ -9,6 +9,7 @@ use App\Containers\Constructor\Page\Models\PageInterface;
 use App\Containers\Dashboard\Content\Data\Dto\ContentDto;
 use App\Containers\Dashboard\Content\Data\Dto\ContentValueDto;
 use App\Containers\Dashboard\Content\Data\Repositories\ContentRepositoryInterface;
+use App\Containers\Dashboard\Content\Data\Repositories\ContentValueRepositoryInterface;
 use App\Containers\Dashboard\Content\Models\ContentInterface;
 use App\Containers\Dashboard\Content\Models\ContentValueInterface;
 use App\Ship\Exceptions\NotFoundException;
@@ -18,7 +19,10 @@ use Illuminate\Support\Collection;
 
 class FindContentByIdTask extends Task implements FindContentByIdTaskInterface
 {
-    public function __construct(private ContentRepositoryInterface $repository)
+    public function __construct(
+        private ContentRepositoryInterface      $contentRepository,
+        private ContentValueRepositoryInterface $contentValueRepository
+    )
     {
     }
 
@@ -30,12 +34,12 @@ class FindContentByIdTask extends Task implements FindContentByIdTaskInterface
     public function run(int $pageId): Collection
     {
         try {
-            $contents = $this->repository->findByField('page_id', $pageId);
-            $pageDto  = null;
-
-            return collect($contents)->map(function (ContentInterface $content) use (&$pageDto) {
-                $pageDto = $pageDto ?? $this->buildPageDto($content->page);
-                $values  = $content->values->map(static function (ContentValueInterface $value) {
+            $pageDto    = null;
+            $contents   = $this->contentRepository->findByField('page_id', $pageId);
+            $contentIds = $contents->map(fn(ContentInterface $content) => $content->id)->toArray();
+            $values     = $this->contentValueRepository
+                ->findWhereIn('content_id', $contentIds)
+                ->map(static function (ContentValueInterface $value) {
                     return (new ContentValueDto())
                         ->setId($value->id)
                         ->setLanguageId($value->language_id)
@@ -44,18 +48,21 @@ class FindContentByIdTask extends Task implements FindContentByIdTaskInterface
                         ->setContentId($value->content_id)
                         ->setCreateAt($value->created_at)
                         ->setUpdateAt($value->updated_at);
-                });
+                })
+                ->groupBy(fn(ContentValueDto $value) => $value->getContentId());
+
+            return collect($contents)->map(function (ContentInterface $content) use (&$pageDto, $values) {
+                $pageDto = $pageDto ?? $this->buildPageDto($content->page);
 
                 return (new ContentDto())
                     ->setId($content->id)
                     ->setPageId($content->page_id)
                     ->setActive($content->active)
                     ->setPage($pageDto)
-                    ->setValues($values->toArray())
+                    ->setValues($values->get($content->id)->toArray())
                     ->setCreateAt($content->created_at)
                     ->setUpdateAt($content->updated_at);
             });
-
 
         } catch (Exception) {
             throw new NotFoundException();
