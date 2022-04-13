@@ -2,9 +2,9 @@
 
 namespace App\Containers\Dashboard\Content\Actions;
 
-use App\Containers\Dashboard\Content\Data\Dto\ContentDto;
+use Illuminate\Support\Collection;
 
 interface FindContentByIdActionInterface
 {
-    public function run(int $id): ContentDto;
+    public function run(int $id): Collection;
 }

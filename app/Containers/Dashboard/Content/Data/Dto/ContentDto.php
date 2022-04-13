@@ -8,10 +8,9 @@ use PopovAleksey\Mapper\Mapper;
 
 class ContentDto extends Mapper
 {
-    private ?int  $id          = null;
-    private ?int  $language_id = null;
-    private ?int  $page_id     = null;
-    private ?bool $active      = null;
+    private ?int  $id      = null;
+    private ?int  $page_id = null;
+    private ?bool $active  = null;
     /**
      * @var \App\Containers\Dashboard\Content\Data\Dto\ContentValueDto[]
      */
@@ -35,25 +34,6 @@ class ContentDto extends Mapper
     public function setId(?int $id): self
     {
         $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getLanguageId(): ?int
-    {
-        return $this->language_id;
-    }
-
-    /**
-     * @param int|null $language_id
-     * @return \App\Containers\Dashboard\Content\Data\Dto\ContentDto
-     */
-    public function setLanguageId(?int $language_id): self
-    {
-        $this->language_id = $language_id;
 
         return $this;
     }
@@ -125,10 +105,13 @@ class ContentDto extends Mapper
 
     /**
      * @param \App\Containers\Constructor\Page\Data\Dto\PageDto|null $page
+     * @return $this
      */
-    public function setPage(?PageDto $page): void
+    public function setPage(?PageDto $page): self
     {
         $this->page = $page;
+
+        return $this;
     }
 
     /**

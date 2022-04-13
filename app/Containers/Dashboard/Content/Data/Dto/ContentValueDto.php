@@ -10,6 +10,7 @@ use PopovAleksey\Mapper\Mapper;
 class ContentValueDto extends Mapper
 {
     private ?int          $id            = null;
+    private ?int          $language_id   = null;
     private ?int          $content_id    = null;
     private ?int          $page_field_id = null;
     private ?string       $value         = null;
@@ -34,6 +35,25 @@ class ContentValueDto extends Mapper
     public function setId(?int $id): self
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLanguageId(): ?int
+    {
+        return $this->language_id;
+    }
+
+    /**
+     * @param int|null $language_id
+     * @return \App\Containers\Dashboard\Content\Data\Dto\ContentValueDto
+     */
+    public function setLanguageId(?int $language_id): self
+    {
+        $this->language_id = $language_id;
 
         return $this;
     }
@@ -115,14 +135,6 @@ class ContentValueDto extends Mapper
     }
 
     /**
-     * @param \App\Containers\Constructor\Language\Data\Dto\LanguageDto|null $language
-     */
-    public function setLanguage(?LanguageDto $language): void
-    {
-        $this->language = $language;
-    }
-
-    /**
      * @return \App\Containers\Constructor\Language\Data\Dto\LanguageDto|null
      */
     public function getLanguage(): ?LanguageDto
@@ -131,11 +143,11 @@ class ContentValueDto extends Mapper
     }
 
     /**
-     * @param \App\Containers\Constructor\Page\Data\Dto\PageFieldDto|null $page_field
+     * @param \App\Containers\Constructor\Language\Data\Dto\LanguageDto|null $language
      */
-    public function setPageField(?PageFieldDto $page_field): void
+    public function setLanguage(?LanguageDto $language): void
     {
-        $this->page_field = $page_field;
+        $this->language = $language;
     }
 
     /**
@@ -146,6 +158,13 @@ class ContentValueDto extends Mapper
         return $this->page_field;
     }
 
+    /**
+     * @param \App\Containers\Constructor\Page\Data\Dto\PageFieldDto|null $page_field
+     */
+    public function setPageField(?PageFieldDto $page_field): void
+    {
+        $this->page_field = $page_field;
+    }
 
     /**
      * @return \Illuminate\Support\Carbon|null

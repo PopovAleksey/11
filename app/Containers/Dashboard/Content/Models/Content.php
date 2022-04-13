@@ -43,7 +43,7 @@ class Content extends Model implements ContentInterface
      */
     public function getPageAttribute(): \Illuminate\Database\Eloquent\Model|PageInterface
     {
-        return $this->hasOne(Page::class, 'page_id')->first();
+        return $this->hasOne(Page::class, 'id', 'page_id')->first();
     }
 }
 

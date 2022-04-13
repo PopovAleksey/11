@@ -20,7 +20,7 @@ use Illuminate\Support\Collection;
 class Controller extends WebController
 {
     public function __construct(
-        private GetMenuListActionInterface $getMenuListAction,
+        private GetMenuListActionInterface     $getMenuListAction,
 
         private GetAllContentsActionInterface  $getAllContentsAction,
         private CreateContentActionInterface   $createContentAction,
@@ -31,13 +31,6 @@ class Controller extends WebController
     {
     }
 
-    private function menuBuilder(): Collection
-    {
-        $pages = $this->getMenuListAction->run();
-
-        return collect(['menu' => $pages]);
-    }
-
     public function index(): Factory|View|Application
     {
         $contents = $this->getAllContentsAction->run();
@@ -45,11 +38,18 @@ class Controller extends WebController
         return view('dashboard.base', $this->menuBuilder()->merge(['content' => $contents]));
     }
 
+    private function menuBuilder(): Collection
+    {
+        $pages = $this->getMenuListAction->run();
+
+        return collect(['menu' => $pages]);
+    }
+
     public function show(int $id): Factory|View|Application
     {
-        #$content = $this->findContentByIdAction->run($id);
+        $contents = $this->findContentByIdAction->run($id);
 
-        return view('dashboard.base', $this->menuBuilder());
+        return view('dashboard.base', $this->menuBuilder()->merge(['contents' => $contents]));
     }
 
     public function create(): Factory|View|Application
