@@ -14,11 +14,11 @@ class PageDto extends Mapper
     /**
      * @var \App\Containers\Constructor\Page\Data\Dto\PageFieldDto[]
      */
-    private array    $fields    = [];
-    private ?PageDto $childPage = null;
-    private ?Carbon  $createAt  = null;
-    private ?Carbon  $updateAt  = null;
-
+    private array    $fields         = [];
+    private ?int     $parent_page_id = null;
+    private ?PageDto $childPage      = null;
+    private ?Carbon  $createAt       = null;
+    private ?Carbon  $updateAt       = null;
 
     /**
      * @return int|null
@@ -110,6 +110,25 @@ class PageDto extends Mapper
     public function setFields(?array $fields): self
     {
         $this->fields = $fields ?? [];
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getParentPageId(): ?int
+    {
+        return $this->parent_page_id;
+    }
+
+    /**
+     * @param int|null $parent_page_id
+     * @return $this
+     */
+    public function setParentPageId(?int $parent_page_id): self
+    {
+        $this->parent_page_id = $parent_page_id;
 
         return $this;
     }

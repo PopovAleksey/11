@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
  * @package App\Containers\Constructor\Page\Models
  * @method static Builder query()
  * @property integer                                       $id
- * @property integer                                       $parent_page_id
+ * @property integer|null                                  $parent_page_id
  * @property string                                        $name
  * @property string                                        $type
  * @property boolean                                       $active
@@ -20,7 +20,7 @@ use Illuminate\Support\Carbon;
  */
 interface PageInterface
 {
-    public const SIMPLE_TYPE   = 'simple';
+    public const SIMPLE_TYPE   = 'simple';/**/
     public const BLOG_TYPE     = 'blog';
     public const CATEGORY_TYPE = 'category';
 }

@@ -16,22 +16,33 @@ class GetAllPagesTask extends Task implements GetAllPagesTaskInterface
     {
     }
 
+    /**
+     * @param bool $withFields
+     * @return \Illuminate\Support\Collection
+     */
     public function run(bool $withFields = false): Collection
     {
-        return $this->repository->all()->collect()
-            ->filter(fn(PageInterface $page) => $page->parent_page_id === null)
-            ->map(function (PageInterface $page) use ($withFields) {
-                $pageDto = $this->buildPageDto($page, $withFields);
+        $pageList = $this->repository->all()->collect()
+            ->mapWithKeys(fn(PageInterface $page) => [$page->id => $this->buildPageDto($page, $withFields)]);
 
-                if ($page->type === PageInterface::BLOG_TYPE) {
-                    $childPageDto = $this->buildPageDto($page->child_page, $withFields);
-                    $pageDto->setChildPage($childPageDto);
+        return $pageList
+            ->filter(fn(PageDto $page) => $page->getParentPageId() === null)
+            ->map(function (PageDto $page) use ($pageList) {
+                if ($page->getType() !== PageInterface::BLOG_TYPE) {
+                    return $page;
                 }
 
-                return $pageDto;
+                $childPageDto = $pageList->filter(fn(PageDto $childPage) => $childPage->getParentPageId() === $page->getId())->first();
+
+                return $page->setChildPage($childPageDto);
             });
     }
 
+    /**
+     * @param \App\Containers\Constructor\Page\Models\PageInterface $page
+     * @param bool                                                  $withFields
+     * @return \App\Containers\Constructor\Page\Data\Dto\PageDto
+     */
     private function buildPageDto(PageInterface $page, bool $withFields): PageDto
     {
         $pageDto = (new PageDto())
@@ -39,6 +50,7 @@ class GetAllPagesTask extends Task implements GetAllPagesTaskInterface
             ->setName($page->name)
             ->setType($page->type)
             ->setActive($page->active)
+            ->setParentPageId($page->parent_page_id)
             ->setCreateAt($page->created_at)
             ->setUpdateAt($page->updated_at);
 
@@ -50,6 +62,10 @@ class GetAllPagesTask extends Task implements GetAllPagesTaskInterface
         return $pageDto;
     }
 
+    /**
+     * @param \Illuminate\Database\Eloquent\Collection $fields
+     * @return array
+     */
     private function buildPageFieldsDto(\Illuminate\Database\Eloquent\Collection $fields): array
     {
         return $fields
