@@ -21,8 +21,8 @@
                 <li class="nav-header">Content</li>
                 @foreach($menu as $item)
                     <li class="nav-item">
-                        <a href="{{ route('dashboard_content_show', ['id' => $item->getId()]) }}"
-                           class="nav-link {{ route('dashboard_content_show', ['id' => $item->getId()], false) === '/' . request()->path() ? 'active' : ''}}">
+                        <a href="{{ route('dashboard_page_show', ['id' => $item->getId()]) }}"
+                           class="nav-link {{ route('dashboard_page_show', ['id' => $item->getId()], false) === '/' . request()->path() ? 'active' : ''}}">
                             @if ($item->getType() === \App\Containers\Constructor\Page\Models\PageInterface::SIMPLE_TYPE)
                                 <i class="far fa-file-alt"></i>&nbsp;
                             @elseif($item->getType() === \App\Containers\Constructor\Page\Models\PageInterface::BLOG_TYPE)

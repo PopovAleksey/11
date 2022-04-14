@@ -45,7 +45,7 @@ class Controller extends WebController
         return collect(['menu' => $pages]);
     }
 
-    public function show(int $id): Factory|View|Application
+    public function showPage(int $id): Factory|View|Application
     {
         $contents = $this->findContentByIdAction->run($id);
 
