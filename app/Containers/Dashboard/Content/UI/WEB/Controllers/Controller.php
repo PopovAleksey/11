@@ -35,26 +35,38 @@ class Controller extends WebController
     {
         $contents = $this->getAllContentsAction->run();
 
-        return view('dashboard.base', $this->menuBuilder()->merge(['content' => $contents]));
+        return view(
+            'dashboard.base',
+            $this->menuBuilder()->merge([
+                'content' => $contents,
+            ]));
     }
 
     private function menuBuilder(): Collection
     {
-        $pages = $this->getMenuListAction->run();
-
-        return collect(['menu' => $pages]);
+        return collect(['menu' => $this->getMenuListAction->run()]);
     }
 
-    public function showPage(int $id): Factory|View|Application
+    public function showPage(int $pageId): Factory|View|Application
     {
-        $contents = $this->findContentByIdAction->run($id);
+        $contents = $this->findContentByIdAction->run($pageId);
+        $field    = collect($contents->first()?->getPage()->getFields())->first();
+        #dump($field, $contents);
 
-        return view('dashboard.base', $this->menuBuilder()->merge(['contents' => $contents]));
+        return view(
+            'dashboard@content::list',
+            $this->menuBuilder()->merge([
+                'pageId'   => $pageId,
+                'field'    => $field,
+                'contents' => $contents,
+            ]));
     }
 
     public function create(): Factory|View|Application
     {
-        return view('constructor.base');
+        dump('I\'m create!');
+
+        return view('dashboard.base', $this->menuBuilder());
     }
 
     public function store(StoreContentRequest $request): JsonResponse

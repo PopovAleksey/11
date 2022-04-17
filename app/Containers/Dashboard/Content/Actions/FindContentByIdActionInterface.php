@@ -6,5 +6,5 @@ use Illuminate\Support\Collection;
 
 interface FindContentByIdActionInterface
 {
-    public function run(int $id): Collection;
+    public function run(int $pageId): Collection;
 }

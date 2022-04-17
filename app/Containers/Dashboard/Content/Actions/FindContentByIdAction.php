@@ -15,8 +15,8 @@ class FindContentByIdAction extends Action implements FindContentByIdActionInter
     {
     }
 
-    public function run(int $id): Collection
+    public function run(int $pageId): Collection
     {
-        return $this->findContentByIdTask->run($id);
+        return $this->findContentByIdTask->run($pageId);
     }
 }
