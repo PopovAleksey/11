@@ -6,5 +6,5 @@ use Illuminate\Support\Collection;
 
 interface GetAllLanguagesActionInterface
 {
-    public function run(): Collection;
+    public function run(bool $getOnlyActive = false): Collection;
 }

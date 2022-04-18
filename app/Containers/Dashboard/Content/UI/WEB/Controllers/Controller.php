@@ -2,6 +2,8 @@
 
 namespace App\Containers\Dashboard\Content\UI\WEB\Controllers;
 
+use App\Containers\Constructor\Language\Actions\GetAllLanguagesActionInterface;
+use App\Containers\Constructor\Page\Actions\FindPageByIdActionInterface;
 use App\Containers\Dashboard\Content\Actions\CreateContentActionInterface;
 use App\Containers\Dashboard\Content\Actions\DeleteContentActionInterface;
 use App\Containers\Dashboard\Content\Actions\FindContentByIdActionInterface;
@@ -19,8 +21,19 @@ use Illuminate\Support\Collection;
 
 class Controller extends WebController
 {
+    /**
+     * @param \App\Containers\Dashboard\Content\Actions\GetMenuListActionInterface     $getMenuListAction
+     * @param \App\Containers\Constructor\Page\Actions\FindPageByIdActionInterface     $findPageByIdAction
+     * @param \App\Containers\Dashboard\Content\Actions\GetAllContentsActionInterface  $getAllContentsAction
+     * @param \App\Containers\Dashboard\Content\Actions\CreateContentActionInterface   $createContentAction
+     * @param \App\Containers\Dashboard\Content\Actions\FindContentByIdActionInterface $findContentByIdAction
+     * @param \App\Containers\Dashboard\Content\Actions\UpdateContentActionInterface   $updateContentAction
+     * @param \App\Containers\Dashboard\Content\Actions\DeleteContentActionInterface   $deleteContentAction
+     */
     public function __construct(
         private GetMenuListActionInterface     $getMenuListAction,
+        private FindPageByIdActionInterface    $findPageByIdAction,
+        private GetAllLanguagesActionInterface $getAllLanguagesAction,
 
         private GetAllContentsActionInterface  $getAllContentsAction,
         private CreateContentActionInterface   $createContentAction,
@@ -31,6 +44,9 @@ class Controller extends WebController
     {
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+     */
     public function index(): Factory|View|Application
     {
         $contents = $this->getAllContentsAction->run();
@@ -42,16 +58,22 @@ class Controller extends WebController
             ]));
     }
 
+    /**
+     * @return \Illuminate\Support\Collection
+     */
     private function menuBuilder(): Collection
     {
         return collect(['menu' => $this->getMenuListAction->run()]);
     }
 
+    /**
+     * @param int $pageId
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+     */
     public function showPage(int $pageId): Factory|View|Application
     {
         $contents = $this->findContentByIdAction->run($pageId);
         $field    = collect($contents->first()?->getPage()->getFields())->first();
-        #dump($field, $contents);
 
         return view(
             'dashboard@content::list',
@@ -62,13 +84,29 @@ class Controller extends WebController
             ]));
     }
 
-    public function create(): Factory|View|Application
+    /**
+     * @param int $pageId
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+     */
+    public function create(int $pageId): Factory|View|Application
     {
-        dump('I\'m create!');
+        $page      = $this->findPageByIdAction->run($pageId, withFields: true);
+        $languages = $this->getAllLanguagesAction->run(getOnlyActive: true);
+        dump($page, $languages);
 
-        return view('dashboard.base', $this->menuBuilder());
+        return view(
+            'dashboard@content::edit',
+            $this->menuBuilder()->merge([
+                'pageId'       => $pageId,
+                'data'         => $page,
+                'languageList' => $languages,
+            ]));
     }
 
+    /**
+     * @param \App\Containers\Dashboard\Content\UI\WEB\Requests\StoreContentRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(StoreContentRequest $request): JsonResponse
     {
         $this->createContentAction->run($request->mapped());
@@ -76,6 +114,10 @@ class Controller extends WebController
         return response()->json()->setStatusCode(200);
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+     */
     public function edit(int $id): Factory|View|Application
     {
         $content = $this->findContentByIdAction->run($id);
@@ -83,6 +125,11 @@ class Controller extends WebController
         return view('constructor.base');
     }
 
+    /**
+     * @param int                                                                    $id
+     * @param \App\Containers\Dashboard\Content\UI\WEB\Requests\UpdateContentRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(int $id, UpdateContentRequest $request): JsonResponse
     {
         $data = $request->mapped()->setId($id);
@@ -92,6 +139,10 @@ class Controller extends WebController
         return response()->json()->setStatusCode(200);
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function destroy(int $id): JsonResponse
     {
         $this->deleteContentAction->run($id);
