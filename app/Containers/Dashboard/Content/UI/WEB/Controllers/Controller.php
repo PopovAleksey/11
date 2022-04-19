@@ -103,9 +103,9 @@ class Controller extends WebController
         return view(
             'dashboard@content::edit',
             $this->menuBuilder()->merge([
-                'pageId'       => $pageId,
-                'page'         => $page,
-                'languageList' => $languages,
+                'pageId'    => $pageId,
+                'page'      => $page,
+                'languages' => $languages,
             ]));
     }
 

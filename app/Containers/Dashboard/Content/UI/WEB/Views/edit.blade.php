@@ -18,7 +18,7 @@
 
     <script>
         $(function () {
-            @foreach($languageList as $language)
+            @foreach($languages as $language)
             @foreach($page->getFields() as $field)
             @if($field->getType() === \App\Containers\Constructor\Page\Models\PageFieldInterface::TEXTAREA_TYPE)
             $('#field-{{ $language->getId() }}-{{ $field->getId() }}').summernote();
@@ -43,9 +43,9 @@
                 <div class="card card-primary card-outline card-outline-tabs">
                     <div class="card-header p-0 border-bottom-0">
                         <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
-                            @foreach($languageList as $language)
+                            @foreach($languages as $language)
                                 <li class="nav-item">
-                                    <a class="nav-link {{head($languageList)?->getId() === $language->getId() ? 'active' : ''}}"
+                                    <a class="nav-link {{head($languages)?->getId() === $language->getId() ? 'active' : ''}}"
                                        id="language-tab-{{ $language->getId() }}-tab"
                                        data-toggle="pill" href="#language-tab-{{ $language->getId() }}" role="tab"
                                        aria-controls="custom-tabs-four-home"
@@ -56,8 +56,8 @@
                     </div>
                     <div class="card-body">
                         <div class="tab-content" id="custom-tabs-four-tabContent">
-                            @foreach($languageList as $language)
-                                <div class="tab-pane fade {{head($languageList)?->getId() === $language->getId() ? 'show active' : ''}}"
+                            @foreach($languages as $language)
+                                <div class="tab-pane fade {{head($languages)?->getId() === $language->getId() ? 'show active' : ''}}"
                                      id="language-tab-{{ $language->getId() }}" role="tabpanel"
                                      aria-labelledby="language-tab-{{ $language->getId() }}-tab">
                                     <div class="card-body">
