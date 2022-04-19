@@ -253,13 +253,67 @@
                                 <div class="tab-pane fade {{head($languageList)?->getId() === $language->getId() ? 'show active' : ''}}"
                                      id="language-tab-{{ $language->getId() }}" role="tabpanel"
                                      aria-labelledby="language-tab-{{ $language->getId() }}-tab">
-                                    @foreach($data->getFields() as $field)
-                                        {{ $field->getName() }}<br>
-                                        {{ $field->getType() }}<br>
-                                        {{ $field->getPlaceholder() }}<br><br>
-                                    @endforeach
-                                    {{ $language->getName() }}
-                                    {{ $language->getShortName() }}
+                                    <div class="card-body">
+                                        @foreach($data->getFields() as $field)
+                                            <div class="form-group">
+                                                <label for="field-{{ $field->getId() }}">{{ $field->getName() }}</label>
+                                                @switch($field->getType())
+                                                    @case(\App\Containers\Constructor\Page\Models\PageFieldInterface::INPUT_TYPE)
+                                                    <input type="text" class="form-control"
+                                                           id="field-{{ $field->getId() }}"
+                                                           value="{{ head($field->getValues()) }}"
+                                                           placeholder="{{ $field->getPlaceholder() }}"/>
+                                                    @break
+                                                    @case(\App\Containers\Constructor\Page\Models\PageFieldInterface::TEXTAREA_TYPE)
+                                                    <textarea class="form-control"
+                                                              id="field-{{ $field->getId() }}"
+                                                              placeholder="{{ $field->getPlaceholder() }}">
+                                                        {{ head($field->getValues()) }}
+                                                    </textarea>
+                                                    @break
+                                                    @case(\App\Containers\Constructor\Page\Models\PageFieldInterface::SELECT_TYPE)
+                                                    <select class="form-control"
+                                                            id="field-{{ $field->getId() }}">
+                                                        <option value="">{{ $field->getPlaceholder() }}</option>
+                                                        @foreach($field->getValues() as $value)
+                                                            <option value="{{ $value }}">{{ $value }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @break
+                                                    @case(\App\Containers\Constructor\Page\Models\PageFieldInterface::SELECT_MULTIPLE_TYPE)
+                                                    <select multiple="" class="form-control"
+                                                            id="field-{{ $field->getId() }}">
+                                                        @foreach($field->getValues() as $value)
+                                                            <option value="{{ $value }}">{{ $value }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @break
+                                                    @case(\App\Containers\Constructor\Page\Models\PageFieldInterface::RADIO_TYPE)
+                                                    @foreach($field->getValues() as $value)
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                   name="field-{{ $field->getId() }}"
+                                                                   value="{{ $value }}"/>
+                                                            <label class="form-check-label">{{ $value }}</label>
+                                                        </div>
+                                                    @endforeach
+                                                    @break
+                                                    @case(\App\Containers\Constructor\Page\Models\PageFieldInterface::CHECKBOX_TYPE)
+                                                    @foreach($field->getValues() as $value)
+                                                        <div class="form-check">
+                                                            <input class="form-check-input"
+                                                                   type="checkbox"
+                                                                   name="field-{{ $field->getId() }}"
+                                                                   value="{{ $value }}"
+                                                                   checked="">
+                                                            <label class="form-check-label">{{ $value }}</label>
+                                                        </div>
+                                                    @endforeach
+                                                    @break
+                                                @endswitch
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
                             @endforeach
                         </div>

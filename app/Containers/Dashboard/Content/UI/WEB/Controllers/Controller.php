@@ -17,18 +17,21 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Collection;
 
 class Controller extends WebController
 {
     /**
-     * @param \App\Containers\Dashboard\Content\Actions\GetMenuListActionInterface     $getMenuListAction
-     * @param \App\Containers\Constructor\Page\Actions\FindPageByIdActionInterface     $findPageByIdAction
-     * @param \App\Containers\Dashboard\Content\Actions\GetAllContentsActionInterface  $getAllContentsAction
-     * @param \App\Containers\Dashboard\Content\Actions\CreateContentActionInterface   $createContentAction
-     * @param \App\Containers\Dashboard\Content\Actions\FindContentByIdActionInterface $findContentByIdAction
-     * @param \App\Containers\Dashboard\Content\Actions\UpdateContentActionInterface   $updateContentAction
-     * @param \App\Containers\Dashboard\Content\Actions\DeleteContentActionInterface   $deleteContentAction
+     * @param \App\Containers\Dashboard\Content\Actions\GetMenuListActionInterface        $getMenuListAction
+     * @param \App\Containers\Constructor\Page\Actions\FindPageByIdActionInterface        $findPageByIdAction
+     * @param \App\Containers\Constructor\Language\Actions\GetAllLanguagesActionInterface $getAllLanguagesAction
+     * @param \App\Containers\Dashboard\Content\Actions\GetAllContentsActionInterface     $getAllContentsAction
+     * @param \App\Containers\Dashboard\Content\Actions\CreateContentActionInterface      $createContentAction
+     * @param \App\Containers\Dashboard\Content\Actions\FindContentByIdActionInterface    $findContentByIdAction
+     * @param \App\Containers\Dashboard\Content\Actions\UpdateContentActionInterface      $updateContentAction
+     * @param \App\Containers\Dashboard\Content\Actions\DeleteContentActionInterface      $deleteContentAction
      */
     public function __construct(
         private GetMenuListActionInterface     $getMenuListAction,
@@ -86,12 +89,16 @@ class Controller extends WebController
 
     /**
      * @param int $pageId
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function create(int $pageId): Factory|View|Application
+    public function create(int $pageId): View|Factory|Redirector|RedirectResponse|Application
     {
         $page      = $this->findPageByIdAction->run($pageId, withFields: true);
         $languages = $this->getAllLanguagesAction->run(getOnlyActive: true);
+
+        if ($page->getActive() === false) {
+            return redirect(route('dashboard_content_index'));
+        }
         dump($page, $languages);
 
         return view(
