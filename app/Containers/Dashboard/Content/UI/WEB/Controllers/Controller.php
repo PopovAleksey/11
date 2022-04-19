@@ -99,13 +99,12 @@ class Controller extends WebController
         if ($page->getActive() === false) {
             return redirect(route('dashboard_content_index'));
         }
-        dump($page, $languages);
 
         return view(
             'dashboard@content::edit',
             $this->menuBuilder()->merge([
                 'pageId'       => $pageId,
-                'data'         => $page,
+                'page'         => $page,
                 'languageList' => $languages,
             ]));
     }

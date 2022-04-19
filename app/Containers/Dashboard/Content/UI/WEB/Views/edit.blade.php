@@ -1,223 +1,30 @@
 @extends('dashboard.base')
 
-@section('title', 'Page Types | Simple Page | ' . $data->getName())
-@section('page-title', 'Simple Page | ' . $data->getName())
+@section('title', 'Page Types | Simple Page | ' . $page->getName())
+@section('page-title', 'Simple Page | ' . $page->getName())
 
 @section('css')
+    <!-- summernote -->
+    <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
     <!-- Toastr -->
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
-    <style>
-        .bootstrap-switch-container {
-            display: contents;
-        }
-    </style>
 @stop
 
 @section('js')
-
+    <!-- Summernote -->
+    <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
     <!-- Toastr -->
     <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
 
     <script>
         $(function () {
-
-            function createNameFieldForm(dataId, inputValue) {
-                let nameForm = document.createElement('div');
-                nameForm.classList.add('input-group', 'mb-3');
-
-                let nameInput = document.createElement('input');
-                nameInput.classList.add('form-control');
-                nameInput.setAttribute('type', 'text');
-                nameInput.setAttribute('id', 'field-name');
-                nameInput.setAttribute('name', 'name');
-                nameInput.setAttribute('data-id', dataId);
-                nameInput.setAttribute('value', inputValue);
-
-                let removeElement = document.createElement('div');
-                removeElement.classList.add('input-group-prepend');
-
-                let removeButton = document.createElement('button');
-                removeButton.classList.add('btn', 'btn-danger');
-                removeButton.setAttribute('id', 'remove-element');
-                removeButton.setAttribute('data-id', dataId);
-
-                let removeButtonText = document.createTextNode('Remove Field');
-
-                let removeButtonIcon = document.createElement('i');
-                removeButtonIcon.classList.add('far', 'fa-trash-alt');
-
-                removeButton.appendChild(removeButtonIcon);
-                removeButton.appendChild(removeButtonText);
-                removeElement.appendChild(removeButton);
-                nameForm.appendChild(nameInput)
-                nameForm.appendChild(removeElement);
-
-                return nameForm;
-            }
-
-            function createTypeFieldForm(dataId, selectedType = null) {
-                let typeForm = document.createElement('div');
-                typeForm.classList.add('form-group');
-
-                let selectTypes = document.createElement('select');
-                selectTypes.classList.add('form-control');
-                selectTypes.setAttribute('id', 'field-type');
-                selectTypes.setAttribute('name', 'type');
-                selectTypes.setAttribute('data-id', dataId);
-                Object.entries({
-                    input: 'Input',
-                    textarea: 'Textarea',
-                    select: 'Select',
-                    selectMultiple: 'Select Multiple',
-                    radio: 'Radio',
-                    checkbox: 'Checkbox',
-                    file: 'File'
-                }).forEach(function ([key, value]) {
-                    let selectOption = document.createElement('option');
-                    selectOption.setAttribute('value', key);
-                    selectOption.innerText = value;
-
-                    if (key === selectedType) {
-                        selectOption.setAttribute('selected', true);
-                    }
-
-                    selectTypes.appendChild(selectOption);
-                });
-
-                typeForm.appendChild(selectTypes);
-
-                return typeForm;
-            }
-
-            let nextTab = 1;
-
-            $('button#add-element').on('click', function () {
-                $('#vert-tabs-tab a:last')
-                    .clone()
-                    .attr('href', '#vert-tabs-field-' + nextTab)
-                    .removeClass("active disabled")
-                    .html('<strong id="field-name-' + nextTab + '">Tab ' + nextTab + '</strong>')
-                    .appendTo('#vert-tabs-tab');
-
-                $('#vert-tabs-tabContent .tab-pane:last')
-                    .clone()
-                    .attr('id', 'vert-tabs-field-' + nextTab)
-                    .removeClass("active disabled")
-                    .html('')
-                    .appendTo('#vert-tabs-tabContent');
-
-
-                let nameForm = createNameFieldForm(nextTab, 'Tab ' + nextTab);
-                let typeForm = createTypeFieldForm(nextTab);
-
-                $('#vert-tabs-field-' + nextTab)
-                    .html(nameForm)
-                    .append(typeForm)
-                    .append('<div class="row field-form" id="input-form">' +
-                        '<div class="col-lg-4">' +
-                        '<div class="input-group">' +
-                        '<input type="text" name="value" placeholder="Default Value" class="form-control" />' +
-                        '</div></div>' +
-                        '<div class="col-lg-4"><div class="input-group">' +
-                        '<input type="text" name="placeholder" placeholder="Placeholder" class="form-control" />' +
-                        '</div></div>' +
-                        '<div class="col-lg-4"><div class="input-group">' +
-                        '<input type="text" name="mask" placeholder="Input Mask" class="form-control" />' +
-                        '</div></div></div>')
-                ;
-
-
-                $('button#remove-element').on('click', function () {
-                    var elementId = $(this).attr('data-id');
-
-                    $('#vert-tabs-tab a[href="#vert-tabs-field-' + elementId + '"]').remove();
-                    $('#vert-tabs-field-' + elementId).remove();
-
-                    $('#vert-tabs-tab a:last').tab('show');
-                });
-
-                $('input#field-name').on('change', function () {
-                    var elementAttrId = $(this).attr('data-id');
-                    var value = $(this).val();
-
-                    $('#vert-tabs-tab #field-name-' + elementAttrId).text(value === '' ? 'Tab ' + nextTab : value);
-                });
-
-                $('#vert-tabs-tab a:last').tab('show');
-
-                nextTab++;
-            });
-
-            $('button#remove-current-element').on('click', function () {
-                var elementId = $(this).attr('data-id');
-
-                $('#vert-tabs-tab a[href="#vert-tabs-current-field-' + elementId + '"]').remove();
-                $('#vert-tabs-current-field-' + elementId).remove();
-
-                $('#vert-tabs-tab a:last').tab('show');
-            });
-
-            $('input#field-name').on('change', function () {
-                var elementAttrId = $(this).attr('data-id');
-                var value = $(this).val();
-
-                $('#vert-tabs-tab #current-field-name-' + elementAttrId).text(value === '' ? 'Tab ' + nextTab : value);
-            });
-
-            $("form#fields-form").submit(function (event) {
-                event.preventDefault();
-
-                $('#add-element').prop("disabled", true);
-                $('#save-fields').prop("disabled", true);
-
-                let result = [];
-                let json = {};
-
-                let pageName = '';
-
-                $.each($(this).serializeArray(), function (index, item) {
-                    if (item.name === 'page-name') {
-                        pageName = item.value;
-                        return;
-                    }
-
-                    json[item.name] = item.value;
-                    if (item.name === 'mask') {
-                        result.push(json);
-                        json = {};
-                    }
-                });
-
-                $.ajax({
-                    url: '{{ route('constructor_page_update', ['id' => $pageId]) }}',
-                    type: 'PATCH',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    data: {
-                        'name': pageName,
-                        'fields': result
-                    },
-                    success: function (response) {
-                        if (response.id === undefined) {
-                            $('#add-element').prop("disabled", false);
-                            $('#save-fields').prop("disabled", false);
-                            return;
-                        }
-                        location.href = '{{ route('constructor_page_edit', ':id') }}'.replace(':id', response.id);
-                    },
-                    error: function (error) {
-                        Toast.fire({
-                            icon: 'error',
-                            title: error.responseJSON.message
-                        });
-                        $('#add-element').prop("disabled", false);
-                        $('#save-fields').prop("disabled", false);
-                    }
-                });
-
-                console.log(JSON.stringify(result));
-            });
+            @foreach($languageList as $language)
+            @foreach($page->getFields() as $field)
+            @if($field->getType() === \App\Containers\Constructor\Page\Models\PageFieldInterface::TEXTAREA_TYPE)
+            $('#field-{{ $language->getId() }}-{{ $field->getId() }}').summernote();
+            @endif
+            @endforeach
+            @endforeach
         });
     </script>
 @stop
@@ -225,14 +32,14 @@
 @section('breadcrumb')
     @parent
     <li class="breadcrumb-item active">
-        <a href="{{route('dashboard_page_show', ['id' => $pageId])}}">{{$data->getName()}}</a>
+        <a href="{{route('dashboard_page_show', ['id' => $pageId])}}">{{$page->getName()}}</a>
     </li>
 @stop
 
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 col-sm-12">
+            <div class="col-12">
                 <div class="card card-primary card-outline card-outline-tabs">
                     <div class="card-header p-0 border-bottom-0">
                         <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
@@ -254,26 +61,26 @@
                                      id="language-tab-{{ $language->getId() }}" role="tabpanel"
                                      aria-labelledby="language-tab-{{ $language->getId() }}-tab">
                                     <div class="card-body">
-                                        @foreach($data->getFields() as $field)
+                                        @foreach($page->getFields() as $field)
                                             <div class="form-group">
-                                                <label for="field-{{ $field->getId() }}">{{ $field->getName() }}</label>
+                                                <label for="field-{{ $language->getId() }}-{{ $field->getId() }}">{{ $field->getName() }}</label>
                                                 @switch($field->getType())
                                                     @case(\App\Containers\Constructor\Page\Models\PageFieldInterface::INPUT_TYPE)
                                                     <input type="text" class="form-control"
-                                                           id="field-{{ $field->getId() }}"
+                                                           id="field-{{ $language->getId() }}-{{ $field->getId() }}"
                                                            value="{{ head($field->getValues()) }}"
                                                            placeholder="{{ $field->getPlaceholder() }}"/>
                                                     @break
                                                     @case(\App\Containers\Constructor\Page\Models\PageFieldInterface::TEXTAREA_TYPE)
                                                     <textarea class="form-control"
-                                                              id="field-{{ $field->getId() }}"
+                                                              id="field-{{ $language->getId() }}-{{ $field->getId() }}"
                                                               placeholder="{{ $field->getPlaceholder() }}">
                                                         {{ head($field->getValues()) }}
                                                     </textarea>
                                                     @break
                                                     @case(\App\Containers\Constructor\Page\Models\PageFieldInterface::SELECT_TYPE)
                                                     <select class="form-control"
-                                                            id="field-{{ $field->getId() }}">
+                                                            id="field-{{ $language->getId() }}-{{ $field->getId() }}">
                                                         <option value="">{{ $field->getPlaceholder() }}</option>
                                                         @foreach($field->getValues() as $value)
                                                             <option value="{{ $value }}">{{ $value }}</option>
@@ -282,7 +89,7 @@
                                                     @break
                                                     @case(\App\Containers\Constructor\Page\Models\PageFieldInterface::SELECT_MULTIPLE_TYPE)
                                                     <select multiple="" class="form-control"
-                                                            id="field-{{ $field->getId() }}">
+                                                            id="field-{{ $language->getId() }}-{{ $field->getId() }}">
                                                         @foreach($field->getValues() as $value)
                                                             <option value="{{ $value }}">{{ $value }}</option>
                                                         @endforeach
@@ -292,7 +99,7 @@
                                                     @foreach($field->getValues() as $value)
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="radio"
-                                                                   name="field-{{ $field->getId() }}"
+                                                                   name="field-{{ $language->getId() }}-{{ $field->getId() }}"
                                                                    value="{{ $value }}"/>
                                                             <label class="form-check-label">{{ $value }}</label>
                                                         </div>
@@ -303,7 +110,7 @@
                                                         <div class="form-check">
                                                             <input class="form-check-input"
                                                                    type="checkbox"
-                                                                   name="field-{{ $field->getId() }}"
+                                                                   name="field-{{ $language->getId() }}-{{ $field->getId() }}"
                                                                    value="{{ $value }}"
                                                                    checked="">
                                                             <label class="form-check-label">{{ $value }}</label>
@@ -320,6 +127,17 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-outline">
+                    <div class="card-body pad table-responsive col-12 col-md-3 align-self-end">
+                        <button type="button" class="btn btn-block btn-success">Save</button>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+            <!-- /.col -->
         </div>
     </div>
 @endsection
