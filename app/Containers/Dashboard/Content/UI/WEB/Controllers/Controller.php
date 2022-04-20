@@ -7,7 +7,7 @@ use App\Containers\Constructor\Page\Actions\FindPageByIdActionInterface;
 use App\Containers\Dashboard\Content\Actions\CreateContentActionInterface;
 use App\Containers\Dashboard\Content\Actions\DeleteContentActionInterface;
 use App\Containers\Dashboard\Content\Actions\FindContentByIdActionInterface;
-use App\Containers\Dashboard\Content\Actions\GetAllContentsActionInterface;
+use App\Containers\Dashboard\Content\Actions\GetAllContentActionInterface;
 use App\Containers\Dashboard\Content\Actions\GetMenuListActionInterface;
 use App\Containers\Dashboard\Content\Actions\UpdateContentActionInterface;
 use App\Containers\Dashboard\Content\UI\WEB\Requests\StoreContentRequest;
@@ -27,9 +27,9 @@ class Controller extends WebController
      * @param \App\Containers\Dashboard\Content\Actions\GetMenuListActionInterface        $getMenuListAction
      * @param \App\Containers\Constructor\Page\Actions\FindPageByIdActionInterface        $findPageByIdAction
      * @param \App\Containers\Constructor\Language\Actions\GetAllLanguagesActionInterface $getAllLanguagesAction
-     * @param \App\Containers\Dashboard\Content\Actions\GetAllContentsActionInterface     $getAllContentsAction
-     * @param \App\Containers\Dashboard\Content\Actions\CreateContentActionInterface      $createContentAction
      * @param \App\Containers\Dashboard\Content\Actions\FindContentByIdActionInterface    $findContentByIdAction
+     * @param \App\Containers\Dashboard\Content\Actions\CreateContentActionInterface      $createContentAction
+     * @param \App\Containers\Dashboard\Content\Actions\GetAllContentActionInterface      $getAllContentsAction
      * @param \App\Containers\Dashboard\Content\Actions\UpdateContentActionInterface      $updateContentAction
      * @param \App\Containers\Dashboard\Content\Actions\DeleteContentActionInterface      $deleteContentAction
      */
@@ -38,9 +38,9 @@ class Controller extends WebController
         private FindPageByIdActionInterface    $findPageByIdAction,
         private GetAllLanguagesActionInterface $getAllLanguagesAction,
 
-        private GetAllContentsActionInterface  $getAllContentsAction,
-        private CreateContentActionInterface   $createContentAction,
         private FindContentByIdActionInterface $findContentByIdAction,
+        private CreateContentActionInterface   $createContentAction,
+        private GetAllContentActionInterface   $getAllContentsAction,
         private UpdateContentActionInterface   $updateContentAction,
         private DeleteContentActionInterface   $deleteContentAction
     )
@@ -52,13 +52,7 @@ class Controller extends WebController
      */
     public function index(): Factory|View|Application
     {
-        $contents = $this->getAllContentsAction->run();
-
-        return view(
-            'dashboard.base',
-            $this->menuBuilder()->merge([
-                'content' => $contents,
-            ]));
+        return view('dashboard.base', $this->menuBuilder());
     }
 
     /**
@@ -75,7 +69,7 @@ class Controller extends WebController
      */
     public function showPage(int $pageId): Factory|View|Application
     {
-        $contents = $this->findContentByIdAction->run($pageId);
+        $contents = $this->getAllContentsAction->run($pageId);
         $field    = collect($contents->first()?->getPage()->getFields())->first();
 
         return view(
@@ -121,14 +115,21 @@ class Controller extends WebController
     }
 
     /**
-     * @param int $id
+     * @param int $contentId
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
      */
-    public function edit(int $id): Factory|View|Application
+    public function edit(int $contentId): Factory|View|Application
     {
-        $content = $this->findContentByIdAction->run($id);
+        $content   = $this->findContentByIdAction->run($contentId);
+        $languages = $this->getAllLanguagesAction->run(getOnlyActive: true);
 
-        return view('constructor.base');
+        return view(
+            'dashboard@content::edit',
+            $this->menuBuilder()->merge([
+                'pageId'    => $content->getPageId(),
+                'page'      => $content->getPage(),
+                'languages' => $languages,
+            ]));
     }
 
     /**

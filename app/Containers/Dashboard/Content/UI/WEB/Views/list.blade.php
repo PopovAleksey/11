@@ -139,7 +139,7 @@
                                                     </button>
                                                 @endif
                                                 <button type="button" class="btn bg-gradient-primary btn-sm"
-                                                        onclick="location.href='{{ route('dashboard_content_edit', $content->getPage()->getId()) }}'">
+                                                        onclick="location.href='{{ route('dashboard_content_edit', $content->getId()) }}'">
                                                     <i class="fas fa-edit"></i>
                                                     Edit
                                                 </button>

@@ -4,7 +4,7 @@ namespace App\Containers\Dashboard\Content\Actions;
 
 use Illuminate\Support\Collection;
 
-interface GetAllContentsActionInterface
+interface GetAllContentActionInterface
 {
-    public function run(): Collection;
+    public function run(int $pageId): Collection;
 }

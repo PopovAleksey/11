@@ -5,7 +5,6 @@ namespace App\Containers\Dashboard\Content\Actions;
 use App\Containers\Dashboard\Content\Data\Dto\ContentDto;
 use App\Containers\Dashboard\Content\Tasks\FindContentByIdTaskInterface;
 use App\Ship\Parents\Actions\Action;
-use Illuminate\Support\Collection;
 
 class FindContentByIdAction extends Action implements FindContentByIdActionInterface
 {
@@ -15,8 +14,8 @@ class FindContentByIdAction extends Action implements FindContentByIdActionInter
     {
     }
 
-    public function run(int $pageId): Collection
+    public function run(int $id): ContentDto
     {
-        return $this->findContentByIdTask->run($pageId);
+        return $this->findContentByIdTask->run($id);
     }
 }
