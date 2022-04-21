@@ -95,10 +95,30 @@ class Controller extends WebController
         }
 
         return view(
-            'dashboard@content::edit',
+            'dashboard@content::content-form',
             $this->menuBuilder()->merge([
                 'pageId'    => $pageId,
+                'contentId' => null,
                 'page'      => $page,
+                'languages' => $languages,
+            ]));
+    }
+
+    /**
+     * @param int $contentId
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+     */
+    public function edit(int $contentId): Factory|View|Application
+    {
+        $content   = $this->findContentByIdAction->run($contentId);
+        $languages = $this->getAllLanguagesAction->run(getOnlyActive: true);
+
+        return view(
+            'dashboard@content::content-form',
+            $this->menuBuilder()->merge([
+                'pageId'    => $content->getPageId(),
+                'contentId' => $content->getId(),
+                'page'      => $content->getPage(),
                 'languages' => $languages,
             ]));
     }
@@ -112,24 +132,6 @@ class Controller extends WebController
         $this->createContentAction->run($request->mapped());
 
         return response()->json()->setStatusCode(200);
-    }
-
-    /**
-     * @param int $contentId
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
-     */
-    public function edit(int $contentId): Factory|View|Application
-    {
-        $content   = $this->findContentByIdAction->run($contentId);
-        $languages = $this->getAllLanguagesAction->run(getOnlyActive: true);
-
-        return view(
-            'dashboard@content::edit',
-            $this->menuBuilder()->merge([
-                'pageId'    => $content->getPageId(),
-                'page'      => $content->getPage(),
-                'languages' => $languages,
-            ]));
     }
 
     /**

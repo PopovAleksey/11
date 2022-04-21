@@ -10,12 +10,19 @@ class StoreContentRequest extends Request
     public function rules(): array
     {
         return [
-            // 'id' => 'required'
+            'pageId'              => ['required', 'integer'],
+            'contentId'           => ['nullable', 'integer'],
+            'values'              => ['required', 'array'],
+            'values.*.languageId' => ['required', 'integer'],
+            'values.*.fieldId'    => ['required', 'integer'],
+            'values.*.value'      => ['nullable', 'string'],
         ];
     }
 
     public function mapped(): ContentDto
     {
+        dd($this->validated());
+
         return (new ContentDto());
     }
 }

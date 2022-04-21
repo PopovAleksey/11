@@ -4,6 +4,8 @@
 @section('page-title', 'Simple Page | ' . $data->getName())
 
 @section('css')
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="{{ asset('plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
     <!-- Toastr -->
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
     <style>
@@ -14,7 +16,8 @@
 @stop
 
 @section('js')
-
+    <!-- SweetAlert2 -->
+    <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <!-- Toastr -->
     <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
 
@@ -164,6 +167,13 @@
                 $('#vert-tabs-tab #current-field-name-' + elementAttrId).text(value === '' ? 'Tab ' + nextTab : value);
             });
 
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'bottom',
+                showConfirmButton: false,
+                timer: 3000
+            });
+
             $("form#fields-form").submit(function (event) {
                 event.preventDefault();
 
@@ -215,8 +225,6 @@
                         $('#save-fields').prop("disabled", false);
                     }
                 });
-
-                console.log(JSON.stringify(result));
             });
         });
     </script>
