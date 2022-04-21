@@ -6,5 +6,5 @@ use App\Containers\Dashboard\Content\Data\Dto\ContentDto;
 
 interface CreateContentTaskInterface
 {
-    public function run(ContentDto $data);
+    public function run(ContentDto $data): int;
 }

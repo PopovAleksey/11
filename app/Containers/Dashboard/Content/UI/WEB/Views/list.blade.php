@@ -133,7 +133,7 @@
                                             <div class="btn-group">
                                                 @if ($content->getPage()->getType() === \App\Containers\Constructor\Page\Models\PageInterface::BLOG_TYPE)
                                                     <button type="button" class="btn bg-gradient-warning btn-sm"
-                                                            onclick="location.href='{{ route('dashboard_content_show', $content->getPage()->getChildPage()->getId()) }}'">
+                                                            onclick="location.href='{{ route('dashboard_page_show', $content->getPage()->getChildPage()->getId()) }}'">
                                                         <i class="fas fa-cogs"></i>
                                                         View Content
                                                     </button>

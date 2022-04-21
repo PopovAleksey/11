@@ -3,6 +3,7 @@
 namespace App\Containers\Dashboard\Content\Actions;
 
 use App\Containers\Dashboard\Content\Data\Dto\ContentDto;
+use App\Containers\Dashboard\Content\Data\Dto\ContentValueDto;
 use App\Containers\Dashboard\Content\Tasks\FindContentByIdTaskInterface;
 use App\Ship\Parents\Actions\Action;
 
@@ -16,6 +17,14 @@ class FindContentByIdAction extends Action implements FindContentByIdActionInter
 
     public function run(int $id): ContentDto
     {
-        return $this->findContentByIdTask->run($id);
+        $content = $this->findContentByIdTask->run($id);
+        $values  = [];
+
+        collect($content->getValues())
+            ->each(function (ContentValueDto $contentValueDto) use (&$values) {
+                $values[$contentValueDto->getLanguageId()][$contentValueDto->getPageFieldId()] = $contentValueDto;
+            });
+
+        return $content->setValues($values);
     }
 }

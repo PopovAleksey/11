@@ -14,7 +14,7 @@ class UpdateContentAction extends Action implements UpdateContentActionInterface
     {
     }
 
-    public function run(ContentDto $data): ContentDto
+    public function run(ContentDto $data): bool
     {
         return $this->updateContentTask->run($data);
     }

@@ -14,7 +14,7 @@ class CreateContentAction extends Action implements CreateContentActionInterface
     {
     }
 
-    public function run(ContentDto $data): bool
+    public function run(ContentDto $data): int
     {
         return $this->createContentTask->run($data);
     }

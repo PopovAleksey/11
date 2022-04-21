@@ -22,4 +22,17 @@ class ContentValueRepository extends Repository implements ContentValueRepositor
     {
         return ContentValue::class;
     }
+
+    /**
+     * @param array $data
+     * @param array $condition
+     * @return bool
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
+    public function updateByCondition(array $data, array $condition): bool
+    {
+        return $this->makeModel()
+            ->where($condition)
+            ->update($data);
+    }
 }

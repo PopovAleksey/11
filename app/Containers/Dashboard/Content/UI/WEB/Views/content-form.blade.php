@@ -66,16 +66,14 @@
                     },
                     data: {
                         'pageId': {{ $pageId }},
-                        'contentId': {{ $contentId ?? 'null' }},
                         'values': result
                     },
                     success: function (response) {
-                        $('#save-button').prop("disabled", false);
                         if (response.id === undefined) {
                             $('#save-button').prop("disabled", false);
                             return;
                         }
-                        //location.href = '{{ route('dashboard_content_edit', ':id') }}'.replace(':id', response.id);
+                        location.href = '{{ route('dashboard_content_edit', ':id') }}'.replace(':id', response.id);
                     },
                     error: function (error) {
                         Toast.fire({
@@ -127,18 +125,19 @@
                                             @foreach($page->getFields() as $field)
                                                 <div class="form-group">
                                                     <label for="field-{{ $language->getId() }}-{{ $field->getId() }}">{{ $field->getName() }}</label>
+                                                    @php($formValue = data_get($values, [$language->getId(), $field->getId()])?->getValue())
                                                     @switch($field->getType())
                                                         @case(\App\Containers\Constructor\Page\Models\PageFieldInterface::INPUT_TYPE)
                                                         <input type="text" class="form-control"
                                                                name="field-{{ $language->getId() }}-{{ $field->getId() }}"
-                                                               value="{{ head($field->getValues()) }}"
+                                                               value="{{ $formValue ?? head($field->getValues()) }}"
                                                                placeholder="{{ $field->getPlaceholder() }}"/>
                                                         @break
                                                         @case(\App\Containers\Constructor\Page\Models\PageFieldInterface::TEXTAREA_TYPE)
                                                         <textarea class="form-control"
                                                                   name="field-{{ $language->getId() }}-{{ $field->getId() }}"
                                                                   placeholder="{{ $field->getPlaceholder() }}">
-                                                        {{ head($field->getValues()) }}
+                                                        {{ $formValue ?? head($field->getValues()) }}
                                                     </textarea>
                                                         @break
                                                         @case(\App\Containers\Constructor\Page\Models\PageFieldInterface::SELECT_TYPE)
@@ -146,7 +145,7 @@
                                                                 name="field-{{ $language->getId() }}-{{ $field->getId() }}">
                                                             <option value="">{{ $field->getPlaceholder() }}</option>
                                                             @foreach($field->getValues() as $value)
-                                                                <option value="{{ $value }}">{{ $value }}</option>
+                                                                <option value="{{ $value }}" {{ $formValue === $value ? 'selected' : '' }}>{{ $value }}</option>
                                                             @endforeach
                                                         </select>
                                                         @break
@@ -154,7 +153,7 @@
                                                         <select multiple="" class="form-control"
                                                                 name="field-{{ $language->getId() }}-{{ $field->getId() }}">
                                                             @foreach($field->getValues() as $value)
-                                                                <option value="{{ $value }}">{{ $value }}</option>
+                                                                <option value="{{ $value }}" {{ $formValue === $value ? 'checked' : '' }}>{{ $value }}</option>
                                                             @endforeach
                                                         </select>
                                                         @break
@@ -163,7 +162,8 @@
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="radio"
                                                                        name="field-{{ $language->getId() }}-{{ $field->getId() }}"
-                                                                       value="{{ $value }}"/>
+                                                                       value="{{ $value }}"
+                                                                        {{ $formValue === $value ? ' checked' : '' }}/>
                                                                 <label class="form-check-label">{{ $value }}</label>
                                                             </div>
                                                         @endforeach
@@ -175,7 +175,7 @@
                                                                        type="checkbox"
                                                                        name="field-{{ $language->getId() }}-{{ $field->getId() }}"
                                                                        value="{{ $value }}"
-                                                                       checked="">
+                                                                        {{ $formValue === $value ? ' checked' : '' }} />
                                                                 <label class="form-check-label">{{ $value }}</label>
                                                             </div>
                                                         @endforeach

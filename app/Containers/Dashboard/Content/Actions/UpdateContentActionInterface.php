@@ -6,5 +6,5 @@ use App\Containers\Dashboard\Content\Data\Dto\ContentDto;
 
 interface UpdateContentActionInterface
 {
-    public function run(ContentDto $data): ContentDto;
+    public function run(ContentDto $data): bool;
 }

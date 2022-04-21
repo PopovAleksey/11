@@ -89,7 +89,7 @@ class GetAllContentsTask extends Task implements GetAllContentsTaskInterface
                 ->setUpdateAt($field->updated_at);
         });
 
-        return (new PageDto())
+        $pageDto = (new PageDto())
             ->setId($page->id)
             ->setName($page->name)
             ->setActive($page->active)
@@ -97,5 +97,12 @@ class GetAllContentsTask extends Task implements GetAllContentsTaskInterface
             ->setFields($fields->toArray())
             ->setCreateAt($page->created_at)
             ->setUpdateAt($page->updated_at);
+
+        if ($page->type === PageInterface::BLOG_TYPE) {
+            $childPage = $this->buildPageDto($page->child_page);
+            $pageDto->setChildPage($childPage);
+        }
+
+        return $pageDto;
     }
 }

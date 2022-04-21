@@ -11,7 +11,6 @@ use App\Containers\Dashboard\Content\Actions\GetAllContentActionInterface;
 use App\Containers\Dashboard\Content\Actions\GetMenuListActionInterface;
 use App\Containers\Dashboard\Content\Actions\UpdateContentActionInterface;
 use App\Containers\Dashboard\Content\UI\WEB\Requests\StoreContentRequest;
-use App\Containers\Dashboard\Content\UI\WEB\Requests\UpdateContentRequest;
 use App\Ship\Parents\Controllers\WebController;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -37,7 +36,6 @@ class Controller extends WebController
         private GetMenuListActionInterface     $getMenuListAction,
         private FindPageByIdActionInterface    $findPageByIdAction,
         private GetAllLanguagesActionInterface $getAllLanguagesAction,
-
         private FindContentByIdActionInterface $findContentByIdAction,
         private CreateContentActionInterface   $createContentAction,
         private GetAllContentActionInterface   $getAllContentsAction,
@@ -100,6 +98,7 @@ class Controller extends WebController
                 'pageId'    => $pageId,
                 'contentId' => null,
                 'page'      => $page,
+                'values'    => [],
                 'languages' => $languages,
             ]));
     }
@@ -119,6 +118,7 @@ class Controller extends WebController
                 'pageId'    => $content->getPageId(),
                 'contentId' => $content->getId(),
                 'page'      => $content->getPage(),
+                'values'    => $content->getValues(),
                 'languages' => $languages,
             ]));
     }
@@ -129,23 +129,22 @@ class Controller extends WebController
      */
     public function store(StoreContentRequest $request): JsonResponse
     {
-        $this->createContentAction->run($request->mapped());
+        $contentId = $this->createContentAction->run($request->mapped());
 
-        return response()->json()->setStatusCode(200);
+        return response()->json(['id' => $contentId])->setStatusCode(200);
     }
 
     /**
-     * @param int                                                                    $id
-     * @param \App\Containers\Dashboard\Content\UI\WEB\Requests\UpdateContentRequest $request
+     * @param int                                                                   $id
+     * @param \App\Containers\Dashboard\Content\UI\WEB\Requests\StoreContentRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(int $id, UpdateContentRequest $request): JsonResponse
+    public function update(int $id, StoreContentRequest $request): JsonResponse
     {
         $data = $request->mapped()->setId($id);
-
         $this->updateContentAction->run($data);
 
-        return response()->json()->setStatusCode(200);
+        return response()->json(['id' => $id])->setStatusCode(200);
     }
 
     /**
