@@ -25,7 +25,7 @@
             @foreach($languages as $language)
             @foreach($page->getFields() as $field)
             @if($field->getType() === \App\Containers\Constructor\Page\Models\PageFieldInterface::TEXTAREA_TYPE)
-            $('textarea[name=field-{{ $language->getId() }}-{{ $field->getId() }}]').summernote();
+            $('textarea[name=field-{{ $language->getId() }}-{{ $field->getId() }}]').summernote({ height: 200 });
             @endif
             @endforeach
             @endforeach

@@ -75,13 +75,17 @@
                     radio: 'Radio',
                     checkbox: 'Checkbox',
                     file: 'File'
-                }).forEach(function ([key, value]) {
+                }).forEach(function ([type, value]) {
                     let selectOption = document.createElement('option');
-                    selectOption.setAttribute('value', key);
+                    selectOption.setAttribute('value', type);
                     selectOption.innerText = value;
 
-                    if (key === selectedType) {
+                    if (type === selectedType) {
                         selectOption.setAttribute('selected', true);
+                    }
+                    //@TODO Temporary Disabled elements with multiple values and file
+                    if (type === 'selectMultiple' || type === 'checkbox' || type === 'file') {
+                        selectOption.setAttribute('disabled', true);
                     }
 
                     selectTypes.appendChild(selectOption);
@@ -299,16 +303,19 @@
                                                         <option value="select" {{$field->getType() == 'select' ? 'selected' : ''}}>
                                                             Select
                                                         </option>
-                                                        <option value="selectMultiple" {{$field->getType() == 'selectMultiple' ? 'selected' : ''}}>
+                                                        {{--@TODO Temporary Disabled elements with multiple values and file--}}
+                                                        <option value="selectMultiple" {{$field->getType() == 'selectMultiple' ? 'selected' : ''}} disabled>
                                                             Select Multiple
                                                         </option>
                                                         <option value="radio" {{$field->getType() == 'radio' ? 'selected' : ''}}>
                                                             Radio
                                                         </option>
-                                                        <option value="checkbox" {{$field->getType() == 'checkbox' ? 'selected' : ''}}>
+                                                        {{--@TODO Temporary Disabled elements with multiple values and file--}}
+                                                        <option value="checkbox" {{$field->getType() == 'checkbox' ? 'selected' : ''}} disabled>
                                                             Checkbox
                                                         </option>
-                                                        <option value="file" {{$field->getType() == 'file' ? 'selected' : ''}}>
+                                                        {{--@TODO Temporary Disabled elements with multiple values and file--}}
+                                                        <option value="file" {{$field->getType() == 'file' ? 'selected' : ''}} disabled>
                                                             File
                                                         </option>
                                                     </select>
