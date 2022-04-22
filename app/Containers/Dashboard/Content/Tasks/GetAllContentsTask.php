@@ -35,10 +35,11 @@ class GetAllContentsTask extends Task implements GetAllContentsTaskInterface
     {
         try {
             $pageDto    = null;
-            $contents   = $this->contentRepository->findByField('page_id', $pageId);
+            $contents   = $this->contentRepository->orderBy('created_at', 'desc')->findByField('page_id', $pageId);
             $contentIds = $contents->map(fn(ContentInterface $content) => $content->id)->toArray();
             $values     = $this->contentValueRepository
                 ->findWhereIn('content_id', $contentIds)
+                ->filter(fn(ContentValueInterface $value) => $value->language_id === 1)
                 ->map(static function (ContentValueInterface $value) {
                     return (new ContentValueDto())
                         ->setId($value->id)

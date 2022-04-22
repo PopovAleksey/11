@@ -48,9 +48,9 @@
 
     <script>
         $(function () {
-            $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $("#table-list").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false, "order": [[ 0, "desc" ]]
+            }).buttons().container().appendTo('#table-list_wrapper .col-md-6:eq(0)');
 
             var Toast = Swal.mixin({
                 toast: true,
@@ -112,11 +112,12 @@
                             <i class="fas fa-add"></i>
                             Add Content
                         </button>
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="table-list" class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>{{ $field?->getName() }}</th>
+                                <th>Created</th>
                                 <th class="dt-right">Action</th>
                             </tr>
                             </thead>
@@ -129,6 +130,7 @@
                                     <tr>
                                         <td>{{ $content->getId() }}</td>
                                         <td>{{ $value->getValue() }}</td>
+                                        <td>{{ $value->getCreateAt() }}</td>
                                         <td class="dt-right">
                                             <div class="btn-group">
                                                 @if ($content->getPage()->getType() === \App\Containers\Constructor\Page\Models\PageInterface::BLOG_TYPE)
