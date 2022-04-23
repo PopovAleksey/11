@@ -2,7 +2,10 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ route('constructor_language_index') }}" class="brand-link">
-        <span class="brand-text font-weight-light">Page Constructor</span>
+        <span class="brand-text font-weight-light">
+            &nbsp;<i class="fas fa-laptop-code"></i>&nbsp;&nbsp;&nbsp;
+            Page Constructor
+        </span>
     </a>
 
     <!-- Sidebar -->

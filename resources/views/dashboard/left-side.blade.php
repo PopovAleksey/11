@@ -1,8 +1,11 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{ route('constructor_language_index') }}" class="brand-link">
-        <span class="brand-text font-weight-light">Page Constructor</span>
+    <a href="{{ route('dashboard_content_index') }}" class="brand-link">
+        <span class="brand-text font-weight-light">
+            &nbsp;<i class="fas fa-solar-panel"></i>&nbsp;&nbsp;&nbsp;
+            Page Dashboard
+        </span>
     </a>
 
     <!-- Sidebar -->
@@ -33,6 +36,16 @@
                             <p>{{$item->getName()}}</p>
                         </a>
                     </li>
+                    @if($item->getType() === \App\Containers\Constructor\Page\Models\PageInterface::BLOG_TYPE)
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard_page_show', ['id' => $item->getChildPage()->getId()]) }}"
+                               class="nav-link {{ route('dashboard_page_show', ['id' => $item->getChildPage()->getId()], false) === '/' . request()->path() ? 'active' : ''}}">
+                                <i class="fas fa-long-arrow-alt-right"></i>&nbsp;&nbsp;&nbsp;
+                                <i class="far fa-file-alt"></i>&nbsp;
+                                <p>{{$item->getChildPage()->getName()}}</p>
+                            </a>
+                        </li>
+                    @endif
                 @endforeach
                 <li class="nav-header">Settings</li>
                 <li class="nav-item">
