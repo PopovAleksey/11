@@ -66,6 +66,7 @@ class ControllerTheme extends WebController
             TemplateInterface::BASE_TYPE,
             TemplateInterface::CSS_TYPE,
             TemplateInterface::JS_TYPE,
+            TemplateInterface::MENU_TYPE,
         ];
 
         return view('constructor@template::editTheme', [

@@ -30,6 +30,7 @@ class CreateThemeAction extends Action implements CreateThemeActionInterface
             TemplateInterface::BASE_TYPE,
             TemplateInterface::JS_TYPE,
             TemplateInterface::CSS_TYPE,
+            TemplateInterface::MENU_TYPE,
         ])->each(function (string $templateType) use ($theme) {
             $templateDto = (new TemplateDto())
                 ->setType($templateType)

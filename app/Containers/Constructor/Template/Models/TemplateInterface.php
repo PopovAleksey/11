@@ -27,5 +27,6 @@ interface TemplateInterface
     public const BASE_TYPE = 'base';
     public const JS_TYPE   = 'js';
     public const CSS_TYPE  = 'css';
+    public const MENU_TYPE = 'menu';
     public const PAGE_TYPE = 'page';
 }

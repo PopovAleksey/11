@@ -17,6 +17,7 @@ class CreateTemplatesTable extends Migration
                 TemplateInterface::BASE_TYPE,
                 TemplateInterface::JS_TYPE,
                 TemplateInterface::CSS_TYPE,
+                TemplateInterface::MENU_TYPE,
                 TemplateInterface::PAGE_TYPE,
             ])->default(TemplateInterface::PAGE_TYPE);
             $table->bigInteger('theme_id')->unsigned()->index('INDEX_templates_themes');

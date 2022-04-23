@@ -18,6 +18,7 @@ class StoreTemplateRequest extends Request
             TemplateInterface::BASE_TYPE,
             TemplateInterface::CSS_TYPE,
             TemplateInterface::JS_TYPE,
+            TemplateInterface::MENU_TYPE,
         ])->implode(',');
 
         return [

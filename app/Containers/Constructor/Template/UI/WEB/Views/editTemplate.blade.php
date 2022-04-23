@@ -112,9 +112,25 @@
                     <div class="card-header">
                         @if($template->getType() === \App\Containers\Constructor\Template\Models\TemplateInterface::BASE_TYPE)
                             <div class="btn-group margin-10">
-                                <button type="button" class="btn btn-info" id="insert-content" data-value="{CONTENT}">Content</button>
-                                <button type="button" class="btn btn-info" id="insert-content" data-value="{JAVASCRIPT}">JS</button>
-                                <button type="button" class="btn btn-info" id="insert-content" data-value="{CSS}">CSS</button>
+                                <button type="button" class="btn btn-info" id="insert-content" data-value="{CONTENT}">
+                                    Content
+                                </button>
+                                <button type="button" class="btn btn-info" id="insert-content"
+                                        data-value="{JAVASCRIPT}">JS
+                                </button>
+                                <button type="button" class="btn btn-info" id="insert-content" data-value="{CSS}">CSS
+                                </button>
+                                <button type="button" class="btn btn-info" id="insert-content" data-value="{MENU}">Menu List Items
+                                </button>
+                            </div>
+                        @elseif($template->getType() === \App\Containers\Constructor\Template\Models\TemplateInterface::MENU_TYPE)
+                            <div class="btn-group margin-10">
+                                <button type="button" class="btn btn-info" id="insert-content" data-value="{LINK}">
+                                    Link URL
+                                </button>
+                                <button type="button" class="btn btn-info" id="insert-content"
+                                        data-value="{NAME}">Link Name
+                                </button>
                             </div>
                         @elseif($template->getPage()?->getType() === \App\Containers\Constructor\Page\Models\PageInterface::BLOG_TYPE)
                             <div class="btn-group margin-10">
