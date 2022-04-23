@@ -270,7 +270,8 @@
                                             <select class="form-control select-type" style="width: 100%;">
                                                 <option value="simple">Simple Page</option>
                                                 <option value="blog">Blog Page</option>
-                                                <option value="category">Category</option>
+                                                {{--@TODO Temporary Disabled category page type--}}
+                                                <option value="category" disabled>Category</option>
                                             </select>
                                         </div>
 
