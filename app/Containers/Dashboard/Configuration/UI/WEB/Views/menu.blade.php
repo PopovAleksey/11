@@ -4,26 +4,83 @@
 @section('page-title', 'Menu Configuration')
 
 @section('css')
-    <!-- Bootstrap4 Duallistbox -->
-    <link rel="stylesheet" href="{{ asset('plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="{{ asset('plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
     <!-- Toastr -->
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
+    <style>
+        .list-group-sortable-connected {
+            min-height: 100px;
+            border: dashed #d3d3d3;
+        }
+
+        .list-group-item {
+            cursor: move;
+        }
+
+        button.left-button {
+            margin-right: 20px;
+        }
+
+        .right-area button.right-button {
+            display: none;
+        }
+
+        .left-area button.left-button {
+            display: none;
+        }
+    </style>
 @stop
 
 @section('js')
-    <!-- Bootstrap4 Duallistbox -->
-    <script src="{{ asset('plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
     <!-- SweetAlert2 -->
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <!-- Toastr -->
     <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
+    <script src="{{ asset('plugins/sortable/jquery.sortable.js') }}"></script>
 
     <script>
         $(function () {
-            //Bootstrap Duallistbox
-            $('.duallistbox').bootstrapDualListbox()
+            $('.list-group-sortable-connected').sortable({
+                placeholderClass: 'list-group-item',
+                connectWith: '.connected'
+            });
+
+            $('button#save-button').click(function () {
+                $('#save-button').prop("disabled", true);
+
+                let dataList = [];
+                let orderIndex = 1;
+
+                $('ul.right-area li').each(function () {
+                    let contentId = parseInt($(this).attr('data-id'));
+                    dataList.push({
+                        contentId: contentId,
+                        order: orderIndex++
+                    })
+                });
+
+                $.ajax({
+                    url: '{{ route('dashboard_configuration_menu_update') }}',
+                    type: 'PATCH',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    data: {
+                        list: dataList
+                    },
+                    success: function () {
+                        location.href = '{{ route('dashboard_configuration_menu') }}';
+                    },
+                    error: function (error) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: error.responseJSON.message
+                        });
+                        $('#save-button').prop("disabled", false);
+                    }
+                });
+            });
         });
     </script>
 @stop
@@ -34,35 +91,60 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="card card-default">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label>Multiple</label>
-                                    <select class="duallistbox" multiple="multiple">
-                                        <option selected>Alabama</option>
-                                        <option>Alaska</option>
-                                        <option>California</option>
-                                        <option>Delaware</option>
-                                        <option>Tennessee</option>
-                                        <option>Texas</option>
-                                        <option>Washington</option>
-                                    </select>
+        <div class="card card-default">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <section>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h4>Available Links</h4>
+                                    <ul class="list-group list-group-sortable-connected left-area">
+                                        @foreach($list as $item)
+                                            @if($item->isInMenu() === false)
+                                                <li data-id="{{ $item->getContentId() }}"
+                                                    class="list-group-item list-group-item-secondary">
+                                                    <button class="btn bg-light btn-xs float-left left-button">
+                                                        &nbsp;<i class="fas fa-angle-left"></i>&nbsp;
+                                                    </button>
+                                                    {{ $item->getName() }}
+                                                    <button class="btn bg-light btn-xs float-right right-button">
+                                                        &nbsp;<i class="fas fa-angle-right"></i>&nbsp;
+                                                    </button>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
                                 </div>
-                                <!-- /.form-group -->
+                                <div class="col-sm-6">
+                                    <h4>Links in Menu List</h4>
+                                    <ul class="list-group list-group-sortable-connected right-area">
+                                        @foreach($list as $item)
+                                            @if($item->isInMenu() === true)
+                                                <li data-id="{{ $item->getContentId() }}"
+                                                    class="list-group-item list-group-item-secondary">
+                                                    <button class="btn bg-light btn-xs float-left left-button">
+                                                        &nbsp;<i class="fas fa-angle-left"></i>&nbsp;
+                                                    </button>
+                                                    {{ $item->getName() }}
+                                                    <button class="btn bg-light btn-xs float-right right-button">
+                                                        &nbsp;<i class="fas fa-angle-right"></i>&nbsp;
+                                                    </button>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </div>
-                            <!-- /.col -->
-                        </div>
-                        <!-- /.row -->
+                        </section>
                     </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer">
-                        <button id="submit" class="btn btn-success float-right">Save</button>
-                    </div>
+                    <!-- /.col -->
                 </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <button id="save-button" class="btn btn-success float-right">Save</button>
             </div>
         </div>
 

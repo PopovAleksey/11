@@ -13,6 +13,7 @@ class CreateConfigurationMenuTable extends Migration
         Schema::create('configuration_menus', static function (Blueprint $table) {
             $table->id();
             $table->bigInteger('content_id')->unsigned()->index('INDEX_configuration_menu_content');
+            $table->tinyInteger('order');
 
             $table->timestamps();
 

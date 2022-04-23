@@ -9,6 +9,9 @@ class MenuDto extends Mapper
 {
     private ?int    $id         = null;
     private ?int    $content_id = null;
+    private ?string $name       = null;
+    private ?bool   $inMenu     = null;
+    private ?int    $order      = null;
     private ?Carbon $createAt   = null;
     private ?Carbon $updateAt   = null;
 
@@ -21,10 +24,10 @@ class MenuDto extends Mapper
     }
 
     /**
-     * @param int $id
+     * @param int|null $id
      * @return $this
      */
-    public function setId(int $id): self
+    public function setId(?int $id): self
     {
         $this->id = $id;
 
@@ -46,6 +49,63 @@ class MenuDto extends Mapper
     public function setContentId(?int $content_id): self
     {
         $this->content_id = $content_id;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string|null $name
+     * @return $this
+     */
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function isInMenu(): ?bool
+    {
+        return $this->inMenu;
+    }
+
+    /**
+     * @param bool|null $inMenu
+     * @return $this
+     */
+    public function setInMenu(?bool $inMenu): self
+    {
+        $this->inMenu = $inMenu;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getOrder(): ?int
+    {
+        return $this->order;
+    }
+
+    /**
+     * @param int|null $order
+     * @return $this
+     */
+    public function setOrder(?int $order): self
+    {
+        $this->order = $order;
 
         return $this;
     }

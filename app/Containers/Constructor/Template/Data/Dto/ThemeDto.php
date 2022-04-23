@@ -58,7 +58,7 @@ class ThemeDto extends Mapper
     /**
      * @return bool|null
      */
-    public function getActive(): ?bool
+    public function isActive(): ?bool
     {
         return $this->active;
     }

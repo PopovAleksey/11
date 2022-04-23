@@ -25,7 +25,7 @@ class ActivatePageTask extends Task implements ActivatePageTaskInterface
             /**
              * @var \App\Containers\Constructor\Page\Models\PageInterface $page
              */
-            $page = $this->repository->update(['active' => $data->getActive()], $data->getId());
+            $page = $this->repository->update(['active' => $data->isActive()], $data->getId());
 
             return (new PageDto())
                 ->setId($page->id)

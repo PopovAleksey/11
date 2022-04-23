@@ -189,7 +189,7 @@
                                         <div class="bootstrap-switch-container" style="width: 126px; margin-left: 0px;">
                                             <input type="checkbox" name="my-checkbox"
                                                    data-id="{{ $item->getId() }}"
-                                                   {{ $item->getActive() === true ? 'checked=""' : '' }}
+                                                   {{ $item->isActive() === true ? 'checked=""' : '' }}
                                                    data-bootstrap-switch=""
                                                    data-off-color="danger"
                                                    data-on-color="success">

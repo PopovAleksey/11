@@ -17,6 +17,6 @@ class GetMenuListAction extends Action implements GetMenuListActionInterface
 
     public function run(): Collection
     {
-        return $this->getAllPagesTask->run()->reject(fn(PageDto $page) => $page->getActive() === false);
+        return $this->getAllPagesTask->run()->reject(fn(PageDto $page) => $page->isActive() === false);
     }
 }

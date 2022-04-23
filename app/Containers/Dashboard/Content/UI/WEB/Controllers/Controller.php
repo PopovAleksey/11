@@ -88,7 +88,7 @@ class Controller extends WebController
         $page      = $this->findPageByIdAction->run($pageId, withFields: true);
         $languages = $this->getAllLanguagesAction->run(getOnlyActive: true);
 
-        if ($page->getActive() === false) {
+        if ($page->isActive() === false) {
             return redirect(route('dashboard_content_index'));
         }
 
