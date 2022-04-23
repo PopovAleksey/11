@@ -4,14 +4,14 @@ namespace App\Containers\Dashboard\Configuration\Models;
 
 use App\Ship\Parents\Models\Model;
 
-class Configuration extends Model implements ConfigurationInterface
+class ConfigurationMenu extends Model implements ConfigurationMenuInterface
 {
     protected $fillable = [
-
+        'content_id',
     ];
 
     protected $casts = [
-
+        'content_id' => 'integer',
     ];
 
     protected $dates = [

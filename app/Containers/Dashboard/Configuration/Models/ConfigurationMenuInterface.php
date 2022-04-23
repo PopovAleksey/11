@@ -9,9 +9,10 @@ use Illuminate\Support\Carbon;
  * @package App\Containers\Dashboard\Configuration\Models
  * @method static Builder query()
  * @property integer $id
+ * @property integer $content_id
  * @property Carbon  $created_at
  * @property Carbon  $updated_at
  */
-interface ConfigurationInterface
+interface ConfigurationMenuInterface
 {
 }

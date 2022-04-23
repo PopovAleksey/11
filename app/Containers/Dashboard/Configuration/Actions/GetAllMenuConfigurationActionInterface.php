@@ -4,7 +4,7 @@ namespace App\Containers\Dashboard\Configuration\Actions;
 
 use Illuminate\Support\Collection;
 
-interface GetAllConfigurationsActionInterface
+interface GetAllMenuConfigurationActionInterface
 {
     public function run(): Collection;
 }

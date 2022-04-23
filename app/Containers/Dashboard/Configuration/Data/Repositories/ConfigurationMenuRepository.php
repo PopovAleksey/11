@@ -4,7 +4,7 @@ namespace App\Containers\Dashboard\Configuration\Data\Repositories;
 
 use App\Ship\Parents\Repositories\Repository;
 
-class ConfigurationMenuMenuRepository extends Repository implements ConfigurationMenuRepositoryInterface
+class ConfigurationMenuRepository extends Repository implements ConfigurationMenuRepositoryInterface
 {
     /**
      * @var array

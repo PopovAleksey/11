@@ -7,9 +7,10 @@ use PopovAleksey\Mapper\Mapper;
 
 class MenuDto extends Mapper
 {
-    private ?int    $id       = null;
-    private ?Carbon $createAt = null;
-    private ?Carbon $updateAt = null;
+    private ?int    $id         = null;
+    private ?int    $content_id = null;
+    private ?Carbon $createAt   = null;
+    private ?Carbon $updateAt   = null;
 
     /**
      * @return int
@@ -26,6 +27,25 @@ class MenuDto extends Mapper
     public function setId(int $id): self
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getContentId(): ?int
+    {
+        return $this->content_id;
+    }
+
+    /**
+     * @param int|null $content_id
+     * @return $this
+     */
+    public function setContentId(?int $content_id): self
+    {
+        $this->content_id = $content_id;
 
         return $this;
     }

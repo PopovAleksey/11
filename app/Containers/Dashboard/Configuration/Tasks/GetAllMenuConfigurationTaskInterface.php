@@ -4,7 +4,7 @@ namespace App\Containers\Dashboard\Configuration\Tasks;
 
 use Illuminate\Support\Collection;
 
-interface GetAllConfigurationTaskInterface
+interface GetAllMenuConfigurationTaskInterface
 {
     public function run(): Collection;
 }

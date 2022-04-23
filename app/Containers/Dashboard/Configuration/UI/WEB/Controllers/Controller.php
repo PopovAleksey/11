@@ -2,6 +2,7 @@
 
 namespace App\Containers\Dashboard\Configuration\UI\WEB\Controllers;
 
+use App\Containers\Dashboard\Configuration\Actions\GetAllMenuConfigurationActionInterface;
 use App\Containers\Dashboard\Content\Actions\GetMenuListActionInterface;
 use App\Ship\Parents\Controllers\WebController;
 use Illuminate\Contracts\Foundation\Application;
@@ -12,14 +13,17 @@ use Illuminate\Support\Collection;
 class Controller extends WebController
 {
     public function __construct(
-        private GetMenuListActionInterface $getMenuListAction
+        private GetMenuListActionInterface             $getMenuListAction,
+        private GetAllMenuConfigurationActionInterface $allMenuConfigurationAction
     )
     {
     }
 
     public function menu(): Factory|View|Application
     {
-        return view('dashboard.base', $this->menuBuilder());
+        $list = $this->allMenuConfigurationAction->run();
+
+        return view('dashboard@configuration::menu', $this->menuBuilder()->merge(['list' => $list]));
     }
 
     /**
