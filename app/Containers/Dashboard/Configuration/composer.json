@@ -1,0 +1,6 @@
+{
+  "name": "apiato/configuration",
+  "description": "Configuration Container for apiato.",
+  "require": {
+  }
+}
