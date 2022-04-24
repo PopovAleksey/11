@@ -8,10 +8,12 @@ class ConfigurationMenu extends Model implements ConfigurationMenuInterface
 {
     protected $fillable = [
         'content_id',
+        'order',
     ];
 
     protected $casts = [
         'content_id' => 'integer',
+        'order'      => 'integer',
     ];
 
     protected $dates = [
