@@ -81,6 +81,17 @@
                     }
                 });
             });
+
+            $('button.left-button, button.right-button').click(function () {
+                let item = $(this).parent('li.list-group-item');
+
+                if ($(this).hasClass('right-button')) {
+                    item.appendTo('ul.list-group.right-area');
+                    return;
+                }
+
+                item.appendTo('ul.list-group.left-area');
+            });
         });
     </script>
 @stop
