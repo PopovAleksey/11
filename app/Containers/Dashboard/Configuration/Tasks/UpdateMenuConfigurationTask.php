@@ -23,13 +23,18 @@ class UpdateMenuConfigurationTask extends Task implements UpdateMenuConfiguratio
     public function run(Collection $data): bool
     {
         try {
-            return true;
-            $ConfigurationMenu = $this->repository->update($data->toArray(), $data->getId());
+            # @TODO Need implement transaction
+            $this->repository->deleteWhere([['id', '!=', null]]);
 
-            return (new MenuDto())
-                ->setId($ConfigurationMenu->id)
-                ->setCreateAt($ConfigurationMenu->created_at)
-                ->setUpdateAt($ConfigurationMenu->updated_at);
+            $data->each(function (MenuDto $menu) {
+                $this->repository->create([
+                    'content_id' => $menu->getContentId(),
+                    'order'      => $menu->getOrder(),
+                ]);
+            });
+
+            return true;
+
         } catch (Exception) {
             throw new UpdateResourceFailedException();
         }

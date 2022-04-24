@@ -46,6 +46,13 @@
                 connectWith: '.connected'
             });
 
+            let Toast = Swal.mixin({
+                toast: true,
+                position: 'bottom',
+                showConfirmButton: false,
+                timer: 3000
+            });
+
             $('button#save-button').click(function () {
                 $('#save-button').prop("disabled", true);
 
@@ -70,14 +77,18 @@
                         list: dataList
                     },
                     success: function () {
-                        location.href = '{{ route('dashboard_configuration_menu') }}';
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Saved'
+                        });
+                        $('#save-button').prop("disabled", false);
                     },
                     error: function (error) {
                         Toast.fire({
                             icon: 'error',
                             title: error.responseJSON.message
                         });
-                        $('#save-button').prop("disabled", false);
+                        location.href = '{{ route('dashboard_configuration_menu') }}';
                     }
                 });
             });
