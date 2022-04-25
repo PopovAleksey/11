@@ -3,20 +3,26 @@
 namespace App\Containers\Dashboard\Content\Actions;
 
 use App\Containers\Dashboard\Content\Data\Dto\ContentDto;
+use App\Containers\Dashboard\Content\Tasks\CreateContentSeoLinkTaskInterface;
 use App\Containers\Dashboard\Content\Tasks\CreateContentTaskInterface;
 use App\Ship\Parents\Actions\Action;
 
 class CreateContentAction extends Action implements CreateContentActionInterface
 {
     public function __construct(
-        private CreateContentTaskInterface $createContentTask
+        private CreateContentTaskInterface        $createContentTask,
+        private CreateContentSeoLinkTaskInterface $createContentSeoLinkTask
     )
     {
     }
 
     public function run(ContentDto $data): int
     {
-        return $this->createContentTask->run($data);
+        #@TODO Need Implement transaction
+        $contentId = $this->createContentTask->run($data);
+        $this->createContentSeoLinkTask->run($data);
+
+        return $contentId;
     }
 }
 

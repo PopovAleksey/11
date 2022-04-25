@@ -45,7 +45,7 @@ class GetAllMenuConfigurationTask extends Task implements GetAllMenuConfiguratio
 
 
         return $this->contentValueRepository
-            ->orderBy('id', 'asc')
+            ->orderBy('id')
             ->findWhereIn('content_id', $contentIds)
             ->filter(fn(ContentValueInterface $value) => $value->language_id === 1)
             ->groupBy('content_id')
