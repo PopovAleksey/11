@@ -32,8 +32,8 @@ use App\Containers\Dashboard\Content\Tasks\FindContentByIdTask;
 use App\Containers\Dashboard\Content\Tasks\FindContentByIdTaskInterface;
 use App\Containers\Dashboard\Content\Tasks\GetAllContentsTask;
 use App\Containers\Dashboard\Content\Tasks\GetAllContentsTaskInterface;
-use App\Containers\Dashboard\Content\Tasks\UpdateContentTask;
-use App\Containers\Dashboard\Content\Tasks\UpdateContentTaskInterface;
+use App\Containers\Dashboard\Content\Tasks\UpdateContentSeoTask;
+use App\Containers\Dashboard\Content\Tasks\UpdateContentSeoTaskInterface;
 use App\Ship\Parents\Providers\MainProvider;
 
 
@@ -65,7 +65,7 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(CreateContentTaskInterface::class, CreateContentTask::class);
         $this->app->bind(CreateContentSeoLinkTaskInterface::class, CreateContentSeoLinkTask::class);
         $this->app->bind(GetAllContentsTaskInterface::class, GetAllContentsTask::class);
-        $this->app->bind(UpdateContentTaskInterface::class, UpdateContentTask::class);
+        $this->app->bind(UpdateContentSeoTaskInterface::class, UpdateContentSeoTask::class);
         $this->app->bind(DeleteContentTaskInterface::class, DeleteContentTask::class);
     }
 

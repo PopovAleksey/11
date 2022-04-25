@@ -10,7 +10,7 @@ use App\Ship\Exceptions\UpdateResourceFailedException;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 
-class UpdateContentTask extends Task implements UpdateContentTaskInterface
+class UpdateContentSeoTask extends Task implements UpdateContentSeoTaskInterface
 {
     public function __construct(private ContentValueRepositoryInterface $repository)
     {

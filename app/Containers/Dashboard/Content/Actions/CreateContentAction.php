@@ -20,6 +20,9 @@ class CreateContentAction extends Action implements CreateContentActionInterface
     {
         #@TODO Need Implement transaction
         $contentId = $this->createContentTask->run($data);
+
+        $data->setId($contentId);
+
         $this->createContentSeoLinkTask->run($data);
 
         return $contentId;
