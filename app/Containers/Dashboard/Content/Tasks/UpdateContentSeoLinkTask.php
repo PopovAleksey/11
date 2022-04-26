@@ -12,7 +12,7 @@ use App\Ship\Parents\Tasks\Task;
 use Exception;
 use Facade\FlareClient\Http\Exceptions\InvalidData;
 
-class CreateContentSeoLinkTask extends Task implements CreateContentSeoLinkTaskInterface
+class UpdateContentSeoLinkTask extends Task implements UpdateContentSeoLinkTaskInterface
 {
     public function __construct(
         private SeoRepositoryInterface     $seoRepository,
@@ -29,10 +29,11 @@ class CreateContentSeoLinkTask extends Task implements CreateContentSeoLinkTaskI
     public function run(ContentDto $data): bool
     {
         try {
-            $this->seoRepository
-                ->findByField('page_id', $data->getPageId())
+            $currentLinks = $this->seoLinkRepository->findByField('content_id', $data->getId())->keyBy('seo_id');
+
+            $this->seoRepository->findByField('page_id', $data->getPageId())
                 ->reject(fn(SeoInterface $seo) => $seo->active === false)
-                ->each(function (SeoInterface $seo) use ($data) {
+                ->map(function (SeoInterface $seo) use ($data, $currentLinks) {
                     $seoLink = collect($data->getValues())
                         ->map(function (ContentValueDto $contentValueDto) use ($seo) {
                             if (
@@ -47,13 +48,27 @@ class CreateContentSeoLinkTask extends Task implements CreateContentSeoLinkTaskI
                         ->reject(fn($link) => $link === null)
                         ->first();
 
-                    $data = [
-                        'seo_id'     => $seo->id,
-                        'content_id' => $data->getId(),
-                        'link'       => $seoLink,
-                    ];
+                    /**
+                     * @var \App\Containers\Constructor\Seo\Models\SeoLinkInterface|null $updateLink
+                     */
+                    $updateLink   = $currentLinks->get($seo->id);
+                    $updateLinkId = $updateLink?->id;
 
-                    $this->seoLinkRepository->create($data);
+                    if ($updateLinkId === null) {
+                        $data = [
+                            'seo_id'     => $seo->id,
+                            'content_id' => $data->getId(),
+                            'link'       => $seoLink,
+                        ];
+
+                        $this->seoLinkRepository->create($data);
+
+                        return;
+                    }
+
+                    if ($seo->static === false) {
+                        $this->seoLinkRepository->update(['link' => $seoLink], $updateLinkId);
+                    }
                 });
 
             return true;
@@ -75,7 +90,7 @@ class CreateContentSeoLinkTask extends Task implements CreateContentSeoLinkTaskI
             throw new InvalidData('You can\'t save content with field which uses for build SEO link!');
         }
 
-        preg_replace('/[^A-Za-z0-9\-]/', '', $fieldValue);
+        preg_replace('/[^A-Za-z\d\-]/', '', $fieldValue);
         $fieldValue = strtolower($this->toLatin($fieldValue));
 
         return match ($seo->case_type) {
@@ -121,4 +136,3 @@ class CreateContentSeoLinkTask extends Task implements CreateContentSeoLinkTaskI
         return strtr($string, $chars);
     }
 }
-

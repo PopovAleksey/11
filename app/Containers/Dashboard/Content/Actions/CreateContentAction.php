@@ -3,15 +3,15 @@
 namespace App\Containers\Dashboard\Content\Actions;
 
 use App\Containers\Dashboard\Content\Data\Dto\ContentDto;
-use App\Containers\Dashboard\Content\Tasks\CreateContentSeoLinkTaskInterface;
 use App\Containers\Dashboard\Content\Tasks\CreateContentTaskInterface;
+use App\Containers\Dashboard\Content\Tasks\UpdateContentSeoLinkTaskInterface;
 use App\Ship\Parents\Actions\Action;
 
 class CreateContentAction extends Action implements CreateContentActionInterface
 {
     public function __construct(
         private CreateContentTaskInterface        $createContentTask,
-        private CreateContentSeoLinkTaskInterface $createContentSeoLinkTask
+        private UpdateContentSeoLinkTaskInterface $updateContentSeoLinkTask
     )
     {
     }
@@ -23,7 +23,7 @@ class CreateContentAction extends Action implements CreateContentActionInterface
 
         $data->setId($contentId);
 
-        $this->createContentSeoLinkTask->run($data);
+        $this->updateContentSeoLinkTask->run($data);
 
         return $contentId;
     }
