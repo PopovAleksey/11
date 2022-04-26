@@ -46,11 +46,21 @@ class Controller extends WebController
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function index(): Factory|View|Application
+    public function index(): View|Factory|Redirector|RedirectResponse|Application
     {
-        return view('dashboard.base', $this->menuBuilder());
+        $menu = $this->menuBuilder();
+        /**
+         * @var \App\Containers\Constructor\Page\Data\Dto\PageDto|null $pageDto
+         */
+        $pageDto = $menu->get('menu')?->first();
+
+        if ($pageDto === null) {
+            return view('dashboard.base', $menu);
+        }
+
+        return redirect(route('dashboard_page_show', ['id' => $pageDto->getId()]));
     }
 
     /**
