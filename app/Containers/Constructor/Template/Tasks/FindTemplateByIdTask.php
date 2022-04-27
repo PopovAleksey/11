@@ -2,16 +2,16 @@
 
 namespace App\Containers\Constructor\Template\Tasks;
 
-use App\Containers\Constructor\Language\Models\LanguageInterface;
-use App\Containers\Constructor\Page\Models\PageFieldInterface;
-use App\Containers\Constructor\Page\Models\PageInterface;
-use App\Containers\Constructor\Template\Models\ThemeInterface;
 use App\Ship\Exceptions\NotFoundException;
 use App\Ship\Parents\Dto\LanguageDto;
 use App\Ship\Parents\Dto\PageDto;
 use App\Ship\Parents\Dto\PageFieldDto;
 use App\Ship\Parents\Dto\TemplateDto;
 use App\Ship\Parents\Dto\ThemeDto;
+use App\Ship\Parents\Models\LanguageInterface;
+use App\Ship\Parents\Models\PageFieldInterface;
+use App\Ship\Parents\Models\PageInterface;
+use App\Ship\Parents\Models\ThemeInterface;
 use App\Ship\Parents\Repositories\TemplateRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
@@ -31,7 +31,7 @@ class FindTemplateByIdTask extends Task implements FindTemplateByIdTaskInterface
     {
         try {
             /**
-             * @var \App\Containers\Constructor\Template\Models\TemplateInterface $template
+             * @var \App\Ship\Parents\Models\TemplateInterface $template
              */
             $template = $this->repository->find($id);
 
@@ -51,7 +51,7 @@ class FindTemplateByIdTask extends Task implements FindTemplateByIdTaskInterface
     }
 
     /**
-     * @param \App\Containers\Constructor\Template\Models\ThemeInterface $themeModel
+     * @param \App\Ship\Parents\Models\ThemeInterface $themeModel
      * @return \App\Ship\Parents\Dto\ThemeDto
      */
     private function buildThemeDto(ThemeInterface $themeModel): ThemeDto
@@ -65,7 +65,7 @@ class FindTemplateByIdTask extends Task implements FindTemplateByIdTaskInterface
     }
 
     /**
-     * @param \App\Containers\Constructor\Page\Models\PageInterface|null $pageModel
+     * @param \App\Ship\Parents\Models\PageInterface|null $pageModel
      * @return \App\Ship\Parents\Dto\PageDto|null
      */
     private function buildPageDto(?PageInterface $pageModel): ?PageDto
@@ -108,7 +108,7 @@ class FindTemplateByIdTask extends Task implements FindTemplateByIdTaskInterface
     }
 
     /**
-     * @param \App\Containers\Constructor\Language\Models\LanguageInterface|null $languageModel
+     * @param \App\Ship\Parents\Models\LanguageInterface|null $languageModel
      * @return \App\Ship\Parents\Dto\LanguageDto|null
      */
     private function buildLanguageDto(?LanguageInterface $languageModel): ?LanguageDto

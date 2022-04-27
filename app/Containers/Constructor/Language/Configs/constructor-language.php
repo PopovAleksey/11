@@ -12,7 +12,7 @@ return [
     */
 
     'models' => [
-        'language' => \App\Containers\Constructor\Language\Models\Language::class
+        'language' => \App\Ship\Parents\Models\Language::class
     ],
 
     'countries' => [

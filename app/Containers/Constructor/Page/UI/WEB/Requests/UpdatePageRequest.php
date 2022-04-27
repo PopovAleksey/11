@@ -2,9 +2,9 @@
 
 namespace App\Containers\Constructor\Page\UI\WEB\Requests;
 
-use App\Containers\Constructor\Page\Models\PageFieldInterface;
 use App\Ship\Parents\Dto\PageDto;
 use App\Ship\Parents\Dto\PageFieldDto;
+use App\Ship\Parents\Models\PageFieldInterface;
 use App\Ship\Parents\Requests\Request;
 
 class UpdatePageRequest extends Request

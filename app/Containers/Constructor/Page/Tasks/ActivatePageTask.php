@@ -23,7 +23,7 @@ class ActivatePageTask extends Task implements ActivatePageTaskInterface
     {
         try {
             /**
-             * @var \App\Containers\Constructor\Page\Models\PageInterface $page
+             * @var \App\Ship\Parents\Models\PageInterface $page
              */
             $page = $this->repository->update(['active' => $data->isActive()], $data->getId());
 

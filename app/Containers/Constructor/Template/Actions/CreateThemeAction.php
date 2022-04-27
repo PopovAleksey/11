@@ -2,15 +2,15 @@
 
 namespace App\Containers\Constructor\Template\Actions;
 
-use App\Containers\Constructor\Page\Models\PageInterface;
 use App\Containers\Constructor\Page\Tasks\GetAllPagesTaskInterface;
-use App\Containers\Constructor\Template\Models\TemplateInterface;
 use App\Containers\Constructor\Template\Tasks\CreateTemplateTaskInterface;
 use App\Containers\Constructor\Template\Tasks\CreateThemeTaskInterface;
 use App\Ship\Parents\Actions\Action;
 use App\Ship\Parents\Dto\PageDto;
 use App\Ship\Parents\Dto\TemplateDto;
 use App\Ship\Parents\Dto\ThemeDto;
+use App\Ship\Parents\Models\PageInterface;
+use App\Ship\Parents\Models\TemplateInterface;
 
 class CreateThemeAction extends Action implements CreateThemeActionInterface
 {

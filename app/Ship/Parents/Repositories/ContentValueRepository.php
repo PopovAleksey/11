@@ -2,7 +2,7 @@
 
 namespace App\Ship\Parents\Repositories;
 
-use App\Containers\Dashboard\Content\Models\ContentValue;
+use App\Ship\Parents\Models\ContentValue;
 
 class ContentValueRepository extends Repository implements ContentValueRepositoryInterface
 {

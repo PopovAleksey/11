@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Containers\Constructor\Language\Models;
+namespace App\Ship\Parents\Models;
 
 use Illuminate\Support\Carbon;
 

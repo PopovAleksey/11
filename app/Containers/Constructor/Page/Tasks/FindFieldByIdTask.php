@@ -23,7 +23,7 @@ class FindFieldByIdTask extends Task implements FindFieldByIdTaskInterface
     {
         try {
             /**
-             * @var \App\Containers\Constructor\Page\Models\PageFieldInterface $pageField
+             * @var \App\Ship\Parents\Models\PageFieldInterface $pageField
              */
             $pageField = $this->repository->find($id);
 

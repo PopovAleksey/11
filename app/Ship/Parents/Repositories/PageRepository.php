@@ -2,7 +2,7 @@
 
 namespace App\Ship\Parents\Repositories;
 
-use App\Containers\Constructor\Page\Models\Page;
+use App\Ship\Parents\Models\Page;
 
 class PageRepository extends Repository implements PageRepositoryInterface
 {

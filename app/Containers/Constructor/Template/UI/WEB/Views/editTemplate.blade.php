@@ -1,7 +1,7 @@
 @extends('constructor.base')
 
 @section('title', 'Theme ' . $template->getTheme()->getName() . ' | Template ' . $template->getType())
-@section('page-title', 'Theme ' . $template->getTheme()->getName() . ' | Template ' . $template->getType() . ( $template->getType() === \App\Containers\Constructor\Template\Models\TemplateInterface::PAGE_TYPE ? ' [' . $template?->getPage()->getName() . ']' : ''))
+@section('page-title', 'Theme ' . $template->getTheme()->getName() . ' | Template ' . $template->getType() . ( $template->getType() === \App\Ship\Parents\Models\TemplateInterface::PAGE_TYPE ? ' [' . $template?->getPage()->getName() . ']' : ''))
 
 @section('css')
     <!-- CodeMirror -->
@@ -101,7 +101,7 @@
             {{ $template->getTheme()->getName() }}
         </a>
     </li>
-    <li class="breadcrumb-item active">{{ $template->getType() }}{{ $template->getType() === \App\Containers\Constructor\Template\Models\TemplateInterface::PAGE_TYPE ? ' [' . $template?->getPage()->getName() . ']' : '' }}</li>
+    <li class="breadcrumb-item active">{{ $template->getType() }}{{ $template->getType() === \App\Ship\Parents\Models\TemplateInterface::PAGE_TYPE ? ' [' . $template?->getPage()->getName() . ']' : '' }}</li>
 @stop
 
 @section('content')
@@ -110,7 +110,7 @@
             <div class="col-12 col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        @if($template->getType() === \App\Containers\Constructor\Template\Models\TemplateInterface::BASE_TYPE)
+                        @if($template->getType() === \App\Ship\Parents\Models\TemplateInterface::BASE_TYPE)
                             <div class="btn-group margin-10">
                                 <button type="button" class="btn btn-info" id="insert-content" data-value="{CONTENT}">
                                     Content
@@ -120,10 +120,11 @@
                                 </button>
                                 <button type="button" class="btn btn-info" id="insert-content" data-value="{CSS}">CSS
                                 </button>
-                                <button type="button" class="btn btn-info" id="insert-content" data-value="{MENU}">Menu List Items
+                                <button type="button" class="btn btn-info" id="insert-content" data-value="{MENU}">Menu
+                                    List Items
                                 </button>
                             </div>
-                        @elseif($template->getType() === \App\Containers\Constructor\Template\Models\TemplateInterface::MENU_TYPE)
+                        @elseif($template->getType() === \App\Ship\Parents\Models\TemplateInterface::MENU_TYPE)
                             <div class="btn-group margin-10">
                                 <button type="button" class="btn btn-info" id="insert-content" data-value="{LINK}">
                                     Link URL
@@ -132,7 +133,7 @@
                                         data-value="{NAME}">Link Name
                                 </button>
                             </div>
-                        @elseif($template->getPage()?->getType() === \App\Containers\Constructor\Page\Models\PageInterface::BLOG_TYPE)
+                        @elseif($template->getPage()?->getType() === \App\Ship\Parents\Models\PageInterface::BLOG_TYPE)
                             <div class="btn-group margin-10">
                                 <button type="button" class="btn btn-info" id="insert-content"
                                         data-value="{CONTENT_LIST}">Content

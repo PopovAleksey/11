@@ -2,15 +2,15 @@
 
 namespace App\Containers\Dashboard\Content\Tasks;
 
-use App\Containers\Constructor\Page\Models\PageFieldInterface;
-use App\Containers\Constructor\Page\Models\PageInterface;
-use App\Containers\Dashboard\Content\Models\ContentInterface;
-use App\Containers\Dashboard\Content\Models\ContentValueInterface;
 use App\Ship\Exceptions\NotFoundException;
 use App\Ship\Parents\Dto\ContentDto;
 use App\Ship\Parents\Dto\ContentValueDto;
 use App\Ship\Parents\Dto\PageDto;
 use App\Ship\Parents\Dto\PageFieldDto;
+use App\Ship\Parents\Models\ContentInterface;
+use App\Ship\Parents\Models\ContentValueInterface;
+use App\Ship\Parents\Models\PageFieldInterface;
+use App\Ship\Parents\Models\PageInterface;
 use App\Ship\Parents\Repositories\ContentRepositoryInterface;
 use App\Ship\Parents\Repositories\ContentValueRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
@@ -71,7 +71,7 @@ class GetAllContentsTask extends Task implements GetAllContentsTaskInterface
     }
 
     /**
-     * @param \App\Containers\Constructor\Page\Models\PageInterface $page
+     * @param \App\Ship\Parents\Models\PageInterface $page
      * @return \App\Ship\Parents\Dto\PageDto
      */
     private function buildPageDto(PageInterface $page): PageDto

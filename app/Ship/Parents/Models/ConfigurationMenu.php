@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Containers\Dashboard\Configuration\Models;
-
-use App\Ship\Parents\Models\Model;
+namespace App\Ship\Parents\Models;
 
 class ConfigurationMenu extends Model implements ConfigurationMenuInterface
 {

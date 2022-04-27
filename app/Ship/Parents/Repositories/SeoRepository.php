@@ -2,7 +2,7 @@
 
 namespace App\Ship\Parents\Repositories;
 
-use App\Containers\Constructor\Seo\Models\Seo;
+use App\Ship\Parents\Models\Seo;
 
 class SeoRepository extends Repository implements SeoRepositoryInterface
 {

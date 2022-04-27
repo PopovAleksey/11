@@ -2,12 +2,12 @@
 
 namespace App\Containers\Constructor\Template\Tasks;
 
-use App\Containers\Constructor\Template\Models\TemplateInterface;
 use App\Ship\Exceptions\NotFoundException;
 use App\Ship\Parents\Dto\LanguageDto;
 use App\Ship\Parents\Dto\PageDto;
 use App\Ship\Parents\Dto\TemplateDto;
 use App\Ship\Parents\Dto\ThemeDto;
+use App\Ship\Parents\Models\TemplateInterface;
 use App\Ship\Parents\Repositories\ThemeRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
@@ -27,7 +27,7 @@ class FindThemeByIdTask extends Task implements FindThemeByIdTaskInterface
     {
         try {
             /**
-             * @var \App\Containers\Constructor\Template\Models\ThemeInterface $theme
+             * @var \App\Ship\Parents\Models\ThemeInterface $theme
              */
             $theme = $this->repository->find($id);
 

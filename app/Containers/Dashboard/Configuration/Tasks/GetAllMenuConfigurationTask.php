@@ -2,10 +2,10 @@
 
 namespace App\Containers\Dashboard\Configuration\Tasks;
 
-use App\Containers\Constructor\Page\Models\PageInterface;
-use App\Containers\Dashboard\Configuration\Models\ConfigurationMenuInterface;
-use App\Containers\Dashboard\Content\Models\ContentValueInterface;
 use App\Ship\Parents\Dto\MenuDto;
+use App\Ship\Parents\Models\ConfigurationMenuInterface;
+use App\Ship\Parents\Models\ContentValueInterface;
+use App\Ship\Parents\Models\PageInterface;
 use App\Ship\Parents\Repositories\ConfigurationMenuRepositoryInterface;
 use App\Ship\Parents\Repositories\ContentRepositoryInterface;
 use App\Ship\Parents\Repositories\ContentValueRepositoryInterface;

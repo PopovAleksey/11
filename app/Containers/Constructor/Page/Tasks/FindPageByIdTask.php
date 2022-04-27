@@ -2,11 +2,11 @@
 
 namespace App\Containers\Constructor\Page\Tasks;
 
-use App\Containers\Constructor\Page\Models\PageFieldInterface;
-use App\Containers\Constructor\Page\Models\PageInterface;
 use App\Ship\Exceptions\NotFoundException;
 use App\Ship\Parents\Dto\PageDto;
 use App\Ship\Parents\Dto\PageFieldDto;
+use App\Ship\Parents\Models\PageFieldInterface;
+use App\Ship\Parents\Models\PageInterface;
 use App\Ship\Parents\Repositories\PageRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
@@ -27,7 +27,7 @@ class FindPageByIdTask extends Task implements FindPageByIdTaskInterface
     {
         try {
             /**
-             * @var \App\Containers\Constructor\Page\Models\PageInterface $page
+             * @var \App\Ship\Parents\Models\PageInterface $page
              */
             $page = $this->repository->find($id);
 

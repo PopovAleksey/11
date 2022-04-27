@@ -2,9 +2,9 @@
 
 namespace App\Containers\Constructor\Template\Tasks;
 
-use App\Containers\Constructor\Template\Models\TemplateInterface;
 use App\Ship\Exceptions\CreateResourceFailedException;
 use App\Ship\Parents\Dto\TemplateDto;
+use App\Ship\Parents\Models\TemplateInterface;
 use App\Ship\Parents\Repositories\TemplateRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
@@ -35,7 +35,7 @@ class CreateTemplateTask extends Task implements CreateTemplateTaskInterface
             unset($insert['theme'], $insert['language'], $insert['page']);
 
             /**
-             * @var \App\Containers\Constructor\Template\Models\TemplateInterface $template
+             * @var \App\Ship\Parents\Models\TemplateInterface $template
              */
             $template = $this->repository->create($insert);
 

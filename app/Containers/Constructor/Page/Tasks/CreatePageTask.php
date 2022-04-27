@@ -2,9 +2,9 @@
 
 namespace App\Containers\Constructor\Page\Tasks;
 
-use App\Containers\Constructor\Page\Models\PageInterface;
 use App\Ship\Exceptions\CreateResourceFailedException;
 use App\Ship\Parents\Dto\PageDto;
+use App\Ship\Parents\Models\PageInterface;
 use App\Ship\Parents\Repositories\PageRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
@@ -25,7 +25,7 @@ class CreatePageTask extends Task implements CreatePageTaskInterface
     {
         try {
             /**
-             * @var \App\Containers\Constructor\Page\Models\PageInterface $page
+             * @var \App\Ship\Parents\Models\PageInterface $page
              */
             $page = $this->repository->create($data->toArray());
 

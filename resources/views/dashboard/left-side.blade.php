@@ -26,17 +26,17 @@
                     <li class="nav-item">
                         <a href="{{ route('dashboard_page_show', ['id' => $item->getId()]) }}"
                            class="nav-link {{ route('dashboard_page_show', ['id' => $item->getId()], false) === '/' . request()->path() ? 'active' : ''}}">
-                            @if ($item->getType() === \App\Containers\Constructor\Page\Models\PageInterface::SIMPLE_TYPE)
+                            @if ($item->getType() === \App\Ship\Parents\Models\PageInterface::SIMPLE_TYPE)
                                 <i class="far fa-file-alt"></i>&nbsp;
-                            @elseif($item->getType() === \App\Containers\Constructor\Page\Models\PageInterface::BLOG_TYPE)
+                            @elseif($item->getType() === \App\Ship\Parents\Models\PageInterface::BLOG_TYPE)
                                 <i class="far fa-newspaper"></i>&nbsp;
-                            @elseif($item->getType() === \App\Containers\Constructor\Page\Models\PageInterface::CATEGORY_TYPE)
+                            @elseif($item->getType() === \App\Ship\Parents\Models\PageInterface::CATEGORY_TYPE)
                                 <i class="far fa-list-alt"></i>&nbsp;
                             @endif
                             <p>{{$item->getName()}}</p>
                         </a>
                     </li>
-                    @if($item->getType() === \App\Containers\Constructor\Page\Models\PageInterface::BLOG_TYPE)
+                    @if($item->getType() === \App\Ship\Parents\Models\PageInterface::BLOG_TYPE)
                         <li class="nav-item">
                             <a href="{{ route('dashboard_page_show', ['id' => $item->getChildPage()->getId()]) }}"
                                class="nav-link {{ route('dashboard_page_show', ['id' => $item->getChildPage()->getId()], false) === '/' . request()->path() ? 'active' : ''}}">

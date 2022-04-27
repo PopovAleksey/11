@@ -2,7 +2,7 @@
 
 namespace App\Ship\Parents\Repositories;
 
-use App\Containers\Constructor\Page\Models\PageField;
+use App\Ship\Parents\Models\PageField;
 
 class PageFieldRepository extends Repository implements PageFieldRepositoryInterface
 {

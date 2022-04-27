@@ -2,7 +2,7 @@
 
 namespace App\Ship\Parents\Repositories;
 
-use App\Containers\Dashboard\Content\Models\Content;
+use App\Ship\Parents\Models\Content;
 
 class ContentRepository extends Repository implements ContentRepositoryInterface
 {

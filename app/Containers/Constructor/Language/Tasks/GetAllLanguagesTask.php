@@ -2,8 +2,8 @@
 
 namespace App\Containers\Constructor\Language\Tasks;
 
-use App\Containers\Constructor\Language\Models\Language;
 use App\Ship\Parents\Dto\LanguageDto;
+use App\Ship\Parents\Models\Language;
 use App\Ship\Parents\Repositories\LanguageRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Illuminate\Support\Collection;

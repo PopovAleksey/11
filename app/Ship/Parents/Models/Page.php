@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Containers\Constructor\Page\Models;
+namespace App\Ship\Parents\Models;
 
-use App\Ship\Parents\Models\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -41,7 +40,7 @@ class Page extends Model implements PageInterface
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Relations\HasOne|\App\Containers\Constructor\Page\Models\PageInterface
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Relations\HasOne|\App\Ship\Parents\Models\PageInterface
      */
     public function getChildPageAttribute(): \Illuminate\Database\Eloquent\Model|HasOne|PageInterface
     {

@@ -31,7 +31,7 @@ class UpdateSeoTask extends Task implements UpdateSeoTaskInterface
             }
 
             /**
-             * @var \App\Containers\Constructor\Seo\Models\SeoInterface $seo
+             * @var \App\Ship\Parents\Models\SeoInterface $seo
              */
             $seo = $this->repository->update($update, $data->getId());
 

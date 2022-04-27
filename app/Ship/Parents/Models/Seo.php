@@ -1,14 +1,7 @@
 <?php
 
-namespace App\Containers\Constructor\Seo\Models;
+namespace App\Ship\Parents\Models;
 
-use App\Containers\Constructor\Language\Models\Language;
-use App\Containers\Constructor\Language\Models\LanguageInterface;
-use App\Containers\Constructor\Page\Models\Page;
-use App\Containers\Constructor\Page\Models\PageField;
-use App\Containers\Constructor\Page\Models\PageFieldInterface;
-use App\Containers\Constructor\Page\Models\PageInterface;
-use App\Ship\Parents\Models\Model;
 use Illuminate\Database\Eloquent\Collection;
 
 class Seo extends Model implements SeoInterface
@@ -44,7 +37,7 @@ class Seo extends Model implements SeoInterface
     protected string $resourceKey = 'Seo';
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model|\App\Containers\Constructor\Page\Models\PageInterface
+     * @return \Illuminate\Database\Eloquent\Model|\App\Ship\Parents\Models\PageInterface
      */
     public function getPageAttribute(): \Illuminate\Database\Eloquent\Model|PageInterface
     {
@@ -52,7 +45,7 @@ class Seo extends Model implements SeoInterface
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model|\App\Containers\Constructor\Page\Models\PageFieldInterface
+     * @return \Illuminate\Database\Eloquent\Model|\App\Ship\Parents\Models\PageFieldInterface
      */
     public function getPageFieldAttribute(): \Illuminate\Database\Eloquent\Model|PageFieldInterface
     {
@@ -60,7 +53,7 @@ class Seo extends Model implements SeoInterface
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model|\App\Containers\Constructor\Language\Models\LanguageInterface
+     * @return \Illuminate\Database\Eloquent\Model|\App\Ship\Parents\Models\LanguageInterface
      */
     public function getLanguageAttribute(): \Illuminate\Database\Eloquent\Model|LanguageInterface
     {

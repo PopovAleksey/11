@@ -1,10 +1,7 @@
 <?php
 
-namespace App\Containers\Dashboard\Content\Models;
+namespace App\Ship\Parents\Models;
 
-use App\Containers\Constructor\Page\Models\Page;
-use App\Containers\Constructor\Page\Models\PageInterface;
-use App\Ship\Parents\Models\Model;
 use Illuminate\Database\Eloquent\Collection;
 
 class Content extends Model implements ContentInterface
@@ -39,7 +36,7 @@ class Content extends Model implements ContentInterface
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model|\App\Containers\Constructor\Page\Models\PageInterface
+     * @return \Illuminate\Database\Eloquent\Model|\App\Ship\Parents\Models\PageInterface
      */
     public function getPageAttribute(): \Illuminate\Database\Eloquent\Model|PageInterface
     {

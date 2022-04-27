@@ -1,12 +1,6 @@
 <?php
 
-namespace App\Containers\Dashboard\Content\Models;
-
-use App\Containers\Constructor\Language\Models\Language;
-use App\Containers\Constructor\Language\Models\LanguageInterface;
-use App\Containers\Constructor\Page\Models\PageField;
-use App\Containers\Constructor\Page\Models\PageFieldInterface;
-use App\Ship\Parents\Models\Model;
+namespace App\Ship\Parents\Models;
 
 class ContentValue extends Model implements ContentValueInterface
 {
@@ -35,7 +29,7 @@ class ContentValue extends Model implements ContentValueInterface
     protected string $resourceKey = 'ContentValueModel';
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model|\App\Containers\Constructor\Language\Models\LanguageInterface
+     * @return \Illuminate\Database\Eloquent\Model|\App\Ship\Parents\Models\LanguageInterface
      */
     public function getLanguageAttribute(): \Illuminate\Database\Eloquent\Model|LanguageInterface
     {
@@ -43,7 +37,7 @@ class ContentValue extends Model implements ContentValueInterface
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model|\App\Containers\Dashboard\Content\Models\ContentInterface
+     * @return \Illuminate\Database\Eloquent\Model|\App\Ship\Parents\Models\ContentInterface
      */
     public function getContentAttribute(): \Illuminate\Database\Eloquent\Model|ContentInterface
     {
@@ -51,7 +45,7 @@ class ContentValue extends Model implements ContentValueInterface
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model|\App\Containers\Constructor\Page\Models\PageFieldInterface
+     * @return \Illuminate\Database\Eloquent\Model|\App\Ship\Parents\Models\PageFieldInterface
      */
     public function getPageFieldAttribute(): \Illuminate\Database\Eloquent\Model|PageFieldInterface
     {

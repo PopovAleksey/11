@@ -22,7 +22,7 @@ class DeletePageTask extends Task implements DeletePageTaskInterface
     {
         try {
             /**
-             * @var \App\Containers\Constructor\Page\Models\PageInterface $page
+             * @var \App\Ship\Parents\Models\PageInterface $page
              */
             $page = $this->repository->find($id);
 

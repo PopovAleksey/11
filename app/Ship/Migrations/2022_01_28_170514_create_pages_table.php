@@ -1,6 +1,6 @@
 <?php
 
-use App\Containers\Constructor\Page\Models\PageInterface;
+use App\Ship\Parents\Models\PageInterface;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 

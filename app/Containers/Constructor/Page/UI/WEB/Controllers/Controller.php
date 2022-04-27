@@ -8,7 +8,6 @@ use App\Containers\Constructor\Page\Actions\DeletePageActionInterface;
 use App\Containers\Constructor\Page\Actions\FindPageByIdActionInterface;
 use App\Containers\Constructor\Page\Actions\GetAllPagesActionInterface;
 use App\Containers\Constructor\Page\Actions\UpdatePageActionInterface;
-use App\Containers\Constructor\Page\Models\PageInterface;
 use App\Containers\Constructor\Page\UI\WEB\Requests\StorePageRequest;
 use App\Containers\Constructor\Page\UI\WEB\Requests\UpdatePageRequest;
 use App\Ship\Parents\Controllers\WebController;

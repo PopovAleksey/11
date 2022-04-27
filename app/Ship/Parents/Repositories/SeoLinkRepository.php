@@ -2,7 +2,7 @@
 
 namespace App\Ship\Parents\Repositories;
 
-use App\Containers\Constructor\Seo\Models\SeoLink;
+use App\Ship\Parents\Models\SeoLink;
 
 class SeoLinkRepository extends Repository implements SeoLinkRepositoryInterface
 {

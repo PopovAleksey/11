@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Containers\Constructor\Seo\Models;
-
-use App\Ship\Parents\Models\Model;
+namespace App\Ship\Parents\Models;
 
 class SeoLink extends Model implements SeoLinkInterface
 {
@@ -30,7 +28,7 @@ class SeoLink extends Model implements SeoLinkInterface
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model|\App\Containers\Constructor\Seo\Models\SeoInterface
+     * @return \Illuminate\Database\Eloquent\Model|\App\Ship\Parents\Models\SeoInterface
      */
     public function getSeoAttribute(): \Illuminate\Database\Eloquent\Model|SeoInterface
     {

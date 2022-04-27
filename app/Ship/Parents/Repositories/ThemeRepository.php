@@ -2,7 +2,7 @@
 
 namespace App\Ship\Parents\Repositories;
 
-use App\Containers\Constructor\Template\Models\Theme;
+use App\Ship\Parents\Models\Theme;
 
 class ThemeRepository extends Repository implements ThemeRepositoryInterface
 {

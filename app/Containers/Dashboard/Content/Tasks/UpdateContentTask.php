@@ -2,10 +2,10 @@
 
 namespace App\Containers\Dashboard\Content\Tasks;
 
-use App\Containers\Dashboard\Content\Models\ContentValueInterface;
 use App\Ship\Exceptions\UpdateResourceFailedException;
 use App\Ship\Parents\Dto\ContentDto;
 use App\Ship\Parents\Dto\ContentValueDto;
+use App\Ship\Parents\Models\ContentValueInterface;
 use App\Ship\Parents\Repositories\ContentValueRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;

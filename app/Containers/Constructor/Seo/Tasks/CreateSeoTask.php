@@ -23,7 +23,7 @@ class CreateSeoTask extends Task implements CreateSeoTaskInterface
     {
         try {
             /**
-             * @var \App\Containers\Constructor\Seo\Models\SeoInterface $seo
+             * @var \App\Ship\Parents\Models\SeoInterface $seo
              */
             $seo = $this->repository->create([
                 'page_id'       => $data->getPageId(),

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Containers\Constructor\Template\Models;
+namespace App\Ship\Parents\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;

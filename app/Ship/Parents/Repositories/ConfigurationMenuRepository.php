@@ -2,7 +2,7 @@
 
 namespace App\Ship\Parents\Repositories;
 
-use App\Containers\Dashboard\Configuration\Models\ConfigurationMenu;
+use App\Ship\Parents\Models\ConfigurationMenu;
 
 class ConfigurationMenuRepository extends Repository implements ConfigurationMenuRepositoryInterface
 {

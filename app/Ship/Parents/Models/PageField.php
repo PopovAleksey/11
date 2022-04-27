@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Containers\Constructor\Page\Models;
-
-use App\Ship\Parents\Models\Model;
+namespace App\Ship\Parents\Models;
 
 class PageField extends Model implements PageFieldInterface
 {
@@ -37,7 +35,7 @@ class PageField extends Model implements PageFieldInterface
     protected string $resourceKey = 'PageField';
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model|\App\Containers\Constructor\Page\Models\PageInterface
+     * @return \Illuminate\Database\Eloquent\Model|\App\Ship\Parents\Models\PageInterface
      */
     public function getPageAttribute(): \Illuminate\Database\Eloquent\Model|PageInterface
     {

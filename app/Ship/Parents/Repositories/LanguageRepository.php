@@ -2,7 +2,7 @@
 
 namespace App\Ship\Parents\Repositories;
 
-use App\Containers\Constructor\Language\Models\Language;
+use App\Ship\Parents\Models\Language;
 
 class LanguageRepository extends Repository implements LanguageRepositoryInterface
 {

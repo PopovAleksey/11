@@ -24,8 +24,8 @@
         $(function () {
             @foreach($languages as $language)
             @foreach($page->getFields() as $field)
-            @if($field->getType() === \App\Containers\Constructor\Page\Models\PageFieldInterface::TEXTAREA_TYPE)
-            $('textarea[name=field-{{ $language->getId() }}-{{ $field->getId() }}]').summernote({ height: 200 });
+            @if($field->getType() === \App\Ship\Parents\Models\PageFieldInterface::TEXTAREA_TYPE)
+            $('textarea[name=field-{{ $language->getId() }}-{{ $field->getId() }}]').summernote({height: 200});
             @endif
             @endforeach
             @endforeach
@@ -127,20 +127,20 @@
                                                     <label for="field-{{ $language->getId() }}-{{ $field->getId() }}">{{ $field->getName() }}</label>
                                                     @php($formValue = data_get($values, [$language->getId(), $field->getId()])?->getValue())
                                                     @switch($field->getType())
-                                                        @case(\App\Containers\Constructor\Page\Models\PageFieldInterface::INPUT_TYPE)
+                                                        @case(\App\Ship\Parents\Models\PageFieldInterface::INPUT_TYPE)
                                                         <input type="text" class="form-control"
                                                                name="field-{{ $language->getId() }}-{{ $field->getId() }}"
                                                                value="{{ $formValue ?? head($field->getValues()) }}"
                                                                placeholder="{{ $field->getPlaceholder() }}"/>
                                                         @break
-                                                        @case(\App\Containers\Constructor\Page\Models\PageFieldInterface::TEXTAREA_TYPE)
+                                                        @case(\App\Ship\Parents\Models\PageFieldInterface::TEXTAREA_TYPE)
                                                         <textarea class="form-control"
                                                                   name="field-{{ $language->getId() }}-{{ $field->getId() }}"
                                                                   placeholder="{{ $field->getPlaceholder() }}">
                                                         {{ $formValue ?? head($field->getValues()) }}
                                                     </textarea>
                                                         @break
-                                                        @case(\App\Containers\Constructor\Page\Models\PageFieldInterface::SELECT_TYPE)
+                                                        @case(\App\Ship\Parents\Models\PageFieldInterface::SELECT_TYPE)
                                                         <select class="form-control"
                                                                 name="field-{{ $language->getId() }}-{{ $field->getId() }}">
                                                             <option value="">{{ $field->getPlaceholder() }}</option>
@@ -149,7 +149,7 @@
                                                             @endforeach
                                                         </select>
                                                         @break
-                                                        @case(\App\Containers\Constructor\Page\Models\PageFieldInterface::SELECT_MULTIPLE_TYPE)
+                                                        @case(\App\Ship\Parents\Models\PageFieldInterface::SELECT_MULTIPLE_TYPE)
                                                         <select multiple="" class="form-control"
                                                                 name="field-{{ $language->getId() }}-{{ $field->getId() }}">
                                                             @foreach($field->getValues() as $value)
@@ -157,7 +157,7 @@
                                                             @endforeach
                                                         </select>
                                                         @break
-                                                        @case(\App\Containers\Constructor\Page\Models\PageFieldInterface::RADIO_TYPE)
+                                                        @case(\App\Ship\Parents\Models\PageFieldInterface::RADIO_TYPE)
                                                         @foreach($field->getValues() as $value)
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="radio"
@@ -168,7 +168,7 @@
                                                             </div>
                                                         @endforeach
                                                         @break
-                                                        @case(\App\Containers\Constructor\Page\Models\PageFieldInterface::CHECKBOX_TYPE)
+                                                        @case(\App\Ship\Parents\Models\PageFieldInterface::CHECKBOX_TYPE)
                                                         @foreach($field->getValues() as $value)
                                                             <div class="form-check">
                                                                 <input class="form-check-input"

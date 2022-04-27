@@ -1,6 +1,6 @@
 <?php
 
-use App\Containers\Constructor\Seo\Models\SeoInterface;
+use App\Ship\Parents\Models\SeoInterface;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 

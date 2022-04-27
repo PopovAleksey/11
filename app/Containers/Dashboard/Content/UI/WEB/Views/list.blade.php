@@ -49,7 +49,7 @@
     <script>
         $(function () {
             $("#table-list").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false, "order": [[ 0, "desc" ]]
+                "responsive": true, "lengthChange": false, "autoWidth": false, "order": [[0, "desc"]]
             }).buttons().container().appendTo('#table-list_wrapper .col-md-6:eq(0)');
 
             var Toast = Swal.mixin({
@@ -133,7 +133,7 @@
                                         <td>{{ $value->getCreateAt() }}</td>
                                         <td class="dt-right">
                                             <div class="btn-group">
-                                                @if ($content->getPage()->getType() === \App\Containers\Constructor\Page\Models\PageInterface::BLOG_TYPE)
+                                                @if ($content->getPage()->getType() === \App\Ship\Parents\Models\PageInterface::BLOG_TYPE)
                                                     <button type="button" class="btn bg-gradient-warning btn-sm"
                                                             onclick="location.href='{{ route('dashboard_page_show', $content->getPage()->getChildPage()->getId()) }}'">
                                                         <i class="fas fa-folder-open"></i>

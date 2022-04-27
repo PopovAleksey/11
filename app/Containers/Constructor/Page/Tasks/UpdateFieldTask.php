@@ -26,7 +26,7 @@ class UpdateFieldTask extends Task implements UpdateFieldTaskInterface
             $insert['values'] = json_encode($data->getValues(), JSON_THROW_ON_ERROR);
 
             /**
-             * @var \App\Containers\Constructor\Page\Models\PageFieldInterface $field
+             * @var \App\Ship\Parents\Models\PageFieldInterface $field
              */
             $field = $this->repository->update($insert, $data->getId());
 

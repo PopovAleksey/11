@@ -1,12 +1,6 @@
 <?php
 
-namespace App\Containers\Constructor\Template\Models;
-
-use App\Containers\Constructor\Language\Models\Language;
-use App\Containers\Constructor\Language\Models\LanguageInterface;
-use App\Containers\Constructor\Page\Models\Page;
-use App\Containers\Constructor\Page\Models\PageInterface;
-use App\Ship\Parents\Models\Model;
+namespace App\Ship\Parents\Models;
 
 class Template extends Model implements TemplateInterface
 {
@@ -38,7 +32,7 @@ class Template extends Model implements TemplateInterface
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model|\App\Containers\Constructor\Template\Models\ThemeInterface
+     * @return \Illuminate\Database\Eloquent\Model|\App\Ship\Parents\Models\ThemeInterface
      */
     public function getThemeAttribute(): \Illuminate\Database\Eloquent\Model|ThemeInterface
     {
@@ -46,7 +40,7 @@ class Template extends Model implements TemplateInterface
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model|\App\Containers\Constructor\Page\Models\PageInterface|null
+     * @return \Illuminate\Database\Eloquent\Model|\App\Ship\Parents\Models\PageInterface|null
      */
     public function getPageAttribute(): \Illuminate\Database\Eloquent\Model|PageInterface|null
     {
@@ -54,7 +48,7 @@ class Template extends Model implements TemplateInterface
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model|\App\Containers\Constructor\Language\Models\LanguageInterface|null
+     * @return \Illuminate\Database\Eloquent\Model|\App\Ship\Parents\Models\LanguageInterface|null
      */
     public function getLanguageAttribute(): \Illuminate\Database\Eloquent\Model|LanguageInterface|null
     {

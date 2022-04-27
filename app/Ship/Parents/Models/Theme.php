@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Containers\Constructor\Template\Models;
+namespace App\Ship\Parents\Models;
 
-use App\Ship\Parents\Models\Model;
 use Illuminate\Database\Eloquent\Collection;
 
 class Theme extends Model implements ThemeInterface

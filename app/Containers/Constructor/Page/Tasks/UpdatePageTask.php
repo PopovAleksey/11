@@ -26,7 +26,7 @@ class UpdatePageTask extends Task implements UpdatePageTaskInterface
             unset($insert['fields']);
 
             /**
-             * @var \App\Containers\Constructor\Page\Models\PageInterface $page
+             * @var \App\Ship\Parents\Models\PageInterface $page
              */
             $page = $this->repository->update($insert, $data->getId());
 

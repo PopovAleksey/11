@@ -2,7 +2,7 @@
 
 namespace App\Ship\Parents\Repositories;
 
-use App\Containers\Constructor\Template\Models\Template;
+use App\Ship\Parents\Models\Template;
 
 class TemplateRepository extends Repository implements TemplateRepositoryInterface
 {

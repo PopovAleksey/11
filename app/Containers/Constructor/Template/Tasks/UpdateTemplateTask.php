@@ -23,7 +23,7 @@ class UpdateTemplateTask extends Task implements UpdateTemplateTaskInterface
     {
         try {
             /**
-             * @var \App\Containers\Constructor\Template\Models\TemplateInterface $template
+             * @var \App\Ship\Parents\Models\TemplateInterface $template
              */
             $template = $this->repository->update($data->toArray(), $data->getId());
 

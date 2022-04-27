@@ -28,7 +28,7 @@ class CreateContentTask extends Task implements CreateContentTaskInterface
     {
         try {
             /**
-             * @var \App\Containers\Dashboard\Content\Models\ContentInterface $content
+             * @var \App\Ship\Parents\Models\ContentInterface $content
              */
             $content = $this->contentRepository->create(['page_id' => $data->getPageId()]);
 

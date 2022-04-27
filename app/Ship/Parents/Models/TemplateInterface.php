@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Containers\Constructor\Template\Models;
+namespace App\Ship\Parents\Models;
 
-use App\Containers\Constructor\Language\Models\LanguageInterface;
-use App\Containers\Constructor\Page\Models\PageInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 

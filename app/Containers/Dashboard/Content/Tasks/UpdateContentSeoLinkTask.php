@@ -2,10 +2,10 @@
 
 namespace App\Containers\Dashboard\Content\Tasks;
 
-use App\Containers\Constructor\Seo\Models\SeoInterface;
 use App\Ship\Exceptions\CreateResourceFailedException;
 use App\Ship\Parents\Dto\ContentDto;
 use App\Ship\Parents\Dto\ContentValueDto;
+use App\Ship\Parents\Models\SeoInterface;
 use App\Ship\Parents\Repositories\SeoLinkRepositoryInterface;
 use App\Ship\Parents\Repositories\SeoRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
@@ -49,7 +49,7 @@ class UpdateContentSeoLinkTask extends Task implements UpdateContentSeoLinkTaskI
                         ->first();
 
                     /**
-                     * @var \App\Containers\Constructor\Seo\Models\SeoLinkInterface|null $updateLink
+                     * @var \App\Ship\Parents\Models\SeoLinkInterface|null $updateLink
                      */
                     $updateLink   = $currentLinks->get($seo->id);
                     $updateLinkId = $updateLink?->id;
@@ -79,8 +79,8 @@ class UpdateContentSeoLinkTask extends Task implements UpdateContentSeoLinkTaskI
     }
 
     /**
-     * @param \App\Containers\Constructor\Seo\Models\SeoInterface $seo
-     * @param string|null                                         $fieldValue
+     * @param \App\Ship\Parents\Models\SeoInterface $seo
+     * @param string|null                           $fieldValue
      * @return string
      * @throws \Facade\FlareClient\Http\Exceptions\InvalidData
      */

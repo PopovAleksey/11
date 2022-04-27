@@ -6,12 +6,12 @@ use App\Containers\Dashboard\Configuration\Actions\GetAllMenuConfigurationAction
 use App\Containers\Dashboard\Configuration\Actions\GetAllMenuConfigurationActionInterface;
 use App\Containers\Dashboard\Configuration\Actions\UpdateMenuConfigurationAction;
 use App\Containers\Dashboard\Configuration\Actions\UpdateMenuConfigurationActionInterface;
-use App\Containers\Dashboard\Configuration\Models\ConfigurationMenu;
-use App\Containers\Dashboard\Configuration\Models\ConfigurationMenuInterface;
 use App\Containers\Dashboard\Configuration\Tasks\GetAllMenuConfigurationTask;
 use App\Containers\Dashboard\Configuration\Tasks\GetAllMenuConfigurationTaskInterface;
 use App\Containers\Dashboard\Configuration\Tasks\UpdateMenuConfigurationTask;
 use App\Containers\Dashboard\Configuration\Tasks\UpdateMenuConfigurationTaskInterface;
+use App\Ship\Parents\Models\ConfigurationMenu;
+use App\Ship\Parents\Models\ConfigurationMenuInterface;
 use App\Ship\Parents\Providers\MainProvider;
 use App\Ship\Parents\Repositories\ConfigurationMenuRepository;
 use App\Ship\Parents\Repositories\ConfigurationMenuRepositoryInterface;

@@ -26,7 +26,7 @@ class CreateFieldTask extends Task implements CreateFieldTaskInterface
             $insert['values'] = json_encode($data->getValues(), JSON_THROW_ON_ERROR);
 
             /**
-             * @var \App\Containers\Constructor\Page\Models\PageFieldInterface $field
+             * @var \App\Ship\Parents\Models\PageFieldInterface $field
              */
             $field = $this->repository->create($insert);
 

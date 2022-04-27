@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Containers\Constructor\Language\Models;
-
-use App\Ship\Parents\Models\Model;
+namespace App\Ship\Parents\Models;
 
 class Language extends Model implements LanguageInterface
 {

@@ -185,11 +185,11 @@
                                     <td>{{ $item->getId() }}</td>
                                     <td>{{ $item->getName() }}</td>
                                     <td>
-                                        @if ($item->getType() === \App\Containers\Constructor\Page\Models\PageInterface::SIMPLE_TYPE)
+                                        @if ($item->getType() === \App\Ship\Parents\Models\PageInterface::SIMPLE_TYPE)
                                             <i class="far fa-file-alt"></i> Simple Page
-                                        @elseif($item->getType() === \App\Containers\Constructor\Page\Models\PageInterface::BLOG_TYPE)
+                                        @elseif($item->getType() === \App\Ship\Parents\Models\PageInterface::BLOG_TYPE)
                                             <i class="far fa-newspaper"></i> Blog Page
-                                        @elseif($item->getType() === \App\Containers\Constructor\Page\Models\PageInterface::CATEGORY_TYPE)
+                                        @elseif($item->getType() === \App\Ship\Parents\Models\PageInterface::CATEGORY_TYPE)
                                             <i class="far fa-list-alt"></i> Category
                                         @endif
                                     </td>
@@ -205,7 +205,7 @@
                                     </td>
                                     <td class="dt-right">
                                         <div class="btn-group">
-                                            @if ($item->getType() === \App\Containers\Constructor\Page\Models\PageInterface::BLOG_TYPE)
+                                            @if ($item->getType() === \App\Ship\Parents\Models\PageInterface::BLOG_TYPE)
                                                 <button type="button" class="btn bg-gradient-warning btn-sm"
                                                         onclick="location.href='{{ route('constructor_page_edit', $item->getChildPage()->getId()) }}'">
                                                     <i class="fas fa-cogs"></i>

@@ -2,12 +2,12 @@
 
 namespace App\Containers\Constructor\Template\Actions;
 
-use App\Containers\Constructor\Page\Models\PageInterface;
 use App\Containers\Constructor\Page\Tasks\FindPageByIdTaskInterface;
-use App\Containers\Constructor\Template\Models\TemplateInterface;
 use App\Containers\Constructor\Template\Tasks\CreateTemplateTaskInterface;
 use App\Ship\Parents\Actions\Action;
 use App\Ship\Parents\Dto\TemplateDto;
+use App\Ship\Parents\Models\PageInterface;
+use App\Ship\Parents\Models\TemplateInterface;
 
 class CreateTemplateAction extends Action implements CreateTemplateActionInterface
 {
