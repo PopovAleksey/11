@@ -2,17 +2,17 @@
 
 namespace App\Containers\Dashboard\Content\Tasks;
 
-use App\Containers\Constructor\Page\Data\Dto\PageDto;
-use App\Containers\Constructor\Page\Data\Dto\PageFieldDto;
-use App\Containers\Constructor\Page\Data\Repositories\PageRepositoryInterface;
 use App\Containers\Constructor\Page\Models\PageFieldInterface;
 use App\Containers\Constructor\Page\Models\PageInterface;
-use App\Containers\Dashboard\Content\Data\Dto\ContentDto;
-use App\Containers\Dashboard\Content\Data\Dto\ContentValueDto;
-use App\Containers\Dashboard\Content\Data\Repositories\ContentRepositoryInterface;
 use App\Containers\Dashboard\Content\Models\ContentInterface;
 use App\Containers\Dashboard\Content\Models\ContentValueInterface;
 use App\Ship\Exceptions\NotFoundException;
+use App\Ship\Parents\Dto\ContentDto;
+use App\Ship\Parents\Dto\ContentValueDto;
+use App\Ship\Parents\Dto\PageDto;
+use App\Ship\Parents\Dto\PageFieldDto;
+use App\Ship\Parents\Repositories\ContentRepositoryInterface;
+use App\Ship\Parents\Repositories\PageRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 use Illuminate\Support\Collection;
@@ -29,7 +29,7 @@ class FindContentByIdTask extends Task implements FindContentByIdTaskInterface
 
     /**
      * @param int $id
-     * @return \App\Containers\Dashboard\Content\Data\Dto\ContentDto
+     * @return \App\Ship\Parents\Dto\ContentDto
      * @throws \App\Ship\Exceptions\NotFoundException
      */
     public function run(int $id): ContentDto
@@ -81,7 +81,7 @@ class FindContentByIdTask extends Task implements FindContentByIdTaskInterface
 
     /**
      * @param \App\Containers\Constructor\Page\Models\PageInterface $page
-     * @return \App\Containers\Constructor\Page\Data\Dto\PageDto
+     * @return \App\Ship\Parents\Dto\PageDto
      */
     private function buildPageDto(PageInterface $page): PageDto
     {

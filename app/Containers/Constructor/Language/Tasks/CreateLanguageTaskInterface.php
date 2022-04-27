@@ -2,7 +2,7 @@
 
 namespace App\Containers\Constructor\Language\Tasks;
 
-use App\Containers\Constructor\Language\Data\Dto\LanguageDto;
+use App\Ship\Parents\Dto\LanguageDto;
 
 interface CreateLanguageTaskInterface
 {

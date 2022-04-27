@@ -20,10 +20,6 @@ use App\Containers\Constructor\Template\Actions\GetAllThemesAction;
 use App\Containers\Constructor\Template\Actions\GetAllThemesActionInterface;
 use App\Containers\Constructor\Template\Actions\UpdateTemplateAction;
 use App\Containers\Constructor\Template\Actions\UpdateTemplateActionInterface;
-use App\Containers\Constructor\Template\Data\Repositories\TemplateRepository;
-use App\Containers\Constructor\Template\Data\Repositories\TemplateRepositoryInterface;
-use App\Containers\Constructor\Template\Data\Repositories\ThemeRepository;
-use App\Containers\Constructor\Template\Data\Repositories\ThemeRepositoryInterface;
 use App\Containers\Constructor\Template\Models\Template;
 use App\Containers\Constructor\Template\Models\TemplateInterface;
 use App\Containers\Constructor\Template\Models\Theme;
@@ -47,6 +43,10 @@ use App\Containers\Constructor\Template\Tasks\GetAllThemesTaskInterface;
 use App\Containers\Constructor\Template\Tasks\UpdateTemplateTask;
 use App\Containers\Constructor\Template\Tasks\UpdateTemplateTaskInterface;
 use App\Ship\Parents\Providers\MainProvider;
+use App\Ship\Parents\Repositories\TemplateRepository;
+use App\Ship\Parents\Repositories\TemplateRepositoryInterface;
+use App\Ship\Parents\Repositories\ThemeRepository;
+use App\Ship\Parents\Repositories\ThemeRepositoryInterface;
 
 
 class MainServiceProvider extends MainProvider

@@ -2,11 +2,11 @@
 
 namespace App\Containers\Constructor\Template\UI\WEB\Requests;
 
-use App\Containers\Constructor\Language\Data\Dto\LanguageDto;
-use App\Containers\Constructor\Page\Data\Dto\PageDto;
-use App\Containers\Constructor\Template\Data\Dto\TemplateDto;
-use App\Containers\Constructor\Template\Data\Dto\ThemeDto;
 use App\Containers\Constructor\Template\Models\TemplateInterface;
+use App\Ship\Parents\Dto\LanguageDto;
+use App\Ship\Parents\Dto\PageDto;
+use App\Ship\Parents\Dto\TemplateDto;
+use App\Ship\Parents\Dto\ThemeDto;
 use App\Ship\Parents\Requests\Request;
 
 class StoreTemplateRequest extends Request

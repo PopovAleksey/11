@@ -2,10 +2,10 @@
 
 namespace App\Containers\Constructor\Page\Tasks;
 
-use App\Containers\Constructor\Page\Data\Dto\PageDto;
-use App\Containers\Constructor\Page\Data\Repositories\PageRepositoryInterface;
 use App\Containers\Constructor\Page\Models\PageInterface;
 use App\Ship\Exceptions\CreateResourceFailedException;
+use App\Ship\Parents\Dto\PageDto;
+use App\Ship\Parents\Repositories\PageRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 
@@ -16,7 +16,7 @@ class CreatePageTask extends Task implements CreatePageTaskInterface
     }
 
     /**
-     * @param \App\Containers\Constructor\Page\Data\Dto\PageDto $data
+     * @param \App\Ship\Parents\Dto\PageDto $data
      * @return int
      * @throws \App\Ship\Exceptions\CreateResourceFailedException
      * @TODO Need implement transaction

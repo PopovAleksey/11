@@ -2,14 +2,14 @@
 
 namespace App\Containers\Constructor\Seo\Tasks;
 
-use App\Containers\Constructor\Language\Data\Dto\LanguageDto;
-use App\Containers\Constructor\Page\Data\Dto\PageDto;
-use App\Containers\Constructor\Page\Data\Dto\PageFieldDto;
-use App\Containers\Constructor\Seo\Data\Dto\SeoDto;
-use App\Containers\Constructor\Seo\Data\Dto\SeoLinkDto;
-use App\Containers\Constructor\Seo\Data\Repositories\SeoRepositoryInterface;
 use App\Containers\Constructor\Seo\Models\SeoInterface;
 use App\Containers\Constructor\Seo\Models\SeoLinkInterface;
+use App\Ship\Parents\Dto\LanguageDto;
+use App\Ship\Parents\Dto\PageDto;
+use App\Ship\Parents\Dto\PageFieldDto;
+use App\Ship\Parents\Dto\SeoDto;
+use App\Ship\Parents\Dto\SeoLinkDto;
+use App\Ship\Parents\Repositories\SeoRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Illuminate\Support\Collection;
 

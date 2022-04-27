@@ -2,9 +2,9 @@
 
 namespace App\Containers\Dashboard\Configuration\Tasks;
 
-use App\Containers\Dashboard\Configuration\Data\Dto\MenuDto;
-use App\Containers\Dashboard\Configuration\Data\Repositories\ConfigurationMenuRepositoryInterface;
 use App\Ship\Exceptions\UpdateResourceFailedException;
+use App\Ship\Parents\Dto\MenuDto;
+use App\Ship\Parents\Repositories\ConfigurationMenuRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 use Illuminate\Support\Collection;

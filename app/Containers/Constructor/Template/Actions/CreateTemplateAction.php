@@ -4,10 +4,10 @@ namespace App\Containers\Constructor\Template\Actions;
 
 use App\Containers\Constructor\Page\Models\PageInterface;
 use App\Containers\Constructor\Page\Tasks\FindPageByIdTaskInterface;
-use App\Containers\Constructor\Template\Data\Dto\TemplateDto;
 use App\Containers\Constructor\Template\Models\TemplateInterface;
 use App\Containers\Constructor\Template\Tasks\CreateTemplateTaskInterface;
 use App\Ship\Parents\Actions\Action;
+use App\Ship\Parents\Dto\TemplateDto;
 
 class CreateTemplateAction extends Action implements CreateTemplateActionInterface
 {

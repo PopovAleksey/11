@@ -2,8 +2,8 @@
 
 namespace App\Containers\Constructor\Page\UI\WEB\Requests;
 
-use App\Containers\Constructor\Page\Data\Dto\PageDto;
 use App\Containers\Constructor\Page\Models\PageInterface;
+use App\Ship\Parents\Dto\PageDto;
 use App\Ship\Parents\Requests\Request;
 
 class StorePageRequest extends Request

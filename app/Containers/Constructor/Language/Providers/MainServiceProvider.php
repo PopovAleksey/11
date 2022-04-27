@@ -12,8 +12,6 @@ use App\Containers\Constructor\Language\Actions\GetPossibleLanguagesAction;
 use App\Containers\Constructor\Language\Actions\GetPossibleLanguagesActionInterface;
 use App\Containers\Constructor\Language\Actions\UpdateLanguageAction;
 use App\Containers\Constructor\Language\Actions\UpdateLanguageActionInterface;
-use App\Containers\Constructor\Language\Data\Repositories\LanguageRepository;
-use App\Containers\Constructor\Language\Data\Repositories\LanguageRepositoryInterface;
 use App\Containers\Constructor\Language\Models\Language;
 use App\Containers\Constructor\Language\Models\LanguageInterface;
 use App\Containers\Constructor\Language\Tasks\CreateLanguageTask;
@@ -25,6 +23,8 @@ use App\Containers\Constructor\Language\Tasks\GetAllLanguagesTaskInterface;
 use App\Containers\Constructor\Language\Tasks\UpdateLanguageTask;
 use App\Containers\Constructor\Language\Tasks\UpdateLanguageTaskInterface;
 use App\Ship\Parents\Providers\MainProvider;
+use App\Ship\Parents\Repositories\LanguageRepository;
+use App\Ship\Parents\Repositories\LanguageRepositoryInterface;
 
 /**
  * The Main Service Provider of this container, it will be automatically registered in the framework.

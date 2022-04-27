@@ -2,9 +2,9 @@
 
 namespace App\Containers\Constructor\Page\Actions;
 
-use App\Containers\Constructor\Page\Data\Dto\PageDto;
 use App\Containers\Constructor\Page\Tasks\ActivatePageTaskInterface;
 use App\Ship\Parents\Actions\Action;
+use App\Ship\Parents\Dto\PageDto;
 
 class ActivatePageAction extends Action implements ActivatePageActionInterface
 {
@@ -15,8 +15,8 @@ class ActivatePageAction extends Action implements ActivatePageActionInterface
     }
 
     /**
-     * @param \App\Containers\Constructor\Page\Data\Dto\PageDto $data
-     * @return \App\Containers\Constructor\Page\Data\Dto\PageDto
+     * @param \App\Ship\Parents\Dto\PageDto $data
+     * @return \App\Ship\Parents\Dto\PageDto
      */
     public function run(PageDto $data): PageDto
     {

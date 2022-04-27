@@ -2,10 +2,10 @@
 
 namespace App\Containers\Constructor\Template\Tasks;
 
-use App\Containers\Constructor\Template\Data\Dto\ThemeDto;
-use App\Containers\Constructor\Template\Data\Repositories\ThemeRepositoryInterface;
 use App\Containers\Constructor\Template\Models\ThemeInterface;
 use App\Ship\Exceptions\CreateResourceFailedException;
+use App\Ship\Parents\Dto\ThemeDto;
+use App\Ship\Parents\Repositories\ThemeRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 

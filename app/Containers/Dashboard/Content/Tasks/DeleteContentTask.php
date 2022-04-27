@@ -2,8 +2,8 @@
 
 namespace App\Containers\Dashboard\Content\Tasks;
 
-use App\Containers\Dashboard\Content\Data\Repositories\ContentRepositoryInterface;
 use App\Ship\Exceptions\DeleteResourceFailedException;
+use App\Ship\Parents\Repositories\ContentRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 

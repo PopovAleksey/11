@@ -3,7 +3,6 @@
 namespace App\Containers\Constructor\Seo\UI\WEB\Controllers;
 
 use App\Containers\Constructor\Language\Actions\GetAllLanguagesActionInterface;
-use App\Containers\Constructor\Language\Data\Dto\LanguageDto;
 use App\Containers\Constructor\Page\Actions\GetAllPagesActionInterface;
 use App\Containers\Constructor\Seo\Actions\CreateSeoActionInterface;
 use App\Containers\Constructor\Seo\Actions\DeleteSeoActionInterface;
@@ -13,6 +12,7 @@ use App\Containers\Constructor\Seo\Models\SeoInterface;
 use App\Containers\Constructor\Seo\UI\WEB\Requests\StoreSeoRequest;
 use App\Containers\Constructor\Seo\UI\WEB\Requests\UpdateSeoRequest;
 use App\Ship\Parents\Controllers\WebController;
+use App\Ship\Parents\Dto\LanguageDto;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -30,6 +30,7 @@ class Controller extends WebController
     )
     {
     }
+
 
     public function index(): Factory|View|Application
     {
@@ -52,12 +53,14 @@ class Controller extends WebController
         ]);
     }
 
+
     public function store(StoreSeoRequest $request): JsonResponse
     {
         $seoId = $this->createSeoAction->run($request->mapped());
 
         return response()->json(['id' => $seoId])->setStatusCode(200);
     }
+
 
     public function update(int $id, UpdateSeoRequest $request): JsonResponse
     {
@@ -67,6 +70,7 @@ class Controller extends WebController
 
         return response()->json()->setStatusCode(200);
     }
+
 
     public function destroy(int $id): JsonResponse
     {

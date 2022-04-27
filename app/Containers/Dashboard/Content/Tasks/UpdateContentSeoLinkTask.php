@@ -2,12 +2,12 @@
 
 namespace App\Containers\Dashboard\Content\Tasks;
 
-use App\Containers\Constructor\Seo\Data\Repositories\SeoLinkRepositoryInterface;
-use App\Containers\Constructor\Seo\Data\Repositories\SeoRepositoryInterface;
 use App\Containers\Constructor\Seo\Models\SeoInterface;
-use App\Containers\Dashboard\Content\Data\Dto\ContentDto;
-use App\Containers\Dashboard\Content\Data\Dto\ContentValueDto;
 use App\Ship\Exceptions\CreateResourceFailedException;
+use App\Ship\Parents\Dto\ContentDto;
+use App\Ship\Parents\Dto\ContentValueDto;
+use App\Ship\Parents\Repositories\SeoLinkRepositoryInterface;
+use App\Ship\Parents\Repositories\SeoRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 use Facade\FlareClient\Http\Exceptions\InvalidData;
@@ -22,7 +22,7 @@ class UpdateContentSeoLinkTask extends Task implements UpdateContentSeoLinkTaskI
     }
 
     /**
-     * @param \App\Containers\Dashboard\Content\Data\Dto\ContentDto $data
+     * @param \App\Ship\Parents\Dto\ContentDto $data
      * @return bool
      * @throws \App\Ship\Exceptions\CreateResourceFailedException
      */

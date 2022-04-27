@@ -2,11 +2,11 @@
 
 namespace App\Containers\Dashboard\Content\Tasks;
 
-use App\Containers\Dashboard\Content\Data\Dto\ContentDto;
-use App\Containers\Dashboard\Content\Data\Dto\ContentValueDto;
-use App\Containers\Dashboard\Content\Data\Repositories\ContentRepositoryInterface;
-use App\Containers\Dashboard\Content\Data\Repositories\ContentValueRepositoryInterface;
 use App\Ship\Exceptions\CreateResourceFailedException;
+use App\Ship\Parents\Dto\ContentDto;
+use App\Ship\Parents\Dto\ContentValueDto;
+use App\Ship\Parents\Repositories\ContentRepositoryInterface;
+use App\Ship\Parents\Repositories\ContentValueRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 
@@ -20,7 +20,7 @@ class CreateContentTask extends Task implements CreateContentTaskInterface
     }
 
     /**
-     * @param \App\Containers\Dashboard\Content\Data\Dto\ContentDto $data
+     * @param \App\Ship\Parents\Dto\ContentDto $data
      * @return int
      * @throws \App\Ship\Exceptions\CreateResourceFailedException
      */

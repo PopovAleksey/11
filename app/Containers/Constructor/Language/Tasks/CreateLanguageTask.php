@@ -2,9 +2,9 @@
 
 namespace App\Containers\Constructor\Language\Tasks;
 
-use App\Containers\Constructor\Language\Data\Dto\LanguageDto;
-use App\Containers\Constructor\Language\Data\Repositories\LanguageRepositoryInterface;
 use App\Ship\Exceptions\CreateResourceFailedException;
+use App\Ship\Parents\Dto\LanguageDto;
+use App\Ship\Parents\Repositories\LanguageRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 
@@ -15,7 +15,7 @@ class CreateLanguageTask extends Task implements CreateLanguageTaskInterface
     }
 
     /**
-     * @param \App\Containers\Constructor\Language\Data\Dto\LanguageDto $data
+     * @param \App\Ship\Parents\Dto\LanguageDto $data
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Support\Collection|mixed
      * @throws \App\Ship\Exceptions\CreateResourceFailedException
      */

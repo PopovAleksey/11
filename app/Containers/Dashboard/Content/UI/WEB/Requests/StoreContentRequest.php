@@ -2,8 +2,8 @@
 
 namespace App\Containers\Dashboard\Content\UI\WEB\Requests;
 
-use App\Containers\Dashboard\Content\Data\Dto\ContentDto;
-use App\Containers\Dashboard\Content\Data\Dto\ContentValueDto;
+use App\Ship\Parents\Dto\ContentDto;
+use App\Ship\Parents\Dto\ContentValueDto;
 use App\Ship\Parents\Requests\Request;
 
 class StoreContentRequest extends Request

@@ -2,10 +2,10 @@
 
 namespace App\Containers\Constructor\Language\Actions;
 
-use App\Containers\Constructor\Language\Data\Dto\LanguageDto;
 use App\Containers\Constructor\Language\Tasks\UpdateLanguageTaskInterface;
 use App\Ship\Exceptions\ValidationFailedException;
 use App\Ship\Parents\Actions\Action;
+use App\Ship\Parents\Dto\LanguageDto;
 
 class UpdateLanguageAction extends Action implements UpdateLanguageActionInterface
 {
@@ -14,7 +14,7 @@ class UpdateLanguageAction extends Action implements UpdateLanguageActionInterfa
     }
 
     /**
-     * @param \App\Containers\Constructor\Language\Data\Dto\LanguageDto $data
+     * @param \App\Ship\Parents\Dto\LanguageDto $data
      * @return bool
      * @throws \App\Ship\Exceptions\ValidationFailedException
      */

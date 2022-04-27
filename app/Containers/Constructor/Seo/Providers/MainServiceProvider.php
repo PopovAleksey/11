@@ -10,10 +10,6 @@ use App\Containers\Constructor\Seo\Actions\GetAllSeoAction;
 use App\Containers\Constructor\Seo\Actions\GetAllSeoActionInterface;
 use App\Containers\Constructor\Seo\Actions\UpdateSeoAction;
 use App\Containers\Constructor\Seo\Actions\UpdateSeoActionInterface;
-use App\Containers\Constructor\Seo\Data\Repositories\SeoLinkRepository;
-use App\Containers\Constructor\Seo\Data\Repositories\SeoLinkRepositoryInterface;
-use App\Containers\Constructor\Seo\Data\Repositories\SeoRepository;
-use App\Containers\Constructor\Seo\Data\Repositories\SeoRepositoryInterface;
 use App\Containers\Constructor\Seo\Models\Seo;
 use App\Containers\Constructor\Seo\Models\SeoInterface;
 use App\Containers\Constructor\Seo\Models\SeoLink;
@@ -27,6 +23,10 @@ use App\Containers\Constructor\Seo\Tasks\GetAllSeoTaskInterface;
 use App\Containers\Constructor\Seo\Tasks\UpdateSeoTask;
 use App\Containers\Constructor\Seo\Tasks\UpdateSeoTaskInterface;
 use App\Ship\Parents\Providers\MainProvider;
+use App\Ship\Parents\Repositories\SeoLinkRepository;
+use App\Ship\Parents\Repositories\SeoLinkRepositoryInterface;
+use App\Ship\Parents\Repositories\SeoRepository;
+use App\Ship\Parents\Repositories\SeoRepositoryInterface;
 
 
 class MainServiceProvider extends MainProvider

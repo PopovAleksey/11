@@ -25,10 +25,7 @@ class ControllerTemplate extends WebController
     {
     }
 
-    /**
-     * @param \App\Containers\Constructor\Template\UI\WEB\Requests\StoreTemplateRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+
     public function store(StoreTemplateRequest $request): JsonResponse
     {
         return response()
@@ -36,10 +33,7 @@ class ControllerTemplate extends WebController
             ->setStatusCode(200);
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
-     */
+
     public function edit(int $id): Factory|View|Application
     {
         return view('constructor@template::editTemplate', [
@@ -47,11 +41,7 @@ class ControllerTemplate extends WebController
         ]);
     }
 
-    /**
-     * @param int                                                                        $id
-     * @param \App\Containers\Constructor\Template\UI\WEB\Requests\UpdateTemplateRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+
     public function update(int $id, UpdateTemplateRequest $request): JsonResponse
     {
         $data = $request->mapped()->setId($id);
@@ -63,10 +53,7 @@ class ControllerTemplate extends WebController
             ->setStatusCode(200);
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\JsonResponse
-     */
+
     public function destroy(int $id): JsonResponse
     {
         $this->deleteTemplateAction->run($id);

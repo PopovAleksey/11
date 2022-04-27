@@ -2,9 +2,9 @@
 
 namespace App\Containers\Constructor\Page\Tasks;
 
-use App\Containers\Constructor\Page\Data\Dto\PageFieldDto;
-use App\Containers\Constructor\Page\Data\Repositories\PageFieldRepositoryInterface;
 use App\Ship\Exceptions\CreateResourceFailedException;
+use App\Ship\Parents\Dto\PageFieldDto;
+use App\Ship\Parents\Repositories\PageFieldRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 
@@ -15,7 +15,7 @@ class CreateFieldTask extends Task implements CreateFieldTaskInterface
     }
 
     /**
-     * @param \App\Containers\Constructor\Page\Data\Dto\PageFieldDto $data
+     * @param \App\Ship\Parents\Dto\PageFieldDto $data
      * @return int
      * @throws \App\Ship\Exceptions\CreateResourceFailedException
      */

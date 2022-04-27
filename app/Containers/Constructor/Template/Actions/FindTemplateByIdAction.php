@@ -2,9 +2,9 @@
 
 namespace App\Containers\Constructor\Template\Actions;
 
-use App\Containers\Constructor\Template\Data\Dto\TemplateDto;
 use App\Containers\Constructor\Template\Tasks\FindTemplateByIdTaskInterface;
 use App\Ship\Parents\Actions\Action;
+use App\Ship\Parents\Dto\TemplateDto;
 
 class FindTemplateByIdAction extends Action implements FindTemplateByIdActionInterface
 {

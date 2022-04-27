@@ -2,9 +2,9 @@
 
 namespace App\Containers\Constructor\Template\Actions;
 
-use App\Containers\Constructor\Template\Data\Dto\ThemeDto;
 use App\Containers\Constructor\Template\Tasks\FindThemeByIdTaskInterface;
 use App\Ship\Parents\Actions\Action;
+use App\Ship\Parents\Dto\ThemeDto;
 
 class FindThemeByIdAction extends Action implements FindThemeByIdActionInterface
 {

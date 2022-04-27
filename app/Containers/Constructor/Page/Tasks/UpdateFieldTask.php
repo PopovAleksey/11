@@ -2,9 +2,9 @@
 
 namespace App\Containers\Constructor\Page\Tasks;
 
-use App\Containers\Constructor\Page\Data\Dto\PageFieldDto;
-use App\Containers\Constructor\Page\Data\Repositories\PageFieldRepositoryInterface;
 use App\Ship\Exceptions\UpdateResourceFailedException;
+use App\Ship\Parents\Dto\PageFieldDto;
+use App\Ship\Parents\Repositories\PageFieldRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 
@@ -15,8 +15,8 @@ class UpdateFieldTask extends Task implements UpdateFieldTaskInterface
     }
 
     /**
-     * @param \App\Containers\Constructor\Page\Data\Dto\PageFieldDto $data
-     * @return \App\Containers\Constructor\Page\Data\Dto\PageFieldDto
+     * @param \App\Ship\Parents\Dto\PageFieldDto $data
+     * @return \App\Ship\Parents\Dto\PageFieldDto
      * @throws \App\Ship\Exceptions\UpdateResourceFailedException
      */
     public function run(PageFieldDto $data): PageFieldDto

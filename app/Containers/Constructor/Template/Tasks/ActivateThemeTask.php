@@ -2,10 +2,10 @@
 
 namespace App\Containers\Constructor\Template\Tasks;
 
-use App\Containers\Constructor\Template\Data\Dto\ThemeDto;
-use App\Containers\Constructor\Template\Data\Repositories\ThemeRepositoryInterface;
 use App\Containers\Constructor\Template\Models\ThemeInterface;
 use App\Ship\Exceptions\UpdateResourceFailedException;
+use App\Ship\Parents\Dto\ThemeDto;
+use App\Ship\Parents\Repositories\ThemeRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 
@@ -16,8 +16,8 @@ class ActivateThemeTask extends Task implements ActivateThemeTaskInterface
     }
 
     /**
-     * @param \App\Containers\Constructor\Template\Data\Dto\ThemeDto $data
-     * @return \App\Containers\Constructor\Template\Data\Dto\ThemeDto
+     * @param \App\Ship\Parents\Dto\ThemeDto $data
+     * @return \App\Ship\Parents\Dto\ThemeDto
      * @throws \App\Ship\Exceptions\UpdateResourceFailedException
      * @TODO Need implement transaction
      */

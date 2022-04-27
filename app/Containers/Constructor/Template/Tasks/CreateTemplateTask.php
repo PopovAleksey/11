@@ -2,10 +2,10 @@
 
 namespace App\Containers\Constructor\Template\Tasks;
 
-use App\Containers\Constructor\Template\Data\Dto\TemplateDto;
-use App\Containers\Constructor\Template\Data\Repositories\TemplateRepositoryInterface;
 use App\Containers\Constructor\Template\Models\TemplateInterface;
 use App\Ship\Exceptions\CreateResourceFailedException;
+use App\Ship\Parents\Dto\TemplateDto;
+use App\Ship\Parents\Repositories\TemplateRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 
@@ -16,7 +16,7 @@ class CreateTemplateTask extends Task implements CreateTemplateTaskInterface
     }
 
     /**
-     * @param \App\Containers\Constructor\Template\Data\Dto\TemplateDto $data
+     * @param \App\Ship\Parents\Dto\TemplateDto $data
      * @return int
      * @throws \App\Ship\Exceptions\CreateResourceFailedException
      */

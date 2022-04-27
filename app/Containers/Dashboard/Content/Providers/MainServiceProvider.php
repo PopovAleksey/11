@@ -14,10 +14,6 @@ use App\Containers\Dashboard\Content\Actions\GetMenuListAction;
 use App\Containers\Dashboard\Content\Actions\GetMenuListActionInterface;
 use App\Containers\Dashboard\Content\Actions\UpdateContentAction;
 use App\Containers\Dashboard\Content\Actions\UpdateContentActionInterface;
-use App\Containers\Dashboard\Content\Data\Repositories\ContentRepository;
-use App\Containers\Dashboard\Content\Data\Repositories\ContentRepositoryInterface;
-use App\Containers\Dashboard\Content\Data\Repositories\ContentValueRepository;
-use App\Containers\Dashboard\Content\Data\Repositories\ContentValueRepositoryInterface;
 use App\Containers\Dashboard\Content\Models\Content;
 use App\Containers\Dashboard\Content\Models\ContentInterface;
 use App\Containers\Dashboard\Content\Models\ContentValue;
@@ -35,6 +31,10 @@ use App\Containers\Dashboard\Content\Tasks\UpdateContentSeoLinkTaskInterface;
 use App\Containers\Dashboard\Content\Tasks\UpdateContentTask;
 use App\Containers\Dashboard\Content\Tasks\UpdateContentTaskInterface;
 use App\Ship\Parents\Providers\MainProvider;
+use App\Ship\Parents\Repositories\ContentRepository;
+use App\Ship\Parents\Repositories\ContentRepositoryInterface;
+use App\Ship\Parents\Repositories\ContentValueRepository;
+use App\Ship\Parents\Repositories\ContentValueRepositoryInterface;
 
 
 class MainServiceProvider extends MainProvider

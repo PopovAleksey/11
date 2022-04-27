@@ -2,7 +2,6 @@
 
 namespace App\Containers\Dashboard\Content\Actions;
 
-use App\Containers\Dashboard\Content\Data\Dto\ContentDto;
 use App\Containers\Dashboard\Content\Tasks\GetAllContentsTaskInterface;
 use App\Ship\Parents\Actions\Action;
 use Illuminate\Support\Collection;

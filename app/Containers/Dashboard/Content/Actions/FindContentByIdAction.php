@@ -2,10 +2,10 @@
 
 namespace App\Containers\Dashboard\Content\Actions;
 
-use App\Containers\Dashboard\Content\Data\Dto\ContentDto;
-use App\Containers\Dashboard\Content\Data\Dto\ContentValueDto;
 use App\Containers\Dashboard\Content\Tasks\FindContentByIdTaskInterface;
 use App\Ship\Parents\Actions\Action;
+use App\Ship\Parents\Dto\ContentDto;
+use App\Ship\Parents\Dto\ContentValueDto;
 
 class FindContentByIdAction extends Action implements FindContentByIdActionInterface
 {

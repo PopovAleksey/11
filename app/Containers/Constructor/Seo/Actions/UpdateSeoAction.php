@@ -2,9 +2,9 @@
 
 namespace App\Containers\Constructor\Seo\Actions;
 
-use App\Containers\Constructor\Seo\Data\Dto\SeoDto;
 use App\Containers\Constructor\Seo\Tasks\UpdateSeoTaskInterface;
 use App\Ship\Parents\Actions\Action;
+use App\Ship\Parents\Dto\SeoDto;
 
 class UpdateSeoAction extends Action implements UpdateSeoActionInterface
 {

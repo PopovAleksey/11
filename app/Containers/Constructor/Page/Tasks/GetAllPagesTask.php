@@ -2,11 +2,11 @@
 
 namespace App\Containers\Constructor\Page\Tasks;
 
-use App\Containers\Constructor\Page\Data\Dto\PageDto;
-use App\Containers\Constructor\Page\Data\Dto\PageFieldDto;
-use App\Containers\Constructor\Page\Data\Repositories\PageRepositoryInterface;
 use App\Containers\Constructor\Page\Models\PageFieldInterface;
 use App\Containers\Constructor\Page\Models\PageInterface;
+use App\Ship\Parents\Dto\PageDto;
+use App\Ship\Parents\Dto\PageFieldDto;
+use App\Ship\Parents\Repositories\PageRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Illuminate\Support\Collection;
 
@@ -41,7 +41,7 @@ class GetAllPagesTask extends Task implements GetAllPagesTaskInterface
     /**
      * @param \App\Containers\Constructor\Page\Models\PageInterface $page
      * @param bool                                                  $withFields
-     * @return \App\Containers\Constructor\Page\Data\Dto\PageDto
+     * @return \App\Ship\Parents\Dto\PageDto
      */
     private function buildPageDto(PageInterface $page, bool $withFields): PageDto
     {

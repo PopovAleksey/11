@@ -2,14 +2,14 @@
 
 namespace App\Containers\Dashboard\Configuration\Tasks;
 
-use App\Containers\Constructor\Page\Data\Repositories\PageRepositoryInterface;
 use App\Containers\Constructor\Page\Models\PageInterface;
-use App\Containers\Dashboard\Configuration\Data\Dto\MenuDto;
-use App\Containers\Dashboard\Configuration\Data\Repositories\ConfigurationMenuRepositoryInterface;
 use App\Containers\Dashboard\Configuration\Models\ConfigurationMenuInterface;
-use App\Containers\Dashboard\Content\Data\Repositories\ContentRepositoryInterface;
-use App\Containers\Dashboard\Content\Data\Repositories\ContentValueRepositoryInterface;
 use App\Containers\Dashboard\Content\Models\ContentValueInterface;
+use App\Ship\Parents\Dto\MenuDto;
+use App\Ship\Parents\Repositories\ConfigurationMenuRepositoryInterface;
+use App\Ship\Parents\Repositories\ContentRepositoryInterface;
+use App\Ship\Parents\Repositories\ContentValueRepositoryInterface;
+use App\Ship\Parents\Repositories\PageRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Illuminate\Support\Collection;
 

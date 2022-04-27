@@ -2,13 +2,13 @@
 
 namespace App\Containers\Constructor\Template\Tasks;
 
-use App\Containers\Constructor\Language\Data\Dto\LanguageDto;
-use App\Containers\Constructor\Page\Data\Dto\PageDto;
-use App\Containers\Constructor\Template\Data\Dto\TemplateDto;
-use App\Containers\Constructor\Template\Data\Dto\ThemeDto;
-use App\Containers\Constructor\Template\Data\Repositories\ThemeRepositoryInterface;
 use App\Containers\Constructor\Template\Models\TemplateInterface;
 use App\Ship\Exceptions\NotFoundException;
+use App\Ship\Parents\Dto\LanguageDto;
+use App\Ship\Parents\Dto\PageDto;
+use App\Ship\Parents\Dto\TemplateDto;
+use App\Ship\Parents\Dto\ThemeDto;
+use App\Ship\Parents\Repositories\ThemeRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 
@@ -20,7 +20,7 @@ class FindThemeByIdTask extends Task implements FindThemeByIdTaskInterface
 
     /**
      * @param int $id
-     * @return \App\Containers\Constructor\Template\Data\Dto\ThemeDto
+     * @return \App\Ship\Parents\Dto\ThemeDto
      * @throws \App\Ship\Exceptions\NotFoundException
      */
     public function run(int $id): ThemeDto

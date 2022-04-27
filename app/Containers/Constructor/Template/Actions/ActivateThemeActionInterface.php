@@ -2,7 +2,7 @@
 
 namespace App\Containers\Constructor\Template\Actions;
 
-use App\Containers\Constructor\Template\Data\Dto\ThemeDto;
+use App\Ship\Parents\Dto\ThemeDto;
 
 interface ActivateThemeActionInterface
 {

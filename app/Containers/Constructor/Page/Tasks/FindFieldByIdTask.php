@@ -2,9 +2,9 @@
 
 namespace App\Containers\Constructor\Page\Tasks;
 
-use App\Containers\Constructor\Page\Data\Dto\PageFieldDto;
-use App\Containers\Constructor\Page\Data\Repositories\PageFieldRepositoryInterface;
 use App\Ship\Exceptions\NotFoundException;
+use App\Ship\Parents\Dto\PageFieldDto;
+use App\Ship\Parents\Repositories\PageFieldRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 
@@ -16,7 +16,7 @@ class FindFieldByIdTask extends Task implements FindFieldByIdTaskInterface
 
     /**
      * @param int $id
-     * @return \App\Containers\Constructor\Page\Data\Dto\PageFieldDto
+     * @return \App\Ship\Parents\Dto\PageFieldDto
      * @throws \App\Ship\Exceptions\NotFoundException
      */
     public function run(int $id): PageFieldDto

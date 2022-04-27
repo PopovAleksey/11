@@ -14,10 +14,6 @@ use App\Containers\Constructor\Page\Actions\GetAllPagesAction;
 use App\Containers\Constructor\Page\Actions\GetAllPagesActionInterface;
 use App\Containers\Constructor\Page\Actions\UpdatePageAction;
 use App\Containers\Constructor\Page\Actions\UpdatePageActionInterface;
-use App\Containers\Constructor\Page\Data\Repositories\PageFieldRepository;
-use App\Containers\Constructor\Page\Data\Repositories\PageFieldRepositoryInterface;
-use App\Containers\Constructor\Page\Data\Repositories\PageRepository;
-use App\Containers\Constructor\Page\Data\Repositories\PageRepositoryInterface;
 use App\Containers\Constructor\Page\Models\Page;
 use App\Containers\Constructor\Page\Models\PageField;
 use App\Containers\Constructor\Page\Models\PageFieldInterface;
@@ -43,6 +39,10 @@ use App\Containers\Constructor\Page\Tasks\UpdateFieldTaskInterface;
 use App\Containers\Constructor\Page\Tasks\UpdatePageTask;
 use App\Containers\Constructor\Page\Tasks\UpdatePageTaskInterface;
 use App\Ship\Parents\Providers\MainProvider;
+use App\Ship\Parents\Repositories\PageFieldRepository;
+use App\Ship\Parents\Repositories\PageFieldRepositoryInterface;
+use App\Ship\Parents\Repositories\PageRepository;
+use App\Ship\Parents\Repositories\PageRepositoryInterface;
 
 
 class MainServiceProvider extends MainProvider

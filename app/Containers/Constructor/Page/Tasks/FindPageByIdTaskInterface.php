@@ -2,7 +2,7 @@
 
 namespace App\Containers\Constructor\Page\Tasks;
 
-use App\Containers\Constructor\Page\Data\Dto\PageDto;
+use App\Ship\Parents\Dto\PageDto;
 
 interface FindPageByIdTaskInterface
 {

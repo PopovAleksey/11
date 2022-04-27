@@ -2,7 +2,7 @@
 
 namespace App\Containers\Constructor\Template\UI\WEB\Requests;
 
-use App\Containers\Constructor\Template\Data\Dto\ThemeDto;
+use App\Ship\Parents\Dto\ThemeDto;
 use App\Ship\Parents\Requests\Request;
 
 class UpdateThemeRequest extends Request

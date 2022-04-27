@@ -2,7 +2,7 @@
 
 namespace App\Containers\Dashboard\Configuration\UI\WEB\Requests;
 
-use App\Containers\Dashboard\Configuration\Data\Dto\MenuDto;
+use App\Ship\Parents\Dto\MenuDto;
 use App\Ship\Parents\Requests\Request;
 use Illuminate\Support\Collection;
 

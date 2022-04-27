@@ -2,9 +2,9 @@
 
 namespace App\Containers\Dashboard\Content\Actions;
 
-use App\Containers\Constructor\Page\Data\Dto\PageDto;
 use App\Containers\Constructor\Page\Tasks\GetAllPagesTaskInterface;
 use App\Ship\Parents\Actions\Action;
+use App\Ship\Parents\Dto\PageDto;
 use Illuminate\Support\Collection;
 
 class GetMenuListAction extends Action implements GetMenuListActionInterface

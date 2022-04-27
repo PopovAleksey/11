@@ -27,6 +27,7 @@ class Controller extends WebController
     {
     }
 
+
     public function index(): Factory|View|Application
     {
         return view('constructor@language::list', [
@@ -36,12 +37,14 @@ class Controller extends WebController
         ]);
     }
 
+
     public function store(StoreLanguageRequest $request): JsonResponse
     {
         $this->createLanguageAction->run($request->mapped());
 
         return response()->json()->setStatusCode(200);
     }
+
 
     public function update(int $id, UpdateLanguageRequest $request): JsonResponse
     {
@@ -51,6 +54,7 @@ class Controller extends WebController
 
         return response()->json()->setStatusCode(200);
     }
+
 
     public function destroy(int $id): JsonResponse
     {

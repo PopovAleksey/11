@@ -2,9 +2,9 @@
 
 namespace App\Containers\Constructor\Page\Tasks;
 
-use App\Containers\Constructor\Page\Data\Dto\PageDto;
-use App\Containers\Constructor\Page\Data\Repositories\PageRepositoryInterface;
 use App\Ship\Exceptions\UpdateResourceFailedException;
+use App\Ship\Parents\Dto\PageDto;
+use App\Ship\Parents\Repositories\PageRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 
@@ -15,8 +15,8 @@ class UpdatePageTask extends Task implements UpdatePageTaskInterface
     }
 
     /**
-     * @param \App\Containers\Constructor\Page\Data\Dto\PageDto $data
-     * @return \App\Containers\Constructor\Page\Data\Dto\PageDto
+     * @param \App\Ship\Parents\Dto\PageDto $data
+     * @return \App\Ship\Parents\Dto\PageDto
      * @throws \App\Ship\Exceptions\UpdateResourceFailedException
      */
     public function run(PageDto $data): PageDto

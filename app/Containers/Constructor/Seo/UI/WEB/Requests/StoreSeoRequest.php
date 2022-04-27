@@ -2,8 +2,8 @@
 
 namespace App\Containers\Constructor\Seo\UI\WEB\Requests;
 
-use App\Containers\Constructor\Seo\Data\Dto\SeoDto;
 use App\Containers\Constructor\Seo\Models\SeoInterface;
+use App\Ship\Parents\Dto\SeoDto;
 use App\Ship\Parents\Requests\Request;
 
 class StoreSeoRequest extends Request

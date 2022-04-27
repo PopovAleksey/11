@@ -2,9 +2,9 @@
 
 namespace App\Containers\Constructor\Seo\Tasks;
 
-use App\Containers\Constructor\Seo\Data\Dto\SeoDto;
-use App\Containers\Constructor\Seo\Data\Repositories\SeoRepositoryInterface;
 use App\Ship\Exceptions\CreateResourceFailedException;
+use App\Ship\Parents\Dto\SeoDto;
+use App\Ship\Parents\Repositories\SeoRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 
@@ -15,7 +15,7 @@ class CreateSeoTask extends Task implements CreateSeoTaskInterface
     }
 
     /**
-     * @param \App\Containers\Constructor\Seo\Data\Dto\SeoDto $data
+     * @param \App\Ship\Parents\Dto\SeoDto $data
      * @return int
      * @throws \App\Ship\Exceptions\CreateResourceFailedException
      */

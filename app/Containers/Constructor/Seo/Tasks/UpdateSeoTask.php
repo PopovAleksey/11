@@ -2,9 +2,9 @@
 
 namespace App\Containers\Constructor\Seo\Tasks;
 
-use App\Containers\Constructor\Seo\Data\Dto\SeoDto;
-use App\Containers\Constructor\Seo\Data\Repositories\SeoRepositoryInterface;
 use App\Ship\Exceptions\UpdateResourceFailedException;
+use App\Ship\Parents\Dto\SeoDto;
+use App\Ship\Parents\Repositories\SeoRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 
@@ -15,8 +15,8 @@ class UpdateSeoTask extends Task implements UpdateSeoTaskInterface
     }
 
     /**
-     * @param \App\Containers\Constructor\Seo\Data\Dto\SeoDto $data
-     * @return \App\Containers\Constructor\Seo\Data\Dto\SeoDto
+     * @param \App\Ship\Parents\Dto\SeoDto $data
+     * @return \App\Ship\Parents\Dto\SeoDto
      * @throws \App\Ship\Exceptions\UpdateResourceFailedException
      */
     public function run(SeoDto $data): SeoDto

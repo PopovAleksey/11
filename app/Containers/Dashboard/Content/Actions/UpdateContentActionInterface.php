@@ -2,7 +2,7 @@
 
 namespace App\Containers\Dashboard\Content\Actions;
 
-use App\Containers\Dashboard\Content\Data\Dto\ContentDto;
+use App\Ship\Parents\Dto\ContentDto;
 
 interface UpdateContentActionInterface
 {

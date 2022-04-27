@@ -2,11 +2,11 @@
 
 namespace App\Containers\Dashboard\Content\Tasks;
 
-use App\Containers\Dashboard\Content\Data\Dto\ContentDto;
-use App\Containers\Dashboard\Content\Data\Dto\ContentValueDto;
-use App\Containers\Dashboard\Content\Data\Repositories\ContentValueRepositoryInterface;
 use App\Containers\Dashboard\Content\Models\ContentValueInterface;
 use App\Ship\Exceptions\UpdateResourceFailedException;
+use App\Ship\Parents\Dto\ContentDto;
+use App\Ship\Parents\Dto\ContentValueDto;
+use App\Ship\Parents\Repositories\ContentValueRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 
@@ -17,7 +17,7 @@ class UpdateContentTask extends Task implements UpdateContentTaskInterface
     }
 
     /**
-     * @param \App\Containers\Dashboard\Content\Data\Dto\ContentDto $contentDto
+     * @param \App\Ship\Parents\Dto\ContentDto $contentDto
      * @return bool
      * @throws \App\Ship\Exceptions\UpdateResourceFailedException
      */

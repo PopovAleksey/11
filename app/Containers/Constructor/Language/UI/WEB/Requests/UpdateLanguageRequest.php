@@ -2,9 +2,8 @@
 
 namespace App\Containers\Constructor\Language\UI\WEB\Requests;
 
-use App\Containers\Constructor\Language\Data\Dto\LanguageDto;
+use App\Ship\Parents\Dto\LanguageDto;
 use App\Ship\Parents\Requests\Request;
-use PopovAleksey\Mapper\Mapper;
 
 class UpdateLanguageRequest extends Request
 {

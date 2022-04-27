@@ -2,9 +2,9 @@
 
 namespace App\Containers\Constructor\Template\Tasks;
 
-use App\Containers\Constructor\Template\Data\Dto\TemplateDto;
-use App\Containers\Constructor\Template\Data\Repositories\TemplateRepositoryInterface;
 use App\Ship\Exceptions\UpdateResourceFailedException;
+use App\Ship\Parents\Dto\TemplateDto;
+use App\Ship\Parents\Repositories\TemplateRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 
@@ -15,8 +15,8 @@ class UpdateTemplateTask extends Task implements UpdateTemplateTaskInterface
     }
 
     /**
-     * @param \App\Containers\Constructor\Template\Data\Dto\TemplateDto $data
-     * @return \App\Containers\Constructor\Template\Data\Dto\TemplateDto
+     * @param \App\Ship\Parents\Dto\TemplateDto $data
+     * @return \App\Ship\Parents\Dto\TemplateDto
      * @throws \App\Ship\Exceptions\UpdateResourceFailedException
      */
     public function run(TemplateDto $data): TemplateDto

@@ -2,8 +2,8 @@
 
 namespace App\Containers\Constructor\Seo\Tasks;
 
-use App\Containers\Constructor\Seo\Data\Repositories\SeoRepositoryInterface;
 use App\Ship\Exceptions\DeleteResourceFailedException;
+use App\Ship\Parents\Repositories\SeoRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 

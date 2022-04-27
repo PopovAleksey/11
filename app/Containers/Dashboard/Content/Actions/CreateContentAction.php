@@ -2,10 +2,10 @@
 
 namespace App\Containers\Dashboard\Content\Actions;
 
-use App\Containers\Dashboard\Content\Data\Dto\ContentDto;
 use App\Containers\Dashboard\Content\Tasks\CreateContentTaskInterface;
 use App\Containers\Dashboard\Content\Tasks\UpdateContentSeoLinkTaskInterface;
 use App\Ship\Parents\Actions\Action;
+use App\Ship\Parents\Dto\ContentDto;
 
 class CreateContentAction extends Action implements CreateContentActionInterface
 {

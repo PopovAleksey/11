@@ -2,7 +2,7 @@
 
 namespace App\Containers\Constructor\Seo\Tasks;
 
-use App\Containers\Constructor\Seo\Data\Dto\SeoDto;
+use App\Ship\Parents\Dto\SeoDto;
 
 interface UpdateSeoTaskInterface
 {

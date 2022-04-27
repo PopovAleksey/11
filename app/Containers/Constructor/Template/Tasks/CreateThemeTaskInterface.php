@@ -2,7 +2,7 @@
 
 namespace App\Containers\Constructor\Template\Tasks;
 
-use App\Containers\Constructor\Template\Data\Dto\ThemeDto;
+use App\Ship\Parents\Dto\ThemeDto;
 
 interface CreateThemeTaskInterface
 {

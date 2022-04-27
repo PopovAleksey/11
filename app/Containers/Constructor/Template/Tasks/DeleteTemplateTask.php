@@ -2,8 +2,8 @@
 
 namespace App\Containers\Constructor\Template\Tasks;
 
-use App\Containers\Constructor\Template\Data\Repositories\TemplateRepositoryInterface;
 use App\Ship\Exceptions\DeleteResourceFailedException;
+use App\Ship\Parents\Repositories\TemplateRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 

@@ -2,13 +2,13 @@
 
 namespace App\Containers\Constructor\Page\Actions;
 
-use App\Containers\Constructor\Page\Data\Dto\PageDto;
-use App\Containers\Constructor\Page\Data\Dto\PageFieldDto;
 use App\Containers\Constructor\Page\Tasks\CreateFieldTaskInterface;
 use App\Containers\Constructor\Page\Tasks\DeleteFieldTaskInterface;
 use App\Containers\Constructor\Page\Tasks\UpdateFieldTaskInterface;
 use App\Containers\Constructor\Page\Tasks\UpdatePageTaskInterface;
 use App\Ship\Parents\Actions\Action;
+use App\Ship\Parents\Dto\PageDto;
+use App\Ship\Parents\Dto\PageFieldDto;
 
 class UpdatePageAction extends Action implements UpdatePageActionInterface
 {
