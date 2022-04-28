@@ -35,7 +35,6 @@
         "ext-tokenizer": "*",
         "aleksey-popov/mapper-skeleton": "^1.0",
         "apiato/core": "^6.2.5",
-        "apiato/welcome-container": "^1.0.0",
         "barryvdh/laravel-ide-helper": "^2.11",
         "darkaonline/l5-swagger": "^8.0",
         "doctrine/dbal": "^3.1.2",
