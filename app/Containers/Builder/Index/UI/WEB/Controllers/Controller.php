@@ -11,16 +11,16 @@ use Illuminate\Contracts\View\View;
 class Controller extends WebController
 {
     public function __construct(
-        private IndexBuilderActionInterface $getAllIndicesAction,
+        private IndexBuilderActionInterface $getAllIndicesAction
     )
     {
     }
 
     public function index(?string $language = null, ?string $seoLink = null): Factory|View|Application
     {
-        dd('This is Index page', ['language' => $language, 'link' => $seoLink]);
-        #$indices = $this->getAllIndicesAction->run();
+        $indices = $this->getAllIndicesAction->run();
 
+        dd('This is Index page', ['language' => $language, 'link' => $seoLink]);
         #return view('constructor.base');
     }
 }
