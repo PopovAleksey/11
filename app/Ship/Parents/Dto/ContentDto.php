@@ -3,6 +3,7 @@
 namespace App\Ship\Parents\Dto;
 
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use PopovAleksey\Mapper\Mapper;
 
 final class ContentDto extends Mapper
@@ -11,12 +12,13 @@ final class ContentDto extends Mapper
     private ?int  $page_id = null;
     private ?bool $active  = null;
     /**
-     * @var \App\Ship\Parents\Dto\ContentValueDto[]
+     * \App\Ship\Parents\Dto\ContentValueDto[]
+     * @var Collection|null
      */
-    private array    $values   = [];
-    private ?PageDto $page     = null;
-    private ?Carbon  $createAt = null;
-    private ?Carbon  $updateAt = null;
+    private ?Collection $values   = null;
+    private ?PageDto    $page     = null;
+    private ?Carbon     $createAt = null;
+    private ?Carbon     $updateAt = null;
 
     /**
      * @return int|null
@@ -76,20 +78,21 @@ final class ContentDto extends Mapper
     }
 
     /**
-     * @return \App\Ship\Parents\Dto\ContentValueDto[]
+     * \App\Ship\Parents\Dto\ContentValueDto[]
+     * @return Collection
      */
-    public function getValues(): array
+    public function getValues(): Collection
     {
-        return $this->values;
+        return $this->values ?? collect();
     }
 
     /**
-     * @param array $values
+     * @param array|Collection $values
      * @return $this
      */
-    public function setValues(array $values): self
+    public function setValues(array|Collection $values): self
     {
-        $this->values = $values;
+        $this->values = collect($values);
 
         return $this;
     }

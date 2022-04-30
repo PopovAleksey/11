@@ -24,10 +24,10 @@ class UpdatePageAction extends Action implements UpdatePageActionInterface
 
     public function run(PageDto $data): PageDto
     {
-        $formFields = collect($data->getFields());
+        $formFields = $data->getFields();
 
         $currentFields = $this->findPageByIdAction->run($data->getId(), true);
-        $currentFields = collect($currentFields->getFields());
+        $currentFields = $currentFields->getFields();
 
         $currentFieldsIds = $currentFields->map(fn(PageFieldDto $field) => $field->getId())->toArray();
         $formFieldsIds    = $formFields->map(fn(PageFieldDto $field) => $field->getId())->reject(fn($fieldId) => $fieldId === null)->toArray();

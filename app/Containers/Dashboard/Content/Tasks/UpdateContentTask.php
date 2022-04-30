@@ -31,7 +31,7 @@ class UpdateContentTask extends Task implements UpdateContentTaskInterface
                     $contentValueIds[$contentValue->language_id][$contentValue->page_field_id] = $contentValue->id;
                 });
 
-            collect($contentDto->getValues())->each(function (ContentValueDto $valueDto) use ($contentValueIds, $contentDto) {
+            $contentDto->getValues()->each(function (ContentValueDto $valueDto) use ($contentValueIds, $contentDto) {
                 $id = data_get($contentValueIds, [$valueDto->getLanguageId(), $valueDto->getPageFieldId()]);
 
                 if ($id !== null) {

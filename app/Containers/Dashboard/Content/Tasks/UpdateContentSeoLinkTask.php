@@ -34,7 +34,7 @@ class UpdateContentSeoLinkTask extends Task implements UpdateContentSeoLinkTaskI
             $this->seoRepository->findByField('page_id', $data->getPageId())
                 ->reject(fn(SeoInterface $seo) => $seo->active === false)
                 ->map(function (SeoInterface $seo) use ($data, $currentLinks) {
-                    $seoLink = collect($data->getValues())
+                    $seoLink = $data->getValues()
                         ->map(function (ContentValueDto $contentValueDto) use ($seo) {
                             if (
                                 $seo->language_id === $contentValueDto->getLanguageId() &&

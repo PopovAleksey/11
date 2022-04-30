@@ -105,7 +105,7 @@ class Controller extends WebController
                 'pageId'    => $content->getPageId(),
                 'contentId' => $content->getId(),
                 'page'      => $content->getPage(),
-                'values'    => $content->getValues(),
+                'values'    => $content->getValues()->toArray(),
                 'languages' => $languages,
             ]));
     }

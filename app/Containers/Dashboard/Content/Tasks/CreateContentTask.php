@@ -32,7 +32,7 @@ class CreateContentTask extends Task implements CreateContentTaskInterface
              */
             $content = $this->contentRepository->create(['page_id' => $data->getPageId()]);
 
-            collect($data->getValues())->each(function (ContentValueDto $valueDto) use ($content) {
+            $data->getValues()->each(function (ContentValueDto $valueDto) use ($content) {
                 $data = [
                     'language_id'   => $valueDto->getLanguageId(),
                     'content_id'    => $content->id,

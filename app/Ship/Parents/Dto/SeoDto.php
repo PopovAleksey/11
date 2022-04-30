@@ -3,6 +3,7 @@
 namespace App\Ship\Parents\Dto;
 
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use PopovAleksey\Mapper\Mapper;
 
 final class SeoDto extends Mapper
@@ -17,7 +18,7 @@ final class SeoDto extends Mapper
     private ?PageDto      $page        = null;
     private ?PageFieldDto $field       = null;
     private ?LanguageDto  $language    = null;
-    private array         $links       = [];
+    private ?Collection   $links       = null;
     private ?Carbon       $createAt    = null;
     private ?Carbon       $updateAt    = null;
 
@@ -212,22 +213,22 @@ final class SeoDto extends Mapper
     }
 
     /**
-     * @param array $links
-     * @return $this
+     * @return \Illuminate\Support\Collection
      */
-    public function setLinks(array $links): self
+    public function getLinks(): Collection
     {
-        $this->links = $links;
-
-        return $this;
+        return $this->links ?? collect();
     }
 
     /**
-     * @return array
+     * @param array|\Illuminate\Support\Collection $links
+     * @return $this
      */
-    public function getLinks(): array
+    public function setLinks(array|Collection $links): self
     {
-        return $this->links ?? [];
+        $this->links = collect($links);
+
+        return $this;
     }
 
     /**

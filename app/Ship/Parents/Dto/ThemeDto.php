@@ -3,6 +3,7 @@
 namespace App\Ship\Parents\Dto;
 
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use PopovAleksey\Mapper\Mapper;
 
 final class ThemeDto extends Mapper
@@ -11,11 +12,12 @@ final class ThemeDto extends Mapper
     private ?string $name   = null;
     private ?bool   $active = null;
     /**
-     * @var \App\Ship\Parents\Dto\TemplateDto[]
+     * \App\Ship\Parents\Dto\TemplateDto[]
+     * @var Collection|null
      */
-    private array   $templates = [];
-    private ?Carbon $createAt  = null;
-    private ?Carbon $updateAt  = null;
+    private ?Collection $templates = null;
+    private ?Carbon     $createAt  = null;
+    private ?Carbon     $updateAt  = null;
 
     /**
      * @return int|null
@@ -75,19 +77,20 @@ final class ThemeDto extends Mapper
     }
 
     /**
-     * @return \App\Ship\Parents\Dto\TemplateDto[]
+     * \App\Ship\Parents\Dto\TemplateDto[]
+     * @return Collection
      */
-    public function getTemplates(): array
+    public function getTemplates(): Collection
     {
-        return $this->templates;
+        return $this->templates ?? collect();
     }
 
     /**
      * @param \App\Ship\Parents\Dto\TemplateDto[] $templates
      */
-    public function setTemplates(array $templates): self
+    public function setTemplates(array|Collection $templates): self
     {
-        $this->templates = $templates;
+        $this->templates = collect($templates);
 
         return $this;
     }

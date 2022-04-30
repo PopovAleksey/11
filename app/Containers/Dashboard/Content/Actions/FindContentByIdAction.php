@@ -20,7 +20,7 @@ class FindContentByIdAction extends Action implements FindContentByIdActionInter
         $content = $this->findContentByIdTask->run($id);
         $values  = [];
 
-        collect($content->getValues())
+        $content->getValues()
             ->each(function (ContentValueDto $contentValueDto) use (&$values) {
                 $values[$contentValueDto->getLanguageId()][$contentValueDto->getPageFieldId()] = $contentValueDto;
             });

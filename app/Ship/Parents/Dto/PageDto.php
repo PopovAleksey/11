@@ -3,6 +3,7 @@
 namespace App\Ship\Parents\Dto;
 
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use PopovAleksey\Mapper\Mapper;
 
 final class PageDto extends Mapper
@@ -12,13 +13,14 @@ final class PageDto extends Mapper
     private ?string $type   = null;
     private ?bool   $active = null;
     /**
-     * @var \App\Ship\Parents\Dto\PageFieldDto[]
+     * \App\Ship\Parents\Dto\PageFieldDto[]
+     * @var \Illuminate\Support\Collection|null
      */
-    private array    $fields         = [];
-    private ?int     $parent_page_id = null;
-    private ?PageDto $childPage      = null;
-    private ?Carbon  $createAt       = null;
-    private ?Carbon  $updateAt       = null;
+    private ?Collection $fields         = null;
+    private ?int        $parent_page_id = null;
+    private ?PageDto    $childPage      = null;
+    private ?Carbon     $createAt       = null;
+    private ?Carbon     $updateAt       = null;
 
     /**
      * @return int|null
@@ -97,11 +99,12 @@ final class PageDto extends Mapper
     }
 
     /**
-     * @return \App\Ship\Parents\Dto\PageFieldDto[]
+     * \App\Ship\Parents\Dto\PageFieldDto[]
+     * @return \Illuminate\Support\Collection
      */
-    public function getFields(): array
+    public function getFields(): Collection
     {
-        return $this->fields;
+        return $this->fields ?? collect();
     }
 
     /**
@@ -109,7 +112,7 @@ final class PageDto extends Mapper
      */
     public function setFields(?array $fields): self
     {
-        $this->fields = $fields ?? [];
+        $this->fields = collect($fields);
 
         return $this;
     }
