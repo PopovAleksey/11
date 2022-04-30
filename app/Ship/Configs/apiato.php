@@ -8,6 +8,11 @@ return [
     */
     'hash-id' => env('HASH_ID', true),
 
+    'link' => [
+        'constructor' => env('CONSTRUCTOR_PREFIX', '/constructor'),
+        'dashboard'   => env('DASHBOARD_PREFIX', '/dashboard'),
+    ],
+
     'api' => [
 
         /*
