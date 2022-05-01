@@ -11,8 +11,8 @@ use App\Ship\Parents\Actions\Action;
 class BuildTemplateAction extends Action implements BuildTemplateActionInterface
 {
     public function __construct(
-        private FindLanguageTaskInterface $languageTask,
-        private FindContentTaskInterface  $contentTask,
+        private FindLanguageTaskInterface  $languageTask,
+        private FindContentTaskInterface   $contentTask,
         private FindTemplatesTaskInterface $templateTask
     )
     {
@@ -33,9 +33,9 @@ class BuildTemplateAction extends Action implements BuildTemplateActionInterface
             throw new NotFoundException();
         }
 
-        $templateDto = $this->templateTask->run();
+        $themeDto = $this->templateTask->run($languageDto->getId());
 
-        dump($languageDto, $contentDto, $templateDto);
+        dump($languageDto, $contentDto, $themeDto);
 
         return '<html lang="' . strtolower($languageDto->getShortName()) . '"></html>';
     }

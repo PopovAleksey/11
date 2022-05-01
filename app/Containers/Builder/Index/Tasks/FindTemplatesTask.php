@@ -6,6 +6,7 @@ use App\Ship\Exceptions\NotFoundException;
 use App\Ship\Parents\Dto\TemplateDto;
 use App\Ship\Parents\Dto\ThemeDto;
 use App\Ship\Parents\Models\TemplateInterface;
+use App\Ship\Parents\Repositories\TemplateRepositoryInterface;
 use App\Ship\Parents\Repositories\ThemeRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
@@ -14,28 +15,32 @@ use Illuminate\Database\Eloquent\Collection;
 class FindTemplatesTask extends Task implements FindTemplatesTaskInterface
 {
     public function __construct(
-        private ThemeRepositoryInterface $themeRepository
+        private ThemeRepositoryInterface    $themeRepository,
+        private TemplateRepositoryInterface $templateRepository
     )
     {
     }
 
     /**
+     * @param int $languageId
      * @return \App\Ship\Parents\Dto\ThemeDto
      * @throws \App\Ship\Exceptions\NotFoundException
      */
-    public function run(): ThemeDto
+    public function run(int $languageId): ThemeDto
     {
         try {
             /**
              * @var \App\Ship\Parents\Models\ThemeInterface $theme
              */
-            $theme = $this->themeRepository->findWhere(['active' => true])->first();
+            $theme       = $this->themeRepository->findWhere(['active' => true])->first();
+            $template    = $this->templateRepository->findByThemeAndLanguage($theme->id, $languageId);
+            $templateDto = $this->buildTemplateDto($template);
 
             return (new ThemeDto())
                 ->setId($theme->id)
                 ->setName($theme->name)
                 ->setActive($theme->active)
-                ->setTemplates($this->buildTemplateDto($theme->templates))
+                ->setTemplates($templateDto)
                 ->setCreateAt($theme->created_at)
                 ->setUpdateAt($theme->updated_at);
 
@@ -62,6 +67,7 @@ class FindTemplatesTask extends Task implements FindTemplatesTaskInterface
                     ->setCreateAt($template->created_at)
                     ->setUpdateAt($template->updated_at);
             })
-            ->groupBy(fn(TemplateDto $templateDto) => $templateDto->getType());
+            ->groupBy(fn(TemplateDto $templateDto) => $templateDto->getType())
+            ->map(fn(\Illuminate\Support\Collection $templates, $type) => $type === TemplateInterface::PAGE_TYPE ? $templates : $templates->first());
     }
 }

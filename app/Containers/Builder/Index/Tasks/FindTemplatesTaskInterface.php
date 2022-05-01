@@ -7,5 +7,5 @@ use App\Ship\Parents\Dto\ThemeDto;
 
 interface FindTemplatesTaskInterface
 {
-    public function run(): ThemeDto;
+    public function run(int $languageId): ThemeDto;
 }
