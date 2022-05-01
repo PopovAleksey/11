@@ -7,14 +7,82 @@ use PopovAleksey\Mapper\Mapper;
 
 final class TemplateDto extends Mapper
 {
-    private ?int         $id       = null;
-    private ?string      $type     = null;
-    private ?ThemeDto    $theme    = null;
-    private ?PageDto     $page     = null;
-    private ?LanguageDto $language = null;
-    private ?string      $html     = null;
-    private ?Carbon      $createAt = null;
-    private ?Carbon      $updateAt = null;
+    private ?int         $id         = null;
+    private ?string      $type       = null;
+    private ?int         $themeId    = null;
+    private ?ThemeDto    $theme      = null;
+    private ?int         $pageId     = null;
+    private ?PageDto     $page       = null;
+    private ?int         $languageId = null;
+    private ?LanguageDto $language   = null;
+    private ?string      $html       = null;
+    private ?Carbon      $createAt   = null;
+    private ?Carbon      $updateAt   = null;
+
+    /**
+     * @return int|null
+     */
+    public function getThemeId(): ?int
+    {
+        return $this->themeId;
+    }
+
+    /**
+     * @param int|null $themeId
+     * @return $this
+     */
+    public function setThemeId(?int $themeId): self
+    {
+        $this->themeId = $themeId;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPageId(): ?int
+    {
+        return $this->pageId;
+    }
+
+    /**
+     * @param int|null $pageId
+     * @return $this
+     */
+    public function setPageId(?int $pageId): self
+    {
+        $this->pageId = $pageId;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLanguageId(): ?int
+    {
+        return $this->languageId;
+    }
+
+    /**
+     * @param int|null $languageId
+     * @return $this
+     */
+    public function setLanguageId(?int $languageId): self
+    {
+        $this->languageId = $languageId;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getId(): ?int
+    {
+        return $this->id ?? null;
+    }
 
     /**
      * @param int|null $id
@@ -28,11 +96,11 @@ final class TemplateDto extends Mapper
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getId(): ?int
+    public function getType(): ?string
     {
-        return $this->id ?? null;
+        return $this->type ?? null;
     }
 
     /**
@@ -47,11 +115,11 @@ final class TemplateDto extends Mapper
     }
 
     /**
-     * @return string|null
+     * @return \App\Ship\Parents\Dto\ThemeDto|null
      */
-    public function getType(): ?string
+    public function getTheme(): ?ThemeDto
     {
-        return $this->type ?? null;
+        return $this->theme ?? null;
     }
 
     /**
@@ -66,11 +134,11 @@ final class TemplateDto extends Mapper
     }
 
     /**
-     * @return \App\Ship\Parents\Dto\ThemeDto|null
+     * @return \App\Ship\Parents\Dto\PageDto|null
      */
-    public function getTheme(): ?ThemeDto
+    public function getPage(): ?PageDto
     {
-        return $this->theme ?? null;
+        return $this->page ?? null;
     }
 
     /**
@@ -85,11 +153,11 @@ final class TemplateDto extends Mapper
     }
 
     /**
-     * @return \App\Ship\Parents\Dto\PageDto|null
+     * @return \App\Ship\Parents\Dto\LanguageDto|null
      */
-    public function getPage(): ?PageDto
+    public function getLanguage(): ?LanguageDto
     {
-        return $this->page ?? null;
+        return $this->language ?? null;
     }
 
     /**
@@ -104,11 +172,11 @@ final class TemplateDto extends Mapper
     }
 
     /**
-     * @return \App\Ship\Parents\Dto\LanguageDto|null
+     * @return string|null
      */
-    public function getLanguage(): ?LanguageDto
+    public function getHtml(): ?string
     {
-        return $this->language ?? null;
+        return $this->html ?? null;
     }
 
     /**
@@ -123,11 +191,11 @@ final class TemplateDto extends Mapper
     }
 
     /**
-     * @return string|null
+     * @return \Illuminate\Support\Carbon|null
      */
-    public function getHtml(): ?string
+    public function getCreateAt(): ?Carbon
     {
-        return $this->html ?? null;
+        return $this->createAt ?? null;
     }
 
     /**
@@ -144,9 +212,9 @@ final class TemplateDto extends Mapper
     /**
      * @return \Illuminate\Support\Carbon|null
      */
-    public function getCreateAt(): ?Carbon
+    public function getUpdateAt(): ?Carbon
     {
-        return $this->createAt ?? null;
+        return $this->updateAt ?? null;
     }
 
     /**
@@ -158,14 +226,6 @@ final class TemplateDto extends Mapper
         $this->updateAt = $updateAt;
 
         return $this;
-    }
-
-    /**
-     * @return \Illuminate\Support\Carbon|null
-     */
-    public function getUpdateAt(): ?Carbon
-    {
-        return $this->updateAt ?? null;
     }
 
 

@@ -4,6 +4,7 @@ namespace App\Containers\Builder\Index\Actions;
 
 use App\Containers\Builder\Index\Tasks\FindContentTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindLanguageTaskInterface;
+use App\Containers\Builder\Index\Tasks\FindTemplatesTaskInterface;
 use App\Ship\Exceptions\NotFoundException;
 use App\Ship\Parents\Actions\Action;
 
@@ -11,7 +12,8 @@ class BuildTemplateAction extends Action implements BuildTemplateActionInterface
 {
     public function __construct(
         private FindLanguageTaskInterface $languageTask,
-        private FindContentTaskInterface  $contentTask
+        private FindContentTaskInterface  $contentTask,
+        private FindTemplatesTaskInterface $templateTask
     )
     {
     }
@@ -31,7 +33,9 @@ class BuildTemplateAction extends Action implements BuildTemplateActionInterface
             throw new NotFoundException();
         }
 
-        dump($languageDto, $contentDto);
+        $templateDto = $this->templateTask->run();
+
+        dump($languageDto, $contentDto, $templateDto);
 
         return '<html lang="' . strtolower($languageDto->getShortName()) . '"></html>';
     }

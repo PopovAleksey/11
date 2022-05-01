@@ -8,6 +8,8 @@ use App\Containers\Builder\Index\Tasks\FindContentTask;
 use App\Containers\Builder\Index\Tasks\FindContentTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindLanguageTask;
 use App\Containers\Builder\Index\Tasks\FindLanguageTaskInterface;
+use App\Containers\Builder\Index\Tasks\FindTemplatesTask;
+use App\Containers\Builder\Index\Tasks\FindTemplatesTaskInterface;
 use App\Ship\Parents\Providers\MainProvider;
 
 
@@ -31,5 +33,6 @@ class MainServiceProvider extends MainProvider
     {
         $this->app->bind(FindLanguageTaskInterface::class, FindLanguageTask::class);
         $this->app->bind(FindContentTaskInterface::class, FindContentTask::class);
+        $this->app->bind(FindTemplatesTaskInterface::class, FindTemplatesTask::class);
     }
 }
