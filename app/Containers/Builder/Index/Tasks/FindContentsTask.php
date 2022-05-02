@@ -5,18 +5,22 @@ namespace App\Containers\Builder\Index\Tasks;
 use App\Ship\Exceptions\NotFoundException;
 use App\Ship\Parents\Dto\ContentDto;
 use App\Ship\Parents\Dto\ContentValueDto;
+use App\Ship\Parents\Models\ConfigurationCommonInterface;
 use App\Ship\Parents\Models\ContentValueInterface;
+use App\Ship\Parents\Models\SeoLinkInterface;
+use App\Ship\Parents\Repositories\ConfigurationCommonRepositoryInterface;
 use App\Ship\Parents\Repositories\ContentRepositoryInterface;
 use App\Ship\Parents\Repositories\SeoLinkRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 
-class FindContentTask extends Task implements FindContentTaskInterface
+class FindContentsTask extends Task implements FindContentsTaskInterface
 {
     public function __construct(
-        private SeoLinkRepositoryInterface $seoLinkRepository,
-        private ContentRepositoryInterface $contentRepository
+        private SeoLinkRepositoryInterface             $seoLinkRepository,
+        private ContentRepositoryInterface             $contentRepository,
+        private ConfigurationCommonRepositoryInterface $configurationCommonRepository
     )
     {
     }
@@ -31,18 +35,29 @@ class FindContentTask extends Task implements FindContentTaskInterface
     {
         try {
             /**
-             * @var \App\Ship\Parents\Models\SeoLinkInterface $seoLink
+             * @var ConfigurationCommonInterface|null              $defaultContent
+             * @var \App\Ship\Parents\Models\SeoLinkInterface|null $seoLink
+             * @var \App\Ship\Parents\Models\ContentInterface      $content
              */
-            $seoLink       = $this->seoLinkRepository->findWhere(['link' => $seoLink])->first();
+
+            if ($seoLink === null) {
+                $defaultContent = $this->configurationCommonRepository
+                    ->findByField('config', ConfigurationCommonInterface::DEFAULT_INDEX)
+                    ->first();
+                $seoLink        = $this->seoLinkRepository
+                    ->findWhere(['content_id' => (int) $defaultContent?->value])
+                    ->filter(fn(SeoLinkInterface $seoLink) => $seoLink->seo->language_id === $languageId)
+                    ->first();
+            } else {
+                $seoLink = $this->seoLinkRepository->findWhere(['link' => $seoLink])->first();
+            }
+
             $seoLanguageId = $seoLink->seo->language_id;
 
             if ($seoLanguageId !== $languageId) {
                 throw new NotFoundException();
             }
 
-            /**
-             * @var \App\Ship\Parents\Models\ContentInterface $content
-             */
             $content = $this->contentRepository->find($seoLink->content_id);
 
             if ($content->active === false) {

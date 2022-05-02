@@ -30,7 +30,7 @@ class ContentValueRepository extends Repository implements ContentValueRepositor
      */
     public function updateByCondition(array $data, array $condition): bool
     {
-        return $this->makeModel()
+        return $this->makeModel()::query()
             ->where($condition)
             ->update($data);
     }

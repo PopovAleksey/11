@@ -5,13 +5,18 @@ namespace App\Containers\Builder\Index\Tasks;
 
 use App\Ship\Exceptions\NotFoundException;
 use App\Ship\Parents\Dto\LanguageDto;
+use App\Ship\Parents\Models\ConfigurationCommonInterface;
+use App\Ship\Parents\Repositories\ConfigurationCommonRepositoryInterface;
 use App\Ship\Parents\Repositories\LanguageRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 
-class FindLanguageTask extends Task implements FindLanguageTaskInterface
+class FindLanguagesTask extends Task implements FindLanguagesTaskInterface
 {
-    public function __construct(private LanguageRepositoryInterface $repository)
+    public function __construct(
+        private LanguageRepositoryInterface            $languageRepository,
+        private ConfigurationCommonRepositoryInterface $configurationCommonRepository
+    )
     {
     }
 
@@ -23,12 +28,21 @@ class FindLanguageTask extends Task implements FindLanguageTaskInterface
     public function run(?string $shortLangName = null): LanguageDto
     {
         try {
-            $condition = $shortLangName === null ? ['id' => 1] : ['short_name' => strtoupper($shortLangName)];
+            if ($shortLangName === null) {
+                /**
+                 * @var ConfigurationCommonInterface|null $defaultLanguage
+                 */
+                $defaultLanguage = $this->configurationCommonRepository->findByField('config', ConfigurationCommonInterface::DEFAULT_LANGUAGE)->first();
+                $condition       = ['id' => (int) ($defaultLanguage?->value ?: 1)];
+
+            } else {
+                $condition = ['short_name' => strtoupper($shortLangName)];
+            }
 
             /**
              * @var \App\Ship\Parents\Models\LanguageInterface $language
              */
-            $language = $this->repository->findWhere(array_merge(['active' => true], $condition))->first();
+            $language = $this->languageRepository->findWhere(array_merge(['active' => true], $condition))->first();
 
             return (new LanguageDto())
                 ->setId($language->id)

@@ -4,10 +4,12 @@ namespace App\Containers\Builder\Index\Providers;
 
 use App\Containers\Builder\Index\Actions\BuildTemplateAction;
 use App\Containers\Builder\Index\Actions\BuildTemplateActionInterface;
-use App\Containers\Builder\Index\Tasks\FindContentTask;
-use App\Containers\Builder\Index\Tasks\FindContentTaskInterface;
-use App\Containers\Builder\Index\Tasks\FindLanguageTask;
-use App\Containers\Builder\Index\Tasks\FindLanguageTaskInterface;
+use App\Containers\Builder\Index\Tasks\FindContentsTask;
+use App\Containers\Builder\Index\Tasks\FindContentsTaskInterface;
+use App\Containers\Builder\Index\Tasks\FindLanguagesTask;
+use App\Containers\Builder\Index\Tasks\FindLanguagesTaskInterface;
+use App\Containers\Builder\Index\Tasks\FindMenuItemsTask;
+use App\Containers\Builder\Index\Tasks\FindMenuItemsTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindTemplatesTask;
 use App\Containers\Builder\Index\Tasks\FindTemplatesTaskInterface;
 use App\Ship\Parents\Providers\MainProvider;
@@ -31,8 +33,9 @@ class MainServiceProvider extends MainProvider
 
     private function bindTasks(): void
     {
-        $this->app->bind(FindLanguageTaskInterface::class, FindLanguageTask::class);
-        $this->app->bind(FindContentTaskInterface::class, FindContentTask::class);
+        $this->app->bind(FindLanguagesTaskInterface::class, FindLanguagesTask::class);
+        $this->app->bind(FindContentsTaskInterface::class, FindContentsTask::class);
         $this->app->bind(FindTemplatesTaskInterface::class, FindTemplatesTask::class);
+        $this->app->bind(FindMenuItemsTaskInterface::class, FindMenuItemsTask::class);
     }
 }
