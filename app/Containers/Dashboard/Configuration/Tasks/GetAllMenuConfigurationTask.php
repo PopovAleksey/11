@@ -2,7 +2,7 @@
 
 namespace App\Containers\Dashboard\Configuration\Tasks;
 
-use App\Ship\Parents\Dto\MenuDto;
+use App\Ship\Parents\Dto\ConfigurationMenuDto;
 use App\Ship\Parents\Models\ConfigurationMenuInterface;
 use App\Ship\Parents\Models\ContentValueInterface;
 use App\Ship\Parents\Models\PageInterface;
@@ -59,7 +59,7 @@ class GetAllMenuConfigurationTask extends Task implements GetAllMenuConfiguratio
                  */
                 $menuItem = $menuList->get($contentValue->content_id);
 
-                return (new MenuDto())
+                return (new ConfigurationMenuDto())
                     ->setId($menuItem?->id)
                     ->setName($contentValue->value)
                     ->setInMenu(!is_null($menuItem))
