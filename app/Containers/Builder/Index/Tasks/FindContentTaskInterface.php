@@ -7,5 +7,5 @@ use App\Ship\Parents\Dto\ContentDto;
 
 interface FindContentTaskInterface
 {
-    public function run(?string $seoLink): ContentDto;
+    public function run(int $languageId, ?string $seoLink): ContentDto;
 }

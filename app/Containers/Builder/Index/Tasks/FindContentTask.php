@@ -22,17 +22,24 @@ class FindContentTask extends Task implements FindContentTaskInterface
     }
 
     /**
+     * @param int         $languageId
      * @param string|null $seoLink
      * @return \App\Ship\Parents\Dto\ContentDto
      * @throws \App\Ship\Exceptions\NotFoundException
      */
-    public function run(?string $seoLink): ContentDto
+    public function run(int $languageId, ?string $seoLink): ContentDto
     {
         try {
             /**
              * @var \App\Ship\Parents\Models\SeoLinkInterface $seoLink
              */
-            $seoLink = $this->seoLinkRepository->findWhere(['link' => $seoLink])->first();
+            $seoLink       = $this->seoLinkRepository->findWhere(['link' => $seoLink])->first();
+            $seoLanguageId = $seoLink->seo->language_id;
+
+            if ($seoLanguageId !== $languageId) {
+                throw new NotFoundException();
+            }
+
             /**
              * @var \App\Ship\Parents\Models\ContentInterface $content
              */
@@ -42,7 +49,7 @@ class FindContentTask extends Task implements FindContentTaskInterface
                 throw new NotFoundException();
             }
 
-            $contentValues = $this->buildContentValuesDto($content->values, $seoLink->seo->language_id);
+            $contentValues = $this->buildContentValuesDto($content->values, $seoLanguageId);
 
             return (new ContentDto())
                 ->setId($content->id)

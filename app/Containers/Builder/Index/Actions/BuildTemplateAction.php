@@ -5,7 +5,6 @@ namespace App\Containers\Builder\Index\Actions;
 use App\Containers\Builder\Index\Tasks\FindContentTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindLanguageTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindTemplatesTaskInterface;
-use App\Ship\Exceptions\NotFoundException;
 use App\Ship\Parents\Actions\Action;
 
 class BuildTemplateAction extends Action implements BuildTemplateActionInterface
@@ -22,18 +21,12 @@ class BuildTemplateAction extends Action implements BuildTemplateActionInterface
      * @param string|null $language
      * @param string|null $seoLink
      * @return string
-     * @throws \App\Ship\Exceptions\NotFoundException
      */
     public function run(?string $language = null, ?string $seoLink = null): string
     {
         $languageDto = $this->languageTask->run($language);
-        $contentDto  = $this->contentTask->run($seoLink);
-
-        if ($contentDto->getValues()?->first()->getLanguageId() !== $languageDto->getId()) {
-            throw new NotFoundException();
-        }
-
-        $themeDto = $this->templateTask->run($languageDto->getId());
+        $contentDto  = $this->contentTask->run($languageDto->getId(), $seoLink);
+        $themeDto    = $this->templateTask->run($languageDto->getId());
 
         dump($languageDto, $contentDto, $themeDto);
 

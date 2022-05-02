@@ -20,7 +20,7 @@ class Controller extends WebController
     {
         $indices = $this->buildTemplateAction->run($language, $seoLink);
 
-        dd('This is Index page', ['language' => $language, 'link' => $seoLink]);
+        dd(['language' => $language, 'link' => $seoLink]);
         #return view('constructor.base');
     }
 }
