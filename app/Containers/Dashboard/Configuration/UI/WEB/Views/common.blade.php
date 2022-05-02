@@ -37,7 +37,8 @@
             $('button#save-button').click(function () {
                 $('#save-button').prop("disabled", true);
 
-
+                let languageId = $('select[name="{{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_LANGUAGE }}"]').val();
+                let contentId = $('select[name="{{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_INDEX }}"]').val();
 
                 $.ajax({
                     url: '{{ route('dashboard_configuration_common_update') }}',
@@ -46,7 +47,8 @@
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
                     data: {
-                        list: dataList
+                        {{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_LANGUAGE }}: languageId,
+                        {{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_INDEX }}: contentId
                     },
                     success: function () {
                         Toast.fire({
@@ -81,27 +83,29 @@
 
                         <div class="form-group">
                             <label>Default Language</label>
-                            <select class="form-control select" style="width: 100%;">
-                                <option selected="selected">Alabama</option>
-                                <option>Alaska</option>
-                                <option>California</option>
-                                <option>Delaware</option>
-                                <option>Tennessee</option>
-                                <option>Texas</option>
-                                <option>Washington</option>
+                            <select class="form-control select"
+                                    name="{{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_LANGUAGE }}"
+                                    style="width: 100%;">
+                                @foreach($configs->getLanguageList() as $language)
+                                    <option value="{{ $language->getId() }}"
+                                            {{ $language->getId() === $configs->getDefaultLanguageId() ? 'selected="selected"' : '' }}>
+                                        {{ $language->getName() }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label>Index Content</label>
-                            <select class="form-control select" style="width: 100%;">
-                                <option selected="selected">Alabama</option>
-                                <option>Alaska</option>
-                                <option>California</option>
-                                <option>Delaware</option>
-                                <option>Tennessee</option>
-                                <option>Texas</option>
-                                <option>Washington</option>
+                            <select class="form-control select"
+                                    name="{{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_INDEX }}"
+                                    style="width: 100%;">
+                                @foreach($configs->getContentList() as $content)
+                                    <option value="{{ $content->getId() }}"
+                                            {{ $content->getId() === $configs->getDefaultIndexContentId() ? 'selected="selected"' : '' }}>
+                                        {{ $content->getValue() }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
 

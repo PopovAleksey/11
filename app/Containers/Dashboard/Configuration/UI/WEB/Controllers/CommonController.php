@@ -13,6 +13,10 @@ use Illuminate\Http\JsonResponse;
 
 class CommonController extends DashboardController
 {
+    /**
+     * @param \App\Containers\Dashboard\Configuration\Actions\GetAllCommonConfigurationActionInterface $allCommonConfigurationAction
+     * @param \App\Containers\Dashboard\Configuration\Actions\UpdateMenuConfigurationActionInterface   $updateMenuConfigurationAction
+     */
     public function __construct(
         private GetAllCommonConfigurationActionInterface $allCommonConfigurationAction,
         private UpdateMenuConfigurationActionInterface   $updateMenuConfigurationAction
@@ -20,14 +24,20 @@ class CommonController extends DashboardController
     {
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+     */
     public function index(): Factory|View|Application
     {
-        $list = $this->allCommonConfigurationAction->run();
-        dump($list);
+        $configList = $this->allCommonConfigurationAction->run();
 
-        return view('dashboard@configuration::common', $this->menuBuilder()->merge(['list' => $list]));
+        return view('dashboard@configuration::common', $this->menuBuilder()->merge(['configs' => $configList]));
     }
 
+    /**
+     * @param \App\Containers\Dashboard\Configuration\UI\WEB\Requests\UpdateMenuConfigurationRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(UpdateMenuConfigurationRequest $request): JsonResponse
     {
         $this->updateMenuConfigurationAction->run($request->mapped());
