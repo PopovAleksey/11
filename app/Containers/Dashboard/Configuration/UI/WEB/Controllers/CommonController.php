@@ -3,8 +3,8 @@
 namespace App\Containers\Dashboard\Configuration\UI\WEB\Controllers;
 
 use App\Containers\Dashboard\Configuration\Actions\GetAllCommonConfigurationActionInterface;
-use App\Containers\Dashboard\Configuration\Actions\UpdateMenuConfigurationActionInterface;
-use App\Containers\Dashboard\Configuration\UI\WEB\Requests\UpdateMenuConfigurationRequest;
+use App\Containers\Dashboard\Configuration\Actions\UpdateCommonConfigurationActionInterface;
+use App\Containers\Dashboard\Configuration\UI\WEB\Requests\UpdateCommonConfigurationRequest;
 use App\Ship\Parents\Controllers\DashboardController;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -15,11 +15,11 @@ class CommonController extends DashboardController
 {
     /**
      * @param \App\Containers\Dashboard\Configuration\Actions\GetAllCommonConfigurationActionInterface $allCommonConfigurationAction
-     * @param \App\Containers\Dashboard\Configuration\Actions\UpdateMenuConfigurationActionInterface   $updateMenuConfigurationAction
+     * @param \App\Containers\Dashboard\Configuration\Actions\UpdateCommonConfigurationActionInterface $updateCommonConfigurationAction
      */
     public function __construct(
         private GetAllCommonConfigurationActionInterface $allCommonConfigurationAction,
-        private UpdateMenuConfigurationActionInterface   $updateMenuConfigurationAction
+        private UpdateCommonConfigurationActionInterface $updateCommonConfigurationAction
     )
     {
     }
@@ -35,12 +35,12 @@ class CommonController extends DashboardController
     }
 
     /**
-     * @param \App\Containers\Dashboard\Configuration\UI\WEB\Requests\UpdateMenuConfigurationRequest $request
+     * @param \App\Containers\Dashboard\Configuration\UI\WEB\Requests\UpdateCommonConfigurationRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UpdateMenuConfigurationRequest $request): JsonResponse
+    public function update(UpdateCommonConfigurationRequest $request): JsonResponse
     {
-        $this->updateMenuConfigurationAction->run($request->mapped());
+        $this->updateCommonConfigurationAction->run($request->mapped());
 
         return response()->json()->setStatusCode(200);
     }

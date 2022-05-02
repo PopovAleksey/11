@@ -79,13 +79,16 @@
         <div class="card card-default">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-md-6">
 
                         <div class="form-group">
                             <label>Default Language</label>
                             <select class="form-control select"
                                     name="{{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_LANGUAGE }}"
                                     style="width: 100%;">
+                                <option {{ $configs->getDefaultLanguageId() === null ? 'selected="selected"' : '' }} disabled>
+                                    Choose Language
+                                </option>
                                 @foreach($configs->getLanguageList() as $language)
                                     <option value="{{ $language->getId() }}"
                                             {{ $language->getId() === $configs->getDefaultLanguageId() ? 'selected="selected"' : '' }}>
@@ -94,15 +97,19 @@
                                 @endforeach
                             </select>
                         </div>
-
+                    </div>
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label>Index Content</label>
                             <select class="form-control select"
                                     name="{{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_INDEX }}"
                                     style="width: 100%;">
+                                <option {{ $configs->getDefaultIndexContentId() === null ? 'selected="selected"' : '' }} disabled>
+                                    Choose Content
+                                </option>
                                 @foreach($configs->getContentList() as $content)
-                                    <option value="{{ $content->getId() }}"
-                                            {{ $content->getId() === $configs->getDefaultIndexContentId() ? 'selected="selected"' : '' }}>
+                                    <option value="{{ $content->getContentId() }}"
+                                            {{ $content->getContentId() === $configs->getDefaultIndexContentId() ? 'selected="selected"' : '' }}>
                                         {{ $content->getValue() }}
                                     </option>
                                 @endforeach

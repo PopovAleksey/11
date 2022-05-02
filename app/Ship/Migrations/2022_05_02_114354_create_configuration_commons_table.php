@@ -11,8 +11,11 @@ class CreateConfigurationCommonsTable extends Migration
     public function up(): void
     {
         Schema::create('configuration_commons', static function (Blueprint $table) {
+            $table->id();
             $table->string('config')->unique();
             $table->string('value');
+
+            $table->timestamps();
         });
     }
 

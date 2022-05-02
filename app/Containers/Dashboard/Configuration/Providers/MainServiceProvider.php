@@ -2,16 +2,22 @@
 
 namespace App\Containers\Dashboard\Configuration\Providers;
 
+use App\Containers\Builder\Index\Tasks\BuildPageTask;
+use App\Containers\Builder\Index\Tasks\BuildPageTaskInterface;
 use App\Containers\Dashboard\Configuration\Actions\GetAllCommonConfigurationAction;
 use App\Containers\Dashboard\Configuration\Actions\GetAllCommonConfigurationActionInterface;
 use App\Containers\Dashboard\Configuration\Actions\GetAllMenuConfigurationAction;
 use App\Containers\Dashboard\Configuration\Actions\GetAllMenuConfigurationActionInterface;
+use App\Containers\Dashboard\Configuration\Actions\UpdateCommonConfigurationAction;
+use App\Containers\Dashboard\Configuration\Actions\UpdateCommonConfigurationActionInterface;
 use App\Containers\Dashboard\Configuration\Actions\UpdateMenuConfigurationAction;
 use App\Containers\Dashboard\Configuration\Actions\UpdateMenuConfigurationActionInterface;
 use App\Containers\Dashboard\Configuration\Tasks\GetAllCommonConfigurationTask;
 use App\Containers\Dashboard\Configuration\Tasks\GetAllCommonConfigurationTaskInterface;
 use App\Containers\Dashboard\Configuration\Tasks\GetAllMenuConfigurationTask;
 use App\Containers\Dashboard\Configuration\Tasks\GetAllMenuConfigurationTaskInterface;
+use App\Containers\Dashboard\Configuration\Tasks\UpdateCommonConfigurationTask;
+use App\Containers\Dashboard\Configuration\Tasks\UpdateCommonConfigurationTaskInterface;
 use App\Containers\Dashboard\Configuration\Tasks\UpdateMenuConfigurationTask;
 use App\Containers\Dashboard\Configuration\Tasks\UpdateMenuConfigurationTaskInterface;
 use App\Ship\Parents\Models\ConfigurationCommon;
@@ -54,6 +60,7 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(GetAllMenuConfigurationActionInterface::class, GetAllMenuConfigurationAction::class);
         $this->app->bind(GetAllCommonConfigurationActionInterface::class, GetAllCommonConfigurationAction::class);
         $this->app->bind(UpdateMenuConfigurationActionInterface::class, UpdateMenuConfigurationAction::class);
+        $this->app->bind(UpdateCommonConfigurationActionInterface::class, UpdateCommonConfigurationAction::class);
     }
 
     private function bindTasks(): void
@@ -61,6 +68,8 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(GetAllMenuConfigurationTaskInterface::class, GetAllMenuConfigurationTask::class);
         $this->app->bind(GetAllCommonConfigurationTaskInterface::class, GetAllCommonConfigurationTask::class);
         $this->app->bind(UpdateMenuConfigurationTaskInterface::class, UpdateMenuConfigurationTask::class);
+        $this->app->bind(UpdateCommonConfigurationTaskInterface::class, UpdateCommonConfigurationTask::class);
+        $this->app->bind(BuildPageTaskInterface::class, BuildPageTask::class);
     }
 
     private function bindRepositories(): void
