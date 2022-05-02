@@ -5,7 +5,7 @@ namespace App\Ship\Parents\Dto;
 use Illuminate\Support\Carbon;
 use PopovAleksey\Mapper\Mapper;
 
-final class MenuDto extends Mapper
+final class ConfigurationMenuDto extends Mapper
 {
     private ?int    $id         = null;
     private ?int    $content_id = null;

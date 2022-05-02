@@ -3,7 +3,7 @@
 namespace App\Containers\Dashboard\Configuration\Tasks;
 
 use App\Ship\Exceptions\UpdateResourceFailedException;
-use App\Ship\Parents\Dto\MenuDto;
+use App\Ship\Parents\Dto\ConfigurationMenuDto;
 use App\Ship\Parents\Repositories\ConfigurationMenuRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
@@ -26,7 +26,7 @@ class UpdateMenuConfigurationTask extends Task implements UpdateMenuConfiguratio
             # @TODO Need implement transaction
             $this->repository->deleteWhere([['id', '!=', null]]);
 
-            $data->each(function (MenuDto $menu) {
+            $data->each(function (ConfigurationMenuDto $menu) {
                 $this->repository->create([
                     'content_id' => $menu->getContentId(),
                     'order'      => $menu->getOrder(),

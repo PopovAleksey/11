@@ -20,7 +20,7 @@ use Illuminate\Support\Carbon;
  */
 interface PageInterface
 {
-    public const SIMPLE_TYPE   = 'simple';/**/
+    public const SIMPLE_TYPE   = 'simple';
     public const BLOG_TYPE     = 'blog';
     public const CATEGORY_TYPE = 'category';
 }

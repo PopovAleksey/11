@@ -2,7 +2,7 @@
 
 namespace App\Containers\Dashboard\Configuration\UI\WEB\Requests;
 
-use App\Ship\Parents\Dto\MenuDto;
+use App\Ship\Parents\Dto\ConfigurationMenuDto;
 use App\Ship\Parents\Requests\Request;
 use Illuminate\Support\Collection;
 
@@ -26,7 +26,7 @@ class UpdateMenuConfigurationRequest extends Request
             ->map(static function (array $list) use (&$order) {
                 $order++;
 
-                return (new MenuDto())
+                return (new ConfigurationMenuDto())
                     ->setContentId(data_get($list, 'contentId'))
                     ->setOrder(data_get($list, 'order', $order));
             });
