@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface ConfigurationMenuRepositoryInterface
 {
-    public function getLinkNameOfMenuItems(int $languageId): Collection|array;
+    public function getLinkDataOfMenuItems(int $languageId): Collection|array;
 }

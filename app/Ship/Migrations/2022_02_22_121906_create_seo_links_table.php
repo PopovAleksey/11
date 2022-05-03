@@ -14,7 +14,7 @@ class CreateSeoLinksTable extends Migration
             $table->id();
             $table->bigInteger('seo_id')->unsigned()->index('INDEX_seo_links_seo');
             $table->bigInteger('content_id')->unsigned()->index('INDEX_seo_links_content');
-            $table->text('link');
+            $table->string('link')->unique();
 
             $table->timestamps();
 

@@ -16,6 +16,7 @@ use Illuminate\Support\Carbon;
  *
  * @property-read string $link
  * @property-read string $value
+ * @property-read string $short_name
  */
 interface ConfigurationMenuInterface
 {
