@@ -2,17 +2,21 @@
 
 namespace App\Containers\Builder\Index\Actions;
 
-use App\Containers\Builder\Index\Tasks\FindContentTaskInterface;
-use App\Containers\Builder\Index\Tasks\FindLanguageTaskInterface;
+use App\Containers\Builder\Index\Tasks\BuildPageTaskInterface;
+use App\Containers\Builder\Index\Tasks\FindContentsTaskInterface;
+use App\Containers\Builder\Index\Tasks\FindLanguagesTaskInterface;
+use App\Containers\Builder\Index\Tasks\FindMenuItemsTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindTemplatesTaskInterface;
 use App\Ship\Parents\Actions\Action;
 
 class BuildTemplateAction extends Action implements BuildTemplateActionInterface
 {
     public function __construct(
-        private FindLanguageTaskInterface  $languageTask,
-        private FindContentTaskInterface   $contentTask,
-        private FindTemplatesTaskInterface $templateTask
+        private FindLanguagesTaskInterface $languageTask,
+        private FindContentsTaskInterface  $contentTask,
+        private FindTemplatesTaskInterface $templateTask,
+        private BuildPageTaskInterface     $buildPageTask,
+        private FindMenuItemsTaskInterface $menuItemsTask
     )
     {
     }
@@ -26,10 +30,9 @@ class BuildTemplateAction extends Action implements BuildTemplateActionInterface
     {
         $languageDto = $this->languageTask->run($language);
         $contentDto  = $this->contentTask->run($languageDto->getId(), $seoLink);
+        $menuList    = $this->menuItemsTask->run($languageDto->getId());
         $themeDto    = $this->templateTask->run($languageDto->getId());
 
-        dump($languageDto, $contentDto, $themeDto);
-
-        return '<html lang="' . strtolower($languageDto->getShortName()) . '"></html>';
+        return $this->buildPageTask->run($themeDto, $contentDto, $menuList);
     }
 }
