@@ -68,6 +68,6 @@ class FindTemplatesTask extends Task implements FindTemplatesTaskInterface
                     ->setUpdateAt($template->updated_at);
             })
             ->groupBy(fn(TemplateDto $templateDto) => $templateDto->getType())
-            ->map(fn(\Illuminate\Support\Collection $templates, $type) => $type === TemplateInterface::PAGE_TYPE ? $templates : $templates->first());
+            ->mapWithKeys(fn(\Illuminate\Support\Collection $templates, $type) => $type === TemplateInterface::PAGE_TYPE ? $templates : $templates->first());
     }
 }
