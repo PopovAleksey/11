@@ -13,12 +13,14 @@ class TemplateRepository extends Repository implements TemplateRepositoryInterfa
      * @var array
      */
     protected $fieldSearchable = [
-        'id'          => '=',
-        'type'        => '=',
-        'theme_id'    => '=',
-        'page_id'     => '=',
-        'language_id' => '=',
-        'html'        => 'like',
+        'id'                      => '=',
+        'type'                    => '=',
+        'theme_id'                => '=',
+        'page_id'                 => '=',
+        'child_page_id'           => '=',
+        'language_id'             => '=',
+        'template_filepath'       => 'like',
+        'child_template_filepath' => 'like',
     ];
 
     public function model(): string
@@ -27,6 +29,7 @@ class TemplateRepository extends Repository implements TemplateRepositoryInterfa
     }
 
     /**
+     * @TODO Need reengineering
      * @param int $themeId
      * @param int $languageId
      * @return \Illuminate\Database\Eloquent\Collection

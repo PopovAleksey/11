@@ -7,17 +7,77 @@ use PopovAleksey\Mapper\Mapper;
 
 final class TemplateDto extends Mapper
 {
-    private ?int         $id         = null;
-    private ?string      $type       = null;
-    private ?int         $themeId    = null;
-    private ?ThemeDto    $theme      = null;
-    private ?int         $pageId     = null;
-    private ?PageDto     $page       = null;
-    private ?int         $languageId = null;
-    private ?LanguageDto $language   = null;
-    private ?string      $html       = null;
-    private ?Carbon      $createAt   = null;
-    private ?Carbon      $updateAt   = null;
+    private ?int         $id                    = null;
+    private ?string      $type                  = null;
+    private ?int         $themeId               = null;
+    private ?ThemeDto    $theme                 = null;
+    private ?int         $pageId                = null;
+    private ?int         $childPageId           = null;
+    private ?PageDto     $page                  = null;
+    private ?PageDto     $childPage             = null;
+    private ?int         $languageId            = null;
+    private ?LanguageDto $language              = null;
+    private ?string      $templateFilepath      = null;
+    private ?string      $childTemplateFilepath = null;
+    private ?Carbon      $createAt              = null;
+    private ?Carbon      $updateAt              = null;
+
+    /**
+     * @return int|null
+     */
+    public function getChildPageId(): ?int
+    {
+        return $this->childPageId;
+    }
+
+    /**
+     * @param int|null $childPageId
+     * @return $this
+     */
+    public function setChildPageId(?int $childPageId): self
+    {
+        $this->childPageId = $childPageId;
+
+        return $this;
+    }
+
+    /**
+     * @return \App\Ship\Parents\Dto\PageDto|null
+     */
+    public function getChildPage(): ?PageDto
+    {
+        return $this->childPage;
+    }
+
+    /**
+     * @param \App\Ship\Parents\Dto\PageDto|null $childPage
+     * @return $this
+     */
+    public function setChildPage(?PageDto $childPage): self
+    {
+        $this->childPage = $childPage;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getChildTemplateFilepath(): ?string
+    {
+        return $this->childTemplateFilepath;
+    }
+
+    /**
+     * @param string|null $childTemplateFilepath
+     * @return $this
+     */
+    public function setChildTemplateFilepath(?string $childTemplateFilepath): self
+    {
+        $this->childTemplateFilepath = $childTemplateFilepath;
+
+        return $this;
+    }
 
     /**
      * @return int|null
@@ -174,18 +234,18 @@ final class TemplateDto extends Mapper
     /**
      * @return string|null
      */
-    public function getHtml(): ?string
+    public function getTemplateFilepath(): ?string
     {
-        return $this->html ?? null;
+        return $this->templateFilepath ?? null;
     }
 
     /**
-     * @param string|null $html
+     * @param string|null $templateFilepath
      * @return $this
      */
-    public function setHtml(?string $html): self
+    public function setTemplateFilepath(?string $templateFilepath): self
     {
-        $this->html = $html;
+        $this->templateFilepath = $templateFilepath;
 
         return $this;
     }

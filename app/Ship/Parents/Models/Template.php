@@ -13,11 +13,13 @@ class Template extends Model implements TemplateInterface
     ];
 
     protected $casts = [
-        'type'        => 'string',
-        'theme_id'    => 'integer',
-        'page_id'     => 'integer',
-        'language_id' => 'integer',
-        'html'        => 'string',
+        'type'                    => 'string',
+        'theme_id'                => 'integer',
+        'page_id'                 => 'integer',
+        'child_page_id'           => 'integer',
+        'language_id'             => 'integer',
+        'template_filepath'       => 'string',
+        'child_template_filepath' => 'string',
     ];
 
     protected $dates = [
@@ -45,6 +47,14 @@ class Template extends Model implements TemplateInterface
     public function getPageAttribute(): \Illuminate\Database\Eloquent\Model|PageInterface|null
     {
         return $this->hasOne(Page::class, 'id', 'page_id')->first();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Model|\App\Ship\Parents\Models\PageInterface|null
+     */
+    public function getChildPageAttribute(): \Illuminate\Database\Eloquent\Model|PageInterface|null
+    {
+        return $this->hasOne(Page::class, 'id', 'child_page_id')->first();
     }
 
     /**

@@ -60,7 +60,7 @@ class FindTemplatesTask extends Task implements FindTemplatesTaskInterface
                 return (new TemplateDto())
                     ->setId($template->id)
                     ->setType($template->type)
-                    ->setHtml($template->html)
+                    ->setTemplateFilepath($template->html)
                     ->setLanguageId($template->language_id)
                     ->setThemeId($template->theme_id)
                     ->setPageId($template->page_id)

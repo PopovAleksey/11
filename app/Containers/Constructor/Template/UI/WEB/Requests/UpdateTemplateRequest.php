@@ -16,6 +16,6 @@ class UpdateTemplateRequest extends Request
 
     public function mapped(): TemplateDto
     {
-        return (new TemplateDto())->setHtml($this->get('html'));
+        return (new TemplateDto())->setTemplateFilepath($this->get('html'));
     }
 }

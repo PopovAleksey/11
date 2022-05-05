@@ -20,10 +20,13 @@ class CreateTemplatesTable extends Migration
                 TemplateInterface::MENU_TYPE,
                 TemplateInterface::PAGE_TYPE,
             ])->default(TemplateInterface::PAGE_TYPE);
+            $table->string('name')->nullable();
             $table->bigInteger('theme_id')->unsigned()->index('INDEX_templates_themes');
             $table->bigInteger('page_id')->unsigned()->nullable()->index('INDEX_templates_pages');
+            $table->bigInteger('child_page_id')->unsigned()->nullable()->index('INDEX_templates_child_pages');
             $table->bigInteger('language_id')->unsigned()->nullable()->index('INDEX_templates_languages');
-            $table->longText('html')->nullable();
+            $table->string('template_filepath')->nullable();
+            $table->string('child_template_filepath')->nullable();
             $table->timestamps();
 
             $table->foreign('theme_id', 'FK_templates_themes_foreign')
@@ -33,6 +36,12 @@ class CreateTemplatesTable extends Migration
                 ->onDelete('CASCADE');
 
             $table->foreign('page_id', 'FK_templates_pages_foreign')
+                ->references('id')
+                ->on('pages')
+                ->onUpdate('NO ACTION')
+                ->onDelete('CASCADE');
+
+            $table->foreign('child_page_id', 'FK_templates_child_pages_foreign')
                 ->references('id')
                 ->on('pages')
                 ->onUpdate('NO ACTION')
