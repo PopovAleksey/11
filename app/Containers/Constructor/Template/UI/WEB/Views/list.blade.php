@@ -197,16 +197,16 @@
                                     </td>
                                     <td class="dt-right">
                                         <div class="btn-group">
-                                            <button type="button" class="btn bg-gradient-primary btn-sm"
+                                            <button type="button" class="btn bg-gradient-info btn-sm"
                                                     onclick="location.href='{{ route('constructor_theme_edit', $item->getId()) }}'">
-                                                <i class="fas fa-cog"></i>
-                                                Configuration
+                                                <i class="fas fa-file-code"></i>&nbsp;
+                                                Templates
                                             </button>
                                             <button type="button" class="btn bg-gradient-danger btn-sm"
                                                     data-id="{{ $item->getId() }}"
                                                     data-toggle="modal"
                                                     data-target="#modal-delete">
-                                                <i class="fas fa-trash-alt"></i>
+                                                <i class="fas fa-trash-alt"></i>&nbsp;
                                                 Delete
                                             </button>
                                         </div>

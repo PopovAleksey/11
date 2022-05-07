@@ -51,8 +51,8 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('constructor_template_index') }}" class="nav-link {{ route('constructor_template_index', [], false) === '/' . request()->path() ? 'active' : ''}}">
-                        <i class="far fa-file-code"></i>&nbsp;
-                        <p>Templates</p>
+                        <i class="fas fa-paint-roller"></i>&nbsp;
+                        <p>Themes</p>
                     </a>
                 </li>
                 <li class="nav-item">

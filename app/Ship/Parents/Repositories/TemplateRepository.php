@@ -14,6 +14,7 @@ class TemplateRepository extends Repository implements TemplateRepositoryInterfa
      */
     protected $fieldSearchable = [
         'id'                      => '=',
+        'name'                    => 'like',
         'type'                    => '=',
         'theme_id'                => '=',
         'page_id'                 => '=',

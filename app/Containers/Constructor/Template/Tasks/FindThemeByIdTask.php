@@ -50,6 +50,7 @@ class FindThemeByIdTask extends Task implements FindThemeByIdTaskInterface
 
                 $templateDto = (new TemplateDto())
                     ->setId($template->id)
+                    ->setName($template->name)
                     ->setType($template->type)
                     ->setPage($pageDto)
                     ->setCreateAt($template->created_at)

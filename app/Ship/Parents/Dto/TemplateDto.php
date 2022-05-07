@@ -8,6 +8,7 @@ use PopovAleksey\Mapper\Mapper;
 final class TemplateDto extends Mapper
 {
     private ?int         $id                    = null;
+    private ?string      $name                  = null;
     private ?string      $type                  = null;
     private ?int         $themeId               = null;
     private ?ThemeDto    $theme                 = null;
@@ -21,6 +22,24 @@ final class TemplateDto extends Mapper
     private ?string      $childTemplateFilepath = null;
     private ?Carbon      $createAt              = null;
     private ?Carbon      $updateAt              = null;
+
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string|null $name
+     */
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     /**
      * @return int|null

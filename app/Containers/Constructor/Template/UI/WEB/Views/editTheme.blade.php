@@ -1,8 +1,17 @@
 @extends('constructor.base')
 
 @section('title', 'Theme ' . $theme->getName() . ' | List')
-@section('page-title', 'Theme ' . $theme->getName())
-
+@section('page-title')
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Theme:</span>
+        </div>
+        <input type="text" class="form-control" placeholder="Enter Theme Name..." value="{{ $theme->getName() }}"/>
+        <div class="input-group-append">
+            <button type="button" class="btn btn-warning">Save</button>
+        </div>
+    </div>
+@stop
 @section('css')
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
@@ -156,8 +165,10 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Name</th>
                                 <th>Type</th>
                                 <th>Language</th>
+                                <th>Created</th>
                                 <th class="dt-right">Action</th>
                             </tr>
                             </thead>
@@ -165,20 +176,22 @@
                             @foreach($theme->getTemplates() as $template)
                                 <tr>
                                     <td>{{ $template->getId() }}</td>
+                                    <td>{{ $template->getName() }}</td>
                                     <td>{{ $template->getType() }}{{ $template->getType() === \App\Ship\Parents\Models\TemplateInterface::PAGE_TYPE ? ' [' . $template?->getPage()->getName() . ']' : '' }}</td>
                                     <td>{{ $template->getLanguage()?->getName() ?? 'General' }}</td>
+                                    <td>{{ $template->getCreateAt() }}</td>
                                     <td class="dt-right">
                                         <div class="btn-group">
-                                            <button type="button" class="btn bg-gradient-primary btn-sm"
+                                            <button type="button" class="btn bg-gradient-info btn-sm"
                                                     onclick="location.href='{{ route('constructor_template_edit', $template->getId()) }}'">
-                                                <i class="fas fa-cog"></i>
-                                                HTML
+                                                <i class="fas fa-code"></i></i>&nbsp;
+                                                Code
                                             </button>
                                             <button type="button" class="btn bg-gradient-danger btn-sm"
                                                     data-id="{{ $template->getId() }}"
                                                     data-toggle="modal"
                                                     data-target="#modal-delete">
-                                                <i class="fas fa-trash-alt"></i>
+                                                <i class="fas fa-trash-alt"></i>&nbsp;
                                                 Delete
                                             </button>
                                         </div>

@@ -9,6 +9,7 @@ use Illuminate\Support\Carbon;
  * @package App\Containers\Constructor\Template\Models
  * @method static Builder query()
  * @property integer                     $id
+ * @property string                      $name
  * @property string                      $type
  * @property integer                     $theme_id
  * @property integer                     $page_id

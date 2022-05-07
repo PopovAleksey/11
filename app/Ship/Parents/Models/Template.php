@@ -5,14 +5,17 @@ namespace App\Ship\Parents\Models;
 class Template extends Model implements TemplateInterface
 {
     protected $fillable = [
+        'name',
         'type',
         'theme_id',
         'page_id',
+        'child_page_id',
         'language_id',
         'html',
     ];
 
     protected $casts = [
+        'name'                    => 'string',
         'type'                    => 'string',
         'theme_id'                => 'integer',
         'page_id'                 => 'integer',
