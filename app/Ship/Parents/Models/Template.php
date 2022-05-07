@@ -15,14 +15,15 @@ class Template extends Model implements TemplateInterface
     ];
 
     protected $casts = [
-        'name'                    => 'string',
-        'type'                    => 'string',
-        'theme_id'                => 'integer',
-        'page_id'                 => 'integer',
-        'child_page_id'           => 'integer',
-        'language_id'             => 'integer',
-        'template_filepath'       => 'string',
-        'child_template_filepath' => 'string',
+        'name'             => 'string',
+        'type'             => 'string',
+        'theme_id'         => 'integer',
+        'page_id'          => 'integer',
+        'child_page_id'    => 'integer',
+        'language_id'      => 'integer',
+        'common_filepath'  => 'string',
+        'element_filepath' => 'string',
+        'preview_filepath' => 'string',
     ];
 
     protected $dates = [

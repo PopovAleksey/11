@@ -47,8 +47,9 @@ class FindTemplateByIdTask extends Task implements FindTemplateByIdTaskInterface
                 ->setPage($this->buildPageDto($template->page))
                 ->setChildPage($this->buildPageDto($template->child_page))
                 ->setLanguage($this->buildLanguageDto($template->language))
-                ->setTemplateFilepath($template->template_filepath)
-                ->setChildTemplateFilepath($template->child_template_filepath)
+                ->setCommonFilepath($template->common_filepath)
+                ->setElementFilepath($template->element_filepath)
+                ->setPreviewFilepath($template->preview_filepath)
                 ->setCreateAt($template->created_at)
                 ->setUpdateAt($template->updated_at);
 

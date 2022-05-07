@@ -7,21 +7,22 @@ use PopovAleksey\Mapper\Mapper;
 
 final class TemplateDto extends Mapper
 {
-    private ?int         $id                    = null;
-    private ?string      $name                  = null;
-    private ?string      $type                  = null;
-    private ?int         $themeId               = null;
-    private ?ThemeDto    $theme                 = null;
-    private ?int         $pageId                = null;
-    private ?int         $childPageId           = null;
-    private ?PageDto     $page                  = null;
-    private ?PageDto     $childPage             = null;
-    private ?int         $languageId            = null;
-    private ?LanguageDto $language              = null;
-    private ?string      $templateFilepath      = null;
-    private ?string      $childTemplateFilepath = null;
-    private ?Carbon      $createAt              = null;
-    private ?Carbon      $updateAt              = null;
+    private ?int         $id              = null;
+    private ?string      $name            = null;
+    private ?string      $type            = null;
+    private ?int         $themeId         = null;
+    private ?ThemeDto    $theme           = null;
+    private ?int         $pageId          = null;
+    private ?int         $childPageId     = null;
+    private ?PageDto     $page            = null;
+    private ?PageDto     $childPage       = null;
+    private ?int         $languageId      = null;
+    private ?LanguageDto $language        = null;
+    private ?string      $commonFilepath  = null;
+    private ?string      $elementFilepath = null;
+    private ?string      $previewFilepath = null;
+    private ?Carbon      $createAt        = null;
+    private ?Carbon      $updateAt        = null;
 
     /**
      * @return string|null
@@ -33,6 +34,7 @@ final class TemplateDto extends Mapper
 
     /**
      * @param string|null $name
+     * @return $this
      */
     public function setName(?string $name): self
     {
@@ -82,18 +84,37 @@ final class TemplateDto extends Mapper
     /**
      * @return string|null
      */
-    public function getChildTemplateFilepath(): ?string
+    public function getElementFilepath(): ?string
     {
-        return $this->childTemplateFilepath;
+        return $this->elementFilepath;
     }
 
     /**
-     * @param string|null $childTemplateFilepath
+     * @param string|null $elementFilepath
      * @return $this
      */
-    public function setChildTemplateFilepath(?string $childTemplateFilepath): self
+    public function setElementFilepath(?string $elementFilepath): self
     {
-        $this->childTemplateFilepath = $childTemplateFilepath;
+        $this->elementFilepath = $elementFilepath;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPreviewFilepath(): ?string
+    {
+        return $this->previewFilepath;
+    }
+
+    /**
+     * @param string|null $previewFilepath
+     * @return $this
+     */
+    public function setPreviewFilepath(?string $previewFilepath): self
+    {
+        $this->previewFilepath = $previewFilepath;
 
         return $this;
     }
@@ -253,18 +274,18 @@ final class TemplateDto extends Mapper
     /**
      * @return string|null
      */
-    public function getTemplateFilepath(): ?string
+    public function getCommonFilepath(): ?string
     {
-        return $this->templateFilepath ?? null;
+        return $this->commonFilepath ?? null;
     }
 
     /**
-     * @param string|null $templateFilepath
+     * @param string|null $commonFilepath
      * @return $this
      */
-    public function setTemplateFilepath(?string $templateFilepath): self
+    public function setCommonFilepath(?string $commonFilepath): self
     {
-        $this->templateFilepath = $templateFilepath;
+        $this->commonFilepath = $commonFilepath;
 
         return $this;
     }

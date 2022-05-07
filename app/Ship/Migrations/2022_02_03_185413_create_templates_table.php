@@ -25,8 +25,9 @@ class CreateTemplatesTable extends Migration
             $table->bigInteger('page_id')->unsigned()->nullable()->index('INDEX_templates_pages');
             $table->bigInteger('child_page_id')->unsigned()->nullable()->index('INDEX_templates_child_pages');
             $table->bigInteger('language_id')->unsigned()->nullable()->index('INDEX_templates_languages');
-            $table->string('template_filepath')->nullable();
-            $table->string('child_template_filepath')->nullable();
+            $table->string('common_filepath')->nullable();
+            $table->string('element_filepath')->nullable();
+            $table->string('preview_filepath')->nullable();
             $table->timestamps();
 
             $table->foreign('theme_id', 'FK_templates_themes_foreign')

@@ -15,8 +15,9 @@ use Illuminate\Support\Carbon;
  * @property integer                     $page_id
  * @property integer                     $child_page_id
  * @property integer                     $language_id
- * @property string                      $template_filepath
- * @property string                      $child_template_filepath
+ * @property string                      $common_filepath
+ * @property string                      $element_filepath
+ * @property string                      $preview_filepath
  * @property Carbon                      $created_at
  * @property Carbon                      $updated_at
  * @property-read ThemeInterface         $theme
