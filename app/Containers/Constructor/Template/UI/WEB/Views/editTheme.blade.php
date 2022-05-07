@@ -185,7 +185,7 @@
                                             <button type="button" class="btn bg-gradient-info btn-sm"
                                                     onclick="location.href='{{ route('constructor_template_edit', $template->getId()) }}'">
                                                 <i class="fas fa-code"></i></i>&nbsp;
-                                                Code
+                                                Code Editor
                                             </button>
                                             <button type="button" class="btn bg-gradient-danger btn-sm"
                                                     data-id="{{ $template->getId() }}"

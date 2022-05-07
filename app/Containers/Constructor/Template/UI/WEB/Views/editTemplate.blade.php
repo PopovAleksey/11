@@ -1,8 +1,23 @@
 @extends('constructor.base')
 
 @section('title', 'Theme ' . $template->getTheme()->getName() . ' | Template ' . $template->getType())
-@section('page-title', 'Theme ' . $template->getTheme()->getName() . ' | Template ' . $template->getType() . ( $template->getType() === \App\Ship\Parents\Models\TemplateInterface::PAGE_TYPE ? ' [' . $template?->getPage()->getName() . ']' : ''))
-
+@section('page-title')
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Theme<span
+                        class="ml-1 cm-strong">{{ $template->getTheme()->getName() }}</span></span>
+        </div>
+        <div class="input-group-prepend">
+            <span class="input-group-text">Type<span
+                        class="ml-1 cm-strong">{{ $template->getType() . ( $template->getType() === \App\Ship\Parents\Models\TemplateInterface::PAGE_TYPE ? ' [' . $template?->getPage()->getName() . ']' : '') }}</span></span>
+        </div>
+        <input type="text" class="form-control" placeholder="Enter Template Name..."
+               value="{{ $template->getName() }}"/>
+        <div class="input-group-append">
+            <button type="button" class="btn btn-warning">Save Name</button>
+        </div>
+    </div>
+@stop
 @section('css')
     <!-- CodeMirror -->
     <link rel="stylesheet" href="{{ asset('plugins/codemirror/codemirror.css') }}">
@@ -12,7 +27,7 @@
     <!-- Toastr -->
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
     <style>
-        .card-body {
+        .card-code {
             padding: 0 !important;
         }
 
@@ -34,6 +49,7 @@
     <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
 
     <script>
+
         $(function () {
             let Toast = Swal.mixin({
                 toast: true,
@@ -42,54 +58,51 @@
                 timer: 3000
             });
 
-            // CodeMirror
-            let code = CodeMirror.fromTextArea(document.getElementById("code"), {
-                lineNumbers: true,
-                mode: "htmlmixed",
-                theme: "default",
+            document.onkeydown = (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                    e.preventDefault();
+                    saveTemplate(Toast);
+                }
+            }
+
+            $('button#submit').on('click', () => saveTemplate(Toast));
+        });
+
+        function saveTemplate(Toast) {
+            $(this).prop("disabled", true);
+
+            console.log('Send HTML to save');
+            Toast.fire({
+                icon: 'error',
+                title: 'Send HTML to save'
             });
-            code.setSize(null, 600);
+            return;
 
-            $('button#page-field').on('click', function () {
-                let fieldId = $(this).attr('data-id');
-                code.replaceSelection('{FIELD_' + fieldId + '}');
-            });
-
-            $('button#insert-content').on('click', function () {
-                let content = $(this).attr('data-value');
-                code.replaceSelection(content);
-            });
-
-            $('button#submit').on('click', function () {
-
-                $(this).prop("disabled", true);
-
-                $.ajax({
-                    url: '{{ route('constructor_template_update', ':id') }}'.replace(':id', {{$template->getId()}}),
-                    type: 'PATCH',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    data: {
-                        'html': code.getValue()
-                    },
-                    success: function (response) {
-                        if (response.id === undefined) {
-                            $('button#submit').prop("disabled", false);
-                            return;
-                        }
-                        location.href = '{{ route('constructor_template_edit', ':id') }}'.replace(':id', response.id);
-                    },
-                    error: function (error) {
-                        Toast.fire({
-                            icon: 'error',
-                            title: error.responseJSON.message
-                        });
+            $.ajax({
+                url: '{{ route('constructor_template_update', ':id') }}'.replace(':id', {{$template->getId()}}),
+                type: 'PATCH',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                data: {
+                    'html': code.getValue()
+                },
+                success: function (response) {
+                    if (response.id === undefined) {
                         $('button#submit').prop("disabled", false);
+                        return;
                     }
-                });
+                    location.href = '{{ route('constructor_template_edit', ':id') }}'.replace(':id', response.id);
+                },
+                error: function (error) {
+                    Toast.fire({
+                        icon: 'error',
+                        title: error.responseJSON.message
+                    });
+                    $('button#submit').prop("disabled", false);
+                }
             });
-        })
+        }
     </script>
 @stop
 
@@ -101,63 +114,124 @@
             {{ $template->getTheme()->getName() }}
         </a>
     </li>
-    <li class="breadcrumb-item active">{{ $template->getType() }}{{ $template->getType() === \App\Ship\Parents\Models\TemplateInterface::PAGE_TYPE ? ' [' . $template?->getPage()->getName() . ']' : '' }}</li>
+    <li class="breadcrumb-item active">{{ $template->getName() }}</li>
 @stop
 
 @section('content')
+
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        @if($template->getType() === \App\Ship\Parents\Models\TemplateInterface::BASE_TYPE)
-                            <div class="btn-group margin-10">
-                                <button type="button" class="btn btn-info" id="insert-content" data-value="{CONTENT}">
-                                    Content
-                                </button>
-                                <button type="button" class="btn btn-info" id="insert-content"
-                                        data-value="{JAVASCRIPT}">JS
-                                </button>
-                                <button type="button" class="btn btn-info" id="insert-content" data-value="{CSS}">CSS
-                                </button>
-                                <button type="button" class="btn btn-info" id="insert-content" data-value="{MENU}">Menu
-                                    List Items
-                                </button>
+            <div class="col-12">
+                @yield('template-form')
+                {{--<div class="card card-primary card-outline card-outline-tabs">
+                    <div class="card-header p-0 border-bottom-0">
+                        <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill"
+                                   href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home"
+                                   aria-selected="true">
+                                    @if($template->getType() === \App\Ship\Parents\Models\TemplateInterface::MENU_TYPE)
+                                        Common Menu Style
+                                    @elseif($template->getPage()?->getType() === \App\Ship\Parents\Models\PageInterface::BLOG_TYPE)
+                                        Common Page Style
+                                    @endif
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill"
+                                   href="#custom-tabs-four-profile" role="tab"
+                                   aria-controls="custom-tabs-four-profile" aria-selected="false">
+                                    @if($template->getType() === \App\Ship\Parents\Models\TemplateInterface::MENU_TYPE)
+                                        Menu Item Style
+                                    @elseif($template->getPage()?->getType() === \App\Ship\Parents\Models\PageInterface::BLOG_TYPE)
+                                        Content Style
+                                    @endif
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body card-code">
+                        <div class="tab-content" id="custom-tabs-four-tabContent">
+                            <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel"
+                                 aria-labelledby="custom-tabs-four-home-tab">
+                                @if($template->getType() === \App\Ship\Parents\Models\TemplateInterface::BASE_TYPE)
+                                    <div class="btn-group margin-10">
+                                        <button type="button" class="btn btn-info" id="insert-content"
+                                                data-value="{CONTENT}">
+                                            Content
+                                        </button>
+                                        <button type="button" class="btn btn-info" id="insert-content"
+                                                data-value="{JAVASCRIPT}">JS
+                                        </button>
+                                        <button type="button" class="btn btn-info" id="insert-content"
+                                                data-value="{CSS}">CSS
+                                        </button>
+                                        <button type="button" class="btn btn-info" id="insert-content"
+                                                data-value="{MENU}">Menu
+                                        </button>
+                                    </div>
+                                @elseif($template->getType() === \App\Ship\Parents\Models\TemplateInterface::MENU_TYPE)
+                                    <div class="btn-group margin-10">
+                                        <button type="button" class="btn btn-info" id="insert-content"
+                                                data-value="{ITEMS}">
+                                            Menu Items
+                                        </button>
+                                    </div>
+                                @elseif($template->getPage()?->getType() === \App\Ship\Parents\Models\PageInterface::BLOG_TYPE)
+                                    <div class="btn-group margin-10">
+                                        <button type="button" class="btn btn-info" id="insert-content"
+                                                data-value="{CONTENT_LIST}">Content
+                                        </button>
+                                    </div>
+                                @endif
+                                <div class="btn-group margin-10">
+                                    @if($template->getPage() !== null)
+                                        @foreach($template->getPage()?->getFields() as $field)
+                                            <button type="button" class="btn btn-default" id="page-field"
+                                                    data-id="{{$field->getId()}}">{{$field->getName()}}</button>
+                                        @endforeach
+                                    @endif
+                                </div>
+                                <textarea id="code-main" class="p-3">{{ $template->getName() }}1</textarea>
                             </div>
-                        @elseif($template->getType() === \App\Ship\Parents\Models\TemplateInterface::MENU_TYPE)
-                            <div class="btn-group margin-10">
-                                <button type="button" class="btn btn-info" id="insert-content" data-value="{LINK}">
-                                    Link URL
-                                </button>
-                                <button type="button" class="btn btn-info" id="insert-content"
-                                        data-value="{NAME}">Link Name
-                                </button>
+                            <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel"
+                                 aria-labelledby="custom-tabs-four-profile-tab">
+                                @if($template->getType() === \App\Ship\Parents\Models\TemplateInterface::MENU_TYPE)
+                                    <div class="btn-group margin-10">
+                                        <button type="button" class="btn btn-info" id="insert-content"
+                                                data-value="{LINK}">
+                                            Link URL
+                                        </button>
+                                        <button type="button" class="btn btn-info" id="insert-content"
+                                                data-value="{NAME}">Link Name
+                                        </button>
+                                    </div>
+                                @endif
+                                <div class="btn-group margin-10">
+                                    @if($template->getChildPage() !== null)
+                                        @foreach($template->getChildPage()?->getFields() as $field)
+                                            <button type="button" class="btn btn-default" id="page-field"
+                                                    data-id="{{$field->getId()}}">{{$field->getName()}}</button>
+                                        @endforeach
+                                    @endif
+                                </div>
+                                <textarea id="code-element" class="p-3">{{ $template->getName() }}2</textarea>
                             </div>
-                        @elseif($template->getPage()?->getType() === \App\Ship\Parents\Models\PageInterface::BLOG_TYPE)
-                            <div class="btn-group margin-10">
-                                <button type="button" class="btn btn-info" id="insert-content"
-                                        data-value="{CONTENT_LIST}">Content
-                                </button>
-                            </div>
-                        @endif
-                        <div class="btn-group margin-10">
-                            @if($template->getPage() !== null)
-                                @foreach($template->getPage()?->getFields() as $field)
-                                    <button type="button" class="btn btn-default" id="page-field"
-                                            data-id="{{$field->getId()}}">{{$field->getName()}}</button>
-                                @endforeach
-                            @endif
                         </div>
                     </div>
-                    <div class="card-body">
-                        <textarea id="code" class="p-3">{{ $template->getHtml() }}</textarea>
-                    </div>
-                    <div class="card-footer">
-                        <button id="submit" class="btn btn-success float-right">Save</button>
+                    <!-- /.card -->
+                </div>--}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-outline">
+                    <div class="card-body pad table-responsive col-12 col-md-3 align-self-end">
+                        <button id="submit" type="submit" class="btn btn-block btn-success" id="save-button">Save
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 @endsection

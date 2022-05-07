@@ -9,6 +9,7 @@ use App\Containers\Constructor\Template\Actions\UpdateTemplateActionInterface;
 use App\Containers\Constructor\Template\UI\WEB\Requests\StoreTemplateRequest;
 use App\Containers\Constructor\Template\UI\WEB\Requests\UpdateTemplateRequest;
 use App\Ship\Parents\Controllers\WebController;
+use App\Ship\Parents\Models\TemplateInterface;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -36,9 +37,18 @@ class ControllerTemplate extends WebController
 
     public function edit(int $id): Factory|View|Application
     {
-        return view('constructor@template::editTemplate', [
-            'template' => $this->findTemplateByIdAction->run($id),
-        ]);
+        $template = $this->findTemplateByIdAction->run($id);
+
+        $view = match ($template->getType()) {
+            TemplateInterface::MENU_TYPE => 'constructor@template::editTemplateMenu',
+            default => 'constructor@template::editTemplateSimple'
+        };
+
+        if ($template->getType() === TemplateInterface::PAGE_TYPE && $template->getChildPageId() !== null) {
+            $view = 'constructor@template::editTemplateComposite';
+        }
+
+        return view($view, ['template' => $template]);
     }
 
 

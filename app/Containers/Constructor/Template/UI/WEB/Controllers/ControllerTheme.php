@@ -20,6 +20,15 @@ use Illuminate\Http\JsonResponse;
 
 class ControllerTheme extends WebController
 {
+    /**
+     * @param \App\Containers\Constructor\Template\Actions\GetAllThemesActionInterface    $getAllThemesAction
+     * @param \App\Containers\Constructor\Template\Actions\CreateThemeActionInterface     $createThemeAction
+     * @param \App\Containers\Constructor\Template\Actions\FindThemeByIdActionInterface   $findThemeByIdAction
+     * @param \App\Containers\Constructor\Template\Actions\ActivateThemeActionInterface   $activateThemeAction
+     * @param \App\Containers\Constructor\Template\Actions\DeleteThemeActionInterface     $deleteThemeAction
+     * @param \App\Containers\Constructor\Page\Actions\GetAllPagesActionInterface         $getAllPagesAction
+     * @param \App\Containers\Constructor\Language\Actions\GetAllLanguagesActionInterface $getAllLanguagesAction
+     */
     public function __construct(
         private GetAllThemesActionInterface    $getAllThemesAction,
         private CreateThemeActionInterface     $createThemeAction,
@@ -33,6 +42,9 @@ class ControllerTheme extends WebController
     }
 
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+     */
     public function index(): Factory|View|Application
     {
         return view('constructor@template::list', [
@@ -41,6 +53,10 @@ class ControllerTheme extends WebController
     }
 
 
+    /**
+     * @param \App\Containers\Constructor\Template\UI\WEB\Requests\StoreThemeRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(StoreThemeRequest $request): JsonResponse
     {
         $id = $this->createThemeAction->run($request->mapped());
@@ -51,6 +67,10 @@ class ControllerTheme extends WebController
     }
 
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+     */
     public function edit(int $id): Factory|View|Application
     {
         $types = [
@@ -70,6 +90,11 @@ class ControllerTheme extends WebController
     }
 
 
+    /**
+     * @param int                                                                     $id
+     * @param \App\Containers\Constructor\Template\UI\WEB\Requests\UpdateThemeRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function activate(int $id, UpdateThemeRequest $request): JsonResponse
     {
         $data = $request->mapped()->setName(null)->setId($id);
@@ -82,6 +107,10 @@ class ControllerTheme extends WebController
     }
 
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function destroy(int $id): JsonResponse
     {
         $this->deleteThemeAction->run($id);
