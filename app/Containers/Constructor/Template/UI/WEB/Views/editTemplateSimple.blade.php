@@ -40,9 +40,54 @@
                     <button type="button" class="btn btn-info" id="insert-content" data-value="{CONTENT}">
                         Content
                     </button>
-                    <button type="button" class="btn btn-info" id="insert-content" data-value="{JAVASCRIPT}">JS</button>
-                    <button type="button" class="btn btn-info" id="insert-content" data-value="{CSS}">CSS</button>
-                    <button type="button" class="btn btn-info" id="insert-content" data-value="{MENU}">Menu</button>
+
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                aria-expanded="false">
+                            JavaScript
+                        </button>
+                        <div class="dropdown-menu" style="">
+                            @foreach($includableItems->get(\App\Ship\Parents\Models\TemplateInterface::JS_TYPE) as $item)
+                                <button class="dropdown-item" href="#" id="insert-content"
+                                        data-value="{JAVASCRIPT_{{ $item->getId() }}}">
+                                    {{ $item->getName() }}
+                                    <sup>ID: {{ $item->getId() }} / Language: {{ $item->getLanguageId() ?? 'General' }}</sup>
+                                </button>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                aria-expanded="false">
+                            CSS
+                        </button>
+                        <div class="dropdown-menu" style="">
+                            @foreach($includableItems->get(\App\Ship\Parents\Models\TemplateInterface::CSS_TYPE) as $item)
+                                <button class="dropdown-item" href="#" id="insert-content"
+                                        data-value="{CSS_{{ $item->getId() }}}">
+                                    {{ $item->getName() }}
+                                    <sup>ID: {{ $item->getId() }} / Language: {{ $item->getLanguageId() ?? 'General' }}</sup>
+                                </button>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                aria-expanded="false">
+                            Menu
+                        </button>
+                        <div class="dropdown-menu" style="">
+                            @foreach($includableItems->get(\App\Ship\Parents\Models\TemplateInterface::MENU_TYPE) as $item)
+                                <button class="dropdown-item" href="#" id="insert-content"
+                                        data-value="{MENU_{{ $item->getId() }}}">
+                                    {{ $item->getName() }}
+                                    <sup>ID: {{ $item->getId() }} / Language: {{ $item->getLanguageId() ?? 'General' }}</sup>
+                                </button>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
             @endif
             <div class="btn-group margin-10">

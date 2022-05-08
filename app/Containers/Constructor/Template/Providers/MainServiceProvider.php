@@ -16,6 +16,8 @@ use App\Containers\Constructor\Template\Actions\FindTemplateByIdAction;
 use App\Containers\Constructor\Template\Actions\FindTemplateByIdActionInterface;
 use App\Containers\Constructor\Template\Actions\FindThemeByIdAction;
 use App\Containers\Constructor\Template\Actions\FindThemeByIdActionInterface;
+use App\Containers\Constructor\Template\Actions\GetAllIncludableItemsAction;
+use App\Containers\Constructor\Template\Actions\GetAllIncludableItemsActionInterface;
 use App\Containers\Constructor\Template\Actions\GetAllThemesAction;
 use App\Containers\Constructor\Template\Actions\GetAllThemesActionInterface;
 use App\Containers\Constructor\Template\Actions\UpdateNameTemplateAction;
@@ -38,6 +40,8 @@ use App\Containers\Constructor\Template\Tasks\FindTemplateByIdTask;
 use App\Containers\Constructor\Template\Tasks\FindTemplateByIdTaskInterface;
 use App\Containers\Constructor\Template\Tasks\FindThemeByIdTask;
 use App\Containers\Constructor\Template\Tasks\FindThemeByIdTaskInterface;
+use App\Containers\Constructor\Template\Tasks\GetAllIncludableItemsTask;
+use App\Containers\Constructor\Template\Tasks\GetAllIncludableItemsTaskInterface;
 use App\Containers\Constructor\Template\Tasks\GetAllThemesTask;
 use App\Containers\Constructor\Template\Tasks\GetAllThemesTaskInterface;
 use App\Containers\Constructor\Template\Tasks\UpdateNameTemplateTask;
@@ -79,6 +83,7 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(UpdateNameTemplateActionInterface::class, UpdateNameTemplateAction::class);
 
         $this->app->bind(GetAllThemesActionInterface::class, GetAllThemesAction::class);
+        $this->app->bind(GetAllIncludableItemsActionInterface::class, GetAllIncludableItemsAction::class);
         $this->app->bind(CreateThemeActionInterface::class, CreateThemeAction::class);
         $this->app->bind(FindThemeByIdActionInterface::class, FindThemeByIdAction::class);
         $this->app->bind(ActivateThemeActionInterface::class, ActivateThemeAction::class);
@@ -95,6 +100,7 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(UpdateNameTemplateTaskInterface::class, UpdateNameTemplateTask::class);
 
         $this->app->bind(GetAllThemesTaskInterface::class, GetAllThemesTask::class);
+        $this->app->bind(GetAllIncludableItemsTaskInterface::class, GetAllIncludableItemsTask::class);
         $this->app->bind(CreateThemeTaskInterface::class, CreateThemeTask::class);
         $this->app->bind(FindThemeByIdTaskInterface::class, FindThemeByIdTask::class);
         $this->app->bind(ActivateThemeTaskInterface::class, ActivateThemeTask::class);

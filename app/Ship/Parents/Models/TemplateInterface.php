@@ -24,6 +24,7 @@ use Illuminate\Support\Carbon;
  * @property-read PageInterface|null     $page
  * @property-read PageInterface|null     $child_page
  * @property-read LanguageInterface|null $language
+ * @property-read string                 $language_name
  */
 interface TemplateInterface
 {
