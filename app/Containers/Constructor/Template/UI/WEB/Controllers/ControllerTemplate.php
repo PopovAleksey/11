@@ -5,8 +5,10 @@ namespace App\Containers\Constructor\Template\UI\WEB\Controllers;
 use App\Containers\Constructor\Template\Actions\CreateTemplateActionInterface;
 use App\Containers\Constructor\Template\Actions\DeleteTemplateActionInterface;
 use App\Containers\Constructor\Template\Actions\FindTemplateByIdActionInterface;
+use App\Containers\Constructor\Template\Actions\UpdateNameTemplateActionInterface;
 use App\Containers\Constructor\Template\Actions\UpdateTemplateActionInterface;
 use App\Containers\Constructor\Template\UI\WEB\Requests\StoreTemplateRequest;
+use App\Containers\Constructor\Template\UI\WEB\Requests\UpdateNameTemplateRequest;
 use App\Containers\Constructor\Template\UI\WEB\Requests\UpdateTemplateRequest;
 use App\Ship\Parents\Controllers\WebController;
 use App\Ship\Parents\Models\TemplateInterface;
@@ -17,16 +19,27 @@ use Illuminate\Http\JsonResponse;
 
 class ControllerTemplate extends WebController
 {
+    /**
+     * @param \App\Containers\Constructor\Template\Actions\CreateTemplateActionInterface   $createTemplateAction
+     * @param \App\Containers\Constructor\Template\Actions\FindTemplateByIdActionInterface $findTemplateByIdAction
+     * @param \App\Containers\Constructor\Template\Actions\UpdateTemplateActionInterface   $updateTemplateAction
+     * @param \App\Containers\Constructor\Template\Actions\DeleteTemplateActionInterface   $deleteTemplateAction
+     */
     public function __construct(
-        private CreateTemplateActionInterface   $createTemplateAction,
-        private FindTemplateByIdActionInterface $findTemplateByIdAction,
-        private UpdateTemplateActionInterface   $updateTemplateAction,
-        private DeleteTemplateActionInterface   $deleteTemplateAction,
+        private CreateTemplateActionInterface     $createTemplateAction,
+        private FindTemplateByIdActionInterface   $findTemplateByIdAction,
+        private UpdateTemplateActionInterface     $updateTemplateAction,
+        private DeleteTemplateActionInterface     $deleteTemplateAction,
+        private UpdateNameTemplateActionInterface $updateNameTemplateAction
     )
     {
     }
 
 
+    /**
+     * @param \App\Containers\Constructor\Template\UI\WEB\Requests\StoreTemplateRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(StoreTemplateRequest $request): JsonResponse
     {
         return response()
@@ -35,6 +48,10 @@ class ControllerTemplate extends WebController
     }
 
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+     */
     public function edit(int $id): Factory|View|Application
     {
         $template = $this->findTemplateByIdAction->run($id);
@@ -52,6 +69,11 @@ class ControllerTemplate extends WebController
     }
 
 
+    /**
+     * @param int                                                                        $id
+     * @param \App\Containers\Constructor\Template\UI\WEB\Requests\UpdateTemplateRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(int $id, UpdateTemplateRequest $request): JsonResponse
     {
         $data = $request->mapped()->setId($id);
@@ -63,7 +85,25 @@ class ControllerTemplate extends WebController
             ->setStatusCode(200);
     }
 
+    /**
+     * @param int                                                                            $id
+     * @param \App\Containers\Constructor\Template\UI\WEB\Requests\UpdateNameTemplateRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateName(int $id, UpdateNameTemplateRequest $request): JsonResponse
+    {
+        $data = $request->mapped()->setId($id);
 
+        $this->updateNameTemplateAction->run($data);
+
+        return response()->json()->setStatusCode(200);
+    }
+
+
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function destroy(int $id): JsonResponse
     {
         $this->deleteTemplateAction->run($id);

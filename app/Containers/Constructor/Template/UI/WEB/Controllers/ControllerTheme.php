@@ -9,8 +9,10 @@ use App\Containers\Constructor\Template\Actions\CreateThemeActionInterface;
 use App\Containers\Constructor\Template\Actions\DeleteThemeActionInterface;
 use App\Containers\Constructor\Template\Actions\FindThemeByIdActionInterface;
 use App\Containers\Constructor\Template\Actions\GetAllThemesActionInterface;
+use App\Containers\Constructor\Template\Actions\UpdateNameThemeActionInterface;
+use App\Containers\Constructor\Template\UI\WEB\Requests\ActivateThemeRequest;
 use App\Containers\Constructor\Template\UI\WEB\Requests\StoreThemeRequest;
-use App\Containers\Constructor\Template\UI\WEB\Requests\UpdateThemeRequest;
+use App\Containers\Constructor\Template\UI\WEB\Requests\UpdateNameThemeRequest;
 use App\Ship\Parents\Controllers\WebController;
 use App\Ship\Parents\Models\TemplateInterface;
 use Illuminate\Contracts\Foundation\Application;
@@ -28,6 +30,7 @@ class ControllerTheme extends WebController
      * @param \App\Containers\Constructor\Template\Actions\DeleteThemeActionInterface     $deleteThemeAction
      * @param \App\Containers\Constructor\Page\Actions\GetAllPagesActionInterface         $getAllPagesAction
      * @param \App\Containers\Constructor\Language\Actions\GetAllLanguagesActionInterface $getAllLanguagesAction
+     * @param \App\Containers\Constructor\Template\Actions\UpdateNameThemeActionInterface $updateNameThemeAction
      */
     public function __construct(
         private GetAllThemesActionInterface    $getAllThemesAction,
@@ -36,7 +39,8 @@ class ControllerTheme extends WebController
         private ActivateThemeActionInterface   $activateThemeAction,
         private DeleteThemeActionInterface     $deleteThemeAction,
         private GetAllPagesActionInterface     $getAllPagesAction,
-        private GetAllLanguagesActionInterface $getAllLanguagesAction
+        private GetAllLanguagesActionInterface $getAllLanguagesAction,
+        private UpdateNameThemeActionInterface $updateNameThemeAction
     )
     {
     }
@@ -91,13 +95,13 @@ class ControllerTheme extends WebController
 
 
     /**
-     * @param int                                                                     $id
-     * @param \App\Containers\Constructor\Template\UI\WEB\Requests\UpdateThemeRequest $request
+     * @param int                                                                       $id
+     * @param \App\Containers\Constructor\Template\UI\WEB\Requests\ActivateThemeRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function activate(int $id, UpdateThemeRequest $request): JsonResponse
+    public function activate(int $id, ActivateThemeRequest $request): JsonResponse
     {
-        $data = $request->mapped()->setName(null)->setId($id);
+        $data = $request->mapped()->setId($id);
 
         $theme = $this->activateThemeAction->run($data);
 
@@ -106,6 +110,19 @@ class ControllerTheme extends WebController
             ->setStatusCode(200);
     }
 
+    /**
+     * @param int                                                                         $id
+     * @param \App\Containers\Constructor\Template\UI\WEB\Requests\UpdateNameThemeRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateName(int $id, UpdateNameThemeRequest $request): JsonResponse
+    {
+        $data = $request->mapped()->setId($id);
+
+        $this->updateNameThemeAction->run($data);
+
+        return response()->json()->setStatusCode(200);
+    }
 
     /**
      * @param int $id

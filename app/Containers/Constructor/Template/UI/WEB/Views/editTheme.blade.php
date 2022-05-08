@@ -6,9 +6,12 @@
         <div class="input-group-prepend">
             <span class="input-group-text">Theme:</span>
         </div>
-        <input type="text" class="form-control" placeholder="Enter Theme Name..." value="{{ $theme->getName() }}"/>
+        <input type="text" class="form-control" placeholder="Enter Theme Name..." id="theme-name"
+               value="{{ $theme->getName() }}"/>
         <div class="input-group-append">
-            <button type="button" class="btn btn-warning">Save</button>
+            <button type="button" class="btn btn-warning" id="save-name">
+                <i class="fas fa-circle-notch fa-spin" style="display: none;"></i>&nbsp;Save Name
+            </button>
         </div>
     </div>
 @stop
@@ -66,6 +69,38 @@
                 position: 'bottom',
                 showConfirmButton: false,
                 timer: 3000
+            });
+
+            $('button#save-name').on('click', function () {
+                $('button#save-name').prop("disabled", true);
+                $('button#save-name i').show();
+
+                let themeName = $('input#theme-name').val();
+
+                $.ajax({
+                    url: '{{ route('constructor_theme_name_update', ['id' => $theme->getId()]) }}',
+                    type: 'PATCH',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    data: {'name': themeName},
+                    success: function () {
+                        $('button#save-name').prop("disabled", false);
+                        $('button#save-name i').hide();
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Saved Success!'
+                        });
+                    },
+                    error: function (error) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: error.responseJSON.message
+                        });
+                        $('button#save-name').prop("disabled", false);
+                        $('button#save-name i').hide();
+                    }
+                });
             });
 
             $('#create-page').on('click', function () {

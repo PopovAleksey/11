@@ -18,6 +18,10 @@ use App\Containers\Constructor\Template\Actions\FindThemeByIdAction;
 use App\Containers\Constructor\Template\Actions\FindThemeByIdActionInterface;
 use App\Containers\Constructor\Template\Actions\GetAllThemesAction;
 use App\Containers\Constructor\Template\Actions\GetAllThemesActionInterface;
+use App\Containers\Constructor\Template\Actions\UpdateNameTemplateAction;
+use App\Containers\Constructor\Template\Actions\UpdateNameTemplateActionInterface;
+use App\Containers\Constructor\Template\Actions\UpdateNameThemeAction;
+use App\Containers\Constructor\Template\Actions\UpdateNameThemeActionInterface;
 use App\Containers\Constructor\Template\Actions\UpdateTemplateAction;
 use App\Containers\Constructor\Template\Actions\UpdateTemplateActionInterface;
 use App\Containers\Constructor\Template\Tasks\ActivateThemeTask;
@@ -36,6 +40,10 @@ use App\Containers\Constructor\Template\Tasks\FindThemeByIdTask;
 use App\Containers\Constructor\Template\Tasks\FindThemeByIdTaskInterface;
 use App\Containers\Constructor\Template\Tasks\GetAllThemesTask;
 use App\Containers\Constructor\Template\Tasks\GetAllThemesTaskInterface;
+use App\Containers\Constructor\Template\Tasks\UpdateNameTemplateTask;
+use App\Containers\Constructor\Template\Tasks\UpdateNameTemplateTaskInterface;
+use App\Containers\Constructor\Template\Tasks\UpdateNameThemeTask;
+use App\Containers\Constructor\Template\Tasks\UpdateNameThemeTaskInterface;
 use App\Containers\Constructor\Template\Tasks\UpdateTemplateTask;
 use App\Containers\Constructor\Template\Tasks\UpdateTemplateTaskInterface;
 use App\Ship\Parents\Models\Template;
@@ -67,6 +75,8 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(DeleteTemplateActionInterface::class, DeleteTemplateAction::class);
         $this->app->bind(FindTemplateByIdActionInterface::class, FindTemplateByIdAction::class);
         $this->app->bind(UpdateTemplateActionInterface::class, UpdateTemplateAction::class);
+        $this->app->bind(UpdateNameThemeActionInterface::class, UpdateNameThemeAction::class);
+        $this->app->bind(UpdateNameTemplateActionInterface::class, UpdateNameTemplateAction::class);
 
         $this->app->bind(GetAllThemesActionInterface::class, GetAllThemesAction::class);
         $this->app->bind(CreateThemeActionInterface::class, CreateThemeAction::class);
@@ -81,6 +91,8 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(DeleteTemplateTaskInterface::class, DeleteTemplateTask::class);
         $this->app->bind(FindTemplateByIdTaskInterface::class, FindTemplateByIdTask::class);
         $this->app->bind(UpdateTemplateTaskInterface::class, UpdateTemplateTask::class);
+        $this->app->bind(UpdateNameThemeTaskInterface::class, UpdateNameThemeTask::class);
+        $this->app->bind(UpdateNameTemplateTaskInterface::class, UpdateNameTemplateTask::class);
 
         $this->app->bind(GetAllThemesTaskInterface::class, GetAllThemesTask::class);
         $this->app->bind(CreateThemeTaskInterface::class, CreateThemeTask::class);

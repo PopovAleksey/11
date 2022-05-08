@@ -11,10 +11,12 @@
             <span class="input-group-text">Type<span
                         class="ml-1 cm-strong">{{ $template->getType() . ( $template->getType() === \App\Ship\Parents\Models\TemplateInterface::PAGE_TYPE ? ' [' . $template?->getPage()->getName() . ']' : '') }}</span></span>
         </div>
-        <input type="text" class="form-control" placeholder="Enter Template Name..."
+        <input type="text" class="form-control" placeholder="Enter Template Name..." id="theme-name"
                value="{{ $template->getName() }}"/>
         <div class="input-group-append">
-            <button type="button" class="btn btn-warning">Save Name</button>
+            <button type="button" class="btn btn-warning" id="save-name">
+                <i class="fas fa-circle-notch fa-spin" style="display: none;"></i>&nbsp;Save Name
+            </button>
         </div>
     </div>
 @stop
@@ -66,6 +68,38 @@
             }
 
             $('button#submit').on('click', () => saveTemplate(Toast));
+
+            $('button#save-name').on('click', function () {
+                $('button#save-name').prop("disabled", true);
+                $('button#save-name i').show();
+
+                let themeName = $('input#theme-name').val();
+
+                $.ajax({
+                    url: '{{ route('constructor_template_name_update', ['id' => $template->getId()]) }}',
+                    type: 'PATCH',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    data: {'name': themeName},
+                    success: function () {
+                        $('button#save-name').prop("disabled", false);
+                        $('button#save-name i').hide();
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Saved Success!'
+                        });
+                    },
+                    error: function (error) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: error.responseJSON.message
+                        });
+                        $('button#save-name').prop("disabled", false);
+                        $('button#save-name i').hide();
+                    }
+                });
+            });
         });
 
         function saveTemplate(Toast) {
