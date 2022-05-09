@@ -21,8 +21,68 @@ final class TemplateDto extends Mapper
     private ?string      $commonFilepath  = null;
     private ?string      $elementFilepath = null;
     private ?string      $previewFilepath = null;
+    private ?string      $commonHtml      = null;
+    private ?string      $elementHtml     = null;
+    private ?string      $previewHtml     = null;
     private ?Carbon      $createAt        = null;
     private ?Carbon      $updateAt        = null;
+
+    /**
+     * @return string|null
+     */
+    public function getCommonHtml(): ?string
+    {
+        return $this->commonHtml;
+    }
+
+    /**
+     * @param string|null $commonHtml
+     * @return $this
+     */
+    public function setCommonHtml(?string $commonHtml): self
+    {
+        $this->commonHtml = $commonHtml;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getElementHtml(): ?string
+    {
+        return $this->elementHtml;
+    }
+
+    /**
+     * @param string|null $elementHtml
+     * @return $this
+     */
+    public function setElementHtml(?string $elementHtml): self
+    {
+        $this->elementHtml = $elementHtml;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPreviewHtml(): ?string
+    {
+        return $this->previewHtml;
+    }
+
+    /**
+     * @param string|null $previewHtml
+     * @return $this
+     */
+    public function setPreviewHtml(?string $previewHtml): self
+    {
+        $this->previewHtml = $previewHtml;
+
+        return $this;
+    }
 
     /**
      * @return string|null

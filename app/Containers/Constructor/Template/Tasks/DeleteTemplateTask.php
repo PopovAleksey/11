@@ -21,10 +21,10 @@ class DeleteTemplateTask extends Task implements DeleteTemplateTaskInterface
 
     /**
      * @param int $id
-     * @return bool|null
+     * @return void
      * @throws \App\Ship\Exceptions\DeleteResourceFailedException
      */
-    public function run(int $id): ?bool
+    public function run(int $id): void
     {
         try {
             /**
@@ -56,7 +56,6 @@ class DeleteTemplateTask extends Task implements DeleteTemplateTaskInterface
             Storage::disk('template')->delete($path . '/' . $template->element_filepath . $type);
             Storage::disk('template')->delete($path . '/' . $template->preview_filepath . $type);
 
-            return true;
         } catch (Exception) {
             throw new DeleteResourceFailedException();
         }

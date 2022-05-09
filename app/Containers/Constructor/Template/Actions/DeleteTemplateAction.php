@@ -13,9 +13,9 @@ class DeleteTemplateAction extends Action implements DeleteTemplateActionInterfa
     {
     }
 
-    public function run(int $id): bool
+    public function run(int $id): void
     {
-        return $this->deleteTemplateTask->run($id);
+        $this->deleteTemplateTask->run($id);
     }
 }
 

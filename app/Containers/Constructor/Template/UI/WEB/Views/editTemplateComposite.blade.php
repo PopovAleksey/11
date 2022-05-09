@@ -94,7 +94,7 @@
                             @endforeach
                         @endif
                     </div>
-                    <textarea id="code" class="p-3">{{ $template->getName() }}1</textarea>
+                    <textarea id="code" class="p-3">{{ $template->getCommonHtml() }}</textarea>
                 </div>
                 <div class="tab-pane fade" id="custom-tabs-four-preview" role="tabpanel"
                      aria-labelledby="custom-tabs-four-preview-tab">
@@ -108,7 +108,7 @@
                             @endforeach
                         @endif
                     </div>
-                    <textarea id="code-preview" class="p-3">{{ $template->getName() }}2</textarea>
+                    <textarea id="code-preview" class="p-3">{{ $template->getPreviewHtml() }}</textarea>
                 </div>
                 <div class="tab-pane fade" id="custom-tabs-four-content" role="tabpanel"
                      aria-labelledby="custom-tabs-four-content-tab">
@@ -122,7 +122,7 @@
                             @endforeach
                         @endif
                     </div>
-                    <textarea id="code-content" class="p-3">{{ $template->getName() }}2</textarea>
+                    <textarea id="code-content" class="p-3">{{ $template->getElementHtml() }}</textarea>
                 </div>
             </div>
         </div>

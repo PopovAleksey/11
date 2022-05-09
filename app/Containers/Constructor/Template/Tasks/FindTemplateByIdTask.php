@@ -11,10 +11,12 @@ use App\Ship\Parents\Dto\ThemeDto;
 use App\Ship\Parents\Models\LanguageInterface;
 use App\Ship\Parents\Models\PageFieldInterface;
 use App\Ship\Parents\Models\PageInterface;
+use App\Ship\Parents\Models\TemplateInterface;
 use App\Ship\Parents\Models\ThemeInterface;
 use App\Ship\Parents\Repositories\TemplateRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
+use Storage;
 
 class FindTemplateByIdTask extends Task implements FindTemplateByIdTaskInterface
 {
@@ -34,6 +36,31 @@ class FindTemplateByIdTask extends Task implements FindTemplateByIdTaskInterface
              * @var \App\Ship\Parents\Models\TemplateInterface $template
              */
             $template = $this->repository->find($id);
+            $theme    = $this->buildThemeDto($template->theme);
+
+            [$folder, $type] = match ($template->type) {
+                TemplateInterface::CSS_TYPE => [
+                    config('constructor-template.folderName.css'),
+                    config('constructor-template.fileType.css'),
+                ],
+                TemplateInterface::JS_TYPE => [
+                    config('constructor-template.folderName.js'),
+                    config('constructor-template.fileType.js'),
+                ],
+                default => [
+                    config('constructor-template.folderName.view'),
+                    config('constructor-template.fileType.view'),
+                ],
+            };
+
+            $storage     = Storage::disk('template');
+            $commonFile  = implode('/', [$theme->getDirectory(), $folder, $template->common_filepath . $type]);
+            $elementFile = implode('/', [$theme->getDirectory(), $folder, $template->element_filepath . $type]);
+            $previewFile = implode('/', [$theme->getDirectory(), $folder, $template->preview_filepath . $type]);
+
+            $commonHtml  = $storage->exists($commonFile) ? $storage->get($commonFile) : null;
+            $elementHtml = $storage->exists($elementFile) ? $storage->get($elementFile) : null;
+            $previewHtml = $storage->exists($previewFile) ? $storage->get($previewFile) : null;
 
             return (new TemplateDto())
                 ->setId($template->id)
@@ -43,13 +70,16 @@ class FindTemplateByIdTask extends Task implements FindTemplateByIdTaskInterface
                 ->setChildPageId($template->child_page_id)
                 ->setThemeId($template->theme_id)
                 ->setLanguageId($template->language_id)
-                ->setTheme($this->buildThemeDto($template->theme))
+                ->setTheme($theme)
                 ->setPage($this->buildPageDto($template->page))
                 ->setChildPage($this->buildPageDto($template->child_page))
                 ->setLanguage($this->buildLanguageDto($template->language))
                 ->setCommonFilepath($template->common_filepath)
+                ->setCommonHtml($commonHtml)
                 ->setElementFilepath($template->element_filepath)
+                ->setElementHtml($elementHtml)
                 ->setPreviewFilepath($template->preview_filepath)
+                ->setPreviewHtml($previewHtml)
                 ->setCreateAt($template->created_at)
                 ->setUpdateAt($template->updated_at);
 
@@ -59,30 +89,31 @@ class FindTemplateByIdTask extends Task implements FindTemplateByIdTaskInterface
     }
 
     /**
-     * @param \App\Ship\Parents\Models\ThemeInterface $themeModel
+     * @param \App\Ship\Parents\Models\ThemeInterface $theme
      * @return \App\Ship\Parents\Dto\ThemeDto
      */
-    private function buildThemeDto(ThemeInterface $themeModel): ThemeDto
+    private function buildThemeDto(ThemeInterface $theme): ThemeDto
     {
         return (new ThemeDto())
-            ->setId($themeModel->id)
-            ->setName($themeModel->name)
-            ->setActive($themeModel->active)
-            ->setCreateAt($themeModel->created_at)
-            ->setUpdateAt($themeModel->updated_at);
+            ->setId($theme->id)
+            ->setName($theme->name)
+            ->setDirectory($theme->directory)
+            ->setActive($theme->active)
+            ->setCreateAt($theme->created_at)
+            ->setUpdateAt($theme->updated_at);
     }
 
     /**
-     * @param \App\Ship\Parents\Models\PageInterface|null $pageModel
+     * @param \App\Ship\Parents\Models\PageInterface|null $page
      * @return \App\Ship\Parents\Dto\PageDto|null
      */
-    private function buildPageDto(?PageInterface $pageModel): ?PageDto
+    private function buildPageDto(?PageInterface $page): ?PageDto
     {
-        if ($pageModel === null) {
+        if ($page === null) {
             return null;
         }
 
-        $fields = $pageModel->fields->map(function (PageFieldInterface $pageField) use ($pageModel) {
+        $fields = $page->fields->map(function (PageFieldInterface $pageField) use ($page) {
             return (new PageFieldDto())
                 ->setId($pageField->id)
                 ->setName($pageField->name)
@@ -91,23 +122,23 @@ class FindTemplateByIdTask extends Task implements FindTemplateByIdTaskInterface
                 ->setMask($pageField->mask)
                 ->setPlaceholder($pageField->placeholder)
                 ->setValues($pageField->values)
-                ->setPageId($pageModel->id)
+                ->setPageId($page->id)
                 ->setCreateAt($pageField->created_at)
                 ->setUpdateAt($pageField->updated_at);
         })->toArray();
 
         $pageDto = (new PageDto())
-            ->setId($pageModel->id)
-            ->setName($pageModel->name)
-            ->setActive($pageModel->active)
-            ->setType($pageModel->type)
+            ->setId($page->id)
+            ->setName($page->name)
+            ->setActive($page->active)
+            ->setType($page->type)
             ->setFields($fields)
-            ->setCreateAt($pageModel->created_at)
-            ->setUpdateAt($pageModel->updated_at);
+            ->setCreateAt($page->created_at)
+            ->setUpdateAt($page->updated_at);
 
         if (
-            $pageModel->type === PageInterface::BLOG_TYPE &&
-            $childPageDto = $this->buildPageDto($pageModel->child_page)
+            $page->type === PageInterface::BLOG_TYPE &&
+            $childPageDto = $this->buildPageDto($page->child_page)
         ) {
             $pageDto->setChildPage($childPageDto);
         }
@@ -116,21 +147,21 @@ class FindTemplateByIdTask extends Task implements FindTemplateByIdTaskInterface
     }
 
     /**
-     * @param \App\Ship\Parents\Models\LanguageInterface|null $languageModel
+     * @param \App\Ship\Parents\Models\LanguageInterface|null $language
      * @return \App\Ship\Parents\Dto\LanguageDto|null
      */
-    private function buildLanguageDto(?LanguageInterface $languageModel): ?LanguageDto
+    private function buildLanguageDto(?LanguageInterface $language): ?LanguageDto
     {
-        if ($languageModel === null) {
+        if ($language === null) {
             return null;
         }
 
         return (new LanguageDto())
-            ->setId($languageModel->id)
-            ->setName($languageModel->name)
-            ->setShortName($languageModel->short_name)
-            ->setIsActive($languageModel->active)
-            ->setCreateAt($languageModel->created_at)
-            ->setUpdateAt($languageModel->updated_at);
+            ->setId($language->id)
+            ->setName($language->name)
+            ->setShortName($language->short_name)
+            ->setIsActive($language->active)
+            ->setCreateAt($language->created_at)
+            ->setUpdateAt($language->updated_at);
     }
 }

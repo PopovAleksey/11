@@ -66,7 +66,7 @@
                             Menu Items
                         </button>
                     </div>
-                    <textarea id="code" class="p-3">{{ $template->getName() }}1</textarea>
+                    <textarea id="code" class="p-3">{{ $template->getCommonHtml() }}</textarea>
                 </div>
                 <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel"
                      aria-labelledby="custom-tabs-four-profile-tab">
@@ -78,7 +78,7 @@
                             Link Name
                         </button>
                     </div>
-                    <textarea id="code-element" class="p-3">{{ $template->getName() }}2</textarea>
+                    <textarea id="code-element" class="p-3">{{ $template->getElementHtml() }}</textarea>
                 </div>
             </div>
         </div>

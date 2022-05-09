@@ -100,7 +100,7 @@
             </div>
         </div>
         <div class="card-body card-code">
-            <textarea id="code" class="p-3">{{ $template->getName() }}</textarea>
+            <textarea id="code" class="p-3">{{ $template->getCommonHtml() }}</textarea>
         </div>
     </div>
 @stop
