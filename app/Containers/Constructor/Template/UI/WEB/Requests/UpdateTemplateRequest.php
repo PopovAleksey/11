@@ -10,12 +10,17 @@ class UpdateTemplateRequest extends Request
     public function rules(): array
     {
         return [
-            'html' => ['required', 'string'],
+            'commonHtml'  => ['required', 'string', 'nullable'],
+            'elementHtml' => ['string', 'nullable'],
+            'previewHtml' => ['string', 'nullable'],
         ];
     }
 
     public function mapped(): TemplateDto
     {
-        return (new TemplateDto())->setCommonFilepath($this->get('html'));
+        return (new TemplateDto())
+            ->setCommonHtml(data_get($this->validated(), 'commonHtml'))
+            ->setElementHtml(data_get($this->validated(), 'elementHtml'))
+            ->setPreviewHtml(data_get($this->validated(), 'previewHtml'));
     }
 }

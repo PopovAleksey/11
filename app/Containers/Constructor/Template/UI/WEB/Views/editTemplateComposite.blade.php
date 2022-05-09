@@ -49,6 +49,22 @@
                 codeContent.replaceSelection(content);
             });
 
+            let Toast = Swal.mixin({
+                toast: true,
+                position: 'bottom',
+                showConfirmButton: false,
+                timer: 3000
+            });
+
+            document.onkeydown = (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                    e.preventDefault();
+                    saveTemplate(Toast, code.getValue(), codeContent.getValue(), codePreview.getValue());
+                }
+            }
+
+            $('button#save-button').on('click', () => saveTemplate(Toast, code.getValue(), codeContent.getValue(), codePreview.getValue()));
+
         });
     </script>
 @stop
@@ -89,7 +105,7 @@
                             @foreach($template->getPage()?->getFields() as $field)
                                 <button type="button" class="btn btn-default" id="insert-common"
                                         data-value="{FIELD_{{$field->getId()}}}">
-                                    {{$field->getName()}}
+                                    {{$field->getName()}}&nbsp;<sup>ID: {{ $field->getId() }}</sup>
                                 </button>
                             @endforeach
                         @endif
@@ -103,7 +119,7 @@
                             @foreach($template->getChildPage()?->getFields() as $field)
                                 <button type="button" class="btn btn-default" id="insert-preview"
                                         data-value="{FIELD_{{$field->getId()}}}">
-                                    {{$field->getName()}}
+                                    {{$field->getName()}}&nbsp;<sup>ID: {{ $field->getId() }}</sup>
                                 </button>
                             @endforeach
                         @endif
@@ -117,7 +133,7 @@
                             @foreach($template->getChildPage()?->getFields() as $field)
                                 <button type="button" class="btn btn-default" id="insert-content"
                                         data-value="{FIELD_{{$field->getId()}}}">
-                                    {{$field->getName()}}
+                                    {{$field->getName()}}&nbsp;<sup>ID: {{ $field->getId() }}</sup>
                                 </button>
                             @endforeach
                         @endif

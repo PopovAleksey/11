@@ -32,8 +32,24 @@
 
             $('button#insert-element').on('click', function () {
                 let content = $(this).attr('data-value');
-                code.replaceSelection(content);
+                codeElem.replaceSelection(content);
             });
+
+            let Toast = Swal.mixin({
+                toast: true,
+                position: 'bottom',
+                showConfirmButton: false,
+                timer: 3000
+            });
+
+            document.onkeydown = (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                    e.preventDefault();
+                    saveTemplate(Toast, code.getValue(), codeElem.getValue());
+                }
+            }
+
+            $('button#save-button').on('click', () => saveTemplate(Toast, code.getValue(), codeElem.getValue()));
 
         });
     </script>

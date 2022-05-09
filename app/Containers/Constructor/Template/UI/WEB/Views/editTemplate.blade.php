@@ -60,15 +60,6 @@
                 timer: 3000
             });
 
-            document.onkeydown = (e) => {
-                if ((e.ctrlKey || e.metaKey) && e.key === 's') {
-                    e.preventDefault();
-                    saveTemplate(Toast);
-                }
-            }
-
-            $('button#submit').on('click', () => saveTemplate(Toast));
-
             $('button#save-name').on('click', function () {
                 $('button#save-name').prop("disabled", true);
                 $('button#save-name i').show();
@@ -102,15 +93,9 @@
             });
         });
 
-        function saveTemplate(Toast) {
-            $(this).prop("disabled", true);
-
-            console.log('Send HTML to save');
-            Toast.fire({
-                icon: 'error',
-                title: 'Send HTML to save'
-            });
-            return;
+        function saveTemplate(Toast, commonHtml, elementHtml = null, previewHtml = null) {
+            $('button#save-button').prop("disabled", true);
+            $('button#save-button i').show();
 
             $.ajax({
                 url: '{{ route('constructor_template_update', ':id') }}'.replace(':id', {{$template->getId()}}),
@@ -119,21 +104,25 @@
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
                 data: {
-                    'html': code.getValue()
+                    'commonHtml': commonHtml,
+                    'elementHtml': elementHtml,
+                    'previewHtml': previewHtml,
                 },
-                success: function (response) {
-                    if (response.id === undefined) {
-                        $('button#submit').prop("disabled", false);
-                        return;
-                    }
-                    location.href = '{{ route('constructor_template_edit', ':id') }}'.replace(':id', response.id);
+                success: function () {
+                    $('button#save-button').prop("disabled", false);
+                    $('button#save-button i').hide();
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Saved Success!'
+                    });
                 },
                 error: function (error) {
                     Toast.fire({
                         icon: 'error',
                         title: error.responseJSON.message
                     });
-                    $('button#submit').prop("disabled", false);
+                    $('button#save-button').prop("disabled", false);
+                    $('button#save-button i').hide();
                 }
             });
         }
@@ -157,111 +146,14 @@
         <div class="row">
             <div class="col-12">
                 @yield('template-form')
-                {{--<div class="card card-primary card-outline card-outline-tabs">
-                    <div class="card-header p-0 border-bottom-0">
-                        <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill"
-                                   href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home"
-                                   aria-selected="true">
-                                    @if($template->getType() === \App\Ship\Parents\Models\TemplateInterface::MENU_TYPE)
-                                        Common Menu Style
-                                    @elseif($template->getPage()?->getType() === \App\Ship\Parents\Models\PageInterface::BLOG_TYPE)
-                                        Common Page Style
-                                    @endif
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill"
-                                   href="#custom-tabs-four-profile" role="tab"
-                                   aria-controls="custom-tabs-four-profile" aria-selected="false">
-                                    @if($template->getType() === \App\Ship\Parents\Models\TemplateInterface::MENU_TYPE)
-                                        Menu Item Style
-                                    @elseif($template->getPage()?->getType() === \App\Ship\Parents\Models\PageInterface::BLOG_TYPE)
-                                        Content Style
-                                    @endif
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card-body card-code">
-                        <div class="tab-content" id="custom-tabs-four-tabContent">
-                            <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel"
-                                 aria-labelledby="custom-tabs-four-home-tab">
-                                @if($template->getType() === \App\Ship\Parents\Models\TemplateInterface::BASE_TYPE)
-                                    <div class="btn-group margin-10">
-                                        <button type="button" class="btn btn-info" id="insert-content"
-                                                data-value="{CONTENT}">
-                                            Content
-                                        </button>
-                                        <button type="button" class="btn btn-info" id="insert-content"
-                                                data-value="{JAVASCRIPT}">JS
-                                        </button>
-                                        <button type="button" class="btn btn-info" id="insert-content"
-                                                data-value="{CSS}">CSS
-                                        </button>
-                                        <button type="button" class="btn btn-info" id="insert-content"
-                                                data-value="{MENU}">Menu
-                                        </button>
-                                    </div>
-                                @elseif($template->getType() === \App\Ship\Parents\Models\TemplateInterface::MENU_TYPE)
-                                    <div class="btn-group margin-10">
-                                        <button type="button" class="btn btn-info" id="insert-content"
-                                                data-value="{ITEMS}">
-                                            Menu Items
-                                        </button>
-                                    </div>
-                                @elseif($template->getPage()?->getType() === \App\Ship\Parents\Models\PageInterface::BLOG_TYPE)
-                                    <div class="btn-group margin-10">
-                                        <button type="button" class="btn btn-info" id="insert-content"
-                                                data-value="{CONTENT_LIST}">Content
-                                        </button>
-                                    </div>
-                                @endif
-                                <div class="btn-group margin-10">
-                                    @if($template->getPage() !== null)
-                                        @foreach($template->getPage()?->getFields() as $field)
-                                            <button type="button" class="btn btn-default" id="page-field"
-                                                    data-id="{{$field->getId()}}">{{$field->getName()}}</button>
-                                        @endforeach
-                                    @endif
-                                </div>
-                                <textarea id="code-main" class="p-3">{{ $template->getName() }}1</textarea>
-                            </div>
-                            <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel"
-                                 aria-labelledby="custom-tabs-four-profile-tab">
-                                @if($template->getType() === \App\Ship\Parents\Models\TemplateInterface::MENU_TYPE)
-                                    <div class="btn-group margin-10">
-                                        <button type="button" class="btn btn-info" id="insert-content"
-                                                data-value="{LINK}">
-                                            Link URL
-                                        </button>
-                                        <button type="button" class="btn btn-info" id="insert-content"
-                                                data-value="{NAME}">Link Name
-                                        </button>
-                                    </div>
-                                @endif
-                                <div class="btn-group margin-10">
-                                    @if($template->getChildPage() !== null)
-                                        @foreach($template->getChildPage()?->getFields() as $field)
-                                            <button type="button" class="btn btn-default" id="page-field"
-                                                    data-id="{{$field->getId()}}">{{$field->getName()}}</button>
-                                        @endforeach
-                                    @endif
-                                </div>
-                                <textarea id="code-element" class="p-3">{{ $template->getName() }}2</textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.card -->
-                </div>--}}
             </div>
         </div>
         <div class="row">
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-body pad table-responsive col-12 col-md-3 align-self-end">
-                        <button id="submit" type="submit" class="btn btn-block btn-success" id="save-button">Save
+                        <button type="submit" class="btn btn-block btn-success" id="save-button">
+                            <i class="fas fa-circle-notch fa-spin" style="display: none;"></i>&nbsp;Save
                         </button>
                     </div>
                 </div>

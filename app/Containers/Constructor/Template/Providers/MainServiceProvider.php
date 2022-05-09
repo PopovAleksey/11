@@ -44,6 +44,8 @@ use App\Containers\Constructor\Template\Tasks\GetAllIncludableItemsTask;
 use App\Containers\Constructor\Template\Tasks\GetAllIncludableItemsTaskInterface;
 use App\Containers\Constructor\Template\Tasks\GetAllThemesTask;
 use App\Containers\Constructor\Template\Tasks\GetAllThemesTaskInterface;
+use App\Containers\Constructor\Template\Tasks\GetTemplatesFilepathTask;
+use App\Containers\Constructor\Template\Tasks\GetTemplatesFilepathTaskInterface;
 use App\Containers\Constructor\Template\Tasks\UpdateNameTemplateTask;
 use App\Containers\Constructor\Template\Tasks\UpdateNameTemplateTaskInterface;
 use App\Containers\Constructor\Template\Tasks\UpdateNameThemeTask;
@@ -101,6 +103,7 @@ class MainServiceProvider extends MainProvider
 
         $this->app->bind(GetAllThemesTaskInterface::class, GetAllThemesTask::class);
         $this->app->bind(GetAllIncludableItemsTaskInterface::class, GetAllIncludableItemsTask::class);
+        $this->app->bind(GetTemplatesFilepathTaskInterface::class, GetTemplatesFilepathTask::class);
         $this->app->bind(CreateThemeTaskInterface::class, CreateThemeTask::class);
         $this->app->bind(FindThemeByIdTaskInterface::class, FindThemeByIdTask::class);
         $this->app->bind(ActivateThemeTaskInterface::class, ActivateThemeTask::class);

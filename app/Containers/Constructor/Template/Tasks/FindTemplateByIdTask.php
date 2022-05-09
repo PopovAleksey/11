@@ -11,7 +11,6 @@ use App\Ship\Parents\Dto\ThemeDto;
 use App\Ship\Parents\Models\LanguageInterface;
 use App\Ship\Parents\Models\PageFieldInterface;
 use App\Ship\Parents\Models\PageInterface;
-use App\Ship\Parents\Models\TemplateInterface;
 use App\Ship\Parents\Models\ThemeInterface;
 use App\Ship\Parents\Repositories\TemplateRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
@@ -20,7 +19,10 @@ use Storage;
 
 class FindTemplateByIdTask extends Task implements FindTemplateByIdTaskInterface
 {
-    public function __construct(private TemplateRepositoryInterface $repository)
+    public function __construct(
+        private TemplateRepositoryInterface       $repository,
+        private GetTemplatesFilepathTaskInterface $getTemplatesFilepathTask
+    )
     {
     }
 
@@ -36,28 +38,11 @@ class FindTemplateByIdTask extends Task implements FindTemplateByIdTaskInterface
              * @var \App\Ship\Parents\Models\TemplateInterface $template
              */
             $template = $this->repository->find($id);
-            $theme    = $this->buildThemeDto($template->theme);
+            $theme    = $template->theme;
+            $storage  = Storage::disk('template');
 
-            [$folder, $type] = match ($template->type) {
-                TemplateInterface::CSS_TYPE => [
-                    config('constructor-template.folderName.css'),
-                    config('constructor-template.fileType.css'),
-                ],
-                TemplateInterface::JS_TYPE => [
-                    config('constructor-template.folderName.js'),
-                    config('constructor-template.fileType.js'),
-                ],
-                default => [
-                    config('constructor-template.folderName.view'),
-                    config('constructor-template.fileType.view'),
-                ],
-            };
-
-            $storage     = Storage::disk('template');
-            $commonFile  = implode('/', [$theme->getDirectory(), $folder, $template->common_filepath . $type]);
-            $elementFile = implode('/', [$theme->getDirectory(), $folder, $template->element_filepath . $type]);
-            $previewFile = implode('/', [$theme->getDirectory(), $folder, $template->preview_filepath . $type]);
-
+            [$commonFile, $elementFile, $previewFile] = $this->getTemplatesFilepathTask->run($template, $theme);
+            
             $commonHtml  = $storage->exists($commonFile) ? $storage->get($commonFile) : null;
             $elementHtml = $storage->exists($elementFile) ? $storage->get($elementFile) : null;
             $previewHtml = $storage->exists($previewFile) ? $storage->get($previewFile) : null;
@@ -70,7 +55,7 @@ class FindTemplateByIdTask extends Task implements FindTemplateByIdTaskInterface
                 ->setChildPageId($template->child_page_id)
                 ->setThemeId($template->theme_id)
                 ->setLanguageId($template->language_id)
-                ->setTheme($theme)
+                ->setTheme($this->buildThemeDto($theme))
                 ->setPage($this->buildPageDto($template->page))
                 ->setChildPage($this->buildPageDto($template->child_page))
                 ->setLanguage($this->buildLanguageDto($template->language))

@@ -29,6 +29,21 @@
                 code.replaceSelection(content);
             });
 
+            let Toast = Swal.mixin({
+                toast: true,
+                position: 'bottom',
+                showConfirmButton: false,
+                timer: 3000
+            });
+
+            document.onkeydown = (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                    e.preventDefault();
+                    saveTemplate(Toast, code.getValue());
+                }
+            }
+
+            $('button#save-button').on('click', () => saveTemplate(Toast, code.getValue()));
         });
     </script>
 @stop
@@ -51,7 +66,8 @@
                                 <button class="dropdown-item" href="#" id="insert-content"
                                         data-value="{JAVASCRIPT_{{ $item->getId() }}}">
                                     {{ $item->getName() }}
-                                    <sup>ID: {{ $item->getId() }} / Language: {{ $item->getLanguageId() ?? 'General' }}</sup>
+                                    <sup>ID: {{ $item->getId() }} /
+                                        Language: {{ $item->getLanguage()?->getName() ?? 'General' }}</sup>
                                 </button>
                             @endforeach
                         </div>
@@ -67,7 +83,8 @@
                                 <button class="dropdown-item" href="#" id="insert-content"
                                         data-value="{CSS_{{ $item->getId() }}}">
                                     {{ $item->getName() }}
-                                    <sup>ID: {{ $item->getId() }} / Language: {{ $item->getLanguageId() ?? 'General' }}</sup>
+                                    <sup>ID: {{ $item->getId() }} /
+                                        Language: {{ $item->getLanguage()?->getName() ?? 'General' }}</sup>
                                 </button>
                             @endforeach
                         </div>
@@ -83,7 +100,8 @@
                                 <button class="dropdown-item" href="#" id="insert-content"
                                         data-value="{MENU_{{ $item->getId() }}}">
                                     {{ $item->getName() }}
-                                    <sup>ID: {{ $item->getId() }} / Language: {{ $item->getLanguageId() ?? 'General' }}</sup>
+                                    <sup>ID: {{ $item->getId() }} /
+                                        Language: {{ $item->getLanguage()?->getName() ?? 'General' }}</sup>
                                 </button>
                             @endforeach
                         </div>
@@ -93,8 +111,9 @@
             <div class="btn-group margin-10">
                 @if($template->getPage() !== null)
                     @foreach($template->getPage()?->getFields() as $field)
-                        <button type="button" class="btn btn-default" id="page-field"
-                                data-id="{{$field->getId()}}">{{$field->getName()}}</button>
+                        <button type="button" class="btn btn-default" id="page-field" data-id="{{$field->getId()}}">
+                            {{$field->getName()}}&nbsp;<sup>ID: {{ $field->getId() }}</sup>
+                        </button>
                     @endforeach
                 @endif
             </div>
