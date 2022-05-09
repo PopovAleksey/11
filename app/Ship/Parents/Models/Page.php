@@ -40,9 +40,9 @@ class Page extends Model implements PageInterface
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Relations\HasOne|\App\Ship\Parents\Models\PageInterface
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Relations\HasOne|\App\Ship\Parents\Models\PageInterface|null
      */
-    public function getChildPageAttribute(): \Illuminate\Database\Eloquent\Model|HasOne|PageInterface
+    public function getChildPageAttribute(): \Illuminate\Database\Eloquent\Model|HasOne|PageInterface|null
     {
         return $this->hasOne(__CLASS__, 'parent_page_id')->first();
     }

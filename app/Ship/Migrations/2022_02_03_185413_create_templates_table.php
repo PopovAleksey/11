@@ -20,7 +20,7 @@ class CreateTemplatesTable extends Migration
                 TemplateInterface::MENU_TYPE,
                 TemplateInterface::PAGE_TYPE,
             ])->default(TemplateInterface::PAGE_TYPE);
-            $table->string('name')->nullable();
+            $table->string('name');
             $table->bigInteger('theme_id')->unsigned()->index('INDEX_templates_themes');
             $table->bigInteger('page_id')->unsigned()->nullable()->index('INDEX_templates_pages');
             $table->bigInteger('child_page_id')->unsigned()->nullable()->index('INDEX_templates_child_pages');

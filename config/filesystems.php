@@ -42,6 +42,12 @@ return [
     */
 
     'disks' => [
+        'template' => [
+            'driver' => 'local',
+            'root' => storage_path('templates'),
+            'url' => env('APP_URL'),
+            'visibility' => 'public',
+        ],
 
         'local' => [
             'driver' => 'local',

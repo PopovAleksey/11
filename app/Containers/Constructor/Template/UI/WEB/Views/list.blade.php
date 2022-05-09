@@ -176,6 +176,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
+                                <th>Directory</th>
                                 <th class="dt-center">Is Active</th>
                                 <th class="dt-right">Action</th>
                             </tr>
@@ -185,6 +186,7 @@
                                 <tr>
                                     <td>{{ $item->getId() }}</td>
                                     <td>{{ $item->getName() }}</td>
+                                    <td>{{ $item->getDirectory() }}</td>
                                     <td class="dt-center">
                                         <div class="bootstrap-switch-container" style="width: 126px; margin-left: 0px;">
                                             <input type="checkbox" name="my-checkbox"

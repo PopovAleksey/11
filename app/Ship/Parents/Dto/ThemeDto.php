@@ -8,9 +8,10 @@ use PopovAleksey\Mapper\Mapper;
 
 final class ThemeDto extends Mapper
 {
-    private ?int    $id     = null;
-    private ?string $name   = null;
-    private ?bool   $active = null;
+    private ?int    $id        = null;
+    private ?string $name      = null;
+    private ?string $directory = null;
+    private ?bool   $active    = null;
     /**
      * \App\Ship\Parents\Dto\TemplateDto[]
      * @var Collection|null
@@ -53,6 +54,24 @@ final class ThemeDto extends Mapper
     public function setName(?string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDirectory(): ?string
+    {
+        return $this->directory;
+    }
+
+    /**
+     * @param string|null $directory
+     */
+    public function setDirectory(?string $directory): self
+    {
+        $this->directory = $directory;
 
         return $this;
     }

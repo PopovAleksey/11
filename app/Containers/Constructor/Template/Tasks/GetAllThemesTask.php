@@ -20,6 +20,7 @@ class GetAllThemesTask extends Task implements GetAllThemesTaskInterface
             return (new ThemeDto())
                 ->setId($theme->id)
                 ->setName($theme->name)
+                ->setDirectory($theme->directory)
                 ->setActive($theme->active)
                 ->setCreateAt($theme->created_at)
                 ->setUpdateAt($theme->updated_at);

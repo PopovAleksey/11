@@ -10,6 +10,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder query()
  * @property integer                                       $id
  * @property string                                        $name
+ * @property string                                        $directory
  * @property bool                                          $active
  * @property Carbon                                        $created_at
  * @property Carbon                                        $updated_at

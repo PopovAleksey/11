@@ -22,7 +22,9 @@ class TemplateRepository extends Repository implements TemplateRepositoryInterfa
         'page_id'                 => '=',
         'child_page_id'           => '=',
         'language_id'             => '=',
-        'template_filepath'       => 'like',
+        'common_filepath'         => 'like',
+        'element_filepath'        => 'like',
+        'preview_filepath'        => 'like',
         'child_template_filepath' => 'like',
     ];
 

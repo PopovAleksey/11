@@ -11,7 +11,9 @@ class Template extends Model implements TemplateInterface
         'page_id',
         'child_page_id',
         'language_id',
-        'html',
+        'common_filepath',
+        'element_filepath',
+        'preview_filepath',
     ];
 
     protected $casts = [

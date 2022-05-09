@@ -11,4 +11,15 @@ return [
     |
     */
 
+    'folderName' => [
+        'css'  => 'css',
+        'js'   => 'js',
+        'view' => 'view',
+    ],
+
+    'fileType' => [
+        'css'  => '.css',
+        'js'   => '.js',
+        'view' => '.blade.php',
+    ],
 ];

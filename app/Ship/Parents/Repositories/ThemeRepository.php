@@ -10,9 +10,10 @@ class ThemeRepository extends Repository implements ThemeRepositoryInterface
      * @var array
      */
     protected $fieldSearchable = [
-        'id'     => '=',
-        'name'   => 'like',
-        'active' => '=',
+        'id'       => '=',
+        'name'     => 'like',
+        'directory' => 'like',
+        'active'   => '=',
     ];
 
     public function model(): string

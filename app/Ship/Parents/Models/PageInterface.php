@@ -16,7 +16,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon                                        $created_at
  * @property Carbon                                        $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection $fields
- * @property-read PageInterface                            $child_page
+ * @property-read PageInterface|null                       $child_page
  */
 interface PageInterface
 {

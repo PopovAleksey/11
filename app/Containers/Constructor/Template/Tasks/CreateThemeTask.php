@@ -8,6 +8,7 @@ use App\Ship\Parents\Models\ThemeInterface;
 use App\Ship\Parents\Repositories\ThemeRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
+use Storage;
 
 class CreateThemeTask extends Task implements CreateThemeTaskInterface
 {
@@ -25,6 +26,9 @@ class CreateThemeTask extends Task implements CreateThemeTaskInterface
                 ->findByField('active', true)
                 ->each(fn(ThemeInterface $theme) => $this->repository->update(['active' => false], $theme->id));
 
+            $directoryName = $this->createThemeTemplateDirectories($data->getName());
+            $data->setDirectory($directoryName);
+
             /**
              * @var ThemeInterface $theme
              */
@@ -40,6 +44,28 @@ class CreateThemeTask extends Task implements CreateThemeTaskInterface
         } catch (Exception) {
             throw new CreateResourceFailedException();
         }
+    }
+
+    /**
+     * @param string $themeName
+     * @return string
+     */
+    private function createThemeTemplateDirectories(string $themeName): string
+    {
+        $directoryName = preg_replace('/[^A-Za-z\d\-]/', '', ucwords(strtolower($themeName)));
+        $directoryName = lcfirst(str_replace(' ', '', $directoryName));
+
+        if (Storage::disk('template')->exists($directoryName) === true) {
+            return $this->createThemeTemplateDirectories($themeName . '-copy');
+        }
+
+        Storage::disk('template')->createDir($directoryName . '/' . config('constructor-template.folderName.css'));
+        Storage::disk('template')->createDir($directoryName . '/' . config('constructor-template.folderName.js'));
+        Storage::disk('template')->createDir($directoryName . '/' . config('constructor-template.folderName.view'));
+
+        Storage::disk('template')->put('.gitignore', "*\n\r!templates/\n\r!.gitignore");
+
+        return $directoryName;
     }
 }
 

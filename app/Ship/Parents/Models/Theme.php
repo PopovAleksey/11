@@ -8,13 +8,15 @@ class Theme extends Model implements ThemeInterface
 {
     protected $fillable = [
         'name',
+        'directory',
         'active',
     ];
 
     protected $casts = [
-        'id'     => 'integer',
-        'name'   => 'string',
-        'active' => 'boolean',
+        'id'        => 'integer',
+        'name'      => 'string',
+        'directory' => 'string',
+        'active'    => 'boolean',
     ];
 
     protected $dates = [

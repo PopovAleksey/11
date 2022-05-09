@@ -20,6 +20,10 @@ class CreateTemplateAction extends Action implements CreateTemplateActionInterfa
 
     public function run(TemplateDto $data): int
     {
+        #dd($data);
+
+        return $this->createTemplateTask->run($data);
+
         $templateId = $this->createTemplateTask->run($data);
 
         if ($pageId = $data->getPage()?->getId()) {
