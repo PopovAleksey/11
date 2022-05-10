@@ -14,4 +14,5 @@ interface ConfigurationCommonInterface
 {
     public const DEFAULT_INDEX    = 'default_index';
     public const DEFAULT_LANGUAGE = 'default_language';
+    public const DEFAULT_THEME    = 'default_theme';
 }

@@ -7,10 +7,12 @@ use PopovAleksey\Mapper\Mapper;
 
 final class ConfigurationCommonDto extends Mapper
 {
-    private ?Collection $languageList      = null;
+    private ?Collection $languageList          = null;
     private ?int        $defaultLanguageId     = null;
     private ?Collection $contentList           = null;
     private ?int        $defaultIndexContentId = null;
+    private ?Collection $themeList             = null;
+    private ?int        $defaultThemeId        = null;
 
     /**
      * @return \Illuminate\Support\Collection
@@ -84,6 +86,44 @@ final class ConfigurationCommonDto extends Mapper
     public function setDefaultIndexContentId(?int $defaultIndexContentId): self
     {
         $this->defaultIndexContentId = $defaultIndexContentId;
+
+        return $this;
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection|null
+     */
+    public function getThemeList(): ?Collection
+    {
+        return $this->themeList;
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection|null $themeList
+     * @return $this
+     */
+    public function setThemeList(?Collection $themeList): self
+    {
+        $this->themeList = $themeList;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getDefaultThemeId(): ?int
+    {
+        return $this->defaultThemeId;
+    }
+
+    /**
+     * @param int|null $defaultThemeId
+     * @return $this
+     */
+    public function setDefaultThemeId(?int $defaultThemeId): self
+    {
+        $this->defaultThemeId = $defaultThemeId;
 
         return $this;
     }

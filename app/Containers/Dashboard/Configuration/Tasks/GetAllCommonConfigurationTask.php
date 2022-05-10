@@ -5,13 +5,16 @@ namespace App\Containers\Dashboard\Configuration\Tasks;
 use App\Ship\Parents\Dto\ConfigurationCommonDto;
 use App\Ship\Parents\Dto\ContentValueDto;
 use App\Ship\Parents\Dto\LanguageDto;
+use App\Ship\Parents\Dto\ThemeDto;
 use App\Ship\Parents\Models\ConfigurationCommonInterface;
 use App\Ship\Parents\Models\ContentValueInterface;
 use App\Ship\Parents\Models\LanguageInterface;
+use App\Ship\Parents\Models\ThemeInterface;
 use App\Ship\Parents\Repositories\ConfigurationCommonRepositoryInterface;
 use App\Ship\Parents\Repositories\ContentRepositoryInterface;
 use App\Ship\Parents\Repositories\ContentValueRepositoryInterface;
 use App\Ship\Parents\Repositories\LanguageRepositoryInterface;
+use App\Ship\Parents\Repositories\ThemeRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Illuminate\Support\Collection;
 
@@ -22,12 +25,14 @@ class GetAllCommonConfigurationTask extends Task implements GetAllCommonConfigur
      * @param \App\Ship\Parents\Repositories\LanguageRepositoryInterface            $languageRepository
      * @param \App\Ship\Parents\Repositories\ContentRepositoryInterface             $contentRepository
      * @param \App\Ship\Parents\Repositories\ContentValueRepositoryInterface        $contentValueRepository
+     * @param \App\Ship\Parents\Repositories\ThemeRepositoryInterface               $themeRepository
      */
     public function __construct(
         private ConfigurationCommonRepositoryInterface $configurationCommonRepository,
         private LanguageRepositoryInterface            $languageRepository,
         private ContentRepositoryInterface             $contentRepository,
-        private ContentValueRepositoryInterface        $contentValueRepository
+        private ContentValueRepositoryInterface        $contentValueRepository,
+        private ThemeRepositoryInterface               $themeRepository
     )
     {
     }
@@ -39,7 +44,8 @@ class GetAllCommonConfigurationTask extends Task implements GetAllCommonConfigur
     {
         $configurationDto = (new ConfigurationCommonDto())
             ->setLanguageList($this->getLanguageList())
-            ->setContentList($this->getContentList());
+            ->setContentList($this->getContentList())
+            ->setThemeList($this->getThemeList());
 
         $this->configurationCommonRepository
             ->all()->collect()
@@ -47,6 +53,7 @@ class GetAllCommonConfigurationTask extends Task implements GetAllCommonConfigur
                 match ($configuration->config) {
                     ConfigurationCommonInterface::DEFAULT_LANGUAGE => $configurationDto->setDefaultLanguageId((int) $configuration->value),
                     ConfigurationCommonInterface::DEFAULT_INDEX => $configurationDto->setDefaultIndexContentId((int) $configuration->value),
+                    ConfigurationCommonInterface::DEFAULT_THEME => $configurationDto->setDefaultThemeId((int) $configuration->value),
                 };
             });
 
@@ -98,5 +105,23 @@ class GetAllCommonConfigurationTask extends Task implements GetAllCommonConfigur
                     ->setUpdateAt($value->updated_at);
             })
             ->values();
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    private function getThemeList(): Collection
+    {
+        return $this->themeRepository
+            ->findByField('active', true)->collect()
+            ->map(static function (ThemeInterface $theme) {
+                return (new ThemeDto())
+                    ->setId($theme->id)
+                    ->setName($theme->name)
+                    ->setActive($theme->active)
+                    ->setDirectory($theme->directory)
+                    ->setCreateAt($theme->created_at)
+                    ->setUpdateAt($theme->updated_at);
+            });
     }
 }

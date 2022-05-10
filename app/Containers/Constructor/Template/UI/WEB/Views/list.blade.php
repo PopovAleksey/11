@@ -73,7 +73,10 @@
                             },
 
                             success: function () {
-                                location.href = '{{ route('constructor_template_index') }}';
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: 'Success saved!'
+                                })
                             },
                             error: function (error) {
                                 Toast.fire({

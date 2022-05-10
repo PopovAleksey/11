@@ -13,6 +13,7 @@ class UpdateCommonConfigurationRequest extends Request
         return [
             ConfigurationCommonInterface::DEFAULT_LANGUAGE => ['required', 'integer'],
             ConfigurationCommonInterface::DEFAULT_INDEX    => ['required', 'integer'],
+            ConfigurationCommonInterface::DEFAULT_THEME    => ['required', 'integer'],
         ];
     }
 
@@ -20,6 +21,7 @@ class UpdateCommonConfigurationRequest extends Request
     {
         return (new ConfigurationCommonDto())
             ->setDefaultLanguageId(data_get($this->validated(), ConfigurationCommonInterface::DEFAULT_LANGUAGE))
-            ->setDefaultIndexContentId(data_get($this->validated(), ConfigurationCommonInterface::DEFAULT_INDEX));
+            ->setDefaultIndexContentId(data_get($this->validated(), ConfigurationCommonInterface::DEFAULT_INDEX))
+            ->setDefaultThemeId(data_get($this->validated(), ConfigurationCommonInterface::DEFAULT_THEME));
     }
 }

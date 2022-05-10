@@ -22,7 +22,7 @@ class UpdateCommonConfigurationTask extends Task implements UpdateCommonConfigur
      */
     public function run(ConfigurationCommonDto $data): void
     {
-        #try {
+        try {
             if ($data->getDefaultLanguageId() !== null) {
                 $this->repository->updateOrCreate(
                     ['config' => ConfigurationCommonInterface::DEFAULT_LANGUAGE],
@@ -37,9 +37,16 @@ class UpdateCommonConfigurationTask extends Task implements UpdateCommonConfigur
                 );
             }
 
+            if ($data->getDefaultThemeId() !== null) {
+                $this->repository->updateOrCreate(
+                    ['config' => ConfigurationCommonInterface::DEFAULT_THEME],
+                    ['value' => $data->getDefaultThemeId()]
+                );
+            }
 
-        /*} catch (Exception) {
+
+        } catch (Exception) {
             throw new UpdateResourceFailedException();
-        }*/
+        }
     }
 }

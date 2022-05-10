@@ -35,10 +35,12 @@
             });
 
             $('button#save-button').click(function () {
-                $('#save-button').prop("disabled", true);
+                $('button#save-button').prop("disabled", true);
+                $('button#save-button i').show();
 
                 let languageId = $('select[name="{{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_LANGUAGE }}"]').val();
                 let contentId = $('select[name="{{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_INDEX }}"]').val();
+                let themeId = $('select[name="{{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_THEME }}"]').val();
 
                 $.ajax({
                     url: '{{ route('dashboard_configuration_common_update') }}',
@@ -48,21 +50,24 @@
                     },
                     data: {
                         {{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_LANGUAGE }}: languageId,
-                        {{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_INDEX }}: contentId
+                        {{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_INDEX }}: contentId,
+                        {{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_THEME }}: themeId
                     },
                     success: function () {
                         Toast.fire({
                             icon: 'success',
                             title: 'Saved'
                         });
-                        $('#save-button').prop("disabled", false);
+                        $('button#save-button').prop("disabled", false);
+                        $('button#save-button i').hide();
                     },
                     error: function (error) {
                         Toast.fire({
                             icon: 'error',
                             title: error.responseJSON.message
                         });
-                        location.href = '{{ route('dashboard_configuration_common') }}';
+                        $('button#save-button').prop("disabled", false);
+                        $('button#save-button i').hide();
                     }
                 });
             });
@@ -80,7 +85,6 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
-
                         <div class="form-group">
                             <label>Default Language</label>
                             <select class="form-control select"
@@ -115,7 +119,24 @@
                                 @endforeach
                             </select>
                         </div>
-
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Default Theme</label>
+                            <select class="form-control select"
+                                    name="{{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_THEME }}"
+                                    style="width: 100%;">
+                                <option {{ $configs->getDefaultThemeId() === null ? 'selected="selected"' : '' }} disabled>
+                                    Choose Content
+                                </option>
+                                @foreach($configs->getThemeList() as $theme)
+                                    <option value="{{ $theme->getId() }}"
+                                            {{ $theme->getId() === $configs->getDefaultThemeId() ? 'selected="selected"' : '' }}>
+                                        {{ $theme->getName() }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <!-- /.col -->
                 </div>
@@ -123,7 +144,9 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-                <button id="save-button" class="btn btn-success float-right">Save</button>
+                <button id="save-button" class="btn btn-success float-right">
+                    <i class="fas fa-circle-notch fa-spin" style="display: none;"></i>&nbsp;Save
+                </button>
             </div>
         </div>
 
