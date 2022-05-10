@@ -6,5 +6,5 @@ use Illuminate\Support\Collection;
 
 interface GetAllContentsTaskInterface
 {
-    public function run(int $pageId): Collection;
+    public function run(int $pageId, ?int $parentContentId = null): Collection;
 }

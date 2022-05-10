@@ -8,22 +8,19 @@ use App\Containers\Dashboard\Content\Actions\CreateContentActionInterface;
 use App\Containers\Dashboard\Content\Actions\DeleteContentActionInterface;
 use App\Containers\Dashboard\Content\Actions\FindContentByIdActionInterface;
 use App\Containers\Dashboard\Content\Actions\GetAllContentActionInterface;
-use App\Containers\Dashboard\Content\Actions\GetMenuListActionInterface;
 use App\Containers\Dashboard\Content\Actions\UpdateContentActionInterface;
 use App\Containers\Dashboard\Content\UI\WEB\Requests\StoreContentRequest;
-use App\Ship\Parents\Controllers\WebController;
+use App\Ship\Parents\Controllers\DashboardController;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
-use Illuminate\Support\Collection;
 
-class Controller extends WebController
+class Controller extends DashboardController
 {
     public function __construct(
-        private GetMenuListActionInterface     $getMenuListAction,
         private FindPageByIdActionInterface    $findPageByIdAction,
         private GetAllLanguagesActionInterface $getAllLanguagesAction,
         private FindContentByIdActionInterface $findContentByIdAction,
@@ -52,28 +49,23 @@ class Controller extends WebController
     }
 
 
-    private function menuBuilder(): Collection
+    public function showPage(int $pageId, int $contentId = null): Factory|View|Application
     {
-        return collect(['menu' => $this->getMenuListAction->run()]);
-    }
-
-
-    public function showPage(int $pageId): Factory|View|Application
-    {
-        $contents = $this->getAllContentsAction->run($pageId);
+        $contents = $this->getAllContentsAction->run($pageId, $contentId);
         $field    = collect($contents->first()?->getPage()->getFields())->first();
 
         return view(
             'dashboard@content::list',
             $this->menuBuilder()->merge([
-                'pageId'   => $pageId,
-                'field'    => $field,
-                'contents' => $contents,
+                'pageId'    => $pageId,
+                'contentId' => $contentId,
+                'field'     => $field,
+                'contents'  => $contents,
             ]));
     }
 
 
-    public function create(int $pageId): View|Factory|Redirector|RedirectResponse|Application
+    public function create(int $pageId, int $contentId = null): View|Factory|Redirector|RedirectResponse|Application
     {
         $page      = $this->findPageByIdAction->run($pageId, withFields: true);
         $languages = $this->getAllLanguagesAction->run(getOnlyActive: true);
@@ -85,11 +77,12 @@ class Controller extends WebController
         return view(
             'dashboard@content::content-form',
             $this->menuBuilder()->merge([
-                'pageId'    => $pageId,
-                'contentId' => null,
-                'page'      => $page,
-                'values'    => [],
-                'languages' => $languages,
+                'pageId'          => $pageId,
+                'contentId'       => null,
+                'parentContentId' => $contentId,
+                'page'            => $page,
+                'values'          => [],
+                'languages'       => $languages,
             ]));
     }
 
@@ -102,11 +95,12 @@ class Controller extends WebController
         return view(
             'dashboard@content::content-form',
             $this->menuBuilder()->merge([
-                'pageId'    => $content->getPageId(),
-                'contentId' => $content->getId(),
-                'page'      => $content->getPage(),
-                'values'    => $content->getValues()->toArray(),
-                'languages' => $languages,
+                'pageId'          => $content->getPageId(),
+                'contentId'       => $content->getId(),
+                'parentContentId' => $contentId,
+                'page'            => $content->getPage(),
+                'values'          => $content->getValues()->toArray(),
+                'languages'       => $languages,
             ]));
     }
 

@@ -8,12 +8,14 @@ class Content extends Model implements ContentInterface
 {
     protected $fillable = [
         'page_id',
+        'parent_content_id',
         'active',
     ];
 
     protected $casts = [
-        'page_id' => 'integer',
-        'active'  => 'boolean',
+        'page_id'           => 'integer',
+        'parent_content_id' => 'integer',
+        'active'            => 'boolean',
     ];
 
     protected $dates = [

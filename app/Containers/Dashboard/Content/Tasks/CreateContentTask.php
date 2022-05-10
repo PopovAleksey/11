@@ -7,12 +7,16 @@ use App\Ship\Parents\Dto\ContentDto;
 use App\Ship\Parents\Dto\ContentValueDto;
 use App\Ship\Parents\Repositories\ContentRepositoryInterface;
 use App\Ship\Parents\Repositories\ContentValueRepositoryInterface;
+use App\Ship\Parents\Repositories\PageRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
+use phpDocumentor\Reflection\DocBlock\Tags\Throws;
+use Symfony\Component\Translation\Exception\InvalidResourceException;
 
 class CreateContentTask extends Task implements CreateContentTaskInterface
 {
     public function __construct(
+        private PageRepositoryInterface         $pageRepository,
         private ContentRepositoryInterface      $contentRepository,
         private ContentValueRepositoryInterface $contentValueRepository
     )
@@ -28,9 +32,19 @@ class CreateContentTask extends Task implements CreateContentTaskInterface
     {
         try {
             /**
+             * @var \App\Ship\Parents\Models\PageInterface    $page
              * @var \App\Ship\Parents\Models\ContentInterface $content
              */
-            $content = $this->contentRepository->create(['page_id' => $data->getPageId()]);
+            $page = $this->pageRepository->find($data->getPageId());
+
+            if ($page->parent_page_id !== null && $data->getParentContentId() === null) {
+                throw new InvalidResourceException('You cant\'t create child content without parent!');
+            }
+
+            $content = $this->contentRepository->create([
+                'page_id'           => $data->getPageId(),
+                'parent_content_id' => $data->getParentContentId(),
+            ]);
 
             $data->getValues()->each(function (ContentValueDto $valueDto) use ($content) {
                 $data = [
@@ -45,8 +59,8 @@ class CreateContentTask extends Task implements CreateContentTaskInterface
 
             return $content->id;
 
-        } catch (Exception) {
-            throw new CreateResourceFailedException();
+        } catch (Exception $exception) {
+            throw new CreateResourceFailedException($exception->getMessage());
         }
     }
 }

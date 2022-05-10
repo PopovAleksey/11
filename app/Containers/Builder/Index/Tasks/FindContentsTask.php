@@ -45,6 +45,7 @@ class FindContentsTask extends Task implements FindContentsTaskInterface
             return (new ContentDto())
                 ->setId($content->id)
                 ->setPageId($content->page_id)
+                ->setParentContentId($content->parent_content_id)
                 ->setActive($content->active)
                 ->setValues($contentValues)
                 ->setCreateAt($content->created_at)

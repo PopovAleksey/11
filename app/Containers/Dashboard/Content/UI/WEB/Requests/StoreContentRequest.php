@@ -12,6 +12,7 @@ class StoreContentRequest extends Request
     {
         return [
             'pageId'              => ['required', 'integer'],
+            'parentContentId'     => ['integer', 'nullable'],
             'values'              => ['required', 'array'],
             'values.*.languageId' => ['required', 'integer'],
             'values.*.fieldId'    => ['required', 'integer'],
@@ -32,6 +33,7 @@ class StoreContentRequest extends Request
 
         return (new ContentDto())
             ->setPageId(data_get($data, 'pageId'))
+            ->setParentContentId(data_get($data, 'parentContentId'))
             ->setValues($values->toArray());
     }
 }

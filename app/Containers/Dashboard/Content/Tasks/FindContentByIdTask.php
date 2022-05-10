@@ -50,6 +50,7 @@ class FindContentByIdTask extends Task implements FindContentByIdTaskInterface
             return (new ContentDto())
                 ->setId($content->id)
                 ->setPageId($content->page_id)
+                ->setParentContentId($content->parent_content_id)
                 ->setActive($content->active)
                 ->setValues($values->toArray())
                 ->setPage($page)

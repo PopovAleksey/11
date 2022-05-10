@@ -66,6 +66,7 @@
                     },
                     data: {
                         'pageId': {{ $pageId }},
+                        'parentContentId': {{ $parentContentId ?? 'null' }},
                         'values': result
                     },
                     success: function (response) {

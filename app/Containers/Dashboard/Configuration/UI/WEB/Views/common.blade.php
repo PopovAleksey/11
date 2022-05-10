@@ -84,7 +84,7 @@
         <div class="card card-default">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Default Language</label>
                             <select class="form-control select"
@@ -102,7 +102,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Index Content</label>
                             <select class="form-control select"
@@ -120,7 +120,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Default Theme</label>
                             <select class="form-control select"

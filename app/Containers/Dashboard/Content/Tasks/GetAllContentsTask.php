@@ -27,15 +27,26 @@ class GetAllContentsTask extends Task implements GetAllContentsTaskInterface
     }
 
     /**
-     * @param int $pageId
+     * @param int      $pageId
+     * @param int|null $parentContentId
      * @return \Illuminate\Support\Collection
      * @throws \App\Ship\Exceptions\NotFoundException
      */
-    public function run(int $pageId): Collection
+    public function run(int $pageId, ?int $parentContentId = null): Collection
     {
         try {
-            $pageDto    = null;
-            $contents   = $this->contentRepository->orderBy('created_at', 'desc')->findByField('page_id', $pageId);
+            $pageDto  = null;
+            $contents = $this->contentRepository->orderBy('created_at', 'desc');
+
+            if ($parentContentId === null) {
+                $contents = $contents->findByField('page_id', $pageId);
+            } else {
+                $contents = $contents->findWhere([
+                    'page_id'           => $pageId,
+                    'parent_content_id' => $parentContentId,
+                ]);
+            }
+
             $contentIds = $contents->map(fn(ContentInterface $content) => $content->id)->toArray();
             $values     = $this->contentValueRepository
                 ->findWhereIn('content_id', $contentIds)
@@ -58,6 +69,7 @@ class GetAllContentsTask extends Task implements GetAllContentsTaskInterface
                 return (new ContentDto())
                     ->setId($content->id)
                     ->setPageId($content->page_id)
+                    ->setParentContentId($content->parent_content_id)
                     ->setActive($content->active)
                     ->setPage($pageDto)
                     ->setValues($values->get($content->id)->toArray())

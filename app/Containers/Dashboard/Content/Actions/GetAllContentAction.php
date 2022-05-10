@@ -14,8 +14,8 @@ class GetAllContentAction extends Action implements GetAllContentActionInterface
     {
     }
 
-    public function run(int $pageId): Collection
+    public function run(int $pageId, ?int $parentContentId = null): Collection
     {
-        return $this->findContentByIdTask->run($pageId);
+        return $this->findContentByIdTask->run($pageId, $parentContentId);
     }
 }

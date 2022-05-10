@@ -10,6 +10,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder query()
  * @property integer                                       $id
  * @property integer                                       $page_id
+ * @property integer                                       $parent_content_id
  * @property boolean                                       $active
  * @property Carbon                                        $created_at
  * @property Carbon                                        $updated_at

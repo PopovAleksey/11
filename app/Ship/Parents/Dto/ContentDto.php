@@ -8,9 +8,10 @@ use PopovAleksey\Mapper\Mapper;
 
 final class ContentDto extends Mapper
 {
-    private ?int  $id      = null;
-    private ?int  $page_id = null;
-    private ?bool $active  = null;
+    private ?int  $id                = null;
+    private ?int  $page_id           = null;
+    private ?int  $parent_content_id = null;
+    private ?bool $active            = null;
     /**
      * \App\Ship\Parents\Dto\ContentValueDto[]
      * @var Collection|null
@@ -35,6 +36,25 @@ final class ContentDto extends Mapper
     public function setId(?int $id): self
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getParentContentId(): ?int
+    {
+        return $this->parent_content_id;
+    }
+
+    /**
+     * @param int|null $parent_content_id
+     * @return $this
+     */
+    public function setParentContentId(?int $parent_content_id): self
+    {
+        $this->parent_content_id = $parent_content_id;
 
         return $this;
     }

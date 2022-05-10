@@ -107,11 +107,19 @@
                 <div class="card">
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <button type="button" class="btn bg-gradient-primary btn-sm"
-                                onclick="location.href='{{ route('dashboard_content_create', $pageId) }}'">
-                            <i class="fas fa-add"></i>
-                            Add Content
-                        </button>
+                        @if ($contentId !== null)
+                            <button type="button" class="btn bg-gradient-primary btn-sm"
+                                    onclick="location.href='{{ route('dashboard_content_page_create', ['pageId' => $pageId, 'contentId' => $contentId]) }}'">
+                                <i class="fas fa-add"></i>
+                                Add Content
+                            </button>
+                        @else
+                            <button type="button" class="btn bg-gradient-primary btn-sm"
+                                    onclick="location.href='{{ route('dashboard_content_create', $pageId) }}'">
+                                <i class="fas fa-add"></i>
+                                Add Content
+                            </button>
+                        @endif
                         <table id="table-list" class="table table-bordered table-striped">
                             <thead>
                             <tr>
@@ -135,7 +143,7 @@
                                             <div class="btn-group">
                                                 @if ($content->getPage()->getType() === \App\Ship\Parents\Models\PageInterface::BLOG_TYPE)
                                                     <button type="button" class="btn bg-gradient-warning btn-sm"
-                                                            onclick="location.href='{{ route('dashboard_page_show', $content->getPage()->getChildPage()->getId()) }}'">
+                                                            onclick="location.href='{{ route('dashboard_page_content_show', ['id' => $content->getPage()->getChildPage()->getId(), 'contentId' => $content->getId()]) }}'">
                                                         <i class="fas fa-folder-open"></i>
                                                         View Content
                                                     </button>
