@@ -15,6 +15,7 @@ class Controller extends WebController
 
     public function index(?string $language = null, ?string $seoLink = null): string
     {
+        $var = [];
         return $this->buildTemplateAction->run($language, $seoLink);
     }
 }

@@ -5,36 +5,44 @@ namespace App\Containers\Builder\Index\Tasks;
 use App\Ship\Exceptions\NotFoundException;
 use App\Ship\Parents\Dto\TemplateDto;
 use App\Ship\Parents\Dto\ThemeDto;
+use App\Ship\Parents\Models\ConfigurationCommonInterface;
 use App\Ship\Parents\Models\TemplateInterface;
+use App\Ship\Parents\Models\ThemeInterface;
+use App\Ship\Parents\Repositories\ConfigurationCommonRepositoryInterface;
 use App\Ship\Parents\Repositories\TemplateRepositoryInterface;
 use App\Ship\Parents\Repositories\ThemeRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
+use Storage;
 
 class FindTemplatesTask extends Task implements FindTemplatesTaskInterface
 {
     public function __construct(
-        private ThemeRepositoryInterface    $themeRepository,
-        private TemplateRepositoryInterface $templateRepository
+        private ConfigurationCommonRepositoryInterface $configurationCommonRepository,
+        private ThemeRepositoryInterface               $themeRepository,
+        private TemplateRepositoryInterface            $templateRepository
     )
     {
     }
 
     /**
      * @param int $languageId
+     * @param int $pageId
      * @return \App\Ship\Parents\Dto\ThemeDto
      * @throws \App\Ship\Exceptions\NotFoundException
      */
-    public function run(int $languageId): ThemeDto
+    public function run(int $languageId, int $pageId): ThemeDto
     {
         try {
             /**
              * @var \App\Ship\Parents\Models\ThemeInterface $theme
+             * @var ConfigurationCommonInterface|null       $defaultTheme
              */
-            $theme       = $this->themeRepository->findWhere(['active' => true])->first();
-            $template    = $this->templateRepository->findByThemeAndLanguage($theme->id, $languageId);
-            $templateDto = $this->buildTemplateDto($template);
+            $defaultTheme = $this->configurationCommonRepository->findByField('config', ConfigurationCommonInterface::DEFAULT_THEME)->first();
+            $theme        = $this->themeRepository->findWhere(['id' => $defaultTheme->value, 'active' => true])->first();
+            $template     = $this->templateRepository->findByThemeAndLanguage($theme->id, $languageId, $pageId);
+            $templateDto  = $this->buildTemplateDto($theme, $template, $languageId);
 
             return (new ThemeDto())
                 ->setId($theme->id)
@@ -50,19 +58,47 @@ class FindTemplatesTask extends Task implements FindTemplatesTaskInterface
     }
 
     /**
+     * @param \App\Ship\Parents\Models\ThemeInterface  $theme
      * @param \Illuminate\Database\Eloquent\Collection $templates
      * @return \Illuminate\Support\Collection
      */
-    private function buildTemplateDto(Collection $templates): \Illuminate\Support\Collection
+    private function buildTemplateDto(ThemeInterface $theme, Collection $templates, int $languageId): \Illuminate\Support\Collection
     {
         return $templates
-            ->map(static function (TemplateInterface $template) {
+            ->map(static function (TemplateInterface $template) use ($theme) {
+                [$folder, $type] = match ($template->type) {
+                    TemplateInterface::CSS_TYPE => [
+                        config('constructor-template.folderName.css'),
+                        config('constructor-template.fileType.css'),
+                    ],
+                    TemplateInterface::JS_TYPE => [
+                        config('constructor-template.folderName.js'),
+                        config('constructor-template.fileType.js'),
+                    ],
+                    default => [
+                        config('constructor-template.folderName.view'),
+                        config('constructor-template.fileType.view'),
+                    ],
+                };
+
+                $commonFile  = implode('/', [$theme->directory, $folder, $template->common_filepath . $type]);
+                $elementFile = implode('/', [$theme->directory, $folder, $template->element_filepath . $type]);
+                $previewFile = implode('/', [$theme->directory, $folder, $template->preview_filepath . $type]);
+
+                $storage     = Storage::disk('template');
+                $commonHtml  = $storage->exists($commonFile) ? $storage->get($commonFile) : null;
+                $elementHtml = $storage->exists($elementFile) ? $storage->get($elementFile) : null;
+                $previewHtml = $storage->exists($previewFile) ? $storage->get($previewFile) : null;
+
                 return (new TemplateDto())
                     ->setId($template->id)
                     ->setType($template->type)
                     ->setCommonFilepath($template->common_filepath)
+                    ->setCommonHtml($commonHtml)
                     ->setElementFilepath($template->element_filepath)
+                    ->setElementHtml($elementHtml)
                     ->setPreviewFilepath($template->preview_filepath)
+                    ->setPreviewHtml($previewHtml)
                     ->setLanguageId($template->language_id)
                     ->setThemeId($template->theme_id)
                     ->setPageId($template->page_id)
@@ -70,6 +106,12 @@ class FindTemplatesTask extends Task implements FindTemplatesTaskInterface
                     ->setUpdateAt($template->updated_at);
             })
             ->groupBy(fn(TemplateDto $templateDto) => $templateDto->getType())
-            ->mapWithKeys(fn(\Illuminate\Support\Collection $templates, $type) => $type === TemplateInterface::PAGE_TYPE ? $templates : $templates->first());
+            ->map(static function (\Illuminate\Support\Collection $template, string $type) use ($languageId) {
+                return match ($type) {
+                    TemplateInterface::BASE_TYPE, TemplateInterface::PAGE_TYPE => $template->get($languageId) ?? $template->first(),
+                    TemplateInterface::MENU_TYPE => $template->keyBy(fn(TemplateDto $templateDto) => $templateDto->getId()),
+                    default => $template->values()
+                };
+            });
     }
 }

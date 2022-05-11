@@ -5,13 +5,15 @@ namespace App\Ship\Parents\Models;
 class ConfigurationMenu extends Model implements ConfigurationMenuInterface
 {
     protected $fillable = [
-        'content_id',
-        'order',
+        'name',
+        'active',
+        'template_id',
     ];
 
     protected $casts = [
-        'content_id' => 'integer',
-        'order'      => 'integer',
+        'name'        => 'string',
+        'active'      => 'boolean',
+        'template_id' => 'integer',
     ];
 
     protected $dates = [

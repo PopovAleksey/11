@@ -4,6 +4,8 @@ namespace App\Containers\Dashboard\Configuration\Providers;
 
 use App\Containers\Builder\Index\Tasks\BuildPageTask;
 use App\Containers\Builder\Index\Tasks\BuildPageTaskInterface;
+use App\Containers\Dashboard\Configuration\Actions\FindConfigurationByIdAction;
+use App\Containers\Dashboard\Configuration\Actions\FindConfigurationByIdActionInterface;
 use App\Containers\Dashboard\Configuration\Actions\GetAllCommonConfigurationAction;
 use App\Containers\Dashboard\Configuration\Actions\GetAllCommonConfigurationActionInterface;
 use App\Containers\Dashboard\Configuration\Actions\GetAllMenuConfigurationAction;
@@ -12,6 +14,8 @@ use App\Containers\Dashboard\Configuration\Actions\UpdateCommonConfigurationActi
 use App\Containers\Dashboard\Configuration\Actions\UpdateCommonConfigurationActionInterface;
 use App\Containers\Dashboard\Configuration\Actions\UpdateMenuConfigurationAction;
 use App\Containers\Dashboard\Configuration\Actions\UpdateMenuConfigurationActionInterface;
+use App\Containers\Dashboard\Configuration\Tasks\FindConfigurationByIdTask;
+use App\Containers\Dashboard\Configuration\Tasks\FindConfigurationByIdTaskInterface;
 use App\Containers\Dashboard\Configuration\Tasks\GetAllCommonConfigurationTask;
 use App\Containers\Dashboard\Configuration\Tasks\GetAllCommonConfigurationTaskInterface;
 use App\Containers\Dashboard\Configuration\Tasks\GetAllMenuConfigurationTask;
@@ -24,6 +28,8 @@ use App\Ship\Parents\Models\ConfigurationCommon;
 use App\Ship\Parents\Models\ConfigurationCommonInterface;
 use App\Ship\Parents\Models\ConfigurationMenu;
 use App\Ship\Parents\Models\ConfigurationMenuInterface;
+use App\Ship\Parents\Models\ConfigurationMenuItem;
+use App\Ship\Parents\Models\ConfigurationMenuItemInterface;
 use App\Ship\Parents\Models\Content;
 use App\Ship\Parents\Models\ContentInterface;
 use App\Ship\Parents\Models\ContentValue;
@@ -33,6 +39,8 @@ use App\Ship\Parents\Models\LanguageInterface;
 use App\Ship\Parents\Providers\MainProvider;
 use App\Ship\Parents\Repositories\ConfigurationCommonRepository;
 use App\Ship\Parents\Repositories\ConfigurationCommonRepositoryInterface;
+use App\Ship\Parents\Repositories\ConfigurationMenuItemRepository;
+use App\Ship\Parents\Repositories\ConfigurationMenuItemRepositoryInterface;
 use App\Ship\Parents\Repositories\ConfigurationMenuRepository;
 use App\Ship\Parents\Repositories\ConfigurationMenuRepositoryInterface;
 use App\Ship\Parents\Repositories\ContentRepository;
@@ -58,6 +66,7 @@ class MainServiceProvider extends MainProvider
     private function bindActions(): void
     {
         $this->app->bind(GetAllMenuConfigurationActionInterface::class, GetAllMenuConfigurationAction::class);
+        $this->app->bind(FindConfigurationByIdActionInterface::class, FindConfigurationByIdAction::class);
         $this->app->bind(GetAllCommonConfigurationActionInterface::class, GetAllCommonConfigurationAction::class);
         $this->app->bind(UpdateMenuConfigurationActionInterface::class, UpdateMenuConfigurationAction::class);
         $this->app->bind(UpdateCommonConfigurationActionInterface::class, UpdateCommonConfigurationAction::class);
@@ -66,6 +75,7 @@ class MainServiceProvider extends MainProvider
     private function bindTasks(): void
     {
         $this->app->bind(GetAllMenuConfigurationTaskInterface::class, GetAllMenuConfigurationTask::class);
+        $this->app->bind(FindConfigurationByIdTaskInterface::class, FindConfigurationByIdTask::class);
         $this->app->bind(GetAllCommonConfigurationTaskInterface::class, GetAllCommonConfigurationTask::class);
         $this->app->bind(UpdateMenuConfigurationTaskInterface::class, UpdateMenuConfigurationTask::class);
         $this->app->bind(UpdateCommonConfigurationTaskInterface::class, UpdateCommonConfigurationTask::class);
@@ -75,6 +85,7 @@ class MainServiceProvider extends MainProvider
     private function bindRepositories(): void
     {
         $this->app->bind(ConfigurationMenuRepositoryInterface::class, ConfigurationMenuRepository::class);
+        $this->app->bind(ConfigurationMenuItemRepositoryInterface::class, ConfigurationMenuItemRepository::class);
         $this->app->bind(ConfigurationCommonRepositoryInterface::class, ConfigurationCommonRepository::class);
         $this->app->bind(LanguageRepositoryInterface::class, LanguageRepository::class);
         $this->app->bind(ContentRepositoryInterface::class, ContentRepository::class);
@@ -84,6 +95,7 @@ class MainServiceProvider extends MainProvider
     private function bindModels(): void
     {
         $this->app->bind(ConfigurationMenuInterface::class, ConfigurationMenu::class);
+        $this->app->bind(ConfigurationMenuItemInterface::class, ConfigurationMenuItem::class);
         $this->app->bind(ConfigurationCommonInterface::class, ConfigurationCommon::class);
         $this->app->bind(LanguageInterface::class, Language::class);
         $this->app->bind(ContentInterface::class, Content::class);

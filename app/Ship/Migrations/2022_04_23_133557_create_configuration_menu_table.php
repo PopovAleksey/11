@@ -12,16 +12,17 @@ class CreateConfigurationMenuTable extends Migration
     {
         Schema::create('configuration_menus', static function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('content_id')->unsigned()->index('INDEX_configuration_menu_content');
-            $table->tinyInteger('order');
+            $table->string('name');
+            $table->boolean('active')->default(true);
+            $table->bigInteger('template_id')->nullable()->unique()->unsigned()->index('INDEX_configuration_menu_template');
 
             $table->timestamps();
 
-            $table->foreign('content_id', 'FK_configuration_menu_content_foreign')
+            $table->foreign('template_id', 'FK_configuration_menu_template_foreign')
                 ->references('id')
-                ->on('contents')
-                ->onUpdate('NO ACTION')
-                ->onDelete('CASCADE');
+                ->on('templates')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
         });
     }
 

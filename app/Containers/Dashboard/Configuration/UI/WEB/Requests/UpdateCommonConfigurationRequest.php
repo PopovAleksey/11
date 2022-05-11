@@ -11,9 +11,9 @@ class UpdateCommonConfigurationRequest extends Request
     public function rules(): array
     {
         return [
-            ConfigurationCommonInterface::DEFAULT_LANGUAGE => ['required', 'integer'],
-            ConfigurationCommonInterface::DEFAULT_INDEX    => ['required', 'integer'],
-            ConfigurationCommonInterface::DEFAULT_THEME    => ['required', 'integer'],
+            ConfigurationCommonInterface::DEFAULT_LANGUAGE => ['nullable', 'integer'],
+            ConfigurationCommonInterface::DEFAULT_INDEX    => ['nullable', 'integer'],
+            ConfigurationCommonInterface::DEFAULT_THEME    => ['nullable', 'integer'],
         ];
     }
 
