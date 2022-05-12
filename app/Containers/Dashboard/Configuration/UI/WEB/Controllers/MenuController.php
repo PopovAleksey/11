@@ -2,11 +2,13 @@
 
 namespace App\Containers\Dashboard\Configuration\UI\WEB\Controllers;
 
+use App\Containers\Dashboard\Configuration\Actions\ActivateMenuConfigurationActionInterface;
 use App\Containers\Dashboard\Configuration\Actions\CreateMenuConfigurationActionInterface;
 use App\Containers\Dashboard\Configuration\Actions\DeleteMenuConfigurationActionInterface;
 use App\Containers\Dashboard\Configuration\Actions\FindMenuConfigurationByIdActionInterface;
 use App\Containers\Dashboard\Configuration\Actions\GetAllMenuConfigurationActionInterface;
 use App\Containers\Dashboard\Configuration\Actions\UpdateMenuConfigurationActionInterface;
+use App\Containers\Dashboard\Configuration\UI\WEB\Requests\ActivateMenuRequest;
 use App\Containers\Dashboard\Configuration\UI\WEB\Requests\StoreMenuConfigurationRequest;
 use App\Containers\Dashboard\Configuration\UI\WEB\Requests\UpdateMenuConfigurationRequest;
 use App\Ship\Parents\Controllers\DashboardController;
@@ -21,6 +23,7 @@ class MenuController extends DashboardController
      * @param \App\Containers\Dashboard\Configuration\Actions\GetAllMenuConfigurationActionInterface   $allMenuConfigurationAction
      * @param \App\Containers\Dashboard\Configuration\Actions\FindMenuConfigurationByIdActionInterface $findConfigurationByIdAction
      * @param \App\Containers\Dashboard\Configuration\Actions\CreateMenuConfigurationActionInterface   $createMenuConfigurationAction
+     * @param \App\Containers\Dashboard\Configuration\Actions\ActivateMenuConfigurationActionInterface $activateMenuConfigurationAction
      * @param \App\Containers\Dashboard\Configuration\Actions\UpdateMenuConfigurationActionInterface   $updateMenuConfigurationAction
      * @param \App\Containers\Dashboard\Configuration\Actions\DeleteMenuConfigurationActionInterface   $deleteMenuConfigurationAction
      */
@@ -28,6 +31,7 @@ class MenuController extends DashboardController
         private GetAllMenuConfigurationActionInterface   $allMenuConfigurationAction,
         private FindMenuConfigurationByIdActionInterface $findConfigurationByIdAction,
         private CreateMenuConfigurationActionInterface   $createMenuConfigurationAction,
+        private ActivateMenuConfigurationActionInterface $activateMenuConfigurationAction,
         private UpdateMenuConfigurationActionInterface   $updateMenuConfigurationAction,
         private DeleteMenuConfigurationActionInterface   $deleteMenuConfigurationAction
     )
@@ -69,6 +73,20 @@ class MenuController extends DashboardController
         $menuId = $this->createMenuConfigurationAction->run($request->mapped());
 
         return response()->json(['id' => $menuId])->setStatusCode(200);
+    }
+
+    /**
+     * @param int                                                                         $id
+     * @param \App\Containers\Dashboard\Configuration\UI\WEB\Requests\ActivateMenuRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function activate(int $id, ActivateMenuRequest $request): JsonResponse
+    {
+        $data = $request->mapped()->setId($id);
+
+        $this->activateMenuConfigurationAction->run($data);
+
+        return response()->json()->setStatusCode(200);
     }
 
     /**

@@ -15,6 +15,10 @@ Route::post(config('apiato.link.dashboard') . '/configurations/menu', [MenuContr
     ->name('dashboard_configuration_menu_store')
     ->middleware(['auth:web']);
 
+Route::patch(config('apiato.link.constructor') . '/configurations/menu/{id}', [MenuController::class, 'activate'])
+    ->name('dashboard_configuration_menu_activate')
+    ->middleware(['auth:web']);
+
 Route::patch(config('apiato.link.dashboard') . '/configurations/menu/{id}', [MenuController::class, 'update'])
     ->name('dashboard_configuration_menu_update')
     ->middleware(['auth:web']);

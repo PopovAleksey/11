@@ -63,7 +63,7 @@
                 $(this).bootstrapSwitch('state', $(this).prop('checked'))
                     .on('switchChange.bootstrapSwitch', function (event, state) {
                         $.ajax({
-                            url: '{{ route('constructor_theme_activate', ':id') }}'.replace(':id', $(this).attr('data-id')),
+                            url: '{{ route('dashboard_configuration_menu_activate', ':id') }}'.replace(':id', $(this).attr('data-id')),
                             type: 'PATCH',
                             headers: {
                                 'X-CSRF-TOKEN': '{{ csrf_token() }}'

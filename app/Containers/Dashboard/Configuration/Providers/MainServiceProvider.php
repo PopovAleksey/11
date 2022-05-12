@@ -2,6 +2,8 @@
 
 namespace App\Containers\Dashboard\Configuration\Providers;
 
+use App\Containers\Dashboard\Configuration\Actions\ActivateMenuConfigurationAction;
+use App\Containers\Dashboard\Configuration\Actions\ActivateMenuConfigurationActionInterface;
 use App\Containers\Dashboard\Configuration\Actions\CreateMenuConfigurationAction;
 use App\Containers\Dashboard\Configuration\Actions\CreateMenuConfigurationActionInterface;
 use App\Containers\Dashboard\Configuration\Actions\DeleteMenuConfigurationAction;
@@ -16,6 +18,8 @@ use App\Containers\Dashboard\Configuration\Actions\UpdateCommonConfigurationActi
 use App\Containers\Dashboard\Configuration\Actions\UpdateCommonConfigurationActionInterface;
 use App\Containers\Dashboard\Configuration\Actions\UpdateMenuConfigurationAction;
 use App\Containers\Dashboard\Configuration\Actions\UpdateMenuConfigurationActionInterface;
+use App\Containers\Dashboard\Configuration\Tasks\ActivateMenuConfigurationTask;
+use App\Containers\Dashboard\Configuration\Tasks\ActivateMenuConfigurationTaskInterface;
 use App\Containers\Dashboard\Configuration\Tasks\CreateMenuConfigurationTask;
 use App\Containers\Dashboard\Configuration\Tasks\CreateMenuConfigurationTaskInterface;
 use App\Containers\Dashboard\Configuration\Tasks\DeleteMenuConfigurationTask;
@@ -77,6 +81,7 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(FindMenuConfigurationByIdActionInterface::class, FindMenuConfigurationByIdAction::class);
         $this->app->bind(GetAllCommonConfigurationActionInterface::class, GetAllCommonConfigurationAction::class);
         $this->app->bind(CreateMenuConfigurationActionInterface::class, CreateMenuConfigurationAction::class);
+        $this->app->bind(ActivateMenuConfigurationActionInterface::class, ActivateMenuConfigurationAction::class);
         $this->app->bind(UpdateMenuConfigurationActionInterface::class, UpdateMenuConfigurationAction::class);
         $this->app->bind(UpdateCommonConfigurationActionInterface::class, UpdateCommonConfigurationAction::class);
         $this->app->bind(DeleteMenuConfigurationActionInterface::class, DeleteMenuConfigurationAction::class);
@@ -89,6 +94,7 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(GetAllCommonConfigurationTaskInterface::class, GetAllCommonConfigurationTask::class);
         $this->app->bind(GetAllMenuTemplateTaskInterface::class, GetAllMenuTemplateTask::class);
         $this->app->bind(CreateMenuConfigurationTaskInterface::class, CreateMenuConfigurationTask::class);
+        $this->app->bind(ActivateMenuConfigurationTaskInterface::class, ActivateMenuConfigurationTask::class);
         $this->app->bind(UpdateMenuConfigurationTaskInterface::class, UpdateMenuConfigurationTask::class);
         $this->app->bind(UpdateCommonConfigurationTaskInterface::class, UpdateCommonConfigurationTask::class);
         $this->app->bind(DeleteMenuConfigurationTaskInterface::class, DeleteMenuConfigurationTask::class);
