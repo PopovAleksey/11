@@ -2,9 +2,12 @@
 
 namespace App\Containers\Dashboard\Configuration\UI\WEB\Controllers;
 
-use App\Containers\Dashboard\Configuration\Actions\FindConfigurationByIdActionInterface;
+use App\Containers\Dashboard\Configuration\Actions\CreateMenuConfigurationActionInterface;
+use App\Containers\Dashboard\Configuration\Actions\DeleteMenuConfigurationActionInterface;
+use App\Containers\Dashboard\Configuration\Actions\FindMenuConfigurationByIdActionInterface;
 use App\Containers\Dashboard\Configuration\Actions\GetAllMenuConfigurationActionInterface;
 use App\Containers\Dashboard\Configuration\Actions\UpdateMenuConfigurationActionInterface;
+use App\Containers\Dashboard\Configuration\UI\WEB\Requests\StoreMenuConfigurationRequest;
 use App\Containers\Dashboard\Configuration\UI\WEB\Requests\UpdateMenuConfigurationRequest;
 use App\Ship\Parents\Controllers\DashboardController;
 use Illuminate\Contracts\Foundation\Application;
@@ -15,14 +18,18 @@ use Illuminate\Http\JsonResponse;
 class MenuController extends DashboardController
 {
     /**
-     * @param \App\Containers\Dashboard\Configuration\Actions\GetAllMenuConfigurationActionInterface $allMenuConfigurationAction
-     * @param \App\Containers\Dashboard\Configuration\Actions\FindConfigurationByIdActionInterface   $findConfigurationByIdAction
-     * @param \App\Containers\Dashboard\Configuration\Actions\UpdateMenuConfigurationActionInterface $updateMenuConfigurationAction
+     * @param \App\Containers\Dashboard\Configuration\Actions\GetAllMenuConfigurationActionInterface   $allMenuConfigurationAction
+     * @param \App\Containers\Dashboard\Configuration\Actions\FindMenuConfigurationByIdActionInterface $findConfigurationByIdAction
+     * @param \App\Containers\Dashboard\Configuration\Actions\CreateMenuConfigurationActionInterface   $createMenuConfigurationAction
+     * @param \App\Containers\Dashboard\Configuration\Actions\UpdateMenuConfigurationActionInterface   $updateMenuConfigurationAction
+     * @param \App\Containers\Dashboard\Configuration\Actions\DeleteMenuConfigurationActionInterface   $deleteMenuConfigurationAction
      */
     public function __construct(
-        private GetAllMenuConfigurationActionInterface $allMenuConfigurationAction,
-        private FindConfigurationByIdActionInterface   $findConfigurationByIdAction,
-        private UpdateMenuConfigurationActionInterface $updateMenuConfigurationAction
+        private GetAllMenuConfigurationActionInterface   $allMenuConfigurationAction,
+        private FindMenuConfigurationByIdActionInterface $findConfigurationByIdAction,
+        private CreateMenuConfigurationActionInterface   $createMenuConfigurationAction,
+        private UpdateMenuConfigurationActionInterface   $updateMenuConfigurationAction,
+        private DeleteMenuConfigurationActionInterface   $deleteMenuConfigurationAction
     )
     {
     }
@@ -32,9 +39,14 @@ class MenuController extends DashboardController
      */
     public function index(): Factory|View|Application
     {
-        $list = $this->allMenuConfigurationAction->run();
+        $menu = $this->allMenuConfigurationAction->run();
 
-        return view('dashboard@configuration::menu-list', $this->menuBuilder()->merge(['list' => $list]));
+        return view(
+            'dashboard@configuration::menu-list',
+            $this->menuBuilder()->merge([
+                'templates' => $menu->get('templates'),
+                'list'      => $menu->get('list'),
+            ]));
     }
 
     /**
@@ -45,16 +57,39 @@ class MenuController extends DashboardController
     {
         $list = $this->findConfigurationByIdAction->run($id);
 
-        return view('dashboard@configuration::menu-edit', $this->menuBuilder()->merge(['list' => $list]));
+        return view('dashboard@configuration::menu-edit', $this->menuBuilder()->merge(['id' => $id, 'list' => $list]));
     }
 
     /**
+     * @param \App\Containers\Dashboard\Configuration\UI\WEB\Requests\StoreMenuConfigurationRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store(StoreMenuConfigurationRequest $request): JsonResponse
+    {
+        $menuId = $this->createMenuConfigurationAction->run($request->mapped());
+
+        return response()->json(['id' => $menuId])->setStatusCode(200);
+    }
+
+    /**
+     * @param int                                                                                    $id
      * @param \App\Containers\Dashboard\Configuration\UI\WEB\Requests\UpdateMenuConfigurationRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UpdateMenuConfigurationRequest $request): JsonResponse
+    public function update(int $id, UpdateMenuConfigurationRequest $request): JsonResponse
     {
         $this->updateMenuConfigurationAction->run($request->mapped());
+
+        return response()->json()->setStatusCode(200);
+    }
+
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(int $id): JsonResponse
+    {
+        $this->deleteMenuConfigurationAction->run($id);
 
         return response()->json()->setStatusCode(200);
     }

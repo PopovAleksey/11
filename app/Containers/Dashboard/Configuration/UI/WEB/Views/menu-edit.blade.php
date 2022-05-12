@@ -68,7 +68,7 @@
                 });
 
                 $.ajax({
-                    url: '{{ route('dashboard_configuration_menu_update') }}',
+                    url: '{{ route('dashboard_configuration_menu_update', $id) }}',
                     type: 'PATCH',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -88,7 +88,7 @@
                             icon: 'error',
                             title: error.responseJSON.message
                         });
-                        location.href = '{{ route('dashboard_configuration_menu') }}';
+                        location.href = '{{ route('dashboard_configuration_menu_edit', $id) }}';
                     }
                 });
             });

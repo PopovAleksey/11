@@ -11,9 +11,12 @@ class UpdateMenuConfigurationRequest extends Request
     public function rules(): array
     {
         return [
-            'list'             => ['required', 'array'],
-            'list.*.contentId' => ['required', 'integer'],
-            'list.*.order'     => ['required', 'integer'],
+            'name'              => ['nullable', 'string'],
+            'active'            => ['nullable', 'bool'],
+            'template_id'       => ['required', 'integer'],
+            'items'             => ['required', 'array'],
+            'items.*.contentId' => ['required', 'integer'],
+            'items.*.order'     => ['required', 'integer'],
         ];
     }
 

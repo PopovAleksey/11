@@ -4,6 +4,8 @@ namespace App\Containers\Builder\Index\Providers;
 
 use App\Containers\Builder\Index\Actions\BuildTemplateAction;
 use App\Containers\Builder\Index\Actions\BuildTemplateActionInterface;
+use App\Containers\Builder\Index\Tasks\BuildPageTask;
+use App\Containers\Builder\Index\Tasks\BuildPageTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindContentsTask;
 use App\Containers\Builder\Index\Tasks\FindContentsTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindLanguagesTask;
@@ -37,5 +39,6 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(FindContentsTaskInterface::class, FindContentsTask::class);
         $this->app->bind(FindTemplatesTaskInterface::class, FindTemplatesTask::class);
         $this->app->bind(FindMenuItemsTaskInterface::class, FindMenuItemsTask::class);
+        $this->app->bind(BuildPageTaskInterface::class, BuildPageTask::class);
     }
 }

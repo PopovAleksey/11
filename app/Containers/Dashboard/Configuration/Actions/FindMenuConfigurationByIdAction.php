@@ -2,13 +2,14 @@
 
 namespace App\Containers\Dashboard\Configuration\Actions;
 
+use App\Containers\Dashboard\Configuration\Tasks\FindMenuConfigurationByIdTaskInterface;
 use App\Ship\Parents\Actions\Action;
 use App\Ship\Parents\Dto\ConfigurationMenuDto;
 
-class FindConfigurationByIdAction extends Action implements FindConfigurationByIdActionInterface
+class FindMenuConfigurationByIdAction extends Action implements FindMenuConfigurationByIdActionInterface
 {
     public function __construct(
-        private FindConfigurationByIdTaskInterface $findConfigurationByIdTask
+        private FindMenuConfigurationByIdTaskInterface $findConfigurationByIdTask
     )
     {
     }

@@ -3,17 +3,102 @@
 namespace App\Ship\Parents\Dto;
 
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use PopovAleksey\Mapper\Mapper;
 
 final class ConfigurationMenuDto extends Mapper
 {
-    private ?int    $id         = null;
-    private ?int    $content_id = null;
-    private ?string $name       = null;
-    private ?bool   $inMenu     = null;
-    private ?int    $order      = null;
-    private ?Carbon $createAt   = null;
-    private ?Carbon $updateAt   = null;
+    private ?int    $id          = null;
+    private ?string $name        = null;
+    private ?bool   $active      = null;
+    private ?int    $template_id = null;
+    /**
+     * @var \App\Ship\Parents\Dto\TemplateDto|null
+     */
+    private ?TemplateDto $template = null;
+    /**
+     * \App\Ship\Parents\Dto\ConfigurationMenuItemDto[]
+     * @var \Illuminate\Support\Collection|null
+     */
+    private ?Collection $items    = null;
+    private ?Carbon     $createAt = null;
+    private ?Carbon     $updateAt = null;
+
+    /**
+     * @return \App\Ship\Parents\Dto\TemplateDto|null
+     */
+    public function getTemplate(): ?TemplateDto
+    {
+        return $this->template;
+    }
+
+    /**
+     * @param \App\Ship\Parents\Dto\TemplateDto|null $template
+     * @return $this
+     */
+    public function setTemplate(?TemplateDto $template): self
+    {
+        $this->template = $template;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param bool|null $active
+     * @return $this
+     */
+    public function setActive(?bool $active): self
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getTemplateId(): ?int
+    {
+        return $this->template_id;
+    }
+
+    /**
+     * @param int|null $template_id
+     * @return $this
+     */
+    public function setTemplateId(?int $template_id): self
+    {
+        $this->template_id = $template_id;
+
+        return $this;
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection|null
+     */
+    public function getItems(): ?Collection
+    {
+        return $this->items;
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection|null $items
+     * @return $this
+     */
+    public function setItems(?Collection $items): self
+    {
+        $this->items = $items;
+
+        return $this;
+    }
 
     /**
      * @return int
@@ -35,25 +120,6 @@ final class ConfigurationMenuDto extends Mapper
     }
 
     /**
-     * @return int|null
-     */
-    public function getContentId(): ?int
-    {
-        return $this->content_id;
-    }
-
-    /**
-     * @param int|null $content_id
-     * @return $this
-     */
-    public function setContentId(?int $content_id): self
-    {
-        $this->content_id = $content_id;
-
-        return $this;
-    }
-
-    /**
      * @return string|null
      */
     public function getName(): ?string
@@ -68,44 +134,6 @@ final class ConfigurationMenuDto extends Mapper
     public function setName(?string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function isInMenu(): ?bool
-    {
-        return $this->inMenu;
-    }
-
-    /**
-     * @param bool|null $inMenu
-     * @return $this
-     */
-    public function setInMenu(?bool $inMenu): self
-    {
-        $this->inMenu = $inMenu;
-
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getOrder(): ?int
-    {
-        return $this->order;
-    }
-
-    /**
-     * @param int|null $order
-     * @return $this
-     */
-    public function setOrder(?int $order): self
-    {
-        $this->order = $order;
 
         return $this;
     }

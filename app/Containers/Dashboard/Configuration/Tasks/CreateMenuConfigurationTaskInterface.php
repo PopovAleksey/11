@@ -4,7 +4,7 @@ namespace App\Containers\Dashboard\Configuration\Tasks;
 
 use App\Ship\Parents\Dto\ConfigurationMenuDto;
 
-interface FindConfigurationByIdTaskInterface
+interface CreateMenuConfigurationTaskInterface
 {
-    public function run(int $id): ConfigurationMenuDto;
+    public function run(ConfigurationMenuDto $data): int;
 }

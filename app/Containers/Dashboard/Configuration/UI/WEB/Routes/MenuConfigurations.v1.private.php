@@ -11,6 +11,14 @@ Route::get(config('apiato.link.dashboard') . '/configurations/menu/{id}', [MenuC
     ->name('dashboard_configuration_menu_edit')
     ->middleware(['auth:web']);
 
-Route::patch(config('apiato.link.dashboard') . '/configurations/menu', [MenuController::class, 'update'])
+Route::post(config('apiato.link.dashboard') . '/configurations/menu', [MenuController::class, 'store'])
+    ->name('dashboard_configuration_menu_store')
+    ->middleware(['auth:web']);
+
+Route::patch(config('apiato.link.dashboard') . '/configurations/menu/{id}', [MenuController::class, 'update'])
     ->name('dashboard_configuration_menu_update')
+    ->middleware(['auth:web']);
+
+Route::delete('configurations/{id}', [MenuController::class, 'destroy'])
+    ->name('dashboard_configuration_menu_destroy')
     ->middleware(['auth:web']);
