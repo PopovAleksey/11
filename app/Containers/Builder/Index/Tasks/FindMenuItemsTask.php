@@ -22,22 +22,27 @@ class FindMenuItemsTask extends Task implements FindMenuItemsTaskInterface
      * @return \Illuminate\Support\Collection
      * @throws \App\Ship\Exceptions\NotFoundException
      */
-    public function run(int $languageId): Collection
+    public function run(int $languageId, int $themeId): Collection
     {
         try {
             return $this->configurationMenuRepository
-                ->getLinkDataOfMenuItems($languageId)
+                ->getLinkDataOfMenuItems($languageId, $themeId)
                 ->map(static function (ConfigurationMenuInterface $configurationMenu) {
                     $link = route('builder_index_page', [
                         'language' => strtolower($configurationMenu->short_name),
                         'seoLink'  => $configurationMenu->link,
                     ]);
 
-                    return collect(['name' => $configurationMenu->value, 'link' => $link]);
-                });
+                    return collect([
+                        'template_id' => $configurationMenu->template_id,
+                        'menu_id'     => $configurationMenu->id,
+                        'name'        => $configurationMenu->value,
+                        'link'        => $link,
+                    ]);
+                })->groupBy('menu_id');
 
-        } catch (Exception) {
-            throw new NotFoundException();
+        } catch (Exception $exception) {
+            throw new NotFoundException($exception->getMessage());
         }
     }
 }

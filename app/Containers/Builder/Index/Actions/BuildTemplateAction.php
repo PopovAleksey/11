@@ -30,8 +30,8 @@ class BuildTemplateAction extends Action implements BuildTemplateActionInterface
     {
         $languageDto = $this->languageTask->run($language);
         $contentDto  = $this->contentTask->run($languageDto->getId(), $seoLink);
-        $themeDto    = $this->templateTask->run($languageDto->getId());
-        $menuList    = $this->menuItemsTask->run($languageDto->getId());
+        $themeDto    = $this->templateTask->run($languageDto->getId(), $contentDto->getPageId());
+        $menuList    = $this->menuItemsTask->run($languageDto->getId(), $themeDto->getId());
 
         return $this->buildPageTask->run($themeDto, $contentDto, $menuList);
     }

@@ -6,5 +6,5 @@ use Illuminate\Support\Collection;
 
 interface FindMenuItemsTaskInterface
 {
-    public function run(int $languageId): Collection;
+    public function run(int $languageId, int $themeId): Collection;
 }
