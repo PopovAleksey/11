@@ -2,8 +2,8 @@
 
 namespace App\Containers\Dashboard\Configuration\Actions;
 
-use App\Containers\Dashboard\Configuration\Tasks\GetAllMenuConfigurationTaskInterface;
-use App\Containers\Dashboard\Configuration\Tasks\GetAllMenuTemplateTaskInterface;
+use App\Containers\Dashboard\Configuration\Tasks\Menu\GetAllMenuConfigurationTaskInterface;
+use App\Containers\Dashboard\Configuration\Tasks\Menu\GetAllMenuTemplateTaskInterface;
 use App\Ship\Parents\Actions\Action;
 use Illuminate\Support\Collection;
 

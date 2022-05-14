@@ -2,7 +2,7 @@
 
 namespace App\Containers\Dashboard\Configuration\Actions;
 
-use App\Containers\Dashboard\Configuration\Tasks\ActivateMenuConfigurationTaskInterface;
+use App\Containers\Dashboard\Configuration\Tasks\Menu\ActivateMenuConfigurationTaskInterface;
 use App\Ship\Parents\Actions\Action;
 use App\Ship\Parents\Dto\ConfigurationMenuDto;
 

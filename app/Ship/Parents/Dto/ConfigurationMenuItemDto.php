@@ -8,6 +8,7 @@ use PopovAleksey\Mapper\Mapper;
 final class ConfigurationMenuItemDto extends Mapper
 {
     private ?int    $id         = null;
+    private ?string $name       = null;
     private ?int    $menu_id    = null;
     private ?int    $content_id = null;
     private ?int    $order      = null;
@@ -30,6 +31,25 @@ final class ConfigurationMenuItemDto extends Mapper
     public function setId(?int $id): self
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string|null $name
+     * @return $this
+     */
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
@@ -94,7 +114,7 @@ final class ConfigurationMenuItemDto extends Mapper
     /**
      * @return bool|null
      */
-    public function getInMenu(): ?bool
+    public function isInMenu(): ?bool
     {
         return $this->inMenu;
     }

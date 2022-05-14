@@ -73,8 +73,8 @@ class UpdateContentSeoLinkTask extends Task implements UpdateContentSeoLinkTaskI
 
             return true;
 
-        } catch (Exception) {
-            throw new CreateResourceFailedException();
+        } catch (Exception $exception) {
+            throw new CreateResourceFailedException($exception->getMessage());
         }
     }
 

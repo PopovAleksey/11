@@ -14,7 +14,7 @@ class CreateConfigurationMenuTable extends Migration
             $table->id();
             $table->string('name');
             $table->boolean('active')->default(true);
-            $table->bigInteger('template_id')->nullable()->unique()->unsigned()->index('INDEX_configuration_menu_template');
+            $table->bigInteger('template_id')->nullable()->unsigned()->index('INDEX_configuration_menu_template');
 
             $table->timestamps();
 

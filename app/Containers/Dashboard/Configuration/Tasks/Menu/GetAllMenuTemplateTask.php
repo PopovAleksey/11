@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Containers\Dashboard\Configuration\Tasks;
+namespace App\Containers\Dashboard\Configuration\Tasks\Menu;
 
 use App\Containers\Dashboard\Configuration\Data\Dto\ConfigurationDto;
 use App\Containers\Dashboard\Configuration\Data\Repositories\ConfigurationRepositoryInterface;

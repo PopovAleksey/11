@@ -1,7 +1,33 @@
 @extends('dashboard.base')
 
 @section('title', 'Configuration | Menu')
-@section('page-title', 'Menu Configuration')
+@section('page-title')
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Menu Name:</span>
+        </div>
+        <input type="text" class="form-control" placeholder="Enter Theme Name..." id="menu-name"
+               value="{{ $data->getName() }}"/>
+
+        <div class="input-group-prepend">
+            <span class="input-group-text">Template:</span>
+        </div>
+        <select class="form-control" id="menu-template">
+            <option disabled>Choose Template...</option>
+            @foreach($templates as $template)
+                <option value="{{ $template->getId() }}"{{ $template->getId() === $data->getTemplateId() ? 'selected' : ''}}>
+                    {{$template->getTheme()?->getName()}}: {{ $template->getName() }}
+                    / {{ $template->getLanguage()?->getName() ?? 'General' }}
+                </option>
+            @endforeach
+        </select>
+        <div class="input-group-append">
+            <button type="button" class="btn btn-warning" id="save-button">
+                <i class="fas fa-circle-notch fa-spin" style="display: none;"></i>&nbsp;Save
+            </button>
+        </div>
+    </div>
+@stop
 
 @section('css')
     <!-- SweetAlert2 -->
@@ -54,7 +80,8 @@
             });
 
             $('button#save-button').click(function () {
-                $('#save-button').prop("disabled", true);
+                $('button#save-button').prop("disabled", true);
+                $('button#save-button i').show();
 
                 let dataList = [];
                 let orderIndex = 1;
@@ -67,6 +94,9 @@
                     })
                 });
 
+                let menuName = $('input#menu-name').val();
+                let menuTemplate = $('select#menu-template').val();
+
                 $.ajax({
                     url: '{{ route('dashboard_configuration_menu_update', $id) }}',
                     type: 'PATCH',
@@ -74,21 +104,25 @@
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
                     data: {
-                        list: dataList
+                        name: menuName,
+                        template_id: menuTemplate,
+                        items: dataList
                     },
                     success: function () {
                         Toast.fire({
                             icon: 'success',
                             title: 'Saved'
                         });
-                        $('#save-button').prop("disabled", false);
+                        $('button#save-button').prop("disabled", false);
+                        $('button#save-button i').hide();
                     },
                     error: function (error) {
                         Toast.fire({
                             icon: 'error',
                             title: error.responseJSON.message
                         });
-                        location.href = '{{ route('dashboard_configuration_menu_edit', $id) }}';
+                        $('button#save-button').prop("disabled", false);
+                        $('button#save-button i').hide();
                     }
                 });
             });
@@ -123,37 +157,33 @@
                                     <h4>Available Links</h4>
                                     <ul class="list-group list-group-sortable-connected left-area">
                                         @foreach($list as $item)
-                                            @if($item->isInMenu() === false)
-                                                <li data-id="{{ $item->getContentId() }}"
-                                                    class="list-group-item list-group-item-secondary">
-                                                    <button class="btn bg-light btn-xs float-left left-button">
-                                                        &nbsp;<i class="fas fa-angle-left"></i>&nbsp;
-                                                    </button>
-                                                    {{ $item->getName() }}
-                                                    <button class="btn bg-light btn-xs float-right right-button">
-                                                        &nbsp;<i class="fas fa-angle-right"></i>&nbsp;
-                                                    </button>
-                                                </li>
-                                            @endif
+                                            <li data-id="{{ $item->getContentId() }}"
+                                                class="list-group-item list-group-item-secondary">
+                                                <button class="btn bg-light btn-xs float-left left-button">
+                                                    &nbsp;<i class="fas fa-angle-left"></i>&nbsp;
+                                                </button>
+                                                {{ $item->getName() }}
+                                                <button class="btn bg-light btn-xs float-right right-button">
+                                                    &nbsp;<i class="fas fa-angle-right"></i>&nbsp;
+                                                </button>
+                                            </li>
                                         @endforeach
                                     </ul>
                                 </div>
                                 <div class="col-sm-6">
                                     <h4>Links in Menu List</h4>
                                     <ul class="list-group list-group-sortable-connected right-area">
-                                        @foreach($list as $item)
-                                            @if($item->isInMenu() === true)
-                                                <li data-id="{{ $item->getContentId() }}"
-                                                    class="list-group-item list-group-item-secondary">
-                                                    <button class="btn bg-light btn-xs float-left left-button">
-                                                        &nbsp;<i class="fas fa-angle-left"></i>&nbsp;
-                                                    </button>
-                                                    {{ $item->getName() }}
-                                                    <button class="btn bg-light btn-xs float-right right-button">
-                                                        &nbsp;<i class="fas fa-angle-right"></i>&nbsp;
-                                                    </button>
-                                                </li>
-                                            @endif
+                                        @foreach($data->getItems() as $item)
+                                            <li data-id="{{ $item->getContentId() }}"
+                                                class="list-group-item list-group-item-secondary">
+                                                <button class="btn bg-light btn-xs float-left left-button">
+                                                    &nbsp;<i class="fas fa-angle-left"></i>&nbsp;
+                                                </button>
+                                                {{ $item->getName() }}
+                                                <button class="btn bg-light btn-xs float-right right-button">
+                                                    &nbsp;<i class="fas fa-angle-right"></i>&nbsp;
+                                                </button>
+                                            </li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -166,7 +196,9 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-                <button id="save-button" class="btn btn-success float-right">Save</button>
+                <button id="save-button" class="btn btn-success float-right">
+                    <i class="fas fa-circle-notch fa-spin" style="display: none;"></i>&nbsp;Save
+                </button>
             </div>
         </div>
 

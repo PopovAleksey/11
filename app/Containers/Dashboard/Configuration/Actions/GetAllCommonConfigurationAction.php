@@ -2,7 +2,7 @@
 
 namespace App\Containers\Dashboard\Configuration\Actions;
 
-use App\Containers\Dashboard\Configuration\Tasks\GetAllCommonConfigurationTaskInterface;
+use App\Containers\Dashboard\Configuration\Tasks\Common\GetAllCommonConfigurationTaskInterface;
 use App\Ship\Parents\Actions\Action;
 use App\Ship\Parents\Dto\ConfigurationCommonDto;
 

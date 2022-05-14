@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Containers\Dashboard\Configuration\Tasks;
+namespace App\Containers\Dashboard\Configuration\Tasks\Menu;
 
 use App\Ship\Exceptions\DeleteResourceFailedException;
 use App\Ship\Parents\Repositories\ConfigurationMenuRepositoryInterface;

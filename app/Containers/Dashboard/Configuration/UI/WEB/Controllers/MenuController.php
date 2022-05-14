@@ -59,9 +59,17 @@ class MenuController extends DashboardController
      */
     public function edit(int $id): Factory|View|Application
     {
-        $list = $this->findConfigurationByIdAction->run($id);
+        $menuConfiguration = $this->findConfigurationByIdAction->run($id);
 
-        return view('dashboard@configuration::menu-edit', $this->menuBuilder()->merge(['id' => $id, 'list' => $list]));
+        return view(
+            'dashboard@configuration::menu-edit',
+            $this->menuBuilder()->merge([
+                'id'        => $id,
+                'data'      => $menuConfiguration->get('data'),
+                'list'      => $menuConfiguration->get('list'),
+                'templates' => $menuConfiguration->get('templates'),
+            ])
+        );
     }
 
     /**
@@ -96,7 +104,7 @@ class MenuController extends DashboardController
      */
     public function update(int $id, UpdateMenuConfigurationRequest $request): JsonResponse
     {
-        $this->updateMenuConfigurationAction->run($request->mapped());
+        $this->updateMenuConfigurationAction->run($request->mapped()->setId($id));
 
         return response()->json()->setStatusCode(200);
     }

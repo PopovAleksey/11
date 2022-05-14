@@ -2,9 +2,9 @@
 
 namespace App\Containers\Dashboard\Configuration\Actions;
 
-use App\Containers\Dashboard\Configuration\Tasks\UpdateMenuConfigurationTaskInterface;
+use App\Containers\Dashboard\Configuration\Tasks\Menu\UpdateMenuConfigurationTaskInterface;
 use App\Ship\Parents\Actions\Action;
-use Illuminate\Support\Collection;
+use App\Ship\Parents\Dto\ConfigurationMenuDto;
 
 class UpdateMenuConfigurationAction extends Action implements UpdateMenuConfigurationActionInterface
 {
@@ -14,7 +14,7 @@ class UpdateMenuConfigurationAction extends Action implements UpdateMenuConfigur
     {
     }
 
-    public function run(Collection $data): bool
+    public function run(ConfigurationMenuDto $data): bool
     {
         return $this->updateConfigurationMenuTask->run($data);
     }

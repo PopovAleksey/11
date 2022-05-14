@@ -32,34 +32,28 @@ class TemplateRepository extends Repository implements TemplateRepositoryInterfa
     {
         return Template::class;
     }
-
+    
     /**
-     * @TODO Need reengineering
      * @param int $themeId
      * @param int $languageId
+     * @param int $pageId
      * @return \Illuminate\Database\Eloquent\Collection
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function findByThemeAndLanguage(int $themeId, int $languageId): Collection
+    public function findByThemeAndLanguage(int $themeId, int $languageId, int $pageId): Collection
     {
         return $this->makeModel()::query()
-            ->where(['theme_id' => $themeId])
-            ->where(static function (Builder $query) use ($themeId, $languageId) {
+            ->where('theme_id', $themeId)
+            ->where(static function (Builder $query) use ($pageId) {
                 $query
-                    ->orWhere(static function (Builder $query) use ($themeId, $languageId) {
-                        $query
-                            ->where('page_id', '!=', static function (\Illuminate\Database\Query\Builder $subQuery) use ($themeId, $languageId) {
-                                $subQuery
-                                    ->select('page_id')
-                                    ->from(app(self::class)->getTable())
-                                    ->where('theme_id', $themeId)
-                                    ->where('language_id', $languageId);
-                            })
-                            ->where('language_id', null)
-                            ->where('type', TemplateInterface::PAGE_TYPE);
-                    })
-                    ->orWhere('language_id', '!=', null)
-                    ->orWhere('type', '!=', TemplateInterface::PAGE_TYPE);
+                    ->orWhere('page_id', $pageId)
+                    ->orWhere('child_page_id', $pageId)
+                    ->orWhere('page_id', null);
+            })
+            ->where(static function (Builder $query) use ($languageId) {
+                $query
+                    ->orWhere('language_id', $languageId)
+                    ->orWhere('language_id', null);
             })->get();
     }
 

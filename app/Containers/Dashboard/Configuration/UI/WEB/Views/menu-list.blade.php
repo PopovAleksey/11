@@ -275,7 +275,8 @@
                                                     <option value="{{ $template->getId() }}">
                                                         {{ $template->getTheme()->getName() }}
                                                         : {{ $template->getName() }} /
-                                                        {{ $template->getLanguage()?->getName() ?? 'General' }}</option>
+                                                        {{ $template->getLanguage()?->getName() ?? 'General' }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>

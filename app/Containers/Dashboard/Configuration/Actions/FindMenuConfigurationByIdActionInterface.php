@@ -2,9 +2,9 @@
 
 namespace App\Containers\Dashboard\Configuration\Actions;
 
-use App\Ship\Parents\Dto\ConfigurationMenuDto;
+use Illuminate\Support\Collection;
 
 interface FindMenuConfigurationByIdActionInterface
 {
-    public function run(int $id): ConfigurationMenuDto;
+    public function run(int $id): Collection;
 }

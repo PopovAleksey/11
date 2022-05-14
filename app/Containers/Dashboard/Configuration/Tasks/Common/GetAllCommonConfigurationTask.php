@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Containers\Dashboard\Configuration\Tasks;
+namespace App\Containers\Dashboard\Configuration\Tasks\Common;
 
 use App\Ship\Parents\Dto\ConfigurationCommonDto;
 use App\Ship\Parents\Dto\ContentValueDto;

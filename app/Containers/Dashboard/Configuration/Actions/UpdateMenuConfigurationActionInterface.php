@@ -2,9 +2,9 @@
 
 namespace App\Containers\Dashboard\Configuration\Actions;
 
-use Illuminate\Support\Collection;
+use App\Ship\Parents\Dto\ConfigurationMenuDto;
 
 interface UpdateMenuConfigurationActionInterface
 {
-    public function run(Collection $data): bool;
+    public function run(ConfigurationMenuDto $data): bool;
 }
