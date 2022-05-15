@@ -107,7 +107,7 @@ class BuildPageTask extends Task implements BuildPageTaskInterface
         $html = $themeDto->getTemplates()?->get(TemplateInterface::PAGE_TYPE)?->getCommonHtml();
 
         $contentDto->getValues()->each(static function (ContentValueDto $valueDto) use (&$html) {
-            $html = str_replace("{FIELD_{$valueDto->getId()}}", $valueDto->getValue(), $html);
+            $html = str_replace("{FIELD_{$valueDto->getPageFieldId()}}", $valueDto->getValue(), $html);
         });
 
         return $html;
