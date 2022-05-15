@@ -32,7 +32,8 @@ class ConfigurationMenuRepository extends Repository implements ConfigurationMen
 
     /**
      * @param int $languageId
-     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     * @param int $themeId
+     * @return \Illuminate\Database\Eloquent\Collection|array
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function getLinkDataOfMenuItems(int $languageId, int $themeId): Collection|array
@@ -59,21 +60,6 @@ class ConfigurationMenuRepository extends Repository implements ConfigurationMen
             ->where('t.theme_id', $themeId)
             ->where('cv.page_field_id', DB::raw('s.page_field_id'))
             ->get();
-
-        return $this->makeModel()::query()
-            ->select('sl.link', 'cv.value', 'l.short_name')
-            ->from(app(self::class)->getTable(), 'cm')
-            ->crossJoin(app(ContentValueInterface::class)->getTable() . ' AS cv', 'cm.content_id', '=', 'cv.content_id')
-            ->crossJoin(app(ContentInterface::class)->getTable() . ' AS c', 'c.id', '=', 'cv.content_id')
-            ->leftJoin(app(SeoLinkInterface::class)->getTable() . ' AS sl', 'cm.content_id', '=', 'sl.content_id')
-            ->leftJoin(app(SeoInterface::class)->getTable() . ' AS s', 's.id', '=', 'sl.seo_id')
-            ->leftJoin(app(LanguageInterface::class)->getTable() . ' AS l', 'l.id', '=', 'cv.language_id')
-            ->where('s.page_field_id', DB::raw('`cv`.`page_field_id`'))
-            ->where('cv.language_id', $languageId)
-            ->where('s.language_id', DB::raw('`cv`.`language_id`'))
-            ->where('c.active', true)
-            ->dd();
-        //->get();
     }
 
     /**

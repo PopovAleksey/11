@@ -49,6 +49,7 @@ class FindTemplatesTask extends Task implements FindTemplatesTaskInterface
                 ->setName($theme->name)
                 ->setActive($theme->active)
                 ->setTemplates($templateDto)
+                ->setDirectory($theme->directory)
                 ->setCreateAt($theme->created_at)
                 ->setUpdateAt($theme->updated_at);
 
@@ -60,6 +61,7 @@ class FindTemplatesTask extends Task implements FindTemplatesTaskInterface
     /**
      * @param \App\Ship\Parents\Models\ThemeInterface  $theme
      * @param \Illuminate\Database\Eloquent\Collection $templates
+     * @param int                                      $languageId
      * @return \Illuminate\Support\Collection
      */
     private function buildTemplateDto(ThemeInterface $theme, Collection $templates, int $languageId): \Illuminate\Support\Collection
