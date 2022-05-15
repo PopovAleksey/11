@@ -8,8 +8,8 @@ use App\Ship\Parents\Models\ContentValueInterface;
 use App\Ship\Parents\Models\SeoInterface;
 use App\Ship\Parents\Models\SeoLinkInterface;
 use DB;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 
 class ContentValueRepository extends Repository implements ContentValueRepositoryInterface
 {
@@ -32,10 +32,10 @@ class ContentValueRepository extends Repository implements ContentValueRepositor
     /**
      * @param int         $languageId
      * @param string|null $seoLink
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Support\Collection
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function getContentByLanguageAndSeoLink(int $languageId, ?string $seoLink = null): Collection
+    public function getContentValuesByLanguageAndSeoLink(int $languageId, ?string $seoLink = null): Collection
     {
         $query = $this->makeModel()::query()
             ->select([DB::raw('DISTINCT `cv`.`page_field_id`'), 'cv.id', 'cv.language_id', 'cv.content_id', 'cv.value', 'cv.created_at', 'cv.updated_at'])
@@ -47,7 +47,8 @@ class ContentValueRepository extends Repository implements ContentValueRepositor
         if ($seoLink !== null) {
             return $query
                 ->where('sl.link', $seoLink)
-                ->get();
+                ->get()
+                ->collect();
         }
 
         return $query
@@ -57,7 +58,24 @@ class ContentValueRepository extends Repository implements ContentValueRepositor
                     ->from(app(ConfigurationCommonInterface::class)->getTable())
                     ->where('config', ConfigurationCommonInterface::DEFAULT_INDEX);
             })
-            ->get();
+            ->get()
+            ->collect();
+    }
+
+    /**
+     * @param int                                  $languageId
+     * @param array|\Illuminate\Support\Collection $contentIds
+     * @return \Illuminate\Support\Collection
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
+    public function getContentValuesByLanguageAndIds(int $languageId, array|Collection $contentIds): Collection
+    {
+        return $this->makeModel()::query()
+            ->from(app(ContentValueInterface::class)->getTable())
+            ->where('language_id', $languageId)
+            ->whereIn('content_id', collect($contentIds)->toArray())
+            ->get()
+            ->collect();
     }
 
     /**

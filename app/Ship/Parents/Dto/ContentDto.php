@@ -16,10 +16,15 @@ final class ContentDto extends Mapper
      * \App\Ship\Parents\Dto\ContentValueDto[]
      * @var Collection|null
      */
-    private ?Collection $values   = null;
-    private ?PageDto    $page     = null;
-    private ?Carbon     $createAt = null;
-    private ?Carbon     $updateAt = null;
+    private ?Collection $values = null;
+    /**
+     * \App\Ship\Parents\Dto\ContentDto[]
+     * @var Collection|null
+     */
+    private ?Collection $child_content = null;
+    private ?PageDto    $page          = null;
+    private ?Carbon     $createAt      = null;
+    private ?Carbon     $updateAt      = null;
 
     /**
      * @return int|null
@@ -113,6 +118,25 @@ final class ContentDto extends Mapper
     public function setValues(array|Collection $values): self
     {
         $this->values = collect($values);
+
+        return $this;
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection|null
+     */
+    public function getChildContent(): ?Collection
+    {
+        return $this->child_content ?? collect();
+    }
+
+    /**
+     * @param array|\Illuminate\Support\Collection $child_content
+     * @return $this
+     */
+    public function setChildContent(array|Collection $child_content): self
+    {
+        $this->child_content = collect($child_content);
 
         return $this;
     }

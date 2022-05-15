@@ -44,5 +44,13 @@ class Content extends Model implements ContentInterface
     {
         return $this->hasOne(Page::class, 'id', 'page_id')->first();
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getChildContentAttribute(): Collection
+    {
+        return $this->hasMany(__CLASS__, 'parent_content_id')->get();
+    }
 }
 

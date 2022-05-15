@@ -14,6 +14,7 @@ use Illuminate\Support\Carbon;
  * @property boolean                                       $active
  * @property Carbon                                        $created_at
  * @property Carbon                                        $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection $child_content
  * @property-read \Illuminate\Database\Eloquent\Collection $values
  * @property-read \App\Ship\Parents\Models\PageInterface   $page
  */

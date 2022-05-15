@@ -5,12 +5,13 @@ namespace App\Containers\Builder\Index\Tasks;
 use App\Ship\Exceptions\NotFoundException;
 use App\Ship\Parents\Dto\ContentDto;
 use App\Ship\Parents\Dto\ContentValueDto;
+use App\Ship\Parents\Models\ContentInterface;
 use App\Ship\Parents\Models\ContentValueInterface;
 use App\Ship\Parents\Repositories\ContentRepositoryInterface;
 use App\Ship\Parents\Repositories\ContentValueRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
 class FindContentsTask extends Task implements FindContentsTaskInterface
 {
@@ -30,7 +31,7 @@ class FindContentsTask extends Task implements FindContentsTaskInterface
     public function run(int $languageId, ?string $seoLink): ContentDto
     {
         try {
-            $contentValues = $this->contentValueRepository->getContentByLanguageAndSeoLink($languageId, $seoLink);
+            $contentValues = $this->contentValueRepository->getContentValuesByLanguageAndSeoLink($languageId, $seoLink);
 
             if ($contentValues->isEmpty()) {
                 throw new NotFoundException();
@@ -41,26 +42,37 @@ class FindContentsTask extends Task implements FindContentsTaskInterface
              */
             $content       = $this->contentRepository->find($contentValues->first()->content_id);
             $contentValues = $this->buildContentValuesDto($contentValues);
+            $contentDto    = $this->buildContentDto($content)->setValues($contentValues);
+            $childContent  = $content->child_content;
 
-            return (new ContentDto())
-                ->setId($content->id)
-                ->setPageId($content->page_id)
-                ->setParentContentId($content->parent_content_id)
-                ->setActive($content->active)
-                ->setValues($contentValues)
-                ->setCreateAt($content->created_at)
-                ->setUpdateAt($content->updated_at);
+            if ($childContent->count() === 0) {
+                return $contentDto;
+            }
 
-        } catch (Exception) {
-            throw new NotFoundException();
+            $childContentIds    = $childContent->keyBy('id')->keys();
+            $childContentValues = $this->contentValueRepository
+                ->getContentValuesByLanguageAndIds($languageId, $childContentIds->toArray())
+                ->groupBy('content_id');
+
+            $childContentList = $childContent->map(function (ContentInterface $content) use ($childContentValues) {
+                $childContentValuesList = $childContentValues->get($content->id);
+                $childContentValues     = $this->buildContentValuesDto($childContentValuesList ?? collect());
+
+                return $this->buildContentDto($content)->setValues($childContentValues);
+            });
+
+            return $contentDto->setChildContent($childContentList);
+
+        } catch (Exception $exception) {
+            throw new NotFoundException($exception->getMessage());
         }
     }
 
     /**
-     * @param \Illuminate\Database\Eloquent\Collection $contentValue
+     * @param \Illuminate\Support\Collection $contentValue
      * @return \Illuminate\Support\Collection
      */
-    private function buildContentValuesDto(Collection $contentValue): \Illuminate\Support\Collection
+    private function buildContentValuesDto(Collection $contentValue): Collection
     {
         return $contentValue
             ->map(static function (ContentValueInterface $contentValue) {
@@ -74,5 +86,20 @@ class FindContentsTask extends Task implements FindContentsTaskInterface
                     ->setUpdateAt($contentValue->updated_at);
             })
             ->values();
+    }
+
+    /**
+     * @param \App\Ship\Parents\Models\ContentInterface $content
+     * @return \App\Ship\Parents\Dto\ContentDto
+     */
+    private function buildContentDto(ContentInterface $content): ContentDto
+    {
+        return (new ContentDto())
+            ->setId($content->id)
+            ->setPageId($content->page_id)
+            ->setParentContentId($content->parent_content_id)
+            ->setActive($content->active)
+            ->setCreateAt($content->created_at)
+            ->setUpdateAt($content->updated_at);
     }
 }
