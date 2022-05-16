@@ -2,7 +2,7 @@
 
 namespace App\Containers\Builder\Index\Actions;
 
-use App\Containers\Builder\Index\Tasks\BuildPageTaskInterface;
+use App\Containers\Builder\Index\Tasks\Builder\BuildTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindContentsTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindLanguagesTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindMenuItemsTaskInterface;
@@ -15,7 +15,7 @@ class BuildTemplateAction extends Action implements BuildTemplateActionInterface
         private FindLanguagesTaskInterface $languageTask,
         private FindContentsTaskInterface  $contentTask,
         private FindTemplatesTaskInterface $templateTask,
-        private BuildPageTaskInterface     $buildPageTask,
+        private BuildTaskInterface         $buildTask,
         private FindMenuItemsTaskInterface $menuItemsTask
     )
     {
@@ -33,6 +33,6 @@ class BuildTemplateAction extends Action implements BuildTemplateActionInterface
         $themeDto    = $this->templateTask->run($languageDto->getId(), $contentDto->getPageId());
         $menuList    = $this->menuItemsTask->run($languageDto->getId(), $themeDto->getId());
 
-        return $this->buildPageTask->run($themeDto, $contentDto, $menuList);
+        return $this->buildTask->run($themeDto, $contentDto, $menuList);
     }
 }
