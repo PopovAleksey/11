@@ -2,12 +2,12 @@
 
 namespace App\Containers\Constructor\Template\UI\WEB\Controllers;
 
-use App\Containers\Constructor\Template\Actions\CreateTemplateActionInterface;
-use App\Containers\Constructor\Template\Actions\DeleteTemplateActionInterface;
-use App\Containers\Constructor\Template\Actions\FindTemplateByIdActionInterface;
 use App\Containers\Constructor\Template\Actions\GetAllIncludableItemsActionInterface;
-use App\Containers\Constructor\Template\Actions\UpdateNameTemplateActionInterface;
-use App\Containers\Constructor\Template\Actions\UpdateTemplateActionInterface;
+use App\Containers\Constructor\Template\Actions\Template\CreateTemplateActionInterface;
+use App\Containers\Constructor\Template\Actions\Template\DeleteTemplateActionInterface;
+use App\Containers\Constructor\Template\Actions\Template\FindTemplateByIdActionInterface;
+use App\Containers\Constructor\Template\Actions\Template\UpdateNameTemplateActionInterface;
+use App\Containers\Constructor\Template\Actions\Template\UpdateTemplateActionInterface;
 use App\Containers\Constructor\Template\UI\WEB\Requests\StoreTemplateRequest;
 use App\Containers\Constructor\Template\UI\WEB\Requests\UpdateNameTemplateRequest;
 use App\Containers\Constructor\Template\UI\WEB\Requests\UpdateTemplateRequest;
@@ -21,12 +21,12 @@ use Illuminate\Http\JsonResponse;
 class ControllerTemplate extends WebController
 {
     /**
-     * @param \App\Containers\Constructor\Template\Actions\GetAllIncludableItemsActionInterface $getAllIncludableItemsAction
-     * @param \App\Containers\Constructor\Template\Actions\CreateTemplateActionInterface        $createTemplateAction
-     * @param \App\Containers\Constructor\Template\Actions\FindTemplateByIdActionInterface      $findTemplateByIdAction
-     * @param \App\Containers\Constructor\Template\Actions\UpdateTemplateActionInterface        $updateTemplateAction
-     * @param \App\Containers\Constructor\Template\Actions\DeleteTemplateActionInterface        $deleteTemplateAction
-     * @param \App\Containers\Constructor\Template\Actions\UpdateNameTemplateActionInterface    $updateNameTemplateAction
+     * @param \App\Containers\Constructor\Template\Actions\GetAllIncludableItemsActionInterface       $getAllIncludableItemsAction
+     * @param \App\Containers\Constructor\Template\Actions\Template\CreateTemplateActionInterface     $createTemplateAction
+     * @param \App\Containers\Constructor\Template\Actions\Template\FindTemplateByIdActionInterface   $findTemplateByIdAction
+     * @param \App\Containers\Constructor\Template\Actions\Template\UpdateTemplateActionInterface     $updateTemplateAction
+     * @param \App\Containers\Constructor\Template\Actions\Template\DeleteTemplateActionInterface     $deleteTemplateAction
+     * @param \App\Containers\Constructor\Template\Actions\Template\UpdateNameTemplateActionInterface $updateNameTemplateAction
      */
     public function __construct(
         private GetAllIncludableItemsActionInterface $getAllIncludableItemsAction,

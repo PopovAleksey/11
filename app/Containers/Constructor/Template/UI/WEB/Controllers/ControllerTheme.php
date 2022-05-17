@@ -4,12 +4,12 @@ namespace App\Containers\Constructor\Template\UI\WEB\Controllers;
 
 use App\Containers\Constructor\Language\Actions\GetAllLanguagesActionInterface;
 use App\Containers\Constructor\Page\Actions\GetAllPagesActionInterface;
-use App\Containers\Constructor\Template\Actions\ActivateThemeActionInterface;
-use App\Containers\Constructor\Template\Actions\CreateThemeActionInterface;
-use App\Containers\Constructor\Template\Actions\DeleteThemeActionInterface;
-use App\Containers\Constructor\Template\Actions\FindThemeByIdActionInterface;
-use App\Containers\Constructor\Template\Actions\GetAllThemesActionInterface;
-use App\Containers\Constructor\Template\Actions\UpdateNameThemeActionInterface;
+use App\Containers\Constructor\Template\Actions\Theme\ActivateThemeActionInterface;
+use App\Containers\Constructor\Template\Actions\Theme\CreateThemeActionInterface;
+use App\Containers\Constructor\Template\Actions\Theme\DeleteThemeActionInterface;
+use App\Containers\Constructor\Template\Actions\Theme\FindThemeByIdActionInterface;
+use App\Containers\Constructor\Template\Actions\Theme\GetAllThemesActionInterface;
+use App\Containers\Constructor\Template\Actions\Theme\UpdateNameThemeActionInterface;
 use App\Containers\Constructor\Template\UI\WEB\Requests\ActivateThemeRequest;
 use App\Containers\Constructor\Template\UI\WEB\Requests\StoreThemeRequest;
 use App\Containers\Constructor\Template\UI\WEB\Requests\UpdateNameThemeRequest;
@@ -23,14 +23,14 @@ use Illuminate\Http\JsonResponse;
 class ControllerTheme extends WebController
 {
     /**
-     * @param \App\Containers\Constructor\Template\Actions\GetAllThemesActionInterface    $getAllThemesAction
-     * @param \App\Containers\Constructor\Template\Actions\CreateThemeActionInterface     $createThemeAction
-     * @param \App\Containers\Constructor\Template\Actions\FindThemeByIdActionInterface   $findThemeByIdAction
-     * @param \App\Containers\Constructor\Template\Actions\ActivateThemeActionInterface   $activateThemeAction
-     * @param \App\Containers\Constructor\Template\Actions\DeleteThemeActionInterface     $deleteThemeAction
-     * @param \App\Containers\Constructor\Page\Actions\GetAllPagesActionInterface         $getAllPagesAction
-     * @param \App\Containers\Constructor\Language\Actions\GetAllLanguagesActionInterface $getAllLanguagesAction
-     * @param \App\Containers\Constructor\Template\Actions\UpdateNameThemeActionInterface $updateNameThemeAction
+     * @param \App\Containers\Constructor\Template\Actions\Theme\GetAllThemesActionInterface    $getAllThemesAction
+     * @param \App\Containers\Constructor\Template\Actions\Theme\CreateThemeActionInterface     $createThemeAction
+     * @param \App\Containers\Constructor\Template\Actions\Theme\FindThemeByIdActionInterface   $findThemeByIdAction
+     * @param \App\Containers\Constructor\Template\Actions\Theme\ActivateThemeActionInterface   $activateThemeAction
+     * @param \App\Containers\Constructor\Template\Actions\Theme\DeleteThemeActionInterface     $deleteThemeAction
+     * @param \App\Containers\Constructor\Page\Actions\GetAllPagesActionInterface               $getAllPagesAction
+     * @param \App\Containers\Constructor\Language\Actions\GetAllLanguagesActionInterface       $getAllLanguagesAction
+     * @param \App\Containers\Constructor\Template\Actions\Theme\UpdateNameThemeActionInterface $updateNameThemeAction
      */
     public function __construct(
         private GetAllThemesActionInterface    $getAllThemesAction,
