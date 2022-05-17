@@ -3,15 +3,15 @@
 namespace App\Containers\Builder\Index\UI\WEB\Controllers;
 
 use App\Containers\Builder\Index\Actions\BuildTemplateActionInterface;
+use App\Containers\Builder\Index\Actions\GetContentCssOrJsActionInterface;
 use App\Ship\Parents\Controllers\WebController;
-use App\Ship\Parents\Models\TemplateInterface;
-use Storage;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use JetBrains\PhpStorm\NoReturn;
 
 class Controller extends WebController
 {
     public function __construct(
-        private BuildTemplateActionInterface $buildTemplateAction
+        private BuildTemplateActionInterface     $buildTemplateAction,
+        private GetContentCssOrJsActionInterface $getContentCssOrJsAction
     )
     {
     }
@@ -30,31 +30,17 @@ class Controller extends WebController
      * @param string $themeName
      * @param string $type
      * @param string $fileName
-     * @return string
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @return void
      */
-    public function cssFile(string $themeName, string $type, string $fileName): string
+    #[NoReturn]
+    public function file(string $themeName, string $type, string $fileName): void
     {
-        $folder = match ($type) {
-            TemplateInterface::CSS_TYPE => config('constructor-template.folderName.css'),
-            TemplateInterface::JS_TYPE => config('constructor-template.folderName.js')
-        };
+        $file = $this->getContentCssOrJsAction->run($themeName, $type, $fileName);
 
-        $contentType = match ($type) {
-            TemplateInterface::CSS_TYPE => 'text/css',
-            TemplateInterface::JS_TYPE => 'text/javascript'
-        };
+        header("Access-Control-Allow-Methods: GET");
+        header('Content-Type: ' . $file->get('type'));
 
-        $commonFile = implode('/', [$themeName, $folder, $fileName]);
-        $storage    = Storage::disk('template');
-
-        if ($storage->exists($commonFile)) {
-            header("Access-Control-Allow-Methods: GET");
-            header('Content-Type: ' . $contentType);
-            echo $storage->get($commonFile);
-            die;
-        }
-
-        throw new NotFoundHttpException();
+        echo $file->get('content');
+        die;
     }
 }
