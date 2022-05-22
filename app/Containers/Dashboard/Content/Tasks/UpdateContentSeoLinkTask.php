@@ -23,10 +23,10 @@ class UpdateContentSeoLinkTask extends Task implements UpdateContentSeoLinkTaskI
 
     /**
      * @param \App\Ship\Parents\Dto\ContentDto $data
-     * @return bool
+     * @return void
      * @throws \App\Ship\Exceptions\CreateResourceFailedException
      */
-    public function run(ContentDto $data): bool
+    public function run(ContentDto $data): void
     {
         try {
             $currentLinks = $this->seoLinkRepository->findByField('content_id', $data->getId())->keyBy('seo_id');
@@ -70,8 +70,6 @@ class UpdateContentSeoLinkTask extends Task implements UpdateContentSeoLinkTaskI
                         $this->seoLinkRepository->update(['link' => $seoLink], $updateLinkId);
                     }
                 });
-
-            return true;
 
         } catch (Exception $exception) {
             throw new CreateResourceFailedException($exception->getMessage());

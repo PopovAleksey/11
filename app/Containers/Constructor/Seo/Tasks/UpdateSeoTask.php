@@ -16,10 +16,10 @@ class UpdateSeoTask extends Task implements UpdateSeoTaskInterface
 
     /**
      * @param \App\Ship\Parents\Dto\SeoDto $data
-     * @return \App\Ship\Parents\Dto\SeoDto
+     * @return void
      * @throws \App\Ship\Exceptions\UpdateResourceFailedException
      */
-    public function run(SeoDto $data): SeoDto
+    public function run(SeoDto $data): void
     {
         try {
             if ($data->isActive() !== null) {
@@ -30,21 +30,7 @@ class UpdateSeoTask extends Task implements UpdateSeoTaskInterface
                 throw new UpdateResourceFailedException('Invalid update data!');
             }
 
-            /**
-             * @var \App\Ship\Parents\Models\SeoInterface $seo
-             */
-            $seo = $this->repository->update($update, $data->getId());
-
-            return (new SeoDto())
-                ->setId($seo->id)
-                ->setPageId($seo->page_id)
-                ->setPageFieldId($seo->page_field_id)
-                ->setLanguageId($seo->language_id)
-                ->setCaseType($seo->case_type)
-                ->setStatic($seo->static)
-                ->setActive($seo->active)
-                ->setCreateAt($seo->created_at)
-                ->setUpdateAt($seo->updated_at);
+            $this->repository->update($update, $data->getId());
 
         } catch (Exception) {
             throw new UpdateResourceFailedException();

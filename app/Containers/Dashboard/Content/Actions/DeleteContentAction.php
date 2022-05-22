@@ -13,9 +13,9 @@ class DeleteContentAction extends Action implements DeleteContentActionInterface
     {
     }
 
-    public function run(int $id): bool
+    public function run(int $id): void
     {
-        return $this->deleteContentTask->run($id);
+        $this->deleteContentTask->run($id);
     }
 }
 

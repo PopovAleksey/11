@@ -6,5 +6,5 @@ use App\Ship\Parents\Dto\TemplateDto;
 
 interface UpdateNameTemplateTaskInterface
 {
-    public function run(TemplateDto $data): bool;
+    public function run(TemplateDto $data): void;
 }

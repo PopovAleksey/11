@@ -2,7 +2,7 @@
 
 namespace App\Containers\Dashboard\Content\Actions;
 
-use App\Containers\Constructor\Page\Tasks\GetAllPagesTaskInterface;
+use App\Containers\Constructor\Page\Tasks\Page\GetAllPagesTaskInterface;
 use App\Ship\Parents\Actions\Action;
 use App\Ship\Parents\Dto\PageDto;
 use Illuminate\Support\Collection;

@@ -18,10 +18,10 @@ class UpdateContentTask extends Task implements UpdateContentTaskInterface
 
     /**
      * @param \App\Ship\Parents\Dto\ContentDto $contentDto
-     * @return bool
+     * @return void
      * @throws \App\Ship\Exceptions\UpdateResourceFailedException
      */
-    public function run(ContentDto $contentDto): bool
+    public function run(ContentDto $contentDto): void
     {
         try {
             $contentValueIds = [];
@@ -49,8 +49,6 @@ class UpdateContentTask extends Task implements UpdateContentTaskInterface
 
                 $this->repository->create($contentDto);
             });
-
-            return true;
 
         } catch (Exception) {
             throw new UpdateResourceFailedException();

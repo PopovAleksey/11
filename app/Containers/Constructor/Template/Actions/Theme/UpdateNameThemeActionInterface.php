@@ -6,5 +6,5 @@ use App\Ship\Parents\Dto\ThemeDto;
 
 interface UpdateNameThemeActionInterface
 {
-    public function run(ThemeDto $data): bool;
+    public function run(ThemeDto $data): void;
 }

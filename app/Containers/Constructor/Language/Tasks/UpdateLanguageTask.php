@@ -16,15 +16,14 @@ class UpdateLanguageTask extends Task implements UpdateLanguageTaskInterface
 
     /**
      * @param \App\Ship\Parents\Dto\LanguageDto $data
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Support\Collection|mixed
+     * @return void
      * @throws \App\Ship\Exceptions\UpdateResourceFailedException
      */
-    public function run(LanguageDto $data): mixed
+    public function run(LanguageDto $data): void
     {
         try {
-            return $this->repository->update([
-                'active' => $data->isActive(),
-            ], $data->getId());
+            $this->repository->update(['active' => $data->isActive()], $data->getId());
+            
         } catch (Exception) {
             throw new UpdateResourceFailedException();
         }

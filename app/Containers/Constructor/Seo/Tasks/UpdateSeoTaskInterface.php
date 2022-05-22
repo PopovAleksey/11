@@ -6,5 +6,5 @@ use App\Ship\Parents\Dto\SeoDto;
 
 interface UpdateSeoTaskInterface
 {
-    public function run(SeoDto $data): SeoDto;
+    public function run(SeoDto $data): void;
 }

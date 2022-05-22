@@ -11,10 +11,8 @@ class DeleteLanguageAction extends Action implements DeleteLanguageActionInterfa
     {
     }
 
-    public function run(int $id): bool
+    public function run(int $id): void
     {
         $this->deleteLanguageTask->run($id);
-
-        return true;
     }
 }

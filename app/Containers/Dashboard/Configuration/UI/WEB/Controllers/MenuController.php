@@ -2,12 +2,12 @@
 
 namespace App\Containers\Dashboard\Configuration\UI\WEB\Controllers;
 
-use App\Containers\Dashboard\Configuration\Actions\ActivateMenuConfigurationActionInterface;
-use App\Containers\Dashboard\Configuration\Actions\CreateMenuConfigurationActionInterface;
-use App\Containers\Dashboard\Configuration\Actions\DeleteMenuConfigurationActionInterface;
-use App\Containers\Dashboard\Configuration\Actions\FindMenuConfigurationByIdActionInterface;
-use App\Containers\Dashboard\Configuration\Actions\GetAllMenuConfigurationActionInterface;
-use App\Containers\Dashboard\Configuration\Actions\UpdateMenuConfigurationActionInterface;
+use App\Containers\Dashboard\Configuration\Actions\Menu\ActivateMenuConfigurationActionInterface;
+use App\Containers\Dashboard\Configuration\Actions\Menu\CreateMenuConfigurationActionInterface;
+use App\Containers\Dashboard\Configuration\Actions\Menu\DeleteMenuConfigurationActionInterface;
+use App\Containers\Dashboard\Configuration\Actions\Menu\FindMenuConfigurationByIdActionInterface;
+use App\Containers\Dashboard\Configuration\Actions\Menu\GetAllMenuConfigurationActionInterface;
+use App\Containers\Dashboard\Configuration\Actions\Menu\UpdateMenuConfigurationActionInterface;
 use App\Containers\Dashboard\Configuration\UI\WEB\Requests\ActivateMenuRequest;
 use App\Containers\Dashboard\Configuration\UI\WEB\Requests\StoreMenuConfigurationRequest;
 use App\Containers\Dashboard\Configuration\UI\WEB\Requests\UpdateMenuConfigurationRequest;
@@ -20,12 +20,12 @@ use Illuminate\Http\JsonResponse;
 class MenuController extends DashboardController
 {
     /**
-     * @param \App\Containers\Dashboard\Configuration\Actions\GetAllMenuConfigurationActionInterface   $allMenuConfigurationAction
-     * @param \App\Containers\Dashboard\Configuration\Actions\FindMenuConfigurationByIdActionInterface $findConfigurationByIdAction
-     * @param \App\Containers\Dashboard\Configuration\Actions\CreateMenuConfigurationActionInterface   $createMenuConfigurationAction
-     * @param \App\Containers\Dashboard\Configuration\Actions\ActivateMenuConfigurationActionInterface $activateMenuConfigurationAction
-     * @param \App\Containers\Dashboard\Configuration\Actions\UpdateMenuConfigurationActionInterface   $updateMenuConfigurationAction
-     * @param \App\Containers\Dashboard\Configuration\Actions\DeleteMenuConfigurationActionInterface   $deleteMenuConfigurationAction
+     * @param \App\Containers\Dashboard\Configuration\Actions\Menu\GetAllMenuConfigurationActionInterface   $allMenuConfigurationAction
+     * @param \App\Containers\Dashboard\Configuration\Actions\Menu\FindMenuConfigurationByIdActionInterface $findConfigurationByIdAction
+     * @param \App\Containers\Dashboard\Configuration\Actions\Menu\CreateMenuConfigurationActionInterface   $createMenuConfigurationAction
+     * @param \App\Containers\Dashboard\Configuration\Actions\Menu\ActivateMenuConfigurationActionInterface $activateMenuConfigurationAction
+     * @param \App\Containers\Dashboard\Configuration\Actions\Menu\UpdateMenuConfigurationActionInterface   $updateMenuConfigurationAction
+     * @param \App\Containers\Dashboard\Configuration\Actions\Menu\DeleteMenuConfigurationActionInterface   $deleteMenuConfigurationAction
      */
     public function __construct(
         private GetAllMenuConfigurationActionInterface   $allMenuConfigurationAction,

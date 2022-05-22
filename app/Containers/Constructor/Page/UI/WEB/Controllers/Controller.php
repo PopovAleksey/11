@@ -18,6 +18,14 @@ use Illuminate\Http\JsonResponse;
 
 class Controller extends WebController
 {
+    /**
+     * @param \App\Containers\Constructor\Page\Actions\GetAllPagesActionInterface  $getAllPagesAction
+     * @param \App\Containers\Constructor\Page\Actions\CreatePageActionInterface   $createPageAction
+     * @param \App\Containers\Constructor\Page\Actions\FindPageByIdActionInterface $findPageByIdAction
+     * @param \App\Containers\Constructor\Page\Actions\UpdatePageActionInterface   $updatePageAction
+     * @param \App\Containers\Constructor\Page\Actions\DeletePageActionInterface   $deletePageAction
+     * @param \App\Containers\Constructor\Page\Actions\ActivatePageActionInterface $activatePageAction
+     */
     public function __construct(
         private GetAllPagesActionInterface  $getAllPagesAction,
         private CreatePageActionInterface   $createPageAction,
@@ -30,6 +38,9 @@ class Controller extends WebController
     }
 
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+     */
     public function index(): Factory|View|Application
     {
         return view('constructor@page::list', [
@@ -38,6 +49,10 @@ class Controller extends WebController
     }
 
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+     */
     public function edit(int $id): Factory|View|Application
     {
         $page = $this->findPageByIdAction->run($id, withFields: true);
@@ -46,6 +61,10 @@ class Controller extends WebController
     }
 
 
+    /**
+     * @param \App\Containers\Constructor\Page\UI\WEB\Requests\StorePageRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(StorePageRequest $request): JsonResponse
     {
         $pageId = $this->createPageAction->run($request->mapped());
@@ -56,10 +75,14 @@ class Controller extends WebController
     }
 
 
+    /**
+     * @param int                                                                $id
+     * @param \App\Containers\Constructor\Page\UI\WEB\Requests\UpdatePageRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(int $id, UpdatePageRequest $request): JsonResponse
     {
         $data = $request->mapped()->setId($id);
-
         $page = $this->updatePageAction->run($data);
 
         return response()
@@ -68,10 +91,14 @@ class Controller extends WebController
     }
 
 
+    /**
+     * @param int                                                                $id
+     * @param \App\Containers\Constructor\Page\UI\WEB\Requests\UpdatePageRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function activate(int $id, UpdatePageRequest $request): JsonResponse
     {
         $data = $request->mapped()->setId($id);
-
         $page = $this->activatePageAction->run($data);
 
         return response()
@@ -80,6 +107,10 @@ class Controller extends WebController
     }
 
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function destroy(int $id): JsonResponse
     {
         $this->deletePageAction->run($id);

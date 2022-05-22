@@ -2,7 +2,7 @@
 
 namespace App\Containers\Constructor\Page\Actions;
 
-use App\Containers\Constructor\Page\Tasks\CreatePageTaskInterface;
+use App\Containers\Constructor\Page\Tasks\Page\CreatePageTaskInterface;
 use App\Ship\Parents\Actions\Action;
 use App\Ship\Parents\Dto\PageDto;
 

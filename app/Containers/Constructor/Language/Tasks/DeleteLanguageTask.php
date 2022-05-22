@@ -18,10 +18,10 @@ class DeleteLanguageTask extends Task implements DeleteLanguageTaskInterface
      * @return int|null
      * @throws \App\Ship\Exceptions\DeleteResourceFailedException
      */
-    public function run($id): ?int
+    public function run($id): void
     {
         try {
-            return $this->repository->delete($id);
+            $this->repository->delete($id);
         } catch (Exception) {
             throw new DeleteResourceFailedException();
         }

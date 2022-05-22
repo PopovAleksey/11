@@ -15,17 +15,15 @@ class UpdateLanguageAction extends Action implements UpdateLanguageActionInterfa
 
     /**
      * @param \App\Ship\Parents\Dto\LanguageDto $data
-     * @return bool
+     * @return void
      * @throws \App\Ship\Exceptions\ValidationFailedException
      */
-    public function run(LanguageDto $data): bool
+    public function run(LanguageDto $data): void
     {
-        if ($data->getId() === NULL) {
+        if ($data->getId() === null) {
             throw new ValidationFailedException();
         }
 
         $this->languageTask->run($data);
-
-        return true;
     }
 }

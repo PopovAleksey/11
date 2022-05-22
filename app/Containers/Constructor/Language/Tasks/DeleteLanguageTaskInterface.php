@@ -4,5 +4,5 @@ namespace App\Containers\Constructor\Language\Tasks;
 
 interface DeleteLanguageTaskInterface
 {
-    public function run($id): ?int;
+    public function run($id): void;
 }

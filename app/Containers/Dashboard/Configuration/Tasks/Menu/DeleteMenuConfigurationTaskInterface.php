@@ -4,5 +4,5 @@ namespace App\Containers\Dashboard\Configuration\Tasks\Menu;
 
 interface DeleteMenuConfigurationTaskInterface
 {
-    public function run(int $id): ?bool;
+    public function run(int $id): void;
 }

@@ -4,5 +4,5 @@ namespace App\Containers\Constructor\Language\Actions;
 
 interface DeleteLanguageActionInterface
 {
-    public function run(int $id): bool;
+    public function run(int $id): void;
 }

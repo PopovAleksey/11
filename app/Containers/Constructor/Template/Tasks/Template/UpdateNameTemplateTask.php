@@ -15,16 +15,15 @@ class UpdateNameTemplateTask extends Task implements UpdateNameTemplateTaskInter
     }
 
     /**
+     * @TODO Not using
      * @param \App\Ship\Parents\Dto\TemplateDto $data
-     * @return bool
+     * @return void
      * @throws \App\Ship\Exceptions\UpdateResourceFailedException
      */
-    public function run(TemplateDto $data): bool
+    public function run(TemplateDto $data): void
     {
         try {
             $this->repository->update(['name' => $data->getName()], $data->getId());
-
-            return true;
 
         } catch (Exception) {
             throw new UpdateResourceFailedException();

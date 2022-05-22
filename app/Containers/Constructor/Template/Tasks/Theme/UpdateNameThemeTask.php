@@ -16,15 +16,13 @@ class UpdateNameThemeTask extends Task implements UpdateNameThemeTaskInterface
 
     /**
      * @param \App\Ship\Parents\Dto\ThemeDto $data
-     * @return bool
+     * @return void
      * @throws \App\Ship\Exceptions\UpdateResourceFailedException
      */
-    public function run(ThemeDto $data): bool
+    public function run(ThemeDto $data): void
     {
         try {
             $this->repository->update(['name' => $data->getName()], $data->getId());
-
-            return true;
 
         } catch (Exception) {
             throw new UpdateResourceFailedException();

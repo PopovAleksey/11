@@ -2,10 +2,10 @@
 
 namespace App\Containers\Constructor\Page\Actions;
 
-use App\Containers\Constructor\Page\Tasks\CreateFieldTaskInterface;
-use App\Containers\Constructor\Page\Tasks\DeleteFieldTaskInterface;
-use App\Containers\Constructor\Page\Tasks\UpdateFieldTaskInterface;
-use App\Containers\Constructor\Page\Tasks\UpdatePageTaskInterface;
+use App\Containers\Constructor\Page\Tasks\Field\CreateFieldTaskInterface;
+use App\Containers\Constructor\Page\Tasks\Field\DeleteFieldTaskInterface;
+use App\Containers\Constructor\Page\Tasks\Field\UpdateFieldTaskInterface;
+use App\Containers\Constructor\Page\Tasks\Page\UpdatePageTaskInterface;
 use App\Ship\Parents\Actions\Action;
 use App\Ship\Parents\Dto\PageDto;
 use App\Ship\Parents\Dto\PageFieldDto;

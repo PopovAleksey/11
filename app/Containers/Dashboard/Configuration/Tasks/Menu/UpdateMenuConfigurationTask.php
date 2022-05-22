@@ -21,10 +21,10 @@ class UpdateMenuConfigurationTask extends Task implements UpdateMenuConfiguratio
 
     /**
      * @param \App\Ship\Parents\Dto\ConfigurationMenuDto $menu
-     * @return bool
+     * @return void
      * @throws \App\Ship\Exceptions\UpdateResourceFailedException
      */
-    public function run(ConfigurationMenuDto $menu): bool
+    public function run(ConfigurationMenuDto $menu): void
     {
         try {
             # @TODO Need implement transaction
@@ -43,8 +43,6 @@ class UpdateMenuConfigurationTask extends Task implements UpdateMenuConfiguratio
                     'order'      => $menuItem->getOrder(),
                 ]);
             });
-
-            return true;
 
         } catch (Exception $exception) {
             throw new UpdateResourceFailedException($exception->getMessage());

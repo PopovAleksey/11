@@ -13,9 +13,9 @@ class DeleteThemeAction extends Action implements DeleteThemeActionInterface
     {
     }
 
-    public function run(int $id): bool
+    public function run(int $id): void
     {
-        return $this->deleteThemeTask->run($id);
+        $this->deleteThemeTask->run($id);
     }
 }
 

@@ -14,8 +14,8 @@ class UpdateNameThemeAction extends Action implements UpdateNameThemeActionInter
     {
     }
 
-    public function run(ThemeDto $data): bool
+    public function run(ThemeDto $data): void
     {
-        return $this->updateTemplatesTask->run($data);
+        $this->updateTemplatesTask->run($data);
     }
 }

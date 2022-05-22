@@ -2,8 +2,8 @@
 
 namespace App\Containers\Dashboard\Configuration\UI\WEB\Controllers;
 
-use App\Containers\Dashboard\Configuration\Actions\GetAllCommonConfigurationActionInterface;
-use App\Containers\Dashboard\Configuration\Actions\UpdateCommonConfigurationActionInterface;
+use App\Containers\Dashboard\Configuration\Actions\Common\GetAllCommonConfigurationActionInterface;
+use App\Containers\Dashboard\Configuration\Actions\Common\UpdateCommonConfigurationActionInterface;
 use App\Containers\Dashboard\Configuration\UI\WEB\Requests\UpdateCommonConfigurationRequest;
 use App\Ship\Parents\Controllers\DashboardController;
 use Illuminate\Contracts\Foundation\Application;
@@ -14,8 +14,8 @@ use Illuminate\Http\JsonResponse;
 class CommonController extends DashboardController
 {
     /**
-     * @param \App\Containers\Dashboard\Configuration\Actions\GetAllCommonConfigurationActionInterface $allCommonConfigurationAction
-     * @param \App\Containers\Dashboard\Configuration\Actions\UpdateCommonConfigurationActionInterface $updateCommonConfigurationAction
+     * @param \App\Containers\Dashboard\Configuration\Actions\Common\GetAllCommonConfigurationActionInterface $allCommonConfigurationAction
+     * @param \App\Containers\Dashboard\Configuration\Actions\Common\UpdateCommonConfigurationActionInterface $updateCommonConfigurationAction
      */
     public function __construct(
         private GetAllCommonConfigurationActionInterface $allCommonConfigurationAction,

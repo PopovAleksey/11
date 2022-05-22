@@ -87,8 +87,7 @@ class ControllerTemplate extends WebController
      */
     public function update(int $id, UpdateTemplateRequest $request): JsonResponse
     {
-        $data = $request->mapped()->setId($id);
-
+        $data     = $request->mapped()->setId($id);
         $template = $this->updateTemplateAction->run($data);
 
         return response()
@@ -104,7 +103,6 @@ class ControllerTemplate extends WebController
     public function updateName(int $id, UpdateNameTemplateRequest $request): JsonResponse
     {
         $data = $request->mapped()->setId($id);
-
         $this->updateNameTemplateAction->run($data);
 
         return response()->json()->setStatusCode(200);

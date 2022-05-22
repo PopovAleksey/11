@@ -2,7 +2,7 @@
 
 namespace App\Containers\Constructor\Page\Actions;
 
-use App\Containers\Constructor\Page\Tasks\DeletePageTaskInterface;
+use App\Containers\Constructor\Page\Tasks\Page\DeletePageTaskInterface;
 use App\Ship\Parents\Actions\Action;
 
 class DeletePageAction extends Action implements DeletePageActionInterface
@@ -13,9 +13,9 @@ class DeletePageAction extends Action implements DeletePageActionInterface
     {
     }
 
-    public function run(int $id): bool
+    public function run(int $id): void
     {
-        return $this->deletePageTask->run($id);
+        $this->deletePageTask->run($id);
     }
 }
 

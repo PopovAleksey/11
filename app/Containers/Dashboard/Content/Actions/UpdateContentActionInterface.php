@@ -6,5 +6,5 @@ use App\Ship\Parents\Dto\ContentDto;
 
 interface UpdateContentActionInterface
 {
-    public function run(ContentDto $data): bool;
+    public function run(ContentDto $data): void;
 }

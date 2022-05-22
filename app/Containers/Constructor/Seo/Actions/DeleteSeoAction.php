@@ -13,9 +13,9 @@ class DeleteSeoAction extends Action implements DeleteSeoActionInterface
     {
     }
 
-    public function run(int $id): bool
+    public function run(int $id): void
     {
-        return $this->deleteSeoTask->run($id);
+        $this->deleteSeoTask->run($id);
     }
 }
 

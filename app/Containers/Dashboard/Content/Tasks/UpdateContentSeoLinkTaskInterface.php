@@ -7,5 +7,5 @@ use App\Ship\Parents\Dto\ContentDto;
 
 interface UpdateContentSeoLinkTaskInterface
 {
-    public function run(ContentDto $data): bool;
+    public function run(ContentDto $data): void;
 }

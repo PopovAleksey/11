@@ -2,7 +2,7 @@
 
 namespace App\Containers\Constructor\Seo\Actions;
 
-use App\Containers\Constructor\Page\Tasks\FindFieldByIdTaskInterface;
+use App\Containers\Constructor\Page\Tasks\Field\FindFieldByIdTaskInterface;
 use App\Containers\Constructor\Seo\Tasks\CreateSeoTaskInterface;
 use App\Ship\Exceptions\NotFoundException;
 use App\Ship\Parents\Actions\Action;

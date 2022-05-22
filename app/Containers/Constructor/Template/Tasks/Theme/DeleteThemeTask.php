@@ -17,7 +17,7 @@ class DeleteThemeTask extends Task implements DeleteThemeTaskInterface
     /**
      * @throws \App\Ship\Exceptions\DeleteResourceFailedException
      */
-    public function run(int $id): ?bool
+    public function run(int $id): void
     {
         try {
             /**
@@ -29,7 +29,6 @@ class DeleteThemeTask extends Task implements DeleteThemeTaskInterface
 
             Storage::disk('template')->deleteDir($theme->directory);
 
-            return true;
         } catch (Exception) {
             throw new DeleteResourceFailedException();
         }
