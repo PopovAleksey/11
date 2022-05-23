@@ -3,20 +3,20 @@
 namespace App\Containers\Constructor\Template\Actions\Template;
 
 
-use App\Containers\Constructor\Template\Tasks\Template\UpdateTemplateTaskInterface;
+use App\Containers\Constructor\Template\Tasks\Template\UpdateNameTemplateTaskInterface;
 use App\Ship\Parents\Actions\Action;
 use App\Ship\Parents\Dto\TemplateDto;
 
 class UpdateNameTemplateAction extends Action implements UpdateNameTemplateActionInterface
 {
     public function __construct(
-        private UpdateTemplateTaskInterface $updateTemplateTask
+        private UpdateNameTemplateTaskInterface $updateTemplateTask
     )
     {
     }
 
-    public function run(TemplateDto $data): TemplateDto
+    public function run(TemplateDto $data): void
     {
-        return $this->updateTemplateTask->run($data);
+        $this->updateTemplateTask->run($data);
     }
 }
