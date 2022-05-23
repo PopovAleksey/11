@@ -192,7 +192,7 @@ class CreateTemplateTask extends Task implements CreateTemplateTaskInterface
      */
     private function createTemplateFile(string $type, string $name, string $themeDirectory): string
     {
-        [$folder, $type] = match ($type) {
+        [$folder, $fileType] = match ($type) {
             TemplateInterface::CSS_TYPE => [
                 config('constructor-template.folderName.css'),
                 config('constructor-template.fileType.css'),
@@ -213,7 +213,7 @@ class CreateTemplateTask extends Task implements CreateTemplateTaskInterface
         $path = implode('/', [
             $themeDirectory,
             $folder,
-            $name . $type,
+            $name . $fileType,
         ]);
 
         if (Storage::disk('template')->exists($path)) {

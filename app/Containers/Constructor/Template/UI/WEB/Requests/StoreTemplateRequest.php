@@ -23,6 +23,7 @@ class StoreTemplateRequest extends Request
 
         return [
             'type'        => ['required', 'in:' . $types],
+            'name'        => ['nullable', 'string'],
             'theme_id'    => ['required', 'integer'],
             'page_id'     => ['required_if:templateType,' . TemplateInterface::PAGE_TYPE, 'integer'],
             'language_id' => ['integer', 'nullable'],
@@ -35,8 +36,11 @@ class StoreTemplateRequest extends Request
         $languageDto = (new LanguageDto())->setId($this->get('language_id'));
         $themeDto    = (new ThemeDto())->setId($this->get('theme_id'));
 
+        $data = $this->validated();
+
         return (new TemplateDto())
-            ->setType($this->get('type'))
+            ->setType(data_get($data, 'type'))
+            ->setName(data_get($data, 'name'))
             ->setTheme($themeDto)
             ->setPage($pageDto)
             ->setLanguage($languageDto);

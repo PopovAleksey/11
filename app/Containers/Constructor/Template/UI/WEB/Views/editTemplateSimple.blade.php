@@ -62,7 +62,7 @@
                             JavaScript
                         </button>
                         <div class="dropdown-menu" style="">
-                            @foreach($includableItems->get(\App\Ship\Parents\Models\TemplateInterface::JS_TYPE) as $item)
+                            @foreach($includableItems->get(\App\Ship\Parents\Models\TemplateInterface::JS_TYPE) ?? [] as $item)
                                 <button class="dropdown-item" href="#" id="insert-content"
                                         data-value="{JAVASCRIPT_{{ $item->getId() }}}">
                                     {{ $item->getName() }}
@@ -79,7 +79,7 @@
                             CSS
                         </button>
                         <div class="dropdown-menu" style="">
-                            @foreach($includableItems->get(\App\Ship\Parents\Models\TemplateInterface::CSS_TYPE) as $item)
+                            @foreach($includableItems->get(\App\Ship\Parents\Models\TemplateInterface::CSS_TYPE) ?? [] as $item)
                                 <button class="dropdown-item" href="#" id="insert-content"
                                         data-value="{CSS_{{ $item->getId() }}}">
                                     {{ $item->getName() }}
@@ -96,7 +96,7 @@
                             Menu
                         </button>
                         <div class="dropdown-menu" style="">
-                            @foreach($includableItems->get(\App\Ship\Parents\Models\TemplateInterface::MENU_TYPE) as $item)
+                            @foreach($includableItems->get(\App\Ship\Parents\Models\TemplateInterface::MENU_TYPE) ?? [] as $item)
                                 <button class="dropdown-item" href="#" id="insert-content"
                                         data-value="{MENU_{{ $item->getId() }}}">
                                     {{ $item->getName() }}

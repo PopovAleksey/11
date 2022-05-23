@@ -60,7 +60,15 @@
 
     <script>
         $(function () {
-            $("#example1").DataTable({
+            $("#basePageMenuTable").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+            $("#cssTable").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+            $("#jsTable").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
@@ -107,6 +115,8 @@
                 let templateType = $('.select-type').val();
                 let pageId = $('.select-page').val();
                 let languageId = $('.select-language').val();
+                let name = $('input.name').val();
+                name = name === '' ? null : name;
 
                 if (templateType === '') {
                     return;
@@ -122,6 +132,7 @@
                     },
                     data: {
                         'type': templateType,
+                        'name': name,
                         'theme_id': {{ $theme->getId() }},
                         'page_id': pageId,
                         'language_id': languageId
@@ -174,6 +185,33 @@
                     }
                 });
             });
+
+            $('button.create-base-template').on('click', function () {
+                $("select.select-type option").prop("disabled", true);
+                $('select.select-page').prop('disabled', false);
+                $("select.select-type option[value='{{ \App\Ship\Parents\Models\TemplateInterface::BASE_TYPE }}']").prop('disabled', false);
+                $("select.select-type option[value='{{ \App\Ship\Parents\Models\TemplateInterface::PAGE_TYPE }}']").prop('disabled', false).prop('selected', true);
+                $("select.select-type option[value='{{ \App\Ship\Parents\Models\TemplateInterface::MENU_TYPE }}']").prop('disabled', false);
+            });
+
+            $('button.create-css-template').on('click', function () {
+                $("select.select-type option").prop("disabled", true);
+                $('select.select-page').prop('disabled', true);
+                $("select.select-type option[value='{{ \App\Ship\Parents\Models\TemplateInterface::CSS_TYPE }}']").prop('disabled', false).prop('selected', true);
+            });
+
+            $('button.create-js-template').on('click', function () {
+                $("select.select-type option").prop("disabled", true);
+                $('select.select-page').prop('disabled', true);
+                $("select.select-type option[value='{{ \App\Ship\Parents\Models\TemplateInterface::JS_TYPE }}']").prop('disabled', false).prop('selected', true);
+            });
+
+            $('select.select-type').on('change', function () {
+                $('select.select-page').prop('disabled', true);
+                if ($(this).val() === '{{\App\Ship\Parents\Models\TemplateInterface::PAGE_TYPE}}') {
+                    $('select.select-page').prop('disabled', false);
+                }
+            });
         });
     </script>
 @stop
@@ -188,6 +226,187 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
+                <div class="card card-primary card-outline card-outline-tabs">
+                    <div class="card-header p-0 border-bottom-0">
+                        <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="templates-base-page-tab" data-toggle="pill"
+                                   href="#templates-base-page" role="tab" aria-controls="templates-base-page"
+                                   aria-selected="false">Base & Pages & Menu</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="templates-css-tab" data-toggle="pill"
+                                   href="#templates-css" role="tab" aria-controls="templates-css"
+                                   aria-selected="false">CSS</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="templates-js-tab" data-toggle="pill"
+                                   href="#templates-js" role="tab" aria-controls="templates-js"
+                                   aria-selected="false">JavaScript</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="templates-tabContent">
+                            <div class="tab-pane fade active show" id="templates-base-page" role="tabpanel"
+                                 aria-labelledby="templates-base-page-tab">
+                                <button type="button" class="btn bg-gradient-primary create-base-template"
+                                        data-toggle="modal"
+                                        data-target="#modal-create">
+                                    <i class="fas fa-plus-square"></i>&nbsp;
+                                    Add Base/Page/Menus Template
+                                </button>
+                                <table id="basePageMenuTable" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Language</th>
+                                        <th>Created</th>
+                                        <th class="dt-right">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($theme->getTemplates()
+                                                ?->filter(fn(\App\Ship\Parents\Dto\TemplateDto $templateDto) => in_array($templateDto->getType(), [
+                                                    \App\Ship\Parents\Models\TemplateInterface::BASE_TYPE,
+                                                    \App\Ship\Parents\Models\TemplateInterface::PAGE_TYPE,
+                                                    \App\Ship\Parents\Models\TemplateInterface::MENU_TYPE
+                                                ], true)) ?? [] as $template)
+                                        <tr>
+                                            <td>{{ $template->getId() }}</td>
+                                            <td>{{ $template->getName() }}</td>
+                                            <td>{{ $template->getType() }}{{ $template->getType() === \App\Ship\Parents\Models\TemplateInterface::PAGE_TYPE ? ' [' . $template?->getPage()->getName() . ']' : '' }}</td>
+                                            <td>{{ $template->getLanguage()?->getName() ?? 'General' }}</td>
+                                            <td>{{ $template->getCreateAt() }}</td>
+                                            <td class="dt-right">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn bg-gradient-info btn-sm"
+                                                            onclick="location.href='{{ route('constructor_template_edit', $template->getId()) }}'">
+                                                        <i class="fas fa-code"></i></i>&nbsp;
+                                                        Code Editor
+                                                    </button>
+                                                    <button type="button" class="btn bg-gradient-danger btn-sm"
+                                                            data-id="{{ $template->getId() }}"
+                                                            data-toggle="modal"
+                                                            data-target="#modal-delete">
+                                                        <i class="fas fa-trash-alt"></i>&nbsp;
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="templates-css" role="tabpanel"
+                                 aria-labelledby="templates-css-tab">
+                                <button type="button" class="btn bg-gradient-primary create-css-template"
+                                        data-toggle="modal"
+                                        data-target="#modal-create">
+                                    <i class="fas fa-plus-square"></i>&nbsp;
+                                    Add CSS
+                                </button>
+                                <table id="cssTable" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Language</th>
+                                        <th>Created</th>
+                                        <th class="dt-right">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($theme->getTemplates()
+                                                ?->filter(fn(\App\Ship\Parents\Dto\TemplateDto $templateDto) => $templateDto->getType() === \App\Ship\Parents\Models\TemplateInterface::CSS_TYPE) ?? [] as $template)
+                                        <tr>
+                                            <td>{{ $template->getId() }}</td>
+                                            <td>{{ $template->getName() }}</td>
+                                            <td>{{ $template->getType() }}{{ $template->getType() === \App\Ship\Parents\Models\TemplateInterface::PAGE_TYPE ? ' [' . $template?->getPage()->getName() . ']' : '' }}</td>
+                                            <td>{{ $template->getLanguage()?->getName() ?? 'General' }}</td>
+                                            <td>{{ $template->getCreateAt() }}</td>
+                                            <td class="dt-right">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn bg-gradient-info btn-sm"
+                                                            onclick="location.href='{{ route('constructor_template_edit', $template->getId()) }}'">
+                                                        <i class="fas fa-code"></i></i>&nbsp;
+                                                        Code Editor
+                                                    </button>
+                                                    <button type="button" class="btn bg-gradient-danger btn-sm"
+                                                            data-id="{{ $template->getId() }}"
+                                                            data-toggle="modal"
+                                                            data-target="#modal-delete">
+                                                        <i class="fas fa-trash-alt"></i>&nbsp;
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="templates-js" role="tabpanel"
+                                 aria-labelledby="templates-js-tab">
+                                <button type="button" class="btn bg-gradient-primary create-js-template"
+                                        data-toggle="modal"
+                                        data-target="#modal-create">
+                                    <i class="fas fa-plus-square"></i>&nbsp;
+                                    Add JavaScript
+                                </button>
+                                <table id="jsTable" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Language</th>
+                                        <th>Created</th>
+                                        <th class="dt-right">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($theme->getTemplates()
+                                                ?->filter(fn(\App\Ship\Parents\Dto\TemplateDto $templateDto) => $templateDto->getType() === \App\Ship\Parents\Models\TemplateInterface::JS_TYPE) ?? [] as $template)
+                                        <tr>
+                                            <td>{{ $template->getId() }}</td>
+                                            <td>{{ $template->getName() }}</td>
+                                            <td>{{ $template->getType() }}{{ $template->getType() === \App\Ship\Parents\Models\TemplateInterface::PAGE_TYPE ? ' [' . $template?->getPage()->getName() . ']' : '' }}</td>
+                                            <td>{{ $template->getLanguage()?->getName() ?? 'General' }}</td>
+                                            <td>{{ $template->getCreateAt() }}</td>
+                                            <td class="dt-right">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn bg-gradient-info btn-sm"
+                                                            onclick="location.href='{{ route('constructor_template_edit', $template->getId()) }}'">
+                                                        <i class="fas fa-code"></i></i>&nbsp;
+                                                        Code Editor
+                                                    </button>
+                                                    <button type="button" class="btn bg-gradient-danger btn-sm"
+                                                            data-id="{{ $template->getId() }}"
+                                                            data-toggle="modal"
+                                                            data-target="#modal-delete">
+                                                        <i class="fas fa-trash-alt"></i>&nbsp;
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+
+
+            {{--<div class="col-12">
                 <div class="card">
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -208,7 +427,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($theme->getTemplates() as $template)
+                            @foreach($theme->getTemplates()?->filter(fn(\App\Ship\Parents\Dto\TemplateDto $templateDto) => $templateDto->getType() === \App\Ship\Parents\Models\TemplateInterface::BASE_TYPE) ?? [] as $template)
                                 <tr>
                                     <td>{{ $template->getId() }}</td>
                                     <td>{{ $template->getName() }}</td>
@@ -264,7 +483,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Create new Theme</h4>
+                                        <h4 class="modal-title">Create new Template</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -309,9 +528,84 @@
                     </div>
                     <!-- /.card-body -->
                 </div>
-            </div>
+            </div>--}}
             <!-- /.col -->
         </div>
         <!-- /.row -->
+    </div>
+
+    <div class="modal fade" id="modal-delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Are you sure?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure that you want remove one of the template?</p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-danger" id="delete-page">Yes, remove
+                        this template!
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="modal-create">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Create new Template</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Template Type</label>
+                        <select class="form-control select-type" style="width: 100%;">
+                            @foreach ($types as $type)
+                                <option value="{{ $type }}">{{ ucfirst($type) }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control name"/>
+                    </div>
+                    <div class="form-group">
+                        <label>For Page</label>
+                        <select class="form-control select-page" style="width: 100%;">
+                            @foreach ($pages as $page)
+                                <option value="{{ $page->getId() }}">{{ $page->getName() }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Language</label>
+                        <select class="form-control select-language" style="width: 100%;">
+                            <option value="">General</option>
+                            @foreach ($languages as $language)
+                                <option value="{{ $language->getId() }}">{{ $language->getName() }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel
+                    </button>
+                    <button type="button" class="btn btn-success" id="create-page">Create</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
     </div>
 @endsection

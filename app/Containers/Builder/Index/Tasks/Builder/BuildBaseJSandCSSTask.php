@@ -17,8 +17,9 @@ class BuildBaseJSandCSSTask extends Task implements BuildBaseJSandCSSTaskInterfa
     {
         $html = $themeDto->getTemplates()?->get(TemplateInterface::BASE_TYPE)?->getCommonHtml();
 
-        $themeDto->getTemplates()?->get(TemplateInterface::JS_TYPE)
-            ->each(function (TemplateDto $templateDto) use ($themeDto, &$html) {
+        $themeDto->getTemplates()
+            ?->get(TemplateInterface::JS_TYPE)
+            ?->each(function (TemplateDto $templateDto) use ($themeDto, &$html) {
                 [$commonFile] = $this->getTemplateFile($templateDto, $themeDto);
                 $filePath = asset($commonFile);
                 $html     = str_replace(
@@ -28,8 +29,9 @@ class BuildBaseJSandCSSTask extends Task implements BuildBaseJSandCSSTaskInterfa
                 );
             });
 
-        $themeDto->getTemplates()?->get(TemplateInterface::CSS_TYPE)
-            ->map(function (TemplateDto $templateDto) use ($themeDto, &$html) {
+        $themeDto->getTemplates()
+            ?->get(TemplateInterface::CSS_TYPE)
+            ?->map(function (TemplateDto $templateDto) use ($themeDto, &$html) {
                 [$commonFile] = $this->getTemplateFile($templateDto, $themeDto);
                 $filePath = asset($commonFile);
                 $html     = str_replace(
