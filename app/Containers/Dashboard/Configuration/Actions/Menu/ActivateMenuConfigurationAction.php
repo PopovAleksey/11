@@ -14,8 +14,8 @@ class ActivateMenuConfigurationAction extends Action implements ActivateMenuConf
     {
     }
 
-    public function run(ConfigurationMenuDto $data): bool
+    public function run(ConfigurationMenuDto $data): void
     {
-        return $this->activateMenuConfigurationTask->run($data);
+        $this->activateMenuConfigurationTask->run($data);
     }
 }

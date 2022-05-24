@@ -6,5 +6,5 @@ use App\Ship\Parents\Dto\ConfigurationMenuDto;
 
 interface ActivateMenuConfigurationActionInterface
 {
-    public function run(ConfigurationMenuDto $data): bool;
+    public function run(ConfigurationMenuDto $data): void;
 }

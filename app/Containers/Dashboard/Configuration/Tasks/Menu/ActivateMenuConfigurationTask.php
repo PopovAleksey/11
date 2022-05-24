@@ -16,15 +16,13 @@ class ActivateMenuConfigurationTask extends Task implements ActivateMenuConfigur
 
     /**
      * @param \App\Ship\Parents\Dto\ConfigurationMenuDto $data
-     * @return bool
+     * @return void
      * @throws \App\Ship\Exceptions\UpdateResourceFailedException
      */
-    public function run(ConfigurationMenuDto $data): bool
+    public function run(ConfigurationMenuDto $data): void
     {
         try {
             $this->repository->update(['active' => $data->getActive()], $data->getId());
-
-            return true;
 
         } catch (Exception) {
             throw new UpdateResourceFailedException();

@@ -9,6 +9,7 @@ use App\Containers\Constructor\Page\Tasks\Page\UpdatePageTaskInterface;
 use App\Ship\Parents\Actions\Action;
 use App\Ship\Parents\Dto\PageDto;
 use App\Ship\Parents\Dto\PageFieldDto;
+use Illuminate\Support\Facades\DB;
 
 class UpdatePageAction extends Action implements UpdatePageActionInterface
 {
@@ -22,6 +23,11 @@ class UpdatePageAction extends Action implements UpdatePageActionInterface
     {
     }
 
+    /**
+     * @param \App\Ship\Parents\Dto\PageDto $data
+     * @return \App\Ship\Parents\Dto\PageDto
+     * @throws \Throwable
+     */
     public function run(PageDto $data): PageDto
     {
         $formFields = $data->getFields();
@@ -36,10 +42,12 @@ class UpdatePageAction extends Action implements UpdatePageActionInterface
         $updateFields = $formFields->reject(fn(PageFieldDto $item) => !in_array($item->getId(), $currentFieldsIds, true));
         $deleteFields = $currentFields->reject(fn(PageFieldDto $item) => in_array($item->getId(), $formFieldsIds, true));
 
-        $createFields->each(fn(PageFieldDto $field) => $this->createFieldTask->run($field));
-        $updateFields->each(fn(PageFieldDto $field) => $this->updateFieldTask->run($field));
-        $deleteFields->each(fn(PageFieldDto $field) => $this->deleteFieldTask->run($field->getId()));
+        return DB::transaction(function () use ($data, $createFields, $updateFields, $deleteFields) {
+            $createFields->each(fn(PageFieldDto $field) => $this->createFieldTask->run($field));
+            $updateFields->each(fn(PageFieldDto $field) => $this->updateFieldTask->run($field));
+            $deleteFields->each(fn(PageFieldDto $field) => $this->deleteFieldTask->run($field->getId()));
 
-        return $this->updatePageTask->run($data);
+            return $this->updatePageTask->run($data);
+        });
     }
 }
