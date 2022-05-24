@@ -11,6 +11,7 @@ use App\Ship\Parents\Repositories\SeoRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 use Facade\FlareClient\Http\Exceptions\InvalidData;
+use Illuminate\Support\Facades\DB;
 
 class UpdateContentSeoLinkTask extends Task implements UpdateContentSeoLinkTaskInterface
 {
@@ -25,52 +26,54 @@ class UpdateContentSeoLinkTask extends Task implements UpdateContentSeoLinkTaskI
      * @param \App\Ship\Parents\Dto\ContentDto $data
      * @return void
      * @throws \App\Ship\Exceptions\CreateResourceFailedException
+     * @throws \Throwable
      */
     public function run(ContentDto $data): void
     {
         try {
-            $currentLinks = $this->seoLinkRepository->findByField('content_id', $data->getId())->keyBy('seo_id');
+            DB::transaction(function () use ($data) {
+                $currentLinks = $this->seoLinkRepository->findByField('content_id', $data->getId())->keyBy('seo_id');
 
-            $this->seoRepository->findByField('page_id', $data->getPageId())
-                ->reject(fn(SeoInterface $seo) => $seo->active === false)
-                ->map(function (SeoInterface $seo) use ($data, $currentLinks) {
-                    $seoLink = $data->getValues()
-                        ->map(function (ContentValueDto $contentValueDto) use ($seo) {
-                            if (
-                                $seo->language_id === $contentValueDto->getLanguageId() &&
-                                $seo->page_field_id === $contentValueDto->getPageFieldId()
-                            ) {
-                                return $this->buildSeoLink($seo, $contentValueDto->getValue());
-                            }
+                $this->seoRepository->findByField('page_id', $data->getPageId())
+                    ->reject(fn(SeoInterface $seo) => $seo->active === false)
+                    ->map(function (SeoInterface $seo) use ($data, $currentLinks) {
+                        $seoLink = $data->getValues()
+                            ->map(function (ContentValueDto $contentValueDto) use ($seo) {
+                                if (
+                                    $seo->language_id === $contentValueDto->getLanguageId() &&
+                                    $seo->page_field_id === $contentValueDto->getPageFieldId()
+                                ) {
+                                    return $this->buildSeoLink($seo, $contentValueDto->getValue());
+                                }
 
-                            return null;
-                        })
-                        ->reject(fn($link) => $link === null)
-                        ->first();
+                                return null;
+                            })
+                            ->reject(fn($link) => $link === null)
+                            ->first();
 
-                    /**
-                     * @var \App\Ship\Parents\Models\SeoLinkInterface|null $updateLink
-                     */
-                    $updateLink   = $currentLinks->get($seo->id);
-                    $updateLinkId = $updateLink?->id;
+                        /**
+                         * @var \App\Ship\Parents\Models\SeoLinkInterface|null $updateLink
+                         */
+                        $updateLink   = $currentLinks->get($seo->id);
+                        $updateLinkId = $updateLink?->id;
 
-                    if ($updateLinkId === null) {
-                        $data = [
-                            'seo_id'     => $seo->id,
-                            'content_id' => $data->getId(),
-                            'link'       => $seoLink,
-                        ];
+                        if ($updateLinkId === null) {
+                            $data = [
+                                'seo_id'     => $seo->id,
+                                'content_id' => $data->getId(),
+                                'link'       => $seoLink,
+                            ];
 
-                        $this->seoLinkRepository->create($data);
+                            $this->seoLinkRepository->create($data);
 
-                        return;
-                    }
+                            return;
+                        }
 
-                    if ($seo->static === false) {
-                        $this->seoLinkRepository->update(['link' => $seoLink], $updateLinkId);
-                    }
-                });
-
+                        if ($seo->static === false) {
+                            $this->seoLinkRepository->update(['link' => $seoLink], $updateLinkId);
+                        }
+                    });
+            });
         } catch (Exception $exception) {
             throw new CreateResourceFailedException($exception->getMessage());
         }

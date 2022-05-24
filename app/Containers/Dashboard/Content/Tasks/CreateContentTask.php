@@ -10,7 +10,7 @@ use App\Ship\Parents\Repositories\ContentValueRepositoryInterface;
 use App\Ship\Parents\Repositories\PageRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
-use phpDocumentor\Reflection\DocBlock\Tags\Throws;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\Translation\Exception\InvalidResourceException;
 
 class CreateContentTask extends Task implements CreateContentTaskInterface
@@ -27,38 +27,40 @@ class CreateContentTask extends Task implements CreateContentTaskInterface
      * @param \App\Ship\Parents\Dto\ContentDto $data
      * @return int
      * @throws \App\Ship\Exceptions\CreateResourceFailedException
+     * @throws \Throwable
      */
     public function run(ContentDto $data): int
     {
         try {
-            /**
-             * @var \App\Ship\Parents\Models\PageInterface    $page
-             * @var \App\Ship\Parents\Models\ContentInterface $content
-             */
-            $page = $this->pageRepository->find($data->getPageId());
+            return DB::transaction(function () use ($data) {
+                /**
+                 * @var \App\Ship\Parents\Models\PageInterface    $page
+                 * @var \App\Ship\Parents\Models\ContentInterface $content
+                 */
+                $page = $this->pageRepository->find($data->getPageId());
 
-            if ($page->parent_page_id !== null && $data->getParentContentId() === null) {
-                throw new InvalidResourceException('You cant\'t create child content without parent!');
-            }
+                if ($page->parent_page_id !== null && $data->getParentContentId() === null) {
+                    throw new InvalidResourceException('You cant\'t create child content without parent!');
+                }
 
-            $content = $this->contentRepository->create([
-                'page_id'           => $data->getPageId(),
-                'parent_content_id' => $data->getParentContentId(),
-            ]);
+                $content = $this->contentRepository->create([
+                    'page_id'           => $data->getPageId(),
+                    'parent_content_id' => $data->getParentContentId(),
+                ]);
 
-            $data->getValues()->each(function (ContentValueDto $valueDto) use ($content) {
-                $data = [
-                    'language_id'   => $valueDto->getLanguageId(),
-                    'content_id'    => $content->id,
-                    'page_field_id' => $valueDto->getPageFieldId(),
-                    'value'         => $valueDto->getValue(),
-                ];
+                $data->getValues()->each(function (ContentValueDto $valueDto) use ($content) {
+                    $data = [
+                        'language_id'   => $valueDto->getLanguageId(),
+                        'content_id'    => $content->id,
+                        'page_field_id' => $valueDto->getPageFieldId(),
+                        'value'         => $valueDto->getValue(),
+                    ];
 
-                $this->contentValueRepository->create($data);
+                    $this->contentValueRepository->create($data);
+                });
+
+                return $content->id;
             });
-
-            return $content->id;
-
         } catch (Exception $exception) {
             throw new CreateResourceFailedException($exception->getMessage());
         }

@@ -12,14 +12,13 @@ use Storage;
 class UpdateTemplateTask extends Task implements UpdateTemplateTaskInterface
 {
     public function __construct(
-        private TemplateRepositoryInterface       $repository,
+        private TemplateRepositoryInterface       $templateRepository,
         private GetTemplatesFilepathTaskInterface $getTemplatesFilepathTask
     )
     {
     }
 
     /**
-     * @TODO Implement Transaction
      * @param \App\Ship\Parents\Dto\TemplateDto $data
      * @return \App\Ship\Parents\Dto\TemplateDto
      * @throws \App\Ship\Exceptions\UpdateResourceFailedException
@@ -30,7 +29,7 @@ class UpdateTemplateTask extends Task implements UpdateTemplateTaskInterface
             /**
              * @var \App\Ship\Parents\Models\TemplateInterface $template
              */
-            $template = $this->repository->find($data->getId());
+            $template = $this->templateRepository->find($data->getId());
             $storage  = Storage::disk('template');
 
             [$commonFile, $elementFile, $previewFile] = $this->getTemplatesFilepathTask->run($template);

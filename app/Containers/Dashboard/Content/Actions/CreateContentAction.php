@@ -6,6 +6,7 @@ use App\Containers\Dashboard\Content\Tasks\CreateContentTaskInterface;
 use App\Containers\Dashboard\Content\Tasks\UpdateContentSeoLinkTaskInterface;
 use App\Ship\Parents\Actions\Action;
 use App\Ship\Parents\Dto\ContentDto;
+use Illuminate\Support\Facades\DB;
 
 class CreateContentAction extends Action implements CreateContentActionInterface
 {
@@ -16,16 +17,22 @@ class CreateContentAction extends Action implements CreateContentActionInterface
     {
     }
 
+    /**
+     * @param \App\Ship\Parents\Dto\ContentDto $data
+     * @return int
+     * @throws \Throwable
+     */
     public function run(ContentDto $data): int
     {
-        #@TODO Need Implement transaction
-        $contentId = $this->createContentTask->run($data);
+        return DB::transaction(function () use ($data) {
+            $contentId = $this->createContentTask->run($data);
 
-        $data->setId($contentId);
+            $data->setId($contentId);
 
-        $this->updateContentSeoLinkTask->run($data);
+            $this->updateContentSeoLinkTask->run($data);
 
-        return $contentId;
+            return $contentId;
+        });
     }
 }
 
