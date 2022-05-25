@@ -199,13 +199,13 @@
 
             $('button.create-base-template').on('click', function () {
                 $("select.select-type option").prop("disabled", true);
-                $('select.select-page').prop('disabled', false);
+                $('select.select-page').prop('disabled', true);
                 $("select.select-type option[value='{{ \App\Ship\Parents\Models\TemplateInterface::BASE_TYPE }}']").prop('disabled', false).prop('selected', true);
             });
 
             $('button.create-menu-template').on('click', function () {
                 $("select.select-type option").prop("disabled", true);
-                $('select.select-page').prop('disabled', false);
+                $('select.select-page').prop('disabled', true);
                 $("select.select-type option[value='{{ \App\Ship\Parents\Models\TemplateInterface::MENU_TYPE }}']").prop('disabled', false).prop('selected', true);
             });
 
