@@ -127,7 +127,7 @@
                                     name="{{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_THEME }}"
                                     style="width: 100%;">
                                 <option {{ $configs->getDefaultThemeId() === null ? 'selected="selected"' : '' }} disabled>
-                                    Choose Content
+                                    Choose Theme
                                 </option>
                                 @foreach($configs->getThemeList() as $theme)
                                     <option value="{{ $theme->getId() }}"
