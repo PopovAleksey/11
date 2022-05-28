@@ -115,6 +115,9 @@
                 <div class="tab-pane fade" id="custom-tabs-four-preview" role="tabpanel"
                      aria-labelledby="custom-tabs-four-preview-tab">
                     <div class="btn-group margin-10">
+                        <button type="button" class="btn btn-info" id="insert-preview" data-value="{LINK}">
+                            Link URL
+                        </button>
                         @if($template->getChildPage() !== null)
                             @foreach($template->getChildPage()?->getFields() as $field)
                                 <button type="button" class="btn btn-default" id="insert-preview"

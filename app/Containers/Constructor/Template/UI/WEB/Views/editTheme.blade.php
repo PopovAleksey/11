@@ -352,7 +352,14 @@
                                         <tr>
                                             <td>{{ $template->getId() }}</td>
                                             <td>{{ $template->getName() }}</td>
-                                            <td>{{ $template?->getPage()->getName() }}</td>
+                                            <td>{{
+                                                    match ($template->getPage()?->getType()) {
+                                                    \App\Ship\Parents\Models\PageInterface::SIMPLE_TYPE => 'Simple Page',
+                                                    \App\Ship\Parents\Models\PageInterface::BLOG_TYPE => 'Blog',
+                                                    \App\Ship\Parents\Models\PageInterface::CATEGORY_TYPE => 'Category',
+                                                    default => 'None'
+                                                }
+                                                }}</td>
                                             <td>{{ $template->getLanguage()?->getName() ?? 'General' }}</td>
                                             <td>{{ $template->getCreateAt() }}</td>
                                             <td class="dt-right">

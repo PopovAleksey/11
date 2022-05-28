@@ -11,21 +11,23 @@ class Template extends Model implements TemplateInterface
         'page_id',
         'child_page_id',
         'language_id',
+        'parent_template_id',
         'common_filepath',
         'element_filepath',
         'preview_filepath',
     ];
 
     protected $casts = [
-        'name'             => 'string',
-        'type'             => 'string',
-        'theme_id'         => 'integer',
-        'page_id'          => 'integer',
-        'child_page_id'    => 'integer',
-        'language_id'      => 'integer',
-        'common_filepath'  => 'string',
-        'element_filepath' => 'string',
-        'preview_filepath' => 'string',
+        'name'               => 'string',
+        'type'               => 'string',
+        'theme_id'           => 'integer',
+        'page_id'            => 'integer',
+        'child_page_id'      => 'integer',
+        'language_id'        => 'integer',
+        'parent_template_id' => 'integer',
+        'common_filepath'    => 'string',
+        'element_filepath'   => 'string',
+        'preview_filepath'   => 'string',
     ];
 
     protected $dates = [
@@ -69,6 +71,14 @@ class Template extends Model implements TemplateInterface
     public function getLanguageAttribute(): \Illuminate\Database\Eloquent\Model|LanguageInterface|null
     {
         return $this->hasOne(Language::class, 'id', 'language_id')->first();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Model|\App\Ship\Parents\Models\TemplateInterface|null
+     */
+    public function getParentTemplateAttribute(): \Illuminate\Database\Eloquent\Model|TemplateInterface|null
+    {
+        return $this->hasOne(__CLASS__, 'id', 'parent_template_id')->first();
     }
 
 

@@ -22,6 +22,7 @@ final class ContentDto extends Mapper
      * @var Collection|null
      */
     private ?Collection $child_content = null;
+    private ?string     $link          = null;
     private ?PageDto    $page          = null;
     private ?Carbon     $createAt      = null;
     private ?Carbon     $updateAt      = null;
@@ -140,6 +141,26 @@ final class ContentDto extends Mapper
 
         return $this;
     }
+
+    /**
+     * @param string|null $link
+     * @return ContentDto
+     */
+    public function setLink(?string $link): ContentDto
+    {
+        $this->link = $link;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLink(): ?string
+    {
+        return $this->link;
+    }
+
 
     /**
      * @return \App\Ship\Parents\Dto\PageDto|null

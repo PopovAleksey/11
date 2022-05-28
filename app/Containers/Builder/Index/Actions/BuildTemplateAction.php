@@ -29,7 +29,7 @@ class BuildTemplateAction extends Action implements BuildTemplateActionInterface
     public function run(?string $language = null, ?string $seoLink = null): string
     {
         $languageDto = $this->languageTask->run($language);
-        $contentDto  = $this->contentTask->run($languageDto->getId(), $seoLink);
+        $contentDto  = $this->contentTask->run($languageDto->getId(), $seoLink)->setLink($seoLink);
         $themeDto    = $this->templateTask->run($languageDto->getId(), $contentDto->getPageId());
         $menuList    = $this->menuItemsTask->run($languageDto->getId(), $themeDto->getId());
 

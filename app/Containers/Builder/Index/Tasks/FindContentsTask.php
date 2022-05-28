@@ -9,6 +9,8 @@ use App\Ship\Parents\Models\ContentInterface;
 use App\Ship\Parents\Models\ContentValueInterface;
 use App\Ship\Parents\Repositories\ContentRepositoryInterface;
 use App\Ship\Parents\Repositories\ContentValueRepositoryInterface;
+use App\Ship\Parents\Repositories\LanguageRepositoryInterface;
+use App\Ship\Parents\Repositories\SeoLinkRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 use Illuminate\Support\Collection;
@@ -18,6 +20,8 @@ class FindContentsTask extends Task implements FindContentsTaskInterface
     public function __construct(
         private ContentRepositoryInterface      $contentRepository,
         private ContentValueRepositoryInterface $contentValueRepository,
+        private SeoLinkRepositoryInterface      $seoLinkRepository,
+        private LanguageRepositoryInterface     $languageRepository
     )
     {
     }
@@ -38,9 +42,11 @@ class FindContentsTask extends Task implements FindContentsTaskInterface
             }
 
             /**
-             * @var \App\Ship\Parents\Models\ContentInterface $content
+             * @var \App\Ship\Parents\Models\ContentInterface  $content
+             * @var \App\Ship\Parents\Models\LanguageInterface $language
              */
             $content       = $this->contentRepository->find($contentValues->first()->content_id);
+            $language      = $this->languageRepository->find($languageId);
             $contentValues = $this->buildContentValuesDto($contentValues);
             $contentDto    = $this->buildContentDto($content)->setValues($contentValues);
             $childContent  = $content->child_content;
@@ -53,13 +59,28 @@ class FindContentsTask extends Task implements FindContentsTaskInterface
             $childContentValues = $this->contentValueRepository
                 ->getContentValuesByLanguageAndIds($languageId, $childContentIds->toArray())
                 ->groupBy('content_id');
+            $childContentLinks  = $this->seoLinkRepository
+                ->getLinksByLanguageAndContentIds($languageId, $childContentIds->toArray())
+                ->groupBy('content_id');
 
-            $childContentList = $childContent->map(function (ContentInterface $content) use ($childContentValues) {
-                $childContentValuesList = $childContentValues->get($content->id);
-                $childContentValues     = $this->buildContentValuesDto($childContentValuesList ?? collect());
+            $childContentList = $childContent->map(
+                function (ContentInterface $content) use ($language, $childContentValues, $childContentLinks) {
+                    /**
+                     * @var null|\App\Ship\Parents\Models\SeoLinkInterface $contentLink
+                     */
+                    $childContentValuesList = $childContentValues->get($content->id);
+                    $contentLink        = $childContentLinks->get($content->id)?->first();
+                    $childContentValues = $this->buildContentValuesDto($childContentValuesList ?? collect());
+                    $link               = route('builder_index_page', [
+                        'language' => strtolower($language->short_name),
+                        'seoLink'  => $contentLink?->link,
+                    ]);
 
-                return $this->buildContentDto($content)->setValues($childContentValues);
-            });
+                    return $this->buildContentDto($content)
+                        ->setValues($childContentValues)
+                        ->setLink($link);
+                }
+            );
 
             return $contentDto->setChildContent($childContentList);
 

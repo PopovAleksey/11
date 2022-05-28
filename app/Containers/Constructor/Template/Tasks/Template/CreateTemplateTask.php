@@ -85,15 +85,16 @@ class CreateTemplateTask extends Task implements CreateTemplateTaskInterface
             }
 
             $insert = [
-                'type'             => $data->getType(),
-                'name'             => $data->getName(),
-                'theme_id'         => $data->getTheme()?->getId(),
-                'page_id'          => $data->getType() === TemplateInterface::PAGE_TYPE ? $data->getPage()?->getId() : null,
-                'child_page_id'    => $data->getType() === TemplateInterface::PAGE_TYPE ? $data->getPage()?->getChildPage()?->getId() : null,
-                'language_id'      => $data->getLanguage()?->getId(),
-                'common_filepath'  => data_get($files, 'common'),
-                'element_filepath' => data_get($files, 'element'),
-                'preview_filepath' => data_get($files, 'preview'),
+                'type'               => $data->getType(),
+                'name'               => $data->getName(),
+                'theme_id'           => $data->getTheme()?->getId(),
+                'page_id'            => $data->getType() === TemplateInterface::PAGE_TYPE ? $data->getPage()?->getId() : null,
+                'child_page_id'      => $data->getType() === TemplateInterface::PAGE_TYPE ? $data->getPage()?->getChildPage()?->getId() : null,
+                'language_id'        => $data->getLanguage()?->getId(),
+                'parent_template_id' => $data->getTemplate()?->getId(),
+                'common_filepath'    => data_get($files, 'common'),
+                'element_filepath'   => data_get($files, 'element'),
+                'preview_filepath'   => data_get($files, 'preview'),
             ];
 
             /**

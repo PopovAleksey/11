@@ -7,25 +7,27 @@ use PopovAleksey\Mapper\Mapper;
 
 final class TemplateDto extends Mapper
 {
-    private ?int         $id              = null;
-    private ?string      $name            = null;
-    private ?string      $type            = null;
-    private ?int         $themeId         = null;
-    private ?ThemeDto    $theme           = null;
-    private ?int         $pageId          = null;
-    private ?int         $childPageId     = null;
-    private ?PageDto     $page            = null;
-    private ?PageDto     $childPage       = null;
-    private ?int         $languageId      = null;
-    private ?LanguageDto $language        = null;
-    private ?string      $commonFilepath  = null;
-    private ?string      $elementFilepath = null;
-    private ?string      $previewFilepath = null;
-    private ?string      $commonHtml      = null;
-    private ?string      $elementHtml     = null;
-    private ?string      $previewHtml     = null;
-    private ?Carbon      $createAt        = null;
-    private ?Carbon      $updateAt        = null;
+    private ?int         $id               = null;
+    private ?string      $name             = null;
+    private ?string      $type             = null;
+    private ?int         $themeId          = null;
+    private ?ThemeDto    $theme            = null;
+    private ?int         $pageId           = null;
+    private ?int         $childPageId      = null;
+    private ?PageDto     $page             = null;
+    private ?PageDto     $childPage        = null;
+    private ?int         $languageId       = null;
+    private ?LanguageDto $language         = null;
+    private ?int         $parentTemplateId = null;
+    private ?TemplateDto $template         = null;
+    private ?string      $commonFilepath   = null;
+    private ?string      $elementFilepath  = null;
+    private ?string      $previewFilepath  = null;
+    private ?string      $commonHtml       = null;
+    private ?string      $elementHtml      = null;
+    private ?string      $previewHtml      = null;
+    private ?Carbon      $createAt         = null;
+    private ?Carbon      $updateAt         = null;
 
     /**
      * @return string|null
@@ -327,6 +329,44 @@ final class TemplateDto extends Mapper
     public function setLanguage(?LanguageDto $language): self
     {
         $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getParentTemplateId(): ?int
+    {
+        return $this->parentTemplateId;
+    }
+
+    /**
+     * @param int|null $parentTemplateId
+     * @return TemplateDto
+     */
+    public function setParentTemplateId(?int $parentTemplateId): TemplateDto
+    {
+        $this->parentTemplateId = $parentTemplateId;
+
+        return $this;
+    }
+
+    /**
+     * @return \App\Ship\Parents\Dto\TemplateDto|null
+     */
+    public function getTemplate(): ?TemplateDto
+    {
+        return $this->template;
+    }
+
+    /**
+     * @param \App\Ship\Parents\Dto\TemplateDto|null $template
+     * @return TemplateDto
+     */
+    public function setTemplate(?TemplateDto $template): TemplateDto
+    {
+        $this->template = $template;
 
         return $this;
     }
