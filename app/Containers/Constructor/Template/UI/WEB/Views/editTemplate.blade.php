@@ -19,13 +19,13 @@
             </div>
             <select id="base-template" class="form-control">
                 @foreach($baseTemplates as $baseTemplate)
-                    <option value="{{ $baseTemplate->getId() }}">{{ $baseTemplate->getName() }}</option>
+                    <option value="{{ $baseTemplate->getId() }}" {{ $template->getParentTemplateId() === $baseTemplate->getId() ? "selected='selected'" : '' }}>{{ $baseTemplate->getName() }}</option>
                 @endforeach
             </select>
         @endif
         <div class="input-group-append">
             <button type="button" class="btn btn-warning" id="save-name">
-                <i class="fas fa-circle-notch fa-spin" style="display: none;"></i>&nbsp;Save Name
+                <i class="fas fa-circle-notch fa-spin" style="display: none;"></i>&nbsp;Save
             </button>
         </div>
     </div>

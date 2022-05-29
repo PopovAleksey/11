@@ -101,6 +101,7 @@ class FindTemplatesTask extends Task implements FindTemplatesTaskInterface
                     ->setElementHtml($elementHtml)
                     ->setPreviewFilepath($template->preview_filepath)
                     ->setPreviewHtml($previewHtml)
+                    ->setParentTemplateId($template->parent_template_id)
                     ->setLanguageId($template->language_id)
                     ->setThemeId($template->theme_id)
                     ->setPageId($template->page_id)
@@ -110,8 +111,8 @@ class FindTemplatesTask extends Task implements FindTemplatesTaskInterface
             ->groupBy(fn(TemplateDto $templateDto) => $templateDto->getType())
             ->map(static function (\Illuminate\Support\Collection $template, string $type) use ($languageId) {
                 return match ($type) {
-                    TemplateInterface::BASE_TYPE, TemplateInterface::PAGE_TYPE => $template->get($languageId) ?? $template->first(),
-                    TemplateInterface::MENU_TYPE => $template->keyBy(fn(TemplateDto $templateDto) => $templateDto->getId()),
+                    TemplateInterface::PAGE_TYPE => $template->get($languageId) ?? $template->first(),
+                    TemplateInterface::BASE_TYPE, TemplateInterface::MENU_TYPE => $template->keyBy(fn(TemplateDto $templateDto) => $templateDto->getId()),
                     default => $template->values()
                 };
             });
