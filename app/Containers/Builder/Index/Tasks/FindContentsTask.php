@@ -69,11 +69,11 @@ class FindContentsTask extends Task implements FindContentsTaskInterface
                      * @var null|\App\Ship\Parents\Models\SeoLinkInterface $contentLink
                      */
                     $childContentValuesList = $childContentValues->get($content->id);
-                    $contentLink        = $childContentLinks->get($content->id)?->first();
-                    $childContentValues = $this->buildContentValuesDto($childContentValuesList ?? collect());
-                    $link               = route('builder_index_page', [
+                    $contentLink            = $childContentLinks->get($content->id)?->first();
+                    $childContentValues     = $this->buildContentValuesDto($childContentValuesList ?? collect());
+                    $link                   = route('builder_index_page', [
                         'language' => strtolower($language->short_name),
-                        'seoLink'  => $contentLink?->link,
+                        'seoLink'  => $contentLink?->link ?? $content->id,
                     ]);
 
                     return $this->buildContentDto($content)

@@ -40,13 +40,17 @@ class ContentValueRepository extends Repository implements ContentValueRepositor
         $query = $this->makeModel()::query()
             ->select([DB::raw('DISTINCT `cv`.`page_field_id`'), 'cv.id', 'cv.language_id', 'cv.content_id', 'cv.value', 'cv.created_at', 'cv.updated_at'])
             ->from(app(ContentValueInterface::class)->getTable(), 'cv')
-            ->crossJoin(app(SeoLinkInterface::class)->getTable() . ' AS sl', 'cv.content_id', '=', 'sl.content_id')
+            ->leftJoin(app(SeoLinkInterface::class)->getTable() . ' AS sl', 'cv.content_id', '=', 'sl.content_id')
             ->leftJoin(app(SeoInterface::class)->getTable() . ' AS s', 's.id', '=', 'sl.seo_id')
             ->where('cv.language_id', $languageId);
 
         if ($seoLink !== null) {
             return $query
-                ->where('sl.link', $seoLink)
+                ->where(static function (\Illuminate\Database\Eloquent\Builder $query) use ($seoLink) {
+                    $query
+                        ->where('sl.link', $seoLink)
+                        ->orWhere('cv.content_id', $seoLink);
+                })
                 ->get()
                 ->collect();
         }

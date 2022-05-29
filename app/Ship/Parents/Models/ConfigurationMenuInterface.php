@@ -17,6 +17,7 @@ use Illuminate\Support\Carbon;
  *
  * @property-read \Illuminate\Database\Eloquent\Collection $items
  * @property-read string                                   $link
+ * @property-read string                                   $content_id
  * @property-read string                                   $value
  * @property-read string                                   $short_name
  */

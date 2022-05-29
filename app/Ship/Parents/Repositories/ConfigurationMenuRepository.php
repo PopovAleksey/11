@@ -39,7 +39,7 @@ class ConfigurationMenuRepository extends Repository implements ConfigurationMen
     public function getLinkDataOfMenuItems(int $languageId, int $themeId): Collection|array
     {
         return $this->makeModel()::query()
-            ->select('cm.id', 'cm.template_id', 'sl.link', 'cv.value', 'l.short_name')
+            ->select('cm.id', 'cm.template_id', 'cmi.content_id', 'sl.link', 'cv.value', 'l.short_name')
             ->from(app(ConfigurationMenuInterface::class)->getTable(), 'cm')
             ->leftJoin(app(ConfigurationMenuItemInterface::class)->getTable() . ' AS cmi', 'cm.id', '=', 'cmi.menu_id')
             ->leftJoin(app(ContentInterface::class)->getTable() . ' AS c', 'c.id', '=', 'cmi.content_id')

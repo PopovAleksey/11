@@ -19,6 +19,7 @@ class FindMenuItemsTask extends Task implements FindMenuItemsTaskInterface
 
     /**
      * @param int $languageId
+     * @param int $themeId
      * @return \Illuminate\Support\Collection
      * @throws \App\Ship\Exceptions\NotFoundException
      */
@@ -30,7 +31,7 @@ class FindMenuItemsTask extends Task implements FindMenuItemsTaskInterface
                 ->map(static function (ConfigurationMenuInterface $configurationMenu) {
                     $link = route('builder_index_page', [
                         'language' => strtolower($configurationMenu->short_name),
-                        'seoLink'  => $configurationMenu->link,
+                        'seoLink'  => $configurationMenu->link ?? $configurationMenu->content_id,
                     ]);
 
                     return collect([
