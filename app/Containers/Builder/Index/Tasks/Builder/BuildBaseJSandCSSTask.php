@@ -15,30 +15,20 @@ class BuildBaseJSandCSSTask extends Task implements BuildBaseJSandCSSTaskInterfa
      */
     public function run(ThemeDto $themeDto): string
     {
-        $html  = $themeDto->getTemplates()?->get(TemplateInterface::BASE_TYPE)?->getCommonHtml();
+        $html = $themeDto->getTemplates()?->get(TemplateInterface::BASE_TYPE)?->getCommonHtml();
 
         $themeDto->getTemplates()
             ?->get(TemplateInterface::JS_TYPE)
             ?->each(function (TemplateDto $templateDto) use ($themeDto, &$html) {
-                [$commonFile] = $this->getTemplateFile($templateDto, $themeDto);
-                $filePath = asset($commonFile);
-                $html     = str_replace(
-                    "{JAVASCRIPT_{$templateDto->getId()}}",
-                    "<script src=\"{$filePath}\"></script>",
-                    $html
-                );
+                $filePath = $this->getTemplateFile($templateDto, $themeDto);
+                $html     = str_replace("{JAVASCRIPT_{$templateDto->getId()}}", $filePath, $html);
             });
 
         $themeDto->getTemplates()
             ?->get(TemplateInterface::CSS_TYPE)
             ?->map(function (TemplateDto $templateDto) use ($themeDto, &$html) {
-                [$commonFile] = $this->getTemplateFile($templateDto, $themeDto);
-                $filePath = asset($commonFile);
-                $html     = str_replace(
-                    "{CSS_{$templateDto->getId()}}",
-                    "<link rel=\"stylesheet\" href=\"{$filePath}\">",
-                    $html
-                );
+                $filePath = $this->getTemplateFile($templateDto, $themeDto);
+                $html     = str_replace("{CSS_{$templateDto->getId()}}", $filePath, $html);
             });
 
         return $html;
@@ -47,9 +37,9 @@ class BuildBaseJSandCSSTask extends Task implements BuildBaseJSandCSSTaskInterfa
     /**
      * @param \App\Ship\Parents\Dto\TemplateDto $template
      * @param \App\Ship\Parents\Dto\ThemeDto    $theme
-     * @return array
+     * @return string
      */
-    private function getTemplateFile(TemplateDto $template, ThemeDto $theme): array
+    private function getTemplateFile(TemplateDto $template, ThemeDto $theme): string
     {
         [$folder, $type] = match ($template->getType()) {
             TemplateInterface::CSS_TYPE => [
@@ -66,10 +56,6 @@ class BuildBaseJSandCSSTask extends Task implements BuildBaseJSandCSSTaskInterfa
             ],
         };
 
-        $commonFile  = implode('/', [$theme->getDirectory(), $folder, $template->getCommonFilepath() . $type]);
-        $elementFile = implode('/', [$theme->getDirectory(), $folder, $template->getCommonFilepath() . $type]);
-        $previewFile = implode('/', [$theme->getDirectory(), $folder, $template->getCommonFilepath() . $type]);
-
-        return [$commonFile, $elementFile, $previewFile];
+        return asset(implode('/', [$theme->getDirectory(), $folder, $template->getCommonFilepath() . $type]));
     }
 }
