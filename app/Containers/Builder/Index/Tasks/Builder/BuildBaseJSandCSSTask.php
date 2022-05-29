@@ -15,10 +15,7 @@ class BuildBaseJSandCSSTask extends Task implements BuildBaseJSandCSSTaskInterfa
      */
     public function run(ThemeDto $themeDto): string
     {
-        $baseTemplateId = $themeDto->getTemplates()?->get(TemplateInterface::PAGE_TYPE)?->getParentTemplateId();
-        $baseTemplates  = $themeDto->getTemplates()?->get(TemplateInterface::BASE_TYPE);
-        $baseTemplate   = is_null($baseTemplateId) ? $baseTemplates?->first() : $baseTemplates?->get($baseTemplateId);
-        $html           = $baseTemplate?->getCommonHtml();
+        $html  = $themeDto->getTemplates()?->get(TemplateInterface::BASE_TYPE)?->getCommonHtml();
 
         $themeDto->getTemplates()
             ?->get(TemplateInterface::JS_TYPE)

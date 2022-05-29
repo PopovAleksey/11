@@ -44,6 +44,11 @@ class FindTemplatesTask extends Task implements FindTemplatesTaskInterface
             $template     = $this->templateRepository->findByThemeAndLanguage($theme->id, $languageId, $pageId);
             $templateDto  = $this->buildTemplateDto($theme, $template, $languageId);
 
+            $baseTemplateId = $templateDto->get(TemplateInterface::PAGE_TYPE)?->getParentTemplateId();
+            $baseTemplates  = $templateDto->get(TemplateInterface::BASE_TYPE);
+            $baseTemplate   = is_null($baseTemplateId) ? $baseTemplates?->first() : $baseTemplates?->get($baseTemplateId);
+            $templateDto->put(TemplateInterface::BASE_TYPE, $baseTemplate);
+
             return (new ThemeDto())
                 ->setId($theme->id)
                 ->setName($theme->name)
