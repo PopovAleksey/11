@@ -22,7 +22,10 @@ class UpdateNameTemplateTask extends Task implements UpdateNameTemplateTaskInter
     public function run(TemplateDto $data): void
     {
         try {
-            $this->repository->update(['name' => $data->getName()], $data->getId());
+            $this->repository->update([
+                'name'               => $data->getName(),
+                'parent_template_id' => $data->getParentTemplateId(),
+            ], $data->getId());
 
         } catch (Exception) {
             throw new UpdateResourceFailedException();

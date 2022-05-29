@@ -10,13 +10,15 @@ class UpdateNameTemplateRequest extends Request
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string'],
+            'name'               => ['required', 'string'],
+            'parent_template_id' => ['integer'],
         ];
     }
 
     public function mapped(): TemplateDto
     {
         return (new TemplateDto())
-            ->setName($this->get('name'));
+            ->setName($this->get('name'))
+            ->setParentTemplateId($this->get('parent_template_id'));
     }
 }

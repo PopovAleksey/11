@@ -42,7 +42,7 @@ class FindTemplateByIdTask extends Task implements FindTemplateByIdTaskInterface
             $storage  = Storage::disk('template');
 
             [$commonFile, $elementFile, $previewFile] = $this->getTemplatesFilepathTask->run($template, $theme);
-            
+
             $commonHtml  = $storage->exists($commonFile) ? $storage->get($commonFile) : null;
             $elementHtml = $storage->exists($elementFile) ? $storage->get($elementFile) : null;
             $previewHtml = $storage->exists($previewFile) ? $storage->get($previewFile) : null;
@@ -65,6 +65,7 @@ class FindTemplateByIdTask extends Task implements FindTemplateByIdTaskInterface
                 ->setElementHtml($elementHtml)
                 ->setPreviewFilepath($template->preview_filepath)
                 ->setPreviewHtml($previewHtml)
+                ->setParentTemplateId($template->parent_template_id)
                 ->setCreateAt($template->created_at)
                 ->setUpdateAt($template->updated_at);
 

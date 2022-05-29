@@ -13,6 +13,16 @@
         </div>
         <input type="text" class="form-control" placeholder="Enter Template Name..." id="theme-name"
                value="{{ $template->getName() }}"/>
+        @if(isset($baseTemplates))
+            <div class="input-group-prepend">
+                <span class="input-group-text">Base Template</span>
+            </div>
+            <select id="base-template" class="form-control">
+                @foreach($baseTemplates as $baseTemplate)
+                    <option value="{{ $baseTemplate->getId() }}">{{ $baseTemplate->getName() }}</option>
+                @endforeach
+            </select>
+        @endif
         <div class="input-group-append">
             <button type="button" class="btn btn-warning" id="save-name">
                 <i class="fas fa-circle-notch fa-spin" style="display: none;"></i>&nbsp;Save Name
@@ -65,6 +75,7 @@
                 $('button#save-name i').show();
 
                 let themeName = $('input#theme-name').val();
+                let baseTemplate = $('select#base-template').val();
 
                 $.ajax({
                     url: '{{ route('constructor_template_name_update', ['id' => $template->getId()]) }}',
@@ -72,7 +83,10 @@
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
-                    data: {'name': themeName},
+                    data: {
+                        'name': themeName,
+                        'parent_template_id': baseTemplate
+                    },
                     success: function () {
                         $('button#save-name').prop("disabled", false);
                         $('button#save-name i').hide();
@@ -97,6 +111,9 @@
             $('button#save-button').prop("disabled", true);
             $('button#save-button i').show();
 
+            let themeName = $('input#theme-name').val();
+            let baseTemplate = $('select#base-template').val();
+
             $.ajax({
                 url: '{{ route('constructor_template_update', ':id') }}'.replace(':id', {{$template->getId()}}),
                 type: 'PATCH',
@@ -104,6 +121,8 @@
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
                 data: {
+                    'name': themeName,
+                    'parent_template_id': baseTemplate,
                     'commonHtml': commonHtml,
                     'elementHtml': elementHtml,
                     'previewHtml': previewHtml,

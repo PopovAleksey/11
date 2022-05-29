@@ -32,7 +32,7 @@ class TemplateRepository extends Repository implements TemplateRepositoryInterfa
     {
         return Template::class;
     }
-    
+
     /**
      * @param int $themeId
      * @param int $languageId
@@ -75,6 +75,28 @@ class TemplateRepository extends Repository implements TemplateRepositoryInterfa
             ])
             ->leftJoin(app(LanguageInterface::class)->getTable() . ' AS l', 'l.id', '=', 't.language_id')
             ->orderBy('language_id')
+            ->get();
+    }
+
+    /**
+     * @param int      $themeId
+     * @param int|null $languageId
+     * @return \Illuminate\Database\Eloquent\Collection
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
+    public function getBaseTemplates(int $themeId, int $languageId = null): Collection
+    {
+        return $this->makeModel()::query()
+            ->where([
+                'type'     => TemplateInterface::BASE_TYPE,
+                'theme_id' => $themeId,
+            ])
+            ->where(static function (Builder $query) use ($languageId) {
+                $query
+                    ->where('language_id', $languageId)
+                    ->orWhere('language_id', null);
+            })
+            ->orderBy('created_at')
             ->get();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Containers\Constructor\Template\UI\WEB\Controllers;
 
 use App\Containers\Constructor\Template\Actions\GetAllIncludableItemsActionInterface;
+use App\Containers\Constructor\Template\Actions\GetListBaseTemplatesAction;
 use App\Containers\Constructor\Template\Actions\Template\CreateTemplateActionInterface;
 use App\Containers\Constructor\Template\Actions\Template\DeleteTemplateActionInterface;
 use App\Containers\Constructor\Template\Actions\Template\FindTemplateByIdActionInterface;
@@ -30,6 +31,7 @@ class ControllerTemplate extends WebController
      */
     public function __construct(
         private GetAllIncludableItemsActionInterface $getAllIncludableItemsAction,
+        private GetListBaseTemplatesAction           $getListBaseTemplatesAction,
         private CreateTemplateActionInterface        $createTemplateAction,
         private FindTemplateByIdActionInterface      $findTemplateByIdAction,
         private UpdateTemplateActionInterface        $updateTemplateAction,
@@ -74,6 +76,11 @@ class ControllerTemplate extends WebController
         if ($template->getType() === TemplateInterface::BASE_TYPE) {
             $includableItems = $this->getAllIncludableItemsAction->run($template->getThemeId());
             $data            = array_merge($data, ['includableItems' => $includableItems]);
+        }
+
+        if ($template->getType() === TemplateInterface::PAGE_TYPE) {
+            $listOfBaseTemplates = $this->getListBaseTemplatesAction->run($template->getThemeId(), $template->getLanguageId());
+            $data            = array_merge($data, ['baseTemplates' => $listOfBaseTemplates]);
         }
 
         return view($view, $data);

@@ -4,6 +4,8 @@ namespace App\Containers\Constructor\Template\Providers;
 
 use App\Containers\Constructor\Template\Actions\GetAllIncludableItemsAction;
 use App\Containers\Constructor\Template\Actions\GetAllIncludableItemsActionInterface;
+use App\Containers\Constructor\Template\Actions\GetListBaseTemplatesAction;
+use App\Containers\Constructor\Template\Actions\GetListBaseTemplatesActionInterface;
 use App\Containers\Constructor\Template\Actions\Template\CreateTemplateAction;
 use App\Containers\Constructor\Template\Actions\Template\CreateTemplateActionInterface;
 use App\Containers\Constructor\Template\Actions\Template\DeleteTemplateAction;
@@ -28,6 +30,8 @@ use App\Containers\Constructor\Template\Actions\Theme\UpdateNameThemeAction;
 use App\Containers\Constructor\Template\Actions\Theme\UpdateNameThemeActionInterface;
 use App\Containers\Constructor\Template\Tasks\GetAllIncludableItemsTask;
 use App\Containers\Constructor\Template\Tasks\GetAllIncludableItemsTaskInterface;
+use App\Containers\Constructor\Template\Tasks\GetListBaseTemplatesTask;
+use App\Containers\Constructor\Template\Tasks\GetListBaseTemplatesTaskInterface;
 use App\Containers\Constructor\Template\Tasks\Template\CreateTemplateTask;
 use App\Containers\Constructor\Template\Tasks\Template\CreateTemplateTaskInterface;
 use App\Containers\Constructor\Template\Tasks\Template\DeleteTemplateTask;
@@ -86,6 +90,7 @@ class MainServiceProvider extends MainProvider
 
         $this->app->bind(GetAllThemesActionInterface::class, GetAllThemesAction::class);
         $this->app->bind(GetAllIncludableItemsActionInterface::class, GetAllIncludableItemsAction::class);
+        $this->app->bind(GetListBaseTemplatesActionInterface::class, GetListBaseTemplatesAction::class);
         $this->app->bind(CreateThemeActionInterface::class, CreateThemeAction::class);
         $this->app->bind(FindThemeByIdActionInterface::class, FindThemeByIdAction::class);
         $this->app->bind(ActivateThemeActionInterface::class, ActivateThemeAction::class);
@@ -103,6 +108,7 @@ class MainServiceProvider extends MainProvider
 
         $this->app->bind(GetAllThemesTaskInterface::class, GetAllThemesTask::class);
         $this->app->bind(GetAllIncludableItemsTaskInterface::class, GetAllIncludableItemsTask::class);
+        $this->app->bind(GetListBaseTemplatesTaskInterface::class, GetListBaseTemplatesTask::class);
         $this->app->bind(GetTemplatesFilepathTaskInterface::class, GetTemplatesFilepathTask::class);
         $this->app->bind(CreateThemeTaskInterface::class, CreateThemeTask::class);
         $this->app->bind(FindThemeByIdTaskInterface::class, FindThemeByIdTask::class);
