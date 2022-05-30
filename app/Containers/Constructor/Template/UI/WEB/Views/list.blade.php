@@ -202,7 +202,7 @@
                                     </td>
                                     <td class="dt-right">
                                         <div class="btn-group">
-                                            <button type="button" class="btn bg-gradient-info btn-sm"
+                                            <button type="button" class="btn bg-gradient-warning btn-sm"
                                                     onclick="location.href='{{ route('constructor_theme_edit', $item->getId()) }}'">
                                                 <i class="fas fa-file-code"></i>&nbsp;
                                                 Templates

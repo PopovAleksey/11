@@ -309,7 +309,7 @@
                                             <td>{{ $template->getCreateAt() }}</td>
                                             <td class="dt-right">
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn bg-gradient-info btn-sm"
+                                                    <button type="button" class="btn bg-gradient-warning btn-sm"
                                                             onclick="location.href='{{ route('constructor_template_edit', $template->getId()) }}'">
                                                         <i class="fas fa-code"></i></i>&nbsp;
                                                         Code Editor
@@ -364,7 +364,7 @@
                                             <td>{{ $template->getCreateAt() }}</td>
                                             <td class="dt-right">
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn bg-gradient-info btn-sm"
+                                                    <button type="button" class="btn bg-gradient-warning btn-sm"
                                                             onclick="location.href='{{ route('constructor_template_edit', $template->getId()) }}'">
                                                         <i class="fas fa-code"></i></i>&nbsp;
                                                         Code Editor
@@ -410,7 +410,7 @@
                                             <td>{{ $template->getCreateAt() }}</td>
                                             <td class="dt-right">
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn bg-gradient-info btn-sm"
+                                                    <button type="button" class="btn bg-gradient-warning btn-sm"
                                                             onclick="location.href='{{ route('constructor_template_edit', $template->getId()) }}'">
                                                         <i class="fas fa-code"></i></i>&nbsp;
                                                         Code Editor
@@ -459,7 +459,7 @@
                                             <td>{{ $template->getCreateAt() }}</td>
                                             <td class="dt-right">
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn bg-gradient-info btn-sm"
+                                                    <button type="button" class="btn bg-gradient-warning btn-sm"
                                                             onclick="location.href='{{ route('constructor_template_edit', $template->getId()) }}'">
                                                         <i class="fas fa-code"></i></i>&nbsp;
                                                         Code Editor
@@ -508,7 +508,7 @@
                                             <td>{{ $template->getCreateAt() }}</td>
                                             <td class="dt-right">
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn bg-gradient-info btn-sm"
+                                                    <button type="button" class="btn bg-gradient-warning btn-sm"
                                                             onclick="location.href='{{ route('constructor_template_edit', $template->getId()) }}'">
                                                         <i class="fas fa-code"></i></i>&nbsp;
                                                         Code Editor

@@ -37,7 +37,7 @@
                                 <p>{{$item->getName()}}</p>
                             </a>
                         </li>
-                        @if($item->getType() === \App\Ship\Parents\Models\PageInterface::BLOG_TYPE)
+                        {{--@if($item->getType() === \App\Ship\Parents\Models\PageInterface::BLOG_TYPE)
                             <li class="nav-item">
                                 <a href="{{ route('dashboard_page_show', ['id' => $item->getChildPage()->getId()]) }}"
                                    class="nav-link {{ route('dashboard_page_show', ['id' => $item->getChildPage()->getId()], false) === '/' . request()->path() ? 'active' : ''}}">
@@ -46,7 +46,7 @@
                                     <p>{{$item->getChildPage()->getName()}}</p>
                                 </a>
                             </li>
-                        @endif
+                        @endif--}}
                     @endforeach
                     <br/>
                 @endif

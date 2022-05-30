@@ -194,7 +194,7 @@
                                     </td>
                                     <td class="dt-right">
                                         <div class="btn-group">
-                                            <button type="button" class="btn bg-gradient-warning btn-sm"
+                                            <button type="button" class="btn bg-gradient-danger btn-sm"
                                                     data-id="{{ $item->getId() }}"
                                                     data-toggle="modal"
                                                     data-target="#modal-delete">
