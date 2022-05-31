@@ -54,6 +54,24 @@
         });
     </script>
 @stop
+@if($template->getType() === \App\Ship\Parents\Models\TemplateInterface::WIDGET_TYPE)
+    @section('page-title')
+        @parent
+        <div class="input-group" style="margin-top: 10px">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Count of Show Elements</span>
+            </div>
+            <input type="number" class="form-control" placeholder="Enter Count of Showing Elements..." id="widget-count"
+                   value=""/>
+            <div class="input-group-prepend">
+                <span class="input-group-text">Show By</span>
+            </div>
+            <select class="form-control" id="widget-show-by">
+                <option>1</option>
+            </select>
+        </div>
+    @endsection
+@endif
 @section('template-form')
     <div class="card card-primary card-outline card-outline-tabs">
         <div class="card-header p-0 border-bottom-0">
@@ -62,13 +80,13 @@
                     <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill"
                        href="#custom-tabs-four-home" role="tab"
                        aria-controls="custom-tabs-four-home"
-                       aria-selected="true">Common Menu Style</a>
+                       aria-selected="true">Common Style</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill"
                        href="#custom-tabs-four-profile" role="tab"
                        aria-controls="custom-tabs-four-profile"
-                       aria-selected="false">Menu Item Style</a>
+                       aria-selected="false">One Item Style</a>
                 </li>
             </ul>
         </div>
@@ -79,7 +97,7 @@
                     <div class="btn-group margin-10">
                         <button type="button" class="btn btn-info" id="insert-content"
                                 data-value="{ITEMS}">
-                            Menu Items
+                            All Items
                         </button>
                     </div>
                     <textarea id="code" class="p-3">{{ $template->getCommonHtml() }}</textarea>

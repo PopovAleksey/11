@@ -21,14 +21,6 @@ use Illuminate\Http\JsonResponse;
 
 class ControllerTemplate extends WebController
 {
-    /**
-     * @param \App\Containers\Constructor\Template\Actions\GetAllIncludableItemsActionInterface       $getAllIncludableItemsAction
-     * @param \App\Containers\Constructor\Template\Actions\Template\CreateTemplateActionInterface     $createTemplateAction
-     * @param \App\Containers\Constructor\Template\Actions\Template\FindTemplateByIdActionInterface   $findTemplateByIdAction
-     * @param \App\Containers\Constructor\Template\Actions\Template\UpdateTemplateActionInterface     $updateTemplateAction
-     * @param \App\Containers\Constructor\Template\Actions\Template\DeleteTemplateActionInterface     $deleteTemplateAction
-     * @param \App\Containers\Constructor\Template\Actions\Template\UpdateNameTemplateActionInterface $updateNameTemplateAction
-     */
     public function __construct(
         private GetAllIncludableItemsActionInterface $getAllIncludableItemsAction,
         private GetListBaseTemplatesAction           $getListBaseTemplatesAction,
@@ -63,7 +55,7 @@ class ControllerTemplate extends WebController
         $template = $this->findTemplateByIdAction->run($id);
 
         $view = match ($template->getType()) {
-            TemplateInterface::MENU_TYPE => 'constructor@template::editTemplateMenu',
+            TemplateInterface::MENU_TYPE, TemplateInterface::WIDGET_TYPE => 'constructor@template::editTemplateMenu',
             default => 'constructor@template::editTemplateSimple'
         };
 
@@ -80,7 +72,7 @@ class ControllerTemplate extends WebController
 
         if ($template->getType() === TemplateInterface::PAGE_TYPE) {
             $listOfBaseTemplates = $this->getListBaseTemplatesAction->run($template->getThemeId(), $template->getLanguageId());
-            $data            = array_merge($data, ['baseTemplates' => $listOfBaseTemplates]);
+            $data                = array_merge($data, ['baseTemplates' => $listOfBaseTemplates]);
         }
 
         return view($view, $data);

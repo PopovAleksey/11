@@ -106,6 +106,23 @@
                             @endforeach
                         </div>
                     </div>
+
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                aria-expanded="false">
+                            Widget
+                        </button>
+                        <div class="dropdown-menu" style="">
+                            @foreach($includableItems->get(\App\Ship\Parents\Models\TemplateInterface::WIDGET_TYPE) ?? [] as $item)
+                                <button class="dropdown-item" href="#" id="insert-content"
+                                        data-value="{WIDGET_{{ $item->getId() }}}">
+                                    {{ $item->getName() }}
+                                    <sup>ID: {{ $item->getId() }} /
+                                        Language: {{ $item->getLanguage()?->getName() ?? 'General' }}</sup>
+                                </button>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
             @endif
             <div class="btn-group margin-10">

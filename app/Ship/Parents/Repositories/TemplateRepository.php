@@ -68,10 +68,9 @@ class TemplateRepository extends Repository implements TemplateRepositoryInterfa
             ->select(DB::raw('*, t.id AS id, t.name AS name, l.name AS language_name, t.created_at, t.updated_at'))
             ->from(app(TemplateInterface::class)->getTable(), 't')
             ->where(['theme_id' => $themeId])
-            ->whereIn('type', [
-                TemplateInterface::JS_TYPE,
-                TemplateInterface::CSS_TYPE,
-                TemplateInterface::MENU_TYPE,
+            ->whereNotIn('type', [
+                TemplateInterface::BASE_TYPE,
+                TemplateInterface::PAGE_TYPE,
             ])
             ->leftJoin(app(LanguageInterface::class)->getTable() . ' AS l', 'l.id', '=', 't.language_id')
             ->orderBy('language_id')

@@ -26,8 +26,8 @@ class StoreTemplateRequest extends Request
             'type'        => ['required', 'in:' . $types],
             'name'        => ['nullable', 'string'],
             'theme_id'    => ['required', 'integer'],
-            'page_id'     => ['required_if:type,' . TemplateInterface::PAGE_TYPE, 'integer'],
-            'parent_id'   => ['required_if:type,' . TemplateInterface::PAGE_TYPE . ',' . TemplateInterface::WIDGET_TYPE, 'integer'],
+            'page_id'     => ['required_if:type,' . TemplateInterface::PAGE_TYPE . ',' . TemplateInterface::WIDGET_TYPE, 'integer'],
+            'parent_id'   => ['required_if:type,' . TemplateInterface::PAGE_TYPE, 'integer'],
             'language_id' => ['integer', 'nullable'],
         ];
     }

@@ -81,6 +81,12 @@ class Template extends Model implements TemplateInterface
         return $this->hasOne(__CLASS__, 'id', 'parent_template_id')->first();
     }
 
-
+    /**
+     * @return \Illuminate\Database\Eloquent\Model|\App\Ship\Parents\Models\TemplateWidgetInterface|null
+     */
+    public function getWidgetAttribute(): \Illuminate\Database\Eloquent\Model|TemplateWidgetInterface|null
+    {
+        return $this->belongsTo(TemplateWidget::class, 'id', 'template_id')->first();
+    }
 }
 

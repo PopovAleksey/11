@@ -66,35 +66,35 @@ class CreateTemplateTask extends Task implements CreateTemplateTaskInterface
             $themeDirectory    = $data->getTheme()?->getDirectory();
             $fileName          = $data->getName() . ($languageShortName ? '-' . $languageShortName : '');
 
-            $files = [
+            $files = collect([
                 'common'  => $this->createTemplateFile($data->getType(), $fileName . '-common', $themeDirectory),
                 'element' => null,
                 'preview' => null,
-            ];
+            ]);
 
             if ($data->getChildPageId() !== null || $data->getChildPage()?->getId() !== null) {
                 $element = $this->createTemplateFile($data->getType(), $fileName . '-element', $themeDirectory);
                 $preview = $this->createTemplateFile($data->getType(), $fileName . '-preview', $themeDirectory);
-                data_set($files, 'element', $element);
-                data_set($files, 'preview', $preview);
+                $files->put('element', $element);
+                $files->put('preview', $preview);
             }
 
-            if ($data->getType() === TemplateInterface::MENU_TYPE) {
+            if (in_array($data->getType(), [TemplateInterface::PAGE_TYPE, TemplateInterface::WIDGET_TYPE], true)) {
                 $element = $this->createTemplateFile($data->getType(), $fileName . '-element', $themeDirectory);
-                data_set($files, 'element', $element);
+                $files->put('element', $element);
             }
 
             $insert = [
                 'type'               => $data->getType(),
                 'name'               => $data->getName(),
                 'theme_id'           => $data->getTheme()?->getId(),
-                'page_id'            => $data->getType() === TemplateInterface::PAGE_TYPE ? $data->getPage()?->getId() : null,
+                'page_id'            => in_array($data->getType(), [TemplateInterface::PAGE_TYPE, TemplateInterface::WIDGET_TYPE], true) ? $data->getPage()?->getId() : null,
                 'child_page_id'      => $data->getType() === TemplateInterface::PAGE_TYPE ? $data->getPage()?->getChildPage()?->getId() : null,
                 'language_id'        => $data->getLanguage()?->getId(),
                 'parent_template_id' => $data->getTemplate()?->getId(),
-                'common_filepath'    => data_get($files, 'common'),
-                'element_filepath'   => data_get($files, 'element'),
-                'preview_filepath'   => data_get($files, 'preview'),
+                'common_filepath'    => $files->get('common'),
+                'element_filepath'   => $files->get('element'),
+                'preview_filepath'   => $files->get('preview'),
             ];
 
             /**

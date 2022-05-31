@@ -32,9 +32,14 @@ class FindThemeByIdTask extends Task implements FindThemeByIdTaskInterface
             $theme = $this->repository->find($id);
 
             $templates = $theme->templates->collect()->map(static function (TemplateInterface $template) {
-                $pageDto = null;
+                $templateDto = (new TemplateDto())
+                    ->setId($template->id)
+                    ->setName($template->name)
+                    ->setType($template->type)
+                    ->setCreateAt($template->created_at)
+                    ->setUpdateAt($template->updated_at);
 
-                if ($template->type === TemplateInterface::PAGE_TYPE) {
+                if (in_array($template->type, [TemplateInterface::PAGE_TYPE, TemplateInterface::WIDGET_TYPE], true)) {
                     $page = $template->page;
 
                     if ($page !== null) {
@@ -45,16 +50,10 @@ class FindThemeByIdTask extends Task implements FindThemeByIdTaskInterface
                             ->setActive($page->active)
                             ->setCreateAt($page->created_at)
                             ->setUpdateAt($page->updated_at);
+
+                        $templateDto->setPage($pageDto);
                     }
                 }
-
-                $templateDto = (new TemplateDto())
-                    ->setId($template->id)
-                    ->setName($template->name)
-                    ->setType($template->type)
-                    ->setPage($pageDto)
-                    ->setCreateAt($template->created_at)
-                    ->setUpdateAt($template->updated_at);
 
                 if ($language = $template->language) {
                     $languageDto = (new LanguageDto())

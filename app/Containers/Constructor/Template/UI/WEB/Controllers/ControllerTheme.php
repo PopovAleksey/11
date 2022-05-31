@@ -14,7 +14,6 @@ use App\Containers\Constructor\Template\UI\WEB\Requests\ActivateThemeRequest;
 use App\Containers\Constructor\Template\UI\WEB\Requests\StoreThemeRequest;
 use App\Containers\Constructor\Template\UI\WEB\Requests\UpdateNameThemeRequest;
 use App\Ship\Parents\Controllers\WebController;
-use App\Ship\Parents\Models\TemplateInterface;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -77,16 +76,7 @@ class ControllerTheme extends WebController
      */
     public function edit(int $id): Factory|View|Application
     {
-        $types = [
-            TemplateInterface::PAGE_TYPE,
-            TemplateInterface::BASE_TYPE,
-            TemplateInterface::CSS_TYPE,
-            TemplateInterface::JS_TYPE,
-            TemplateInterface::MENU_TYPE,
-        ];
-
         return view('constructor@template::editTheme', [
-            'types'     => $types,
             'languages' => $this->getAllLanguagesAction->run(),
             'pages'     => $this->getAllPagesAction->run(),
             'theme'     => $this->findThemeByIdAction->run($id),
