@@ -3,7 +3,6 @@
 namespace App\Ship\Parents\Repositories;
 
 use App\Ship\Parents\Models\SeoInterface;
-use App\Ship\Parents\Models\SeoLink;
 use App\Ship\Parents\Models\SeoLinkInterface;
 use Illuminate\Support\Collection;
 
@@ -21,7 +20,7 @@ class SeoLinkRepository extends Repository implements SeoLinkRepositoryInterface
 
     public function model(): string
     {
-        return SeoLink::class;
+        return SeoLinkInterface::class;
     }
 
     /**

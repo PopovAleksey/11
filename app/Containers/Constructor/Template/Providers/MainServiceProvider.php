@@ -44,6 +44,8 @@ use App\Containers\Constructor\Template\Tasks\Template\UpdateNameTemplateTask;
 use App\Containers\Constructor\Template\Tasks\Template\UpdateNameTemplateTaskInterface;
 use App\Containers\Constructor\Template\Tasks\Template\UpdateTemplateTask;
 use App\Containers\Constructor\Template\Tasks\Template\UpdateTemplateTaskInterface;
+use App\Containers\Constructor\Template\Tasks\Template\UpdateTemplateWidgetTask;
+use App\Containers\Constructor\Template\Tasks\Template\UpdateTemplateWidgetTaskInterface;
 use App\Containers\Constructor\Template\Tasks\Theme\ActivateThemeTask;
 use App\Containers\Constructor\Template\Tasks\Theme\ActivateThemeTaskInterface;
 use App\Containers\Constructor\Template\Tasks\Theme\CreateThemeTask;
@@ -58,11 +60,15 @@ use App\Containers\Constructor\Template\Tasks\Theme\UpdateNameThemeTask;
 use App\Containers\Constructor\Template\Tasks\Theme\UpdateNameThemeTaskInterface;
 use App\Ship\Parents\Models\Template;
 use App\Ship\Parents\Models\TemplateInterface;
+use App\Ship\Parents\Models\TemplateWidget;
+use App\Ship\Parents\Models\TemplateWidgetInterface;
 use App\Ship\Parents\Models\Theme;
 use App\Ship\Parents\Models\ThemeInterface;
 use App\Ship\Parents\Providers\MainProvider;
 use App\Ship\Parents\Repositories\TemplateRepository;
 use App\Ship\Parents\Repositories\TemplateRepositoryInterface;
+use App\Ship\Parents\Repositories\TemplateWidgetRepository;
+use App\Ship\Parents\Repositories\TemplateWidgetRepositoryInterface;
 use App\Ship\Parents\Repositories\ThemeRepository;
 use App\Ship\Parents\Repositories\ThemeRepositoryInterface;
 
@@ -105,6 +111,7 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(UpdateTemplateTaskInterface::class, UpdateTemplateTask::class);
         $this->app->bind(UpdateNameThemeTaskInterface::class, UpdateNameThemeTask::class);
         $this->app->bind(UpdateNameTemplateTaskInterface::class, UpdateNameTemplateTask::class);
+        $this->app->bind(UpdateTemplateWidgetTaskInterface::class, UpdateTemplateWidgetTask::class);
 
         $this->app->bind(GetAllThemesTaskInterface::class, GetAllThemesTask::class);
         $this->app->bind(GetAllIncludableItemsTaskInterface::class, GetAllIncludableItemsTask::class);
@@ -120,11 +127,13 @@ class MainServiceProvider extends MainProvider
     {
         $this->app->bind(ThemeRepositoryInterface::class, ThemeRepository::class);
         $this->app->bind(TemplateRepositoryInterface::class, TemplateRepository::class);
+        $this->app->bind(TemplateWidgetRepositoryInterface::class, TemplateWidgetRepository::class);
     }
 
     private function bindModels(): void
     {
         $this->app->bind(ThemeInterface::class, Theme::class);
         $this->app->bind(TemplateInterface::class, Template::class);
+        $this->app->bind(TemplateWidgetInterface::class, TemplateWidget::class);
     }
 }

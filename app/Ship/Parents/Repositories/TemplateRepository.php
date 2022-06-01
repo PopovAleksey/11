@@ -3,7 +3,6 @@
 namespace App\Ship\Parents\Repositories;
 
 use App\Ship\Parents\Models\LanguageInterface;
-use App\Ship\Parents\Models\Template;
 use App\Ship\Parents\Models\TemplateInterface;
 use DB;
 use Illuminate\Database\Eloquent\Builder;
@@ -30,7 +29,7 @@ class TemplateRepository extends Repository implements TemplateRepositoryInterfa
 
     public function model(): string
     {
-        return Template::class;
+        return TemplateInterface::class;
     }
 
     /**

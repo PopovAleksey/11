@@ -14,6 +14,7 @@ use App\Containers\Constructor\Template\UI\WEB\Requests\UpdateNameTemplateReques
 use App\Containers\Constructor\Template\UI\WEB\Requests\UpdateTemplateRequest;
 use App\Ship\Parents\Controllers\WebController;
 use App\Ship\Parents\Models\TemplateInterface;
+use App\Ship\Parents\Models\TemplateWidgetInterface;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -75,6 +76,15 @@ class ControllerTemplate extends WebController
             $data                = array_merge($data, ['baseTemplates' => $listOfBaseTemplates]);
         }
 
+        if ($template->getType() === TemplateInterface::WIDGET_TYPE) {
+            $listShowBy = [
+                TemplateWidgetInterface::SHOW_FIRST,
+                TemplateWidgetInterface::SHOW_LAST,
+                TemplateWidgetInterface::SHOW_RANDOM,
+            ];
+            $data       = array_merge($data, ['listShowBy' => $listShowBy]);
+        }
+
         return view($view, $data);
     }
 
@@ -86,7 +96,10 @@ class ControllerTemplate extends WebController
      */
     public function update(int $id, UpdateTemplateRequest $request): JsonResponse
     {
-        $data     = $request->mapped()->setId($id);
+        $data   = $request->mapped()->setId($id);
+        $widget = $data->getWidget()?->setTemplateId($id);
+        $data->setWidget($widget);
+
         $template = $this->updateTemplateAction->run($data);
 
         return response()

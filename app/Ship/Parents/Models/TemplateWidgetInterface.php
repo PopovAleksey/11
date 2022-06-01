@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 
 /**
- * @package App\Containers\Constructor\Template\Models
+ * @package App\Ship\Parents\Models
  * @method static Builder query()
  * @property integer $id
+ * @property integer $template_id
+ * @property integer $count_elements
+ * @property string  $show_by
  * @property Carbon  $created_at
  * @property Carbon  $updated_at
  */

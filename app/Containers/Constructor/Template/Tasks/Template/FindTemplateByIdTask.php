@@ -7,10 +7,12 @@ use App\Ship\Parents\Dto\LanguageDto;
 use App\Ship\Parents\Dto\PageDto;
 use App\Ship\Parents\Dto\PageFieldDto;
 use App\Ship\Parents\Dto\TemplateDto;
+use App\Ship\Parents\Dto\TemplateWidgetDto;
 use App\Ship\Parents\Dto\ThemeDto;
 use App\Ship\Parents\Models\LanguageInterface;
 use App\Ship\Parents\Models\PageFieldInterface;
 use App\Ship\Parents\Models\PageInterface;
+use App\Ship\Parents\Models\TemplateInterface;
 use App\Ship\Parents\Models\ThemeInterface;
 use App\Ship\Parents\Repositories\TemplateRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
@@ -37,15 +39,29 @@ class FindTemplateByIdTask extends Task implements FindTemplateByIdTaskInterface
             /**
              * @var \App\Ship\Parents\Models\TemplateInterface $template
              */
-            $template = $this->repository->find($id);
-            $theme    = $template->theme;
-            $storage  = Storage::disk('template');
+            $template  = $this->repository->find($id);
+            $theme     = $template->theme;
+            $widgetDto = null;
+            $storage   = Storage::disk('template');
 
             [$commonFile, $elementFile, $previewFile] = $this->getTemplatesFilepathTask->run($template, $theme);
 
             $commonHtml  = $storage->exists($commonFile) ? $storage->get($commonFile) : null;
             $elementHtml = $storage->exists($elementFile) ? $storage->get($elementFile) : null;
             $previewHtml = $storage->exists($previewFile) ? $storage->get($previewFile) : null;
+
+            if ($template->type === TemplateInterface::WIDGET_TYPE) {
+                $widget = $template->widget;
+                if ($widget !== null) {
+                    $widgetDto = (new TemplateWidgetDto())
+                        ->setId($widget->id)
+                        ->setTemplateId($widget->template_id)
+                        ->setCountElements($widget->count_elements)
+                        ->setShowBy($widget->show_by)
+                        ->setCreateAt($widget->created_at)
+                        ->setUpdateAt($widget->updated_at);
+                }
+            }
 
             return (new TemplateDto())
                 ->setId($template->id)
@@ -66,6 +82,7 @@ class FindTemplateByIdTask extends Task implements FindTemplateByIdTaskInterface
                 ->setPreviewFilepath($template->preview_filepath)
                 ->setPreviewHtml($previewHtml)
                 ->setParentTemplateId($template->parent_template_id)
+                ->setWidget($widgetDto)
                 ->setCreateAt($template->created_at)
                 ->setUpdateAt($template->updated_at);
 

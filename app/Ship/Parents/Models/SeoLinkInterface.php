@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 
 /**
- * @package App\Containers\Constructor\Seo\Models
+ * @package App\Ship\Parents\Models
  * @method static Builder query()
  * @property integer                                    $id
  * @property integer                                    $seo_id

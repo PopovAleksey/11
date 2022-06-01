@@ -2,7 +2,7 @@
 
 namespace App\Ship\Parents\Repositories;
 
-use App\Ship\Parents\Models\Seo;
+use App\Ship\Parents\Models\SeoInterface;
 
 class SeoRepository extends Repository implements SeoRepositoryInterface
 {
@@ -22,6 +22,6 @@ class SeoRepository extends Repository implements SeoRepositoryInterface
 
     public function model(): string
     {
-        return Seo::class;
+        return SeoInterface::class;
     }
 }

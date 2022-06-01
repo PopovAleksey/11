@@ -2,7 +2,7 @@
 
 namespace App\Ship\Parents\Repositories;
 
-use App\Ship\Parents\Models\PageField;
+use App\Ship\Parents\Models\PageFieldInterface;
 
 class PageFieldRepository extends Repository implements PageFieldRepositoryInterface
 {
@@ -21,6 +21,6 @@ class PageFieldRepository extends Repository implements PageFieldRepositoryInter
 
     public function model(): string
     {
-        return PageField::class;
+        return PageFieldInterface::class;
     }
 }

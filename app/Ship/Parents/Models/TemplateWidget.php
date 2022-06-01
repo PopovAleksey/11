@@ -24,6 +24,6 @@ class TemplateWidget extends Model implements TemplateWidgetInterface
     /**
      * A resource key to be used in the serialized responses.
      */
-    protected string $resourceKey = 'TemplateWidgetModel';
+    protected string $resourceKey = 'TemplateWidget';
 }
 

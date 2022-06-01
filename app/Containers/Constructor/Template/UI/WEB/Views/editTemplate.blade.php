@@ -113,6 +113,8 @@
 
             let themeName = $('input#theme-name').val();
             let baseTemplate = $('select#base-template').val();
+            let widgetCountElement = $('input#widget-count').val();
+            let widgetShowBy = $('select#widget-show-by').val();
 
             $.ajax({
                 url: '{{ route('constructor_template_update', ':id') }}'.replace(':id', {{$template->getId()}}),
@@ -126,6 +128,10 @@
                     'commonHtml': commonHtml,
                     'elementHtml': elementHtml,
                     'previewHtml': previewHtml,
+                    'widget': {
+                        'count': widgetCountElement ? parseInt(widgetCountElement) : null,
+                        'show_by': widgetShowBy ?? null
+                    }
                 },
                 success: function () {
                     $('button#save-button').prop("disabled", false);

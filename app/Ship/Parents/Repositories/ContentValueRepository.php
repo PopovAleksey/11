@@ -3,7 +3,6 @@
 namespace App\Ship\Parents\Repositories;
 
 use App\Ship\Parents\Models\ConfigurationCommonInterface;
-use App\Ship\Parents\Models\ContentValue;
 use App\Ship\Parents\Models\ContentValueInterface;
 use App\Ship\Parents\Models\SeoInterface;
 use App\Ship\Parents\Models\SeoLinkInterface;
@@ -26,7 +25,7 @@ class ContentValueRepository extends Repository implements ContentValueRepositor
 
     public function model(): string
     {
-        return ContentValue::class;
+        return ContentValueInterface::class;
     }
 
     /**

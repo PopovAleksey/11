@@ -2,7 +2,7 @@
 
 namespace App\Ship\Parents\Repositories;
 
-use App\Ship\Parents\Models\ConfigurationMenuItem;
+use App\Ship\Parents\Models\ConfigurationMenuItemInterface;
 
 class ConfigurationMenuItemRepository extends Repository implements ConfigurationMenuItemRepositoryInterface
 {
@@ -16,6 +16,6 @@ class ConfigurationMenuItemRepository extends Repository implements Configuratio
 
     public function model(): string
     {
-        return ConfigurationMenuItem::class;
+        return ConfigurationMenuItemInterface::class;
     }
 }

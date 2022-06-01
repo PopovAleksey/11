@@ -2,7 +2,7 @@
 
 namespace App\Ship\Parents\Repositories;
 
-use App\Ship\Parents\Models\Theme;
+use App\Ship\Parents\Models\ThemeInterface;
 
 class ThemeRepository extends Repository implements ThemeRepositoryInterface
 {
@@ -10,14 +10,14 @@ class ThemeRepository extends Repository implements ThemeRepositoryInterface
      * @var array
      */
     protected $fieldSearchable = [
-        'id'       => '=',
-        'name'     => 'like',
+        'id'        => '=',
+        'name'      => 'like',
         'directory' => 'like',
-        'active'   => '=',
+        'active'    => '=',
     ];
 
     public function model(): string
     {
-        return Theme::class;
+        return ThemeInterface::class;
     }
 }

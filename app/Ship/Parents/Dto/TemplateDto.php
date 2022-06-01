@@ -7,27 +7,28 @@ use PopovAleksey\Mapper\Mapper;
 
 final class TemplateDto extends Mapper
 {
-    private ?int         $id               = null;
-    private ?string      $name             = null;
-    private ?string      $type             = null;
-    private ?int         $themeId          = null;
-    private ?ThemeDto    $theme            = null;
-    private ?int         $pageId           = null;
-    private ?int         $childPageId      = null;
-    private ?PageDto     $page             = null;
-    private ?PageDto     $childPage        = null;
-    private ?int         $languageId       = null;
-    private ?LanguageDto $language         = null;
-    private ?int         $parentTemplateId = null;
-    private ?TemplateDto $template         = null;
-    private ?string      $commonFilepath   = null;
-    private ?string      $elementFilepath  = null;
-    private ?string      $previewFilepath  = null;
-    private ?string      $commonHtml       = null;
-    private ?string      $elementHtml      = null;
-    private ?string      $previewHtml      = null;
-    private ?Carbon      $createAt         = null;
-    private ?Carbon      $updateAt         = null;
+    private ?int               $id               = null;
+    private ?string            $name             = null;
+    private ?string            $type             = null;
+    private ?int               $themeId          = null;
+    private ?ThemeDto          $theme            = null;
+    private ?int               $pageId           = null;
+    private ?int               $childPageId      = null;
+    private ?PageDto           $page             = null;
+    private ?PageDto           $childPage        = null;
+    private ?int               $languageId       = null;
+    private ?LanguageDto       $language         = null;
+    private ?int               $parentTemplateId = null;
+    private ?TemplateDto       $template         = null;
+    private ?string            $commonFilepath   = null;
+    private ?string            $elementFilepath  = null;
+    private ?string            $previewFilepath  = null;
+    private ?string            $commonHtml       = null;
+    private ?string            $elementHtml      = null;
+    private ?string            $previewHtml      = null;
+    private ?TemplateWidgetDto $widget           = null;
+    private ?Carbon            $createAt         = null;
+    private ?Carbon            $updateAt         = null;
 
     /**
      * @return string|null
@@ -386,6 +387,25 @@ final class TemplateDto extends Mapper
     public function setCommonFilepath(?string $commonFilepath): self
     {
         $this->commonFilepath = $commonFilepath;
+
+        return $this;
+    }
+
+    /**
+     * @return \App\Ship\Parents\Dto\TemplateWidgetDto|null
+     */
+    public function getWidget(): ?TemplateWidgetDto
+    {
+        return $this->widget;
+    }
+
+    /**
+     * @param \App\Ship\Parents\Dto\TemplateWidgetDto|null $widget
+     * @return TemplateDto
+     */
+    public function setWidget(?TemplateWidgetDto $widget): TemplateDto
+    {
+        $this->widget = $widget;
 
         return $this;
     }

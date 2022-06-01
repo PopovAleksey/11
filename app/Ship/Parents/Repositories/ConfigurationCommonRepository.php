@@ -2,7 +2,7 @@
 
 namespace App\Ship\Parents\Repositories;
 
-use App\Ship\Parents\Models\ConfigurationCommon;
+use App\Ship\Parents\Models\ConfigurationCommonInterface;
 
 class ConfigurationCommonRepository extends Repository implements ConfigurationCommonRepositoryInterface
 {
@@ -10,12 +10,13 @@ class ConfigurationCommonRepository extends Repository implements ConfigurationC
      * @var array
      */
     protected $fieldSearchable = [
-        'id' => '=',
-        // ...
+        'id'     => '=',
+        'config' => 'like',
+        'value'  => 'like',
     ];
 
     public function model(): string
     {
-        return ConfigurationCommon::class;
+        return ConfigurationCommonInterface::class;
     }
 }

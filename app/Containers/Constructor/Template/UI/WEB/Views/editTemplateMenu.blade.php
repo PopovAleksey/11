@@ -62,12 +62,14 @@
                 <span class="input-group-text">Count of Show Elements</span>
             </div>
             <input type="number" class="form-control" placeholder="Enter Count of Showing Elements..." id="widget-count"
-                   value=""/>
+                   value="{{ $template->getWidget()?->getCountElements() ?? 1 }}"/>
             <div class="input-group-prepend">
                 <span class="input-group-text">Show By</span>
             </div>
             <select class="form-control" id="widget-show-by">
-                <option>1</option>
+                @foreach($listShowBy as $showBy)
+                    <option value="{{ $showBy }}"{{ $showBy === $template->getWidget()?->getShowBy() ? ' selected' : '' }}>{{ ucfirst($showBy) }}</option>
+                @endforeach
             </select>
         </div>
     @endsection

@@ -2,6 +2,8 @@
 
 namespace App\Ship\Parents\Repositories;
 
+use App\Ship\Parents\Models\TemplateWidgetInterface;
+
 class TemplateWidgetRepository extends Repository implements TemplateWidgetRepositoryInterface
 {
     /**
@@ -13,4 +15,9 @@ class TemplateWidgetRepository extends Repository implements TemplateWidgetRepos
         'count_elements' => '=',
         'show_by'        => '=',
     ];
+
+    public function model(): string
+    {
+        return TemplateWidgetInterface::class;
+    }
 }

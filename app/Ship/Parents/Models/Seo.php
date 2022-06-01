@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class Seo extends Model implements SeoInterface
 {
-    protected $table = 'seo';
-
     protected $fillable = [
         'page_id',
         'page_field_id',

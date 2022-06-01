@@ -204,6 +204,20 @@
 
             $('button.open-modal').on('click', function () {
                 templateType = $(this).attr('data-template-type');
+                $('select.select-page option').prop("disabled", false);
+                $('div.select-page-group').hide();
+
+                if (templateType === '{{ \App\Ship\Parents\Models\TemplateInterface::WIDGET_TYPE }}') {
+                    $('select.select-page option').prop("disabled", true);
+                    $('select.select-page option[data-type="{{ \App\Ship\Parents\Models\PageInterface::SIMPLE_TYPE }}"]').prop("disabled", false);
+                }
+
+                if (
+                    templateType === '{{ \App\Ship\Parents\Models\TemplateInterface::WIDGET_TYPE }}' ||
+                    templateType === '{{ \App\Ship\Parents\Models\TemplateInterface::PAGE_TYPE }}'
+                ) {
+                    $('div.select-page-group').show();
+                }
             });
         });
     </script>
@@ -601,11 +615,12 @@
                         <label>Name</label>
                         <input type="text" class="form-control name"/>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group select-page-group">
                         <label>For Page</label>
                         <select class="form-control select-page" style="width: 100%;">
                             @foreach ($pages as $page)
-                                <option value="{{ $page->getId() }}">{{ $page->getName() }}</option>
+                                <option value="{{ $page->getId() }}"
+                                        data-type="{{ $page->getType() }}">{{ $page->getName() }}</option>
                             @endforeach
                         </select>
                     </div>

@@ -2,7 +2,6 @@
 
 namespace App\Ship\Parents\Repositories;
 
-use App\Ship\Parents\Models\ConfigurationMenu;
 use App\Ship\Parents\Models\ConfigurationMenuInterface;
 use App\Ship\Parents\Models\ConfigurationMenuItemInterface;
 use App\Ship\Parents\Models\ContentInterface;
@@ -21,13 +20,15 @@ class ConfigurationMenuRepository extends Repository implements ConfigurationMen
      * @var array
      */
     protected $fieldSearchable = [
-        'id' => '=',
-        // ...
+        'id'          => '=',
+        'name'        => 'like',
+        'active'      => '=',
+        'template_id' => '=',
     ];
 
     public function model(): string
     {
-        return ConfigurationMenu::class;
+        return ConfigurationMenuItemInterface::class;
     }
 
     /**

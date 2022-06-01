@@ -2,7 +2,7 @@
 
 namespace App\Ship\Parents\Repositories;
 
-use App\Ship\Parents\Models\Content;
+use App\Ship\Parents\Models\ContentInterface;
 
 class ContentRepository extends Repository implements ContentRepositoryInterface
 {
@@ -17,6 +17,6 @@ class ContentRepository extends Repository implements ContentRepositoryInterface
 
     public function model(): string
     {
-        return Content::class;
+        return ContentInterface::class;
     }
 }

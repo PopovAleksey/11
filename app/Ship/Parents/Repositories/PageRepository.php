@@ -2,7 +2,7 @@
 
 namespace App\Ship\Parents\Repositories;
 
-use App\Ship\Parents\Models\Page;
+use App\Ship\Parents\Models\PageInterface;
 
 class PageRepository extends Repository implements PageRepositoryInterface
 {
@@ -18,6 +18,6 @@ class PageRepository extends Repository implements PageRepositoryInterface
 
     public function model(): string
     {
-        return Page::class;
+        return PageInterface::class;
     }
 }

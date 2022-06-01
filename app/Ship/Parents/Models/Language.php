@@ -10,14 +10,6 @@ class Language extends Model implements LanguageInterface
         'active'
     ];
 
-    protected $attributes = [
-
-    ];
-
-    protected $hidden = [
-
-    ];
-
     protected $casts = [
         'id'         => 'integer',
         'name'       => 'string',

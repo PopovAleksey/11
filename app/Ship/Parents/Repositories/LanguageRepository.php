@@ -2,7 +2,7 @@
 
 namespace App\Ship\Parents\Repositories;
 
-use App\Ship\Parents\Models\Language;
+use App\Ship\Parents\Models\LanguageInterface;
 
 class LanguageRepository extends Repository implements LanguageRepositoryInterface
 {
@@ -15,6 +15,6 @@ class LanguageRepository extends Repository implements LanguageRepositoryInterfa
 
     public function model(): string
     {
-        return Language::class;
+        return LanguageInterface::class;
     }
 }
