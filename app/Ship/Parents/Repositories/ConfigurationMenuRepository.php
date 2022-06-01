@@ -28,7 +28,7 @@ class ConfigurationMenuRepository extends Repository implements ConfigurationMen
 
     public function model(): string
     {
-        return ConfigurationMenuItemInterface::class;
+        return ConfigurationMenuInterface::class;
     }
 
     /**
