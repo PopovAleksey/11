@@ -22,7 +22,7 @@ class CreateConfigurationMenuTable extends Migration
                 ->references('id')
                 ->on('templates')
                 ->onUpdate('CASCADE')
-                ->onDelete('NO ACTION');
+                ->onDelete('SET NULL');
         });
     }
 

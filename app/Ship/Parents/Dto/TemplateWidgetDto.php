@@ -3,6 +3,7 @@
 namespace App\Ship\Parents\Dto;
 
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use PopovAleksey\Mapper\Mapper;
 
 final class TemplateWidgetDto extends Mapper
@@ -11,8 +12,21 @@ final class TemplateWidgetDto extends Mapper
     private ?int    $templateId    = null;
     private ?int    $countElements = null;
     private ?string $showBy        = null;
-    private ?Carbon $createAt      = null;
-    private ?Carbon $updateAt      = null;
+    /**
+     * \App\Ship\Parents\Dto\ContentDto[]
+     * @var \Illuminate\Support\Collection|null
+     */
+    private ?Collection $contents = null;
+    private ?Carbon     $createAt = null;
+    private ?Carbon     $updateAt = null;
+
+    /**
+     * @return int|null
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     /**
      * @param int|null $id
@@ -28,9 +42,9 @@ final class TemplateWidgetDto extends Mapper
     /**
      * @return int|null
      */
-    public function getId(): ?int
+    public function getTemplateId(): ?int
     {
-        return $this->id;
+        return $this->templateId;
     }
 
     /**
@@ -47,9 +61,9 @@ final class TemplateWidgetDto extends Mapper
     /**
      * @return int|null
      */
-    public function getTemplateId(): ?int
+    public function getCountElements(): ?int
     {
-        return $this->templateId;
+        return $this->countElements;
     }
 
     /**
@@ -64,11 +78,11 @@ final class TemplateWidgetDto extends Mapper
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getCountElements(): ?int
+    public function getShowBy(): ?string
     {
-        return $this->countElements;
+        return $this->showBy;
     }
 
     /**
@@ -83,11 +97,11 @@ final class TemplateWidgetDto extends Mapper
     }
 
     /**
-     * @return string|null
+     * @return \Illuminate\Support\Carbon|null
      */
-    public function getShowBy(): ?string
+    public function getCreateAt(): ?Carbon
     {
-        return $this->showBy;
+        return $this->createAt;
     }
 
     /**
@@ -104,9 +118,9 @@ final class TemplateWidgetDto extends Mapper
     /**
      * @return \Illuminate\Support\Carbon|null
      */
-    public function getCreateAt(): ?Carbon
+    public function getUpdateAt(): ?Carbon
     {
-        return $this->createAt;
+        return $this->updateAt;
     }
 
     /**
@@ -121,12 +135,21 @@ final class TemplateWidgetDto extends Mapper
     }
 
     /**
-     * @return \Illuminate\Support\Carbon|null
+     * @return \Illuminate\Support\Collection|null
      */
-    public function getUpdateAt(): ?Carbon
+    public function getContents(): ?Collection
     {
-        return $this->updateAt;
+        return $this->contents;
     }
 
+    /**
+     * @param \Illuminate\Support\Collection|null $contents
+     * @return TemplateWidgetDto
+     */
+    public function setContents(?Collection $contents): TemplateWidgetDto
+    {
+        $this->contents = $contents;
 
+        return $this;
+    }
 }

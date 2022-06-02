@@ -9,7 +9,7 @@
         </div>
         <div class="input-group-prepend">
             <span class="input-group-text">Type<span
-                        class="ml-1 cm-strong">{{ $template->getType() . ( $template->getType() === \App\Ship\Parents\Models\TemplateInterface::PAGE_TYPE ? ' [' . $template?->getPage()->getName() . ']' : '') }}</span></span>
+                        class="ml-1 cm-strong">{{ $template->getType() . (in_array($template->getType(), [\App\Ship\Parents\Models\TemplateInterface::PAGE_TYPE, \App\Ship\Parents\Models\TemplateInterface::WIDGET_TYPE], true) ? ' [' . $template?->getPage()->getName() . ']' : '') }}</span></span>
         </div>
         <input type="text" class="form-control" placeholder="Enter Template Name..." id="theme-name"
                value="{{ $template->getName() }}"/>

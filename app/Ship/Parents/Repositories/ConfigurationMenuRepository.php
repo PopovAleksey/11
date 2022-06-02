@@ -37,7 +37,7 @@ class ConfigurationMenuRepository extends Repository implements ConfigurationMen
      * @return \Illuminate\Database\Eloquent\Collection|array
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function getLinkDataOfMenuItems(int $languageId, int $themeId): Collection|array
+    public function getLinkDataOfMenuItems(int $languageId, int $themeId, array|\Illuminate\Support\Collection $menuIds): Collection|array
     {
         return $this->makeModel()::query()
             ->select('cm.id', 'cm.template_id', 'cmi.content_id', 'sl.link', 'cv.value', 'l.short_name')
@@ -57,6 +57,7 @@ class ConfigurationMenuRepository extends Repository implements ConfigurationMen
                     ->where('t.language_id', DB::raw('cv.language_id'))
                     ->orWhere('t.language_id', null);
             })
+            ->whereIn('t.id', collect($menuIds)->toArray())
             ->where('s.language_id', DB::raw('cv.language_id'))
             ->where('t.theme_id', $themeId)
             ->where('cv.page_field_id', DB::raw('s.page_field_id'))

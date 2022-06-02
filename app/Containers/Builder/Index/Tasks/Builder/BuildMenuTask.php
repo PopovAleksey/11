@@ -22,8 +22,8 @@ class BuildMenuTask extends Task implements BuildMenuTaskInterface
             /**
              * @var TemplateDto|null $template
              */
-            $menuId   = $menu->first()?->get('template_id');
-            $template = $themeDto->getTemplates()?->get(TemplateInterface::MENU_TYPE)?->get($menuId);
+            $templateId = $menu->first()?->get('template_id');
+            $template   = $themeDto->getTemplates()?->get(TemplateInterface::MENU_TYPE)?->get($templateId);
 
             if ($template === null) {
                 return;
@@ -38,7 +38,7 @@ class BuildMenuTask extends Task implements BuildMenuTaskInterface
             })->implode("\n");
 
             $menuHTML = str_replace('{ITEMS}', $menuItems, $template->getCommonHtml());
-            $html     = str_replace("{MENU_{$menuId}}", $menuHTML, $html);
+            $html     = str_replace("{MENU_{$templateId}}", $menuHTML, $html);
         });
 
         return $html;

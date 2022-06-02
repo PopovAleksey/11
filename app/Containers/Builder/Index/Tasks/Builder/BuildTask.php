@@ -21,9 +21,10 @@ class BuildTask extends Task implements BuildTaskInterface
      * @param \App\Ship\Parents\Dto\ThemeDto   $themeDto
      * @param \App\Ship\Parents\Dto\ContentDto $contentDto
      * @param \Illuminate\Support\Collection   $menuList
+     * @param \Illuminate\Support\Collection   $widgetList
      * @return string
      */
-    public function run(ThemeDto $themeDto, ContentDto $contentDto, Collection $menuList): string
+    public function run(ThemeDto $themeDto, ContentDto $contentDto, Collection $menuList, Collection $widgetList): string
     {
         $html    = $this->buildBaseJSandCSSTask->run($themeDto);
         $html    = $this->buildMenuTask->run($themeDto, $menuList, $html);

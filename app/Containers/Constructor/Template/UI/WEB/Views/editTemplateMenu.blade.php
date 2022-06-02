@@ -110,10 +110,24 @@
                         <button type="button" class="btn btn-info" id="insert-element" data-value="{LINK}">
                             Link URL
                         </button>
-                        <button type="button" class="btn btn-info" id="insert-element" data-value="{NAME}">
-                            Link Name
-                        </button>
+                        @if($template->getType() === \App\Ship\Parents\Models\TemplateInterface::MENU_TYPE)
+                            <button type="button" class="btn btn-info" id="insert-element" data-value="{NAME}">
+                                Link Name
+                            </button>
+                        @endif
                     </div>
+                    @if($template->getType() === \App\Ship\Parents\Models\TemplateInterface::WIDGET_TYPE)
+                        <div class="btn-group margin-10">
+                            @if($template->getPage() !== null)
+                                @foreach($template->getPage()?->getFields() as $field)
+                                    <button type="button" class="btn btn-default" id="insert-element"
+                                            data-value="{FIELD_{{$field->getId()}}}">
+                                        {{$field->getName()}}&nbsp;<sup>ID: {{ $field->getId() }}</sup>
+                                    </button>
+                                @endforeach
+                            @endif
+                        </div>
+                    @endif
                     <textarea id="code-element" class="p-3">{{ $template->getElementHtml() }}</textarea>
                 </div>
             </div>

@@ -79,7 +79,7 @@ class CreateTemplateTask extends Task implements CreateTemplateTaskInterface
                 $files->put('preview', $preview);
             }
 
-            if (in_array($data->getType(), [TemplateInterface::PAGE_TYPE, TemplateInterface::WIDGET_TYPE], true)) {
+            if (in_array($data->getType(), [TemplateInterface::MENU_TYPE, TemplateInterface::WIDGET_TYPE], true)) {
                 $element = $this->createTemplateFile($data->getType(), $fileName . '-element', $themeDirectory);
                 $files->put('element', $element);
             }

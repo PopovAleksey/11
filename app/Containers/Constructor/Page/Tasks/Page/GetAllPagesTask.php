@@ -8,6 +8,7 @@ use App\Ship\Parents\Models\PageFieldInterface;
 use App\Ship\Parents\Models\PageInterface;
 use App\Ship\Parents\Repositories\PageRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 
 class GetAllPagesTask extends Task implements GetAllPagesTaskInterface
@@ -63,10 +64,10 @@ class GetAllPagesTask extends Task implements GetAllPagesTaskInterface
     }
 
     /**
-     * @param \Illuminate\Database\Eloquent\Collection $fields
+     * @param EloquentCollection $fields
      * @return array
      */
-    private function buildPageFieldsDto(\Illuminate\Database\Eloquent\Collection $fields): array
+    private function buildPageFieldsDto(EloquentCollection $fields): array
     {
         return $fields
             ->map(static function (PageFieldInterface $field) {

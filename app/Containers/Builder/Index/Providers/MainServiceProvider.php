@@ -22,6 +22,8 @@ use App\Containers\Builder\Index\Tasks\FindMenuItemsTask;
 use App\Containers\Builder\Index\Tasks\FindMenuItemsTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindTemplatesTask;
 use App\Containers\Builder\Index\Tasks\FindTemplatesTaskInterface;
+use App\Containers\Builder\Index\Tasks\FindWidgetsTask;
+use App\Containers\Builder\Index\Tasks\FindWidgetsTaskInterface;
 use App\Ship\Parents\Providers\MainProvider;
 
 
@@ -47,6 +49,7 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(FindContentsTaskInterface::class, FindContentsTask::class);
         $this->app->bind(FindTemplatesTaskInterface::class, FindTemplatesTask::class);
         $this->app->bind(FindMenuItemsTaskInterface::class, FindMenuItemsTask::class);
+        $this->app->bind(FindWidgetsTaskInterface::class, FindWidgetsTask::class);
 
         $this->app->bind(BuildTaskInterface::class, BuildTask::class);
         $this->app->bind(BuildBaseJSandCSSTaskInterface::class, BuildBaseJSandCSSTask::class);

@@ -25,5 +25,13 @@ class TemplateWidget extends Model implements TemplateWidgetInterface
      * A resource key to be used in the serialized responses.
      */
     protected string $resourceKey = 'TemplateWidget';
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Model|\App\Ship\Parents\Models\TemplateInterface
+     */
+    public function getTemplateAttribute(): \Illuminate\Database\Eloquent\Model|TemplateInterface
+    {
+        return $this->hasOne(Template::class, 'id', 'template_id')->first();
+    }
 }
 
