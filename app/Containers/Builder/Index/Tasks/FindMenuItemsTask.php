@@ -32,7 +32,7 @@ class FindMenuItemsTask extends Task implements FindMenuItemsTaskInterface
                 ->map(static function (ConfigurationMenuInterface $configurationMenu) {
                     $link = route('builder_index_page', [
                         'language' => strtolower($configurationMenu->short_name),
-                        'seoLink'  => $configurationMenu->link ?? $configurationMenu->content_id,
+                        'seoLink'  => $configurationMenu->active === true ? $configurationMenu->link ?? $configurationMenu->content_id : $configurationMenu->content_id,
                     ]);
 
                     return collect([

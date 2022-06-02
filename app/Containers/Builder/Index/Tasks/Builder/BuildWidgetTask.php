@@ -12,6 +12,12 @@ use Illuminate\Support\Collection;
 
 class BuildWidgetTask extends Task implements BuildWidgetTaskInterface
 {
+    /**
+     * @param \App\Ship\Parents\Dto\ThemeDto $themeDto
+     * @param \Illuminate\Support\Collection $widgetList
+     * @param string                         $html
+     * @return string
+     */
     public function run(ThemeDto $themeDto, Collection $widgetList, string $html): string
     {
         $widgetList->each(function (TemplateWidgetDto $widgetDto) use ($themeDto, &$html) {
@@ -30,7 +36,7 @@ class BuildWidgetTask extends Task implements BuildWidgetTaskInterface
             })->implode("\n");
 
             $widgetHtml = str_replace('{ITEMS}', $menuItems, $template->getCommonHtml());
-            $html       = str_replace("{WIDGET_{$templateId}}", $widgetHtml, $html);
+            $html       = str_replace("{WIDGET_$templateId}", $widgetHtml, $html);
         });
 
         return $html;

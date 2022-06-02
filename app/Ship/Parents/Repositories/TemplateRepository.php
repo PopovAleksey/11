@@ -46,6 +46,7 @@ class TemplateRepository extends Repository implements TemplateRepositoryInterfa
             ->where(static function (Builder $query) use ($pageId) {
                 $query
                     ->orWhere('page_id', $pageId)
+                    ->orWhere('type', TemplateInterface::WIDGET_TYPE)
                     ->orWhere('child_page_id', $pageId)
                     ->orWhere('page_id', null);
             })

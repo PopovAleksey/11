@@ -14,6 +14,7 @@ class TemplateWidget extends Model implements TemplateWidgetInterface
         'template_id'    => 'integer',
         'count_elements' => 'integer',
         'show_by'        => 'string',
+        'seo_active'     => 'boolean',
     ];
 
     protected $dates = [

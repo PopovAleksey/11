@@ -73,7 +73,7 @@ class FindContentsTask extends Task implements FindContentsTaskInterface
                     $childContentValues     = $this->buildContentValuesDto($childContentValuesList ?? collect());
                     $link                   = route('builder_index_page', [
                         'language' => strtolower($language->short_name),
-                        'seoLink'  => $contentLink?->link ?? $content->id,
+                        'seoLink'  => $contentLink?->seo?->active === true ? $contentLink?->link ?? $content->id : $content->id,
                     ]);
 
                     return $this->buildContentDto($content)

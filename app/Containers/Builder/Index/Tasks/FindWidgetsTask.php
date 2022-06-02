@@ -57,7 +57,7 @@ class FindWidgetsTask extends Task implements FindWidgetsTaskInterface
                             #@TODO Need move it to Seo module and replace save code. Clean copypast code.
                             $link    = route('builder_index_page', [
                                 'language' => strtolower($content->short_name),
-                                'seoLink'  => $content->seo_active === true ? $content?->link ?? (string) $content->content_id : $content->content_id,
+                                'seoLink'  => $content->seo_active === true ? ($content?->link ?? (string) $content->content_id) : $content->content_id,
                             ]);
 
                             return (new ContentDto())

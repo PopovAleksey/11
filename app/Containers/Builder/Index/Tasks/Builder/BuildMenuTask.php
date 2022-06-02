@@ -38,7 +38,7 @@ class BuildMenuTask extends Task implements BuildMenuTaskInterface
             })->implode("\n");
 
             $menuHTML = str_replace('{ITEMS}', $menuItems, $template->getCommonHtml());
-            $html     = str_replace("{MENU_{$templateId}}", $menuHTML, $html);
+            $html     = str_replace("{MENU_$templateId}", $menuHTML, $html);
         });
 
         return $html;
