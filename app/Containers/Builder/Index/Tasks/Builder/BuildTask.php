@@ -12,7 +12,8 @@ class BuildTask extends Task implements BuildTaskInterface
     public function __construct(
         private BuildBaseJSandCSSTaskInterface $buildBaseJSandCSSTask,
         private BuildMenuTaskInterface         $buildMenuTask,
-        private BuildPageTaskInterface         $buildPageTask
+        private BuildPageTaskInterface         $buildPageTask,
+        private BuildWidgetTaskInterface       $buildWidgetTask
     )
     {
     }
@@ -28,6 +29,7 @@ class BuildTask extends Task implements BuildTaskInterface
     {
         $html    = $this->buildBaseJSandCSSTask->run($themeDto);
         $html    = $this->buildMenuTask->run($themeDto, $menuList, $html);
+        $html    = $this->buildWidgetTask->run($themeDto, $widgetList, $html);
         $content = $this->buildPageTask->run($themeDto, $contentDto);
 
         return str_replace('{CONTENT}', $content, $html);

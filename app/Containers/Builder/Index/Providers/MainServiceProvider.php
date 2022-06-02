@@ -14,6 +14,8 @@ use App\Containers\Builder\Index\Tasks\Builder\BuildPageTask;
 use App\Containers\Builder\Index\Tasks\Builder\BuildPageTaskInterface;
 use App\Containers\Builder\Index\Tasks\Builder\BuildTask;
 use App\Containers\Builder\Index\Tasks\Builder\BuildTaskInterface;
+use App\Containers\Builder\Index\Tasks\Builder\BuildWidgetTask;
+use App\Containers\Builder\Index\Tasks\Builder\BuildWidgetTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindContentsTask;
 use App\Containers\Builder\Index\Tasks\FindContentsTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindLanguagesTask;
@@ -54,6 +56,7 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(BuildTaskInterface::class, BuildTask::class);
         $this->app->bind(BuildBaseJSandCSSTaskInterface::class, BuildBaseJSandCSSTask::class);
         $this->app->bind(BuildMenuTaskInterface::class, BuildMenuTask::class);
+        $this->app->bind(BuildWidgetTaskInterface::class, BuildWidgetTask::class);
         $this->app->bind(BuildPageTaskInterface::class, BuildPageTask::class);
 
         $this->app->bind(GetContentCssOrJsActionInterface::class, GetContentCssOrJsAction::class);
