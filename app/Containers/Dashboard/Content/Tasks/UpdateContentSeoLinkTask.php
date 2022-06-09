@@ -123,7 +123,7 @@ class UpdateContentSeoLinkTask extends Task implements UpdateContentSeoLinkTaskI
             "У" => "Y", "Ф" => "F", "Х" => "H", "Ц" => "C", "Ч" => "Ch",
             "Ш" => "Sh", "Щ" => "Sch", "Ы" => "Ie", "Э" => "E", "Ю" => "U",
             "Я" => "Ya",
-            "ь" => "'", "Ь" => "_'", "ъ" => "''", "Ъ" => "_''",
+            "ь" => "", "Ь" => "", "ъ" => "", "Ъ" => "",
             "ї" => "yi",
             "і" => "ii",
             "ґ" => "ge",
