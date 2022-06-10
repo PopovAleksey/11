@@ -5,6 +5,7 @@ namespace App\Containers\Builder\Index\UI\WEB\Controllers;
 use App\Containers\Builder\Index\Actions\BuildTemplateActionInterface;
 use App\Containers\Builder\Index\Actions\GetContentCssOrJsActionInterface;
 use App\Ship\Parents\Controllers\WebController;
+use Exception;
 use JetBrains\PhpStorm\NoReturn;
 
 class Controller extends WebController
@@ -23,7 +24,11 @@ class Controller extends WebController
      */
     public function index(?string $language = null, ?string $seoLink = null): string
     {
-        return $this->buildTemplateAction->run($language, $seoLink);
+        try {
+            return $this->buildTemplateAction->run($language, $seoLink);
+        } catch (Exception $exception) {
+            return view('builder@index::404', ['message' => $exception->getMessage()]);
+        }
     }
 
     /**
