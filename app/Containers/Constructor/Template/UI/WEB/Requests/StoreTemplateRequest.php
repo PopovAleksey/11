@@ -27,7 +27,6 @@ class StoreTemplateRequest extends Request
             'name'        => ['nullable', 'string'],
             'theme_id'    => ['required', 'integer'],
             'page_id'     => ['required_if:type,' . TemplateInterface::PAGE_TYPE . ',' . TemplateInterface::WIDGET_TYPE, 'integer'],
-            'parent_id'   => ['required_if:type,' . TemplateInterface::PAGE_TYPE, 'integer'],
             'language_id' => ['integer', 'nullable'],
         ];
     }
@@ -37,7 +36,6 @@ class StoreTemplateRequest extends Request
         $pageDto     = (new PageDto())->setId($this->get('page_id'));
         $languageDto = (new LanguageDto())->setId($this->get('language_id'));
         $themeDto    = (new ThemeDto())->setId($this->get('theme_id'));
-        $templateDto = (new TemplateDto())->setId($this->get('parent_id'));
 
         $data = $this->validated();
 
@@ -49,8 +47,6 @@ class StoreTemplateRequest extends Request
             ->setPage($pageDto)
             ->setPageId($this->get('page_id'))
             ->setLanguage($languageDto)
-            ->setLanguageId($this->get('language_id'))
-            ->setTemplate($templateDto)
-            ->setParentTemplateId($this->get('parent_id'));
+            ->setLanguageId($this->get('language_id'));
     }
 }
