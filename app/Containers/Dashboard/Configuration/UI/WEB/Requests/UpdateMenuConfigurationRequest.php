@@ -14,7 +14,7 @@ class UpdateMenuConfigurationRequest extends Request
             'name'              => ['nullable', 'string'],
             'active'            => ['nullable', 'bool'],
             'template_id'       => ['required', 'integer'],
-            'items'             => ['required', 'array'],
+            'items'             => ['nullable', 'array'],
             'items.*.contentId' => ['required', 'integer'],
             'items.*.order'     => ['required', 'integer'],
         ];

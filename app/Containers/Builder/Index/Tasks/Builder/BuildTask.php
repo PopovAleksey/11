@@ -27,11 +27,13 @@ class BuildTask extends Task implements BuildTaskInterface
      */
     public function run(ThemeDto $themeDto, ContentDto $contentDto, Collection $menuList, Collection $widgetList): string
     {
-        $html    = $this->buildBaseJSandCSSTask->run($themeDto);
-        $html    = $this->buildMenuTask->run($themeDto, $menuList, $html);
-        $html    = $this->buildWidgetTask->run($themeDto, $widgetList, $html);
-        $content = $this->buildPageTask->run($themeDto, $contentDto);
+        $html = str_replace(
+            '{CONTENT}',
+            $this->buildPageTask->run($themeDto, $contentDto),
+            $this->buildBaseJSandCSSTask->run($themeDto)
+        );
+        $html = $this->buildMenuTask->run($themeDto, $menuList, $html);
 
-        return str_replace('{CONTENT}', $content, $html);
+        return $this->buildWidgetTask->run($themeDto, $widgetList, $html);
     }
 }

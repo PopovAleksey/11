@@ -29,7 +29,7 @@ class GetAllMenuPossibleListTask extends Task implements GetAllMenuPossibleListT
 
                 return (new ConfigurationMenuItemDto())
                     ->setContentId($configurationMenu->id)
-                    ->setName($configurationMenu->value);
+                    ->setName($configurationMenu->name . ': ' . $configurationMenu->value);
             });
     }
 }

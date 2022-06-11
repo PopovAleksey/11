@@ -66,7 +66,7 @@ class ControllerTemplate extends WebController
 
         $data = ['template' => $template];
 
-        if ($template->getType() === TemplateInterface::BASE_TYPE) {
+        if (in_array($template->getType(), [TemplateInterface::BASE_TYPE, TemplateInterface::PAGE_TYPE, TemplateInterface::MENU_TYPE], true)) {
             $includableItems = $this->getAllIncludableItemsAction->run($template->getThemeId());
             $data            = array_merge($data, ['includableItems' => $includableItems]);
         }

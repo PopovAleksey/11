@@ -31,7 +31,7 @@ class FindMenuConfigurationByIdAction extends Action implements FindMenuConfigur
                  */
                 $item = $listPossibleItems->get($configurationMenuItemDto->getContentId());
 
-                return $configurationMenuItemDto->setName($item->getName());
+                return $configurationMenuItemDto->setName($item?->getName());
             });
         $listPossibleItems = $listPossibleItems->reject(fn(ConfigurationMenuItemDto $configurationMenuItemDto) => $menuItems?->has($configurationMenuItemDto->getContentId()));
         $menuData->setItems($menuItems);

@@ -36,9 +36,20 @@ class FindWidgetsTask extends Task implements FindWidgetsTaskInterface
                 ->collect()
                 ->map(function (TemplateWidgetInterface $templateWidget) use ($languageId) {
                     $pageId     = $templateWidget->template->page_id;
-                    $contentIds = $this->contentRepository->getFewContentIds($pageId, $templateWidget->count_elements, $templateWidget->show_by)->collect();
+                    $contentIds = $this->contentRepository
+                        ->getFewContentIds($pageId, $templateWidget->count_elements, $templateWidget->show_by)
+                        ->collect();
                     $contents   = $this->templateWidgetRepository
-                        ->getWidgetContents($templateWidget->template_id, $languageId, $contentIds)->collect()
+                        ->getWidgetContents($templateWidget->template_id, $languageId, $contentIds)
+                        ->collect();
+
+                    $contents = match ($templateWidget->show_by) {
+                        TemplateWidgetInterface::SHOW_FIRST => $contents->sortBy('created_at'),
+                        TemplateWidgetInterface::SHOW_LAST => $contents->sortByDesc('created_at'),
+                        TemplateWidgetInterface::SHOW_RANDOM => $contents->shuffle(),
+                    };
+
+                    $contents = $contents
                         ->groupBy(fn(TemplateWidgetInterface $templateWidget) => $templateWidget->content_id)
                         ->map(static function (Collection $contentValues) {
 
@@ -55,7 +66,7 @@ class FindWidgetsTask extends Task implements FindWidgetsTaskInterface
                              */
                             $content = $contentValues->first();
                             #@TODO Need move it to Seo module and replace save code. Clean copypast code.
-                            $link    = route('builder_index_page', [
+                            $link = route('builder_index_page', [
                                 'language' => strtolower($content->short_name),
                                 'seoLink'  => $content->seo_active === true ? ($content?->link ?? (string) $content->content_id) : $content->content_id,
                             ]);
@@ -64,7 +75,9 @@ class FindWidgetsTask extends Task implements FindWidgetsTaskInterface
                                 ->setId($content->content_id)
                                 ->setLink($link)
                                 ->setValues($values)
-                                ->setPageId($content->page_id);
+                                ->setPageId($content->page_id)
+                                ->setCreateAt($content->created_at)
+                                ->setUpdateAt($content->updated_at);
                         });
 
                     return (new TemplateWidgetDto())

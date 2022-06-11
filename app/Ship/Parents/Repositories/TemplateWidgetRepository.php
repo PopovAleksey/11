@@ -42,7 +42,20 @@ class TemplateWidgetRepository extends Repository implements TemplateWidgetRepos
     public function getWidgetContents(int $widgetTemplateId, int $languageId, Collection $contentIds): EloquentCollection
     {
         return $this->makeModel()::query()
-            ->select('tw.id', 'tw.template_id', 'c.id as content_id', 'c.page_id', 'cv.page_field_id', 'sl.link', 's.language_id', 's.active AS seo_active', 'cv.value', 'l.short_name')
+            ->select(
+                'tw.id',
+                'tw.template_id',
+                'c.id as content_id',
+                'c.page_id',
+                'cv.page_field_id',
+                'sl.link',
+                's.language_id',
+                's.active AS seo_active',
+                'cv.value',
+                'l.short_name',
+                'c.created_at',
+                'c.updated_at'
+            )
             ->from(app(TemplateWidgetInterface::class)->getTable(), 'tw')
             ->leftJoin(app(TemplateInterface::class)->getTable() . ' AS t', 't.id', '=', 'tw.template_id')
             ->leftJoin(app(PageInterface::class)->getTable() . ' AS p', 'p.id', '=', 't.page_id')

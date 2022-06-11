@@ -7,6 +7,7 @@ use App\Ship\Parents\Models\ConfigurationMenuItemInterface;
 use App\Ship\Parents\Models\ContentInterface;
 use App\Ship\Parents\Models\ContentValueInterface;
 use App\Ship\Parents\Models\LanguageInterface;
+use App\Ship\Parents\Models\PageInterface;
 use App\Ship\Parents\Models\SeoInterface;
 use App\Ship\Parents\Models\SeoLinkInterface;
 use App\Ship\Parents\Models\TemplateInterface;
@@ -72,12 +73,17 @@ class ConfigurationMenuRepository extends Repository implements ConfigurationMen
     public function getPossibleMenuItems(): Collection|array
     {
         return $this->makeModel()::query()
-            ->select('c.id', 'cv.value')
+            ->select('c.id', 'p.name', 'cv.value', 'sl.link')
             ->from(app(ContentInterface::class)->getTable(), 'c')
             ->rightJoin(app(ContentValueInterface::class)->getTable() . ' AS cv', 'c.id', '=', 'cv.content_id')
+            ->rightJoin(app(PageInterface::class)->getTable() . ' AS p', 'p.id', '=', 'c.page_id')
+            ->rightJoin(app(SeoLinkInterface::class)->getTable() . ' AS sl', 'c.id', '=', 'sl.content_id')
+            ->rightJoin(app(SeoInterface::class)->getTable() . ' AS s', 's.id', '=', 'sl.seo_id')
             ->where('c.active', true)
             ->where('c.parent_content_id', null)
             ->where('cv.language_id', 1)
+            ->where('s.language_id', DB::raw('cv.language_id'))
+            ->where('cv.page_field_id', DB::raw('s.page_field_id'))
             ->get();
     }
 }

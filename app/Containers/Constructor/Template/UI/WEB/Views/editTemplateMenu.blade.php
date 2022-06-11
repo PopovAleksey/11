@@ -102,6 +102,28 @@
                             All Items
                         </button>
                     </div>
+
+                    @if($template->getType() === \App\Ship\Parents\Models\TemplateInterface::MENU_TYPE)
+                        <div class="btn-group margin-10">
+                            <div class="input-group-prepend">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false">
+                                    Widget
+                                </button>
+                                <div class="dropdown-menu" style="">
+                                    @foreach($includableItems->get(\App\Ship\Parents\Models\TemplateInterface::WIDGET_TYPE) ?? [] as $item)
+                                        <button class="dropdown-item" href="#" id="insert-content"
+                                                data-value="{WIDGET_{{ $item->getId() }}}">
+                                            {{ $item->getName() }}
+                                            <sup>ID: {{ $item->getId() }} /
+                                                Language: {{ $item->getLanguage()?->getName() ?? 'General' }}</sup>
+                                        </button>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
                     <textarea id="code" class="p-3">{{ $template->getCommonHtml() }}</textarea>
                 </div>
                 <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel"
@@ -116,8 +138,13 @@
                             </button>
                         @endif
                     </div>
+
                     @if($template->getType() === \App\Ship\Parents\Models\TemplateInterface::WIDGET_TYPE)
                         <div class="btn-group margin-10">
+                            <button type="button" class="btn btn-dark" id="insert-element" data-value="{INDEX}">
+                                Index Number
+                            </button>
+
                             @if($template->getPage() !== null)
                                 @foreach($template->getPage()?->getFields() as $field)
                                     <button type="button" class="btn btn-default" id="insert-element"

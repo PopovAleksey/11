@@ -28,11 +28,12 @@ class BuildWidgetTask extends Task implements BuildWidgetTaskInterface
                 return;
             }
 
-            $menuItems = $widgetDto->getContents()?->map(function (ContentDto $contentDto) use ($template) {
+            $index = 1;
+            $menuItems = $widgetDto->getContents()?->map(function (ContentDto $contentDto) use ($template, &$index) {
                 $elementHtml = $template->getElementHtml();
                 $this->replacePoints($contentDto->getValues(), $elementHtml);
 
-                return str_replace('{LINK}', $contentDto->getLink(), $elementHtml);
+                return str_replace(['{LINK}', '{INDEX}'], [$contentDto->getLink(), $index++], $elementHtml);
             })->implode("\n");
 
             $widgetHtml = str_replace('{ITEMS}', $menuItems, $template->getCommonHtml());

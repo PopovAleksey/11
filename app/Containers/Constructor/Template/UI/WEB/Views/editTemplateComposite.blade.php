@@ -127,6 +127,28 @@
                             @endforeach
                         @endif
                     </div>
+
+                    @if($template->getType() === \App\Ship\Parents\Models\TemplateInterface::PAGE_TYPE)
+                        <div class="btn-group margin-10">
+                            <div class="input-group-prepend">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false">
+                                    Widget
+                                </button>
+                                <div class="dropdown-menu" style="">
+                                    @foreach($includableItems->get(\App\Ship\Parents\Models\TemplateInterface::WIDGET_TYPE) ?? [] as $item)
+                                        <button class="dropdown-item" href="#" id="insert-content"
+                                                data-value="{WIDGET_{{ $item->getId() }}}">
+                                            {{ $item->getName() }}
+                                            <sup>ID: {{ $item->getId() }} /
+                                                Language: {{ $item->getLanguage()?->getName() ?? 'General' }}</sup>
+                                        </button>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
                     <textarea id="code-preview" class="p-3">{{ $template->getPreviewHtml() }}</textarea>
                 </div>
                 <div class="tab-pane fade" id="custom-tabs-four-content" role="tabpanel"
