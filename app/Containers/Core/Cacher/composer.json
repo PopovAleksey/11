@@ -1,0 +1,6 @@
+{
+  "name": "apiato/cacher",
+  "description": "Cacher Container for apiato.",
+  "require": {
+  }
+}
