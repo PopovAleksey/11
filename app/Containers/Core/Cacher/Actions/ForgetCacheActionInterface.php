@@ -4,7 +4,7 @@ namespace App\Containers\Core\Cacher\Actions;
 
 use App\Containers\Core\Cacher\Data\Dto\CacheDto;
 
-interface CacheActionInterface
+interface ForgetCacheActionInterface
 {
-    public function run(CacheDto $cacheDto, callable $data): string;
+    public function run(CacheDto $cacheDto): bool;
 }
