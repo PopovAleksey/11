@@ -8,6 +8,8 @@ use App\Containers\Builder\Index\Tasks\FindLanguagesTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindMenuItemsTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindTemplatesTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindWidgetsTaskInterface;
+use App\Containers\Core\Cacher\Actions\CacheActionInterface;
+use App\Containers\Core\Cacher\Data\Dto\CacheDto;
 use App\Ship\Parents\Actions\Action;
 use App\Ship\Parents\Dto\TemplateDto;
 use App\Ship\Parents\Dto\ThemeDto;
@@ -22,7 +24,8 @@ class BuildTemplateAction extends Action implements BuildTemplateActionInterface
         private FindTemplatesTaskInterface $templateTask,
         private BuildTaskInterface         $buildTask,
         private FindMenuItemsTaskInterface $menuItemsTask,
-        private FindWidgetsTaskInterface   $widgetsTask
+        private FindWidgetsTaskInterface   $widgetsTask,
+        private CacheActionInterface       $cacheAction
     )
     {
     }
@@ -34,17 +37,23 @@ class BuildTemplateAction extends Action implements BuildTemplateActionInterface
      */
     public function run(?string $language = null, ?string $seoLink = null): string
     {
-        $languageDto = $this->languageTask->run($language);
-        $contentDto  = $this->contentTask->run($languageDto->getId(), $seoLink)->setLink($seoLink);
-        $themeDto    = $this->templateTask->run($languageDto->getId(), $contentDto->getPageId());
+        $cacheDto = (new CacheDto())
+            ->setLanguage($language)
+            ->setSeoLink($seoLink);
 
-        $menuIds   = $this->findIds($themeDto, TemplateInterface::MENU_TYPE);
-        $widgetIds = $this->findIds($themeDto, TemplateInterface::WIDGET_TYPE);
+        return $this->cacheAction->run($cacheDto, function () use ($language, $seoLink) {
+            $languageDto = $this->languageTask->run($language);
+            $contentDto  = $this->contentTask->run($languageDto->getId(), $seoLink)->setLink($seoLink);
+            $themeDto    = $this->templateTask->run($languageDto->getId(), $contentDto->getPageId());
 
-        $menuList   = $this->menuItemsTask->run($languageDto->getId(), $themeDto->getId(), $menuIds);
-        $widgetList = $this->widgetsTask->run($languageDto->getId(), $widgetIds);
+            $menuIds   = $this->findIds($themeDto, TemplateInterface::MENU_TYPE);
+            $widgetIds = $this->findIds($themeDto, TemplateInterface::WIDGET_TYPE);
 
-        return $this->buildTask->run($themeDto, $contentDto, $menuList, $widgetList);
+            $menuList   = $this->menuItemsTask->run($languageDto->getId(), $themeDto->getId(), $menuIds);
+            $widgetList = $this->widgetsTask->run($languageDto->getId(), $widgetIds);
+
+            return $this->buildTask->run($themeDto, $contentDto, $menuList, $widgetList);
+        });
     }
 
     /**
