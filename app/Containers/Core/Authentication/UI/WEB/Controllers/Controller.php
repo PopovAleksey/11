@@ -24,10 +24,14 @@ class Controller extends WebController
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
      */
-    public function showLoginPage(): Factory|View|Application
+    public function showLoginPage(): View|Factory|Application|RedirectResponse
     {
+        if (!request()?->secure()) {
+            return redirect()->secure(request()?->getRequestUri() ?? route('login'));
+        }
+
         return view('core@authentication::login', [
             'googleAuthLink' => $this->getGoogleAuthLinkAction->run(),
         ]);
