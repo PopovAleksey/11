@@ -2,7 +2,9 @@
 
 namespace App\Containers\Core\Authentication\Tasks;
 
+use App\Containers\Core\Authentication\Data\Dto\LoginDto;
+
 interface LoginTaskInterface
 {
-    public function run(string $email, string $password, bool $remember = false): bool;
+    public function run(LoginDto $loginDto): bool;
 }

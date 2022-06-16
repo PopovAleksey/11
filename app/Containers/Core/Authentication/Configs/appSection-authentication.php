@@ -22,13 +22,20 @@ return [
     |
     */
 
+    'oauth' => [
+        'google' => [
+            'config_file' => env('SOCIAL_GOOGLE_CONFIG_FILE'),
+            'callback'    => 'oauth_google_callback',
+        ],
+    ],
+
     'clients' => [
-        'web' => [
-            'id' => env('CLIENT_WEB_ID'),
+        'web'    => [
+            'id'     => env('CLIENT_WEB_ID'),
             'secret' => env('CLIENT_WEB_SECRET'),
         ],
         'mobile' => [
-            'id' => env('CLIENT_MOBILE_ID'),
+            'id'     => env('CLIENT_MOBILE_ID'),
             'secret' => env('CLIENT_MOBILE_SECRET'),
         ],
 

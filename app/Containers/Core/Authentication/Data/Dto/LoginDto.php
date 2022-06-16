@@ -7,6 +7,7 @@ use PopovAleksey\Mapper\Mapper;
 class LoginDto extends Mapper
 {
     private ?string $email      = null;
+    private ?string $name       = null;
     private ?string $password   = null;
     private bool    $rememberMe = true;
 
@@ -25,6 +26,25 @@ class LoginDto extends Mapper
     public function setEmail(?string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string|null $name
+     * @return LoginDto
+     */
+    public function setName(?string $name): LoginDto
+    {
+        $this->name = $name;
 
         return $this;
     }

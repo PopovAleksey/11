@@ -28,7 +28,7 @@ class WebLoginAction extends Action implements WebLoginActionInterface
      */
     public function run(LoginDto $loginDto): UserDto
     {
-        $isSuccessful = $this->loginTask->run($loginDto->getEmail(), $loginDto->getPassword(), $loginDto->isRememberMe());
+        $isSuccessful = $this->loginTask->run($loginDto);
 
         if (!$isSuccessful) {
             throw new LoginFailedException();

@@ -2,6 +2,7 @@
 
 namespace App\Containers\Core\User\Data\Repositories;
 
+use App\Containers\Core\User\Models\UserInterface;
 use App\Ship\Parents\Repositories\Repository;
 
 class UserRepository extends Repository implements UserRepositoryInterface
@@ -16,6 +17,6 @@ class UserRepository extends Repository implements UserRepositoryInterface
 
     public function model(): string
     {
-        return config('auth.providers.users.model');
+        return UserInterface::class;
     }
 }
