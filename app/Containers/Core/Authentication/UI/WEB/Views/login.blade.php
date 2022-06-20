@@ -28,23 +28,28 @@
                 </a>
             </div>
             <div class="social-auth-links text-center mt-2 mb-3">
-                <a href="{{ $googleAuthLink }}" target="_blank" class="disabled btn btn-block btn-primary">
-                    <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                <a href="" target="_blank" class="disabled btn btn-block btn-primary">
+                    <i class="fab fa-facebook mr-2"></i> Facebook <sup>Coming soon</sup>
                 </a>
             </div>
             <div class="social-auth-links text-center mt-2 mb-3">
-                <a href="{{ $googleAuthLink }}" target="_blank" class="disabled btn btn-block btn-info">
-                    <i class="fab fa-twitter mr-2"></i> Sign in using Twitter
+                <a href="" target="_blank" class="disabled btn btn-block btn-info">
+                    <i class="fab fa-twitter mr-2"></i> Twitter <sup>Coming soon</sup>
                 </a>
             </div>
             <div class="social-auth-links text-center mt-2 mb-3">
-                <a href="{{ $googleAuthLink }}" target="_blank" class="disabled btn btn-block btn-warning">
-                    <i class="fab fa-instagram mr-2"></i> Sign in using Instagram
+                <a href="" target="_blank" class="disabled btn btn-block btn-warning">
+                    <i class="fab fa-instagram mr-2"></i> Instagram <sup>Coming soon</sup>
+                </a>
+            </div>
+            <div class="social-auth-links text-center mt-2 mb-3">
+                <a href="" target="_blank" class="disabled btn btn-block btn-default">
+                    <i class="fab fa-tiktok"></i> TikTok <sup>Coming soon</sup>
                 </a>
             </div>
             <div class="social-auth-links text-center mt-2 mb-3" disabled>
-                <a href="{{ $googleAuthLink }}" target="_blank" class="disabled btn btn-block btn-dark">
-                    <i class="fab fa-github mr-2"></i> Sign in using GitHub
+                <a href="" target="_blank" class="disabled btn btn-block btn-dark">
+                    <i class="fab fa-github mr-2"></i> GitHub <sup>Coming soon</sup>
                 </a>
             </div>
             <!-- /.social-auth-links -->
