@@ -24,9 +24,9 @@ return [
 
     'oauth' => [
         'google' => [
-            'config_file'   => env('SOCIAL_GOOGLE_CONFIG_FILE'),
-            'client_id'     => env('SOCIAL_GOOGLE_CLIENT_ID'),
-            'client_secret' => env('SOCIAL_GOOGLE_CLIENT_SECRET'),
+            'config_file'   => env('OAUTH_GOOGLE_CONFIG_FILE'),
+            'client_id'     => env('OAUTH_GOOGLE_CLIENT_ID'),
+            'client_secret' => env('OAUTH_GOOGLE_CLIENT_SECRET'),
             'callback'      => 'oauth_google_callback',
         ],
     ],
