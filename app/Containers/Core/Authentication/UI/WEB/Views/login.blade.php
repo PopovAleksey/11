@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Log in (v2)</title>
+    <title>Page Constructor Login</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -19,12 +19,32 @@
     <!-- /.login-logo -->
     <div class="card card-outline card-primary">
         <div class="card-header text-center">
-            <a href="/" class="h1"><b>Admin</b>LTE</a>
+            <a href="/" class="h1"><b>Sign</b>In</a>
         </div>
         <div class="card-body">
             <div class="social-auth-links text-center mt-2 mb-3">
                 <a href="{{ $googleAuthLink }}" target="_blank" class="btn btn-block btn-danger">
                     <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                </a>
+            </div>
+            <div class="social-auth-links text-center mt-2 mb-3">
+                <a href="{{ $googleAuthLink }}" target="_blank" class="disabled btn btn-block btn-primary">
+                    <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                </a>
+            </div>
+            <div class="social-auth-links text-center mt-2 mb-3">
+                <a href="{{ $googleAuthLink }}" target="_blank" class="disabled btn btn-block btn-info">
+                    <i class="fab fa-twitter mr-2"></i> Sign in using Twitter
+                </a>
+            </div>
+            <div class="social-auth-links text-center mt-2 mb-3">
+                <a href="{{ $googleAuthLink }}" target="_blank" class="disabled btn btn-block btn-warning">
+                    <i class="fab fa-instagram mr-2"></i> Sign in using Instagram
+                </a>
+            </div>
+            <div class="social-auth-links text-center mt-2 mb-3" disabled>
+                <a href="{{ $googleAuthLink }}" target="_blank" class="disabled btn btn-block btn-dark">
+                    <i class="fab fa-github mr-2"></i> Sign in using GitHub
                 </a>
             </div>
             <!-- /.social-auth-links -->
