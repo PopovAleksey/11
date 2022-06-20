@@ -23,7 +23,7 @@
         </div>
         <div class="card-body">
             <div class="social-auth-links text-center mt-2 mb-3">
-                <a href="{{ $googleAuthLink }}" target="_blank" class="btn btn-block btn-danger">
+                <a href="{{ $googleAuthLink }}" target="_blank" class="{{ $googleAuthLink === false ? 'disabled ' : '' }}btn btn-block btn-danger">
                     <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
                 </a>
             </div>

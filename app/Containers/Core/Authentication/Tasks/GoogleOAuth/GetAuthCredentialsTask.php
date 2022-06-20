@@ -19,7 +19,15 @@ class GetAuthCredentialsTask extends Task implements GetAuthCredentialsTaskInter
     )
     {
         $this->googleService = new Google_Service_PeopleService($this->googleClient);
-        $this->googleClient->setAuthConfig(storage_path(config('appSection-authentication.oauth.google.config_file')));
+        $constFile = config('appSection-authentication.oauth.google.config_file');
+
+        if (empty($constFile)) {
+            $this->googleClient->setClientId(config('appSection-authentication.oauth.google.client_id'));
+            $this->googleClient->setClientSecret(config('appSection-authentication.oauth.google.client_secret'));
+        } else {
+            $this->googleClient->setAuthConfig(storage_path($constFile));
+        }
+
         $this->googleClient->setRedirectUri(route(config('appSection-authentication.oauth.google.callback')));
         $this->googleClient->setScopes([
             Google_Service_PeopleService::USERINFO_PROFILE,

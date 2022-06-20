@@ -6,6 +6,7 @@ use App\Containers\Core\Authentication\Actions\GoogleOAuth\GetAuthLinkActionInte
 use App\Containers\Core\Authentication\Actions\GoogleOAuth\SignInActionInterface;
 use App\Containers\Core\Authentication\Actions\WebLogoutActionInterface;
 use App\Ship\Parents\Controllers\WebController;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -32,8 +33,14 @@ class Controller extends WebController
             return redirect()->secure(request()?->getRequestUri() ?? route('login'));
         }
 
+        try {
+            $googleLink = $this->getGoogleAuthLinkAction->run();
+        }catch (Exception){
+            $googleLink = false;
+        }
+
         return view('core@authentication::login', [
-            'googleAuthLink' => $this->getGoogleAuthLinkAction->run(),
+            'googleAuthLink' => $googleLink,
         ]);
     }
 
