@@ -13,18 +13,10 @@ class CreateLocalizationsTable extends Migration
         Schema::create('localizations', static function (Blueprint $table) {
             $table->id();
             $table->string('point');
-            $table->bigInteger('language_id')->unsigned()->index('INDEX_localization_language');
-            $table->bigInteger('theme_id')->unsigned()->index('INDEX_localization_theme');
-            $table->text('value')->nullable();
+            $table->bigInteger('theme_id')->unsigned()->index('INDEX_localization_theme')->nullable();
 
-            $table->unique(['point', 'language_id', 'theme_id']);
+            $table->unique(['point', 'theme_id']);
             $table->timestamps();
-
-            $table->foreign('language_id', 'FK_localization_languages_foreign')
-                ->references('id')
-                ->on('languages')
-                ->onUpdate('NO ACTION')
-                ->onDelete('CASCADE');
 
             $table->foreign('theme_id', 'FK_localization_theme_foreign')
                 ->references('id')
