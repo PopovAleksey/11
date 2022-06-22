@@ -2,7 +2,9 @@
 
 namespace App\Containers\Constructor\Localization\UI\WEB\Controllers;
 
+use App\Containers\Constructor\Localization\Actions\GetAllLanguagesActionInterface;
 use App\Containers\Constructor\Localization\Actions\GetAllLocalizationsActionInterface;
+use App\Containers\Constructor\Localization\Actions\GetAllThemesActionInterface;
 use App\Ship\Parents\Controllers\WebController;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -11,7 +13,9 @@ use Illuminate\Contracts\View\View;
 class Controller extends WebController
 {
     public function __construct(
-        private GetAllLocalizationsActionInterface     $getAllLocalizationsAction,
+        private GetAllLocalizationsActionInterface $getAllLocalizationsAction,
+        private GetAllLanguagesActionInterface     $getAllLanguagesAction,
+        private GetAllThemesActionInterface        $getAllThemesAction,
         #private CreateLocalizationActionInterface      $createLocalizationAction,
         #private FindLocalizationByIdActionInterface    $findLocalizationByIdAction,
         #private UpdateLocalizationActionInterface      $updateLocalizationAction,
@@ -22,9 +26,16 @@ class Controller extends WebController
 
     public function index(): Factory|View|Application
     {
-        $localizations = $this->getAllLocalizationsAction->run();
+        $localizationList = $this->getAllLocalizationsAction->run();
+        $languageList     = $this->getAllLanguagesAction->run();
+        $themeList        = $this->getAllThemesAction->run();
 
-        return view('constructor.base');
+        return view('constructor@localization::list', [
+            'domain'    => config('app.url'),
+            'list'      => $localizationList,
+            'languages' => $languageList,
+            'themes'    => $themeList,
+        ]);
     }
 
     /*public function show(int $id): Factory|View|Application

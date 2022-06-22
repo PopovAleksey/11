@@ -22,7 +22,7 @@ class GetAllLocalizationsTask extends Task implements GetAllLocalizationsTaskInt
         return $this->repository->getLocaleList()
             ->groupBy([
                 fn(LocalizationInterface $localization) => $localization->language_id,
-                fn(LocalizationInterface $localization) => $localization->point,
+                fn(LocalizationInterface $localization) => $localization->id,
             ])
             ->map(static function (Collection $pointList) {
                 return $pointList->map(static function (Collection $points) {
