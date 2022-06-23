@@ -2,6 +2,8 @@
 
 namespace App\Ship\Parents\Models;
 
+use Illuminate\Database\Eloquent\Collection;
+
 class Localization extends Model implements LocalizationInterface
 {
     protected $fillable = [
@@ -10,8 +12,8 @@ class Localization extends Model implements LocalizationInterface
     ];
 
     protected $casts = [
-        'point'       => 'string',
-        'theme_id'    => 'integer',
+        'point'    => 'string',
+        'theme_id' => 'integer',
     ];
 
     protected $dates = [
@@ -31,5 +33,13 @@ class Localization extends Model implements LocalizationInterface
     public function getThemeAttribute(): \Illuminate\Database\Eloquent\Model|ThemeInterface
     {
         return $this->hasOne(Theme::class, 'id', 'theme_id')->first();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getValuesAttribute(): Collection
+    {
+        return $this->hasMany(LocalizationValues::class, 'localization_id')->get();
     }
 }

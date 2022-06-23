@@ -17,7 +17,6 @@ class Controller extends WebController
         private GetAllLanguagesActionInterface     $getAllLanguagesAction,
         private GetAllThemesActionInterface        $getAllThemesAction,
         #private CreateLocalizationActionInterface      $createLocalizationAction,
-        #private FindLocalizationByIdActionInterface    $findLocalizationByIdAction,
         #private UpdateLocalizationActionInterface      $updateLocalizationAction,
         #private DeleteLocalizationActionInterface      $deleteLocalizationAction
     )
@@ -38,14 +37,7 @@ class Controller extends WebController
         ]);
     }
 
-    /*public function show(int $id): Factory|View|Application
-    {
-        $localization = $this->findLocalizationByIdAction->run($id);
-
-        return view('constructor.base');
-    }
-
-    public function create(): Factory|View|Application
+    /*public function create(): Factory|View|Application
     {
         return view('constructor.base');
     }

@@ -71,32 +71,28 @@
                 timer: 3000
             });
 
-            $("input[data-bootstrap-switch]").each(function () {
-                $(this).bootstrapSwitch('state', $(this).prop('checked'))
-                    .on('switchChange.bootstrapSwitch', function (event, state) {
-                        $.ajax({
-                            url: '{{ route('constructor_language_update', ':id') }}'.replace(':id', $(this).attr('data-id')),
-                            type: 'PATCH',
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            },
-                            data: {
-                                'active': state === true ? 1 : 0
-                            },
-                            error: function (error) {
-                                Toast.fire({
-                                    icon: 'error',
-                                    title: error.responseJSON.message
-                                })
-                            }
-                        })
-                    });
-            });
+            $('#edit-localization').on('click', function () {
+                let editLocalizationId = $(this).attr('data-id');
 
-            $('.select-country').select2().on("change", function () {
-                let countryShortName = $('.select-country').find(':selected').val().toLowerCase();
-                $('.country-short-name').val(countryShortName.charAt(0).toLocaleUpperCase() + countryShortName.slice(1));
-                $('.country-path').val(countryShortName);
+                $.ajax({
+                    url: '{{ route('constructor_localization_find', ':id') }}'.replace(':id', editLocalizationId),
+                    type: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    success: function (response) {
+                        @foreach($languages as $language)
+
+                        @endforeach
+                        console.log(response.data);
+                    },
+                    error: function (error) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: error.responseJSON.message
+                        })
+                    }
+                });
             });
 
             $('#add-language').on('click', function () {
@@ -106,7 +102,7 @@
                 }
 
                 $.ajax({
-                    url: '{{ route('constructor_language_store') }}',
+                    url: '{{ route('constructor_localization_store') }}',
                     type: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -126,20 +122,19 @@
                 });
             });
 
-            let deleteLanguageId = null;
+            let deleteLocalizationId = null;
 
             $('button[data-target="#modal-delete"]').on('click', function () {
-                deleteLanguageId = $(this).attr('data-id');
-                console.log(deleteLanguageId);
+                deleteLocalizationId = $(this).attr('data-id');
             });
 
             $('#delete-language').on('click', function () {
-                if (deleteLanguageId === null) {
+                if (deleteLocalizationId === null) {
                     return;
                 }
 
                 $.ajax({
-                    url: '{{ route('constructor_language_destroy', ':id') }}'.replace(':id', deleteLanguageId),
+                    url: '{{ route('constructor_localization_destroy', ':id') }}'.replace(':id', deleteLocalizationId),
                     type: 'DELETE',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -210,6 +205,7 @@
                                                 <td class="dt-right">
                                                     <div class="btn-group">
                                                         <button type="button" class="btn bg-gradient-primary btn-sm"
+                                                                id="edit-localization"
                                                                 data-id="{{ $point->getId() }}"
                                                                 data-toggle="modal"
                                                                 data-target="#modal-form">
