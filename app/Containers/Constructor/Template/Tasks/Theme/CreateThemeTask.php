@@ -22,10 +22,6 @@ class CreateThemeTask extends Task implements CreateThemeTaskInterface
     public function run(ThemeDto $data): ThemeDto
     {
         try {
-            $this->repository
-                ->findByField('active', true)
-                ->each(fn(ThemeInterface $theme) => $this->repository->update(['active' => false], $theme->id));
-
             $directoryName = $this->createThemeTemplateDirectories($data->getName());
             $data->setDirectory($directoryName);
 

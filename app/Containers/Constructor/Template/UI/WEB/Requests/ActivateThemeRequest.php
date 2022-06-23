@@ -17,6 +17,6 @@ class ActivateThemeRequest extends Request
     public function mapped(): ThemeDto
     {
         return (new ThemeDto())
-            ->setActive($this->get('active', false));
+            ->setActive($this->get('active', true));
     }
 }

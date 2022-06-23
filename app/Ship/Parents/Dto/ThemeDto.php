@@ -68,6 +68,7 @@ final class ThemeDto extends Mapper
 
     /**
      * @param string|null $directory
+     * @return $this
      */
     public function setDirectory(?string $directory): self
     {
@@ -77,11 +78,11 @@ final class ThemeDto extends Mapper
     }
 
     /**
-     * @return bool|null
+     * @return bool
      */
-    public function isActive(): ?bool
+    public function isActive(): bool
     {
-        return $this->active;
+        return $this->active ?? false;
     }
 
     /**

@@ -14,7 +14,7 @@ class CreateThemeTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('directory');
-            $table->boolean('active')->default(false);
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }
