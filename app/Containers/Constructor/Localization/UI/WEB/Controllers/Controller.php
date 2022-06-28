@@ -2,9 +2,11 @@
 
 namespace App\Containers\Constructor\Localization\UI\WEB\Controllers;
 
+use App\Containers\Constructor\Localization\Actions\FindLocalizationByIdActionInterface;
 use App\Containers\Constructor\Localization\Actions\GetAllLanguagesActionInterface;
 use App\Containers\Constructor\Localization\Actions\GetAllLocalizationsActionInterface;
 use App\Containers\Constructor\Localization\Actions\GetAllThemesActionInterface;
+use App\Containers\Constructor\Localization\UI\WEB\Resources\LocalizationResource;
 use App\Ship\Parents\Controllers\WebController;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -13,9 +15,10 @@ use Illuminate\Contracts\View\View;
 class Controller extends WebController
 {
     public function __construct(
-        private GetAllLocalizationsActionInterface $getAllLocalizationsAction,
-        private GetAllLanguagesActionInterface     $getAllLanguagesAction,
-        private GetAllThemesActionInterface        $getAllThemesAction,
+        private GetAllLocalizationsActionInterface  $getAllLocalizationsAction,
+        private GetAllLanguagesActionInterface      $getAllLanguagesAction,
+        private GetAllThemesActionInterface         $getAllThemesAction,
+        private FindLocalizationByIdActionInterface $findLocalizationByIdAction,
         #private CreateLocalizationActionInterface      $createLocalizationAction,
         #private UpdateLocalizationActionInterface      $updateLocalizationAction,
         #private DeleteLocalizationActionInterface      $deleteLocalizationAction
@@ -35,6 +38,13 @@ class Controller extends WebController
             'languages' => $languageList,
             'themes'    => $themeList,
         ]);
+    }
+
+    public function find(int $id): LocalizationResource
+    {
+        $localization = $this->findLocalizationByIdAction->run($id);
+
+        return LocalizationResource::make($localization);
     }
 
     /*public function create(): Factory|View|Application

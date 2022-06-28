@@ -71,8 +71,14 @@
                 timer: 3000
             });
 
-            $('#edit-localization').on('click', function () {
+            $('#edit-localization-form').on('click', function () {
                 let editLocalizationId = $(this).attr('data-id');
+                $('#modal-form').modal('show');
+
+                $('div#modal-form input, div#modal-form select').prop("disabled", true);
+                $('div#modal-form button#send-form').prop("disabled", true);
+                $('div#modal-form button#send-form i').show();
+                $('div#modal-form button#send-form span').text('Loading...')
 
                 $.ajax({
                     url: '{{ route('constructor_localization_find', ':id') }}'.replace(':id', editLocalizationId),
@@ -81,9 +87,18 @@
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
                     success: function (response) {
-                        @foreach($languages as $language)
+                        $('input#point').val(response.data.point);
+                        $('select#select-theme option').prop('selected', false);
+                        $('select#select-theme option[value=' + response.data.theme_id +']').prop('selected', true);
 
-                        @endforeach
+                        response.data.values.forEach((value) => {
+                            console.log(value);
+                        });
+
+                        $('div#modal-form input, div#modal-form select').prop("disabled", false);
+                        $('div#modal-form button#send-form').prop("disabled", false);
+                        $('div#modal-form button#send-form i').hide();
+                        $('div#modal-form button#send-form span').text('Save')
                         console.log(response.data);
                     },
                     error: function (error) {
@@ -205,10 +220,8 @@
                                                 <td class="dt-right">
                                                     <div class="btn-group">
                                                         <button type="button" class="btn bg-gradient-primary btn-sm"
-                                                                id="edit-localization"
-                                                                data-id="{{ $point->getId() }}"
-                                                                data-toggle="modal"
-                                                                data-target="#modal-form">
+                                                                id="edit-localization-form"
+                                                                data-id="{{ $point->getId() }}">
                                                             <i class="fas fa-edit"></i>
                                                             Edit
                                                         </button>
@@ -285,7 +298,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label>For Theme</label>
-                        <select class="form-control select-country" style="width: 100%;">
+                        <select class="form-control select-theme" style="width: 100%;">
                             <option value="">Global Point</option>
                             @foreach($themes as $theme)
                                 <option value="{{ $theme->getId() }}">{{ $theme->getName() }}</option>
@@ -296,7 +309,10 @@
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel
                     </button>
-                    <button type="button" class="btn btn-success" id="add-language">Add</button>
+                    <button type="button" class="btn btn-success" id="send-form">
+                        <i class="fas fa-circle-notch fa-spin" style="display: none;"></i>
+                        <span>Add</span>
+                    </button>
                 </div>
             </div>
             <!-- /.modal-content -->
