@@ -59,26 +59,36 @@
     <script>
         $(function () {
             @foreach($languages as $language)
-            $("#localization-table-{{ $language->getId() }}").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $("#localization-table-{{ $language->getId() }}")
+                .DataTable({
+                    "responsive": true, "lengthChange": false, "autoWidth": false,
+                })
+                .buttons()
+                .container()
+                .appendTo('#example1_wrapper .col-md-6:eq(0)');
             @endforeach
 
-            var Toast = Swal.mixin({
+            let Toast = Swal.mixin({
                 toast: true,
                 position: 'bottom',
                 showConfirmButton: false,
                 timer: 3000
             });
 
-            $('#edit-localization-form').on('click', function () {
-                let editLocalizationId = $(this).attr('data-id');
+            let editLocalizationId = null;
+
+            $('button#edit-localization-form').on('click', function () {
+                editLocalizationId = $(this).attr('data-id');
                 $('#modal-form').modal('show');
 
                 $('div#modal-form input, div#modal-form select').prop("disabled", true);
-                $('div#modal-form button#send-form').prop("disabled", true);
-                $('div#modal-form button#send-form i').show();
-                $('div#modal-form button#send-form span').text('Loading...')
+                $('div#modal-form button#save-localization-button').prop("disabled", true);
+                $('div#modal-form button#save-localization-button i').show();
+                $('div#modal-form button#save-localization-button span').text('Loading...')
+
+                $('input#point').val('');
+                $('input#point-translation').val('');
+                $('select.select-theme option').prop('selected', false);
 
                 $.ajax({
                     url: '{{ route('constructor_localization_find', ':id') }}'.replace(':id', editLocalizationId),
@@ -88,20 +98,21 @@
                     },
                     success: function (response) {
                         $('input#point').val(response.data.point);
-                        $('select#select-theme option').prop('selected', false);
-                        $('select#select-theme option[value=' + response.data.theme_id +']').prop('selected', true);
+                        $('select.select-theme option[value=' + response.data.theme_id + ']').prop('selected', true);
 
                         response.data.values.forEach((value) => {
-                            console.log(value);
+                            $('input#point-translation[data-id="' + value.language_id + '"]').val(value.value);
                         });
 
                         $('div#modal-form input, div#modal-form select').prop("disabled", false);
-                        $('div#modal-form button#send-form').prop("disabled", false);
-                        $('div#modal-form button#send-form i').hide();
-                        $('div#modal-form button#send-form span').text('Save')
-                        console.log(response.data);
+                        $('div#modal-form button#save-localization-button').prop("disabled", false);
+                        $('div#modal-form button#save-localization-button i').hide();
+                        $('div#modal-form button#save-localization-button span').text('Save');
                     },
                     error: function (error) {
+                        $('div#modal-form button#save-localization-button i').hide();
+                        $('div#modal-form button#save-localization-button span').text('Save');
+
                         Toast.fire({
                             icon: 'error',
                             title: error.responseJSON.message
@@ -110,20 +121,41 @@
                 });
             });
 
-            $('#add-language').on('click', function () {
-                let countryShortName = $('.select-country').find(':selected').val();
-                if (countryShortName === '') {
+            $('button#form-localization').on('click', function () {
+                $('input#point').val('');
+                $('input#point-translation').val('');
+                $('select.select-theme option').prop('selected', false);
+
+                editLocalizationId = null;
+            });
+
+            $('button#save-localization-button').on('click', function () {
+                let point = $('input#point').val();
+                let themeId = $('select.select-theme').find(':selected').val();
+
+                if (point === '') {
                     return;
                 }
 
+                let values = [];
+
+                $('input#point-translation').each(function () {
+                    values.push({
+                        'language_id': $(this).attr('data-id'),
+                        'value': $(this).val()
+                    });
+                });
+
                 $.ajax({
-                    url: '{{ route('constructor_localization_store') }}',
-                    type: 'POST',
+                    url: editLocalizationId === null ? '{{ route('constructor_localization_store') }}' : '{{ route('constructors_localization_update', ':id') }}'.replace(':id', editLocalizationId),
+                    type: editLocalizationId === null ? 'POST' : 'PATCH',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
                     data: {
-                        'code': countryShortName
+                        'point': point,
+                        'theme_id': themeId,
+                        'values': values
                     },
                     success: function () {
                         location.reload();
@@ -171,7 +203,7 @@
 
 @section('breadcrumb')
     @parent
-    <li class="breadcrumb-item active">Languages</li>
+    <li class="breadcrumb-item active">Localizations</li>
 @stop
 
 @section('content')
@@ -309,9 +341,9 @@
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel
                     </button>
-                    <button type="button" class="btn btn-success" id="send-form">
+                    <button type="button" class="btn btn-success" id="save-localization-button">
                         <i class="fas fa-circle-notch fa-spin" style="display: none;"></i>
-                        <span>Add</span>
+                        <span>Save</span>
                     </button>
                 </div>
             </div>
