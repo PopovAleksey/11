@@ -18,13 +18,13 @@ use Illuminate\Http\JsonResponse;
 class Controller extends WebController
 {
     public function __construct(
-        private GetAllLocalizationsActionInterface  $getAllLocalizationsAction,
-        private GetAllLanguagesActionInterface      $getAllLanguagesAction,
-        private GetAllThemesActionInterface         $getAllThemesAction,
-        private FindLocalizationByIdActionInterface $findLocalizationByIdAction,
+        private readonly GetAllLocalizationsActionInterface  $getAllLocalizationsAction,
+        private readonly GetAllLanguagesActionInterface      $getAllLanguagesAction,
+        private readonly GetAllThemesActionInterface         $getAllThemesAction,
+        private readonly FindLocalizationByIdActionInterface $findLocalizationByIdAction,
         #private CreateLocalizationActionInterface      $createLocalizationAction,
         #private UpdateLocalizationActionInterface      $updateLocalizationAction,
-        private DeleteLocalizationActionInterface   $deleteLocalizationAction
+        private readonly DeleteLocalizationActionInterface   $deleteLocalizationAction
     )
     {
     }
