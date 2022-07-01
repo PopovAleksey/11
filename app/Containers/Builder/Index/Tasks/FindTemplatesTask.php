@@ -14,14 +14,14 @@ use App\Ship\Parents\Repositories\ThemeRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class FindTemplatesTask extends Task implements FindTemplatesTaskInterface
 {
     public function __construct(
-        private ConfigurationCommonRepositoryInterface $configurationCommonRepository,
-        private ThemeRepositoryInterface               $themeRepository,
-        private TemplateRepositoryInterface            $templateRepository
+        private readonly ConfigurationCommonRepositoryInterface $configurationCommonRepository,
+        private readonly ThemeRepositoryInterface               $themeRepository,
+        private readonly TemplateRepositoryInterface            $templateRepository
     )
     {
     }

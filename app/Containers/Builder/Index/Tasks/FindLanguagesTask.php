@@ -14,8 +14,8 @@ use Exception;
 class FindLanguagesTask extends Task implements FindLanguagesTaskInterface
 {
     public function __construct(
-        private LanguageRepositoryInterface            $languageRepository,
-        private ConfigurationCommonRepositoryInterface $configurationCommonRepository
+        private readonly LanguageRepositoryInterface            $languageRepository,
+        private readonly ConfigurationCommonRepositoryInterface $configurationCommonRepository
     )
     {
     }

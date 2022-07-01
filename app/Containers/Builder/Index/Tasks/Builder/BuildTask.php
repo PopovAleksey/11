@@ -10,10 +10,10 @@ use Illuminate\Support\Collection;
 class BuildTask extends Task implements BuildTaskInterface
 {
     public function __construct(
-        private BuildBaseJSandCSSTaskInterface $buildBaseJSandCSSTask,
-        private BuildMenuTaskInterface         $buildMenuTask,
-        private BuildPageTaskInterface         $buildPageTask,
-        private BuildWidgetTaskInterface       $buildWidgetTask
+        private readonly BuildBaseJSandCSSTaskInterface $buildBaseJSandCSSTask,
+        private readonly BuildMenuTaskInterface         $buildMenuTask,
+        private readonly BuildPageTaskInterface         $buildPageTask,
+        private readonly BuildWidgetTaskInterface       $buildWidgetTask
     )
     {
     }

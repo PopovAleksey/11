@@ -16,8 +16,8 @@ use Illuminate\Support\Collection;
 class FindWidgetsTask extends Task implements FindWidgetsTaskInterface
 {
     public function __construct(
-        private ContentRepositoryInterface        $contentRepository,
-        private TemplateWidgetRepositoryInterface $templateWidgetRepository
+        private readonly ContentRepositoryInterface        $contentRepository,
+        private readonly TemplateWidgetRepositoryInterface $templateWidgetRepository
     )
     {
     }

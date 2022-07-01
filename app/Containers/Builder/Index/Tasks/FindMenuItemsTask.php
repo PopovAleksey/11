@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 class FindMenuItemsTask extends Task implements FindMenuItemsTaskInterface
 {
     public function __construct(
-        private ConfigurationMenuRepositoryInterface $configurationMenuRepository
+        private readonly ConfigurationMenuRepositoryInterface $configurationMenuRepository
     )
     {
     }

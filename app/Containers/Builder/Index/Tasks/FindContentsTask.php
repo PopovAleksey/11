@@ -18,10 +18,10 @@ use Illuminate\Support\Collection;
 class FindContentsTask extends Task implements FindContentsTaskInterface
 {
     public function __construct(
-        private ContentRepositoryInterface      $contentRepository,
-        private ContentValueRepositoryInterface $contentValueRepository,
-        private SeoLinkRepositoryInterface      $seoLinkRepository,
-        private LanguageRepositoryInterface     $languageRepository
+        private readonly ContentRepositoryInterface      $contentRepository,
+        private readonly ContentValueRepositoryInterface $contentValueRepository,
+        private readonly SeoLinkRepositoryInterface      $seoLinkRepository,
+        private readonly LanguageRepositoryInterface     $languageRepository
     )
     {
     }
