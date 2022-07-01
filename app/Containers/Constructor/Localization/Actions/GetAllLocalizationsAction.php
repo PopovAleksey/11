@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 class GetAllLocalizationsAction extends Action implements GetAllLocalizationsActionInterface
 {
     public function __construct(
-        private GetAllLocalizationsTaskInterface $getAllLocalizationTask
+        private readonly GetAllLocalizationsTaskInterface $getAllLocalizationTask
     )
     {
     }

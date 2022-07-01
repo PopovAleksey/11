@@ -9,7 +9,7 @@ use App\Ship\Parents\Dto\LocalizationDto;
 class FindLocalizationByIdAction extends Action implements FindLocalizationByIdActionInterface
 {
     public function __construct(
-        private FindLocalizationByIdTaskInterface $findLocalizationByIdTask
+        private readonly FindLocalizationByIdTaskInterface $findLocalizationByIdTask
     )
     {
     }

@@ -12,7 +12,7 @@ use Exception;
 
 class FindLocalizationByIdTask extends Task implements FindLocalizationByIdTaskInterface
 {
-    public function __construct(private LocalizationRepositoryInterface $repository)
+    public function __construct(private readonly LocalizationRepositoryInterface $repository)
     {
     }
 

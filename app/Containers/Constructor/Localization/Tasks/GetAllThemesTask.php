@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 
 class GetAllThemesTask extends Task implements GetAllThemesTaskInterface
 {
-    public function __construct(private ThemeRepositoryInterface $repository)
+    public function __construct(private readonly ThemeRepositoryInterface $repository)
     {
     }
 

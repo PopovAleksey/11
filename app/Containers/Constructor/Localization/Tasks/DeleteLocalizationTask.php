@@ -9,7 +9,7 @@ use Exception;
 
 class DeleteLocalizationTask extends Task implements DeleteLocalizationTaskInterface
 {
-    public function __construct(private LocalizationRepositoryInterface $repository)
+    public function __construct(private readonly LocalizationRepositoryInterface $repository)
     {
     }
 
@@ -22,8 +22,7 @@ class DeleteLocalizationTask extends Task implements DeleteLocalizationTaskInter
     {
         try {
             $this->repository->delete($id);
-        }
-        catch (Exception) {
+        } catch (Exception) {
             throw new DeleteResourceFailedException();
         }
     }

@@ -13,7 +13,7 @@ use Illuminate\Support\Collection;
 
 class GetAllLocalizationsTask extends Task implements GetAllLocalizationsTaskInterface
 {
-    public function __construct(private LocalizationRepositoryInterface $repository)
+    public function __construct(private readonly LocalizationRepositoryInterface $repository)
     {
     }
 

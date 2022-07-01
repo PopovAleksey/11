@@ -27,3 +27,4 @@ aliases
 .php_cs.cache
 /app/Containers/Vendor
 /public/vendor
+composer.phar
