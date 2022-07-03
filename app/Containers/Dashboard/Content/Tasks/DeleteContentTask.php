@@ -9,7 +9,9 @@ use Exception;
 
 class DeleteContentTask extends Task implements DeleteContentTaskInterface
 {
-    public function __construct(private ContentRepositoryInterface $repository)
+    public function __construct(
+        private readonly ContentRepositoryInterface $repository
+    )
     {
     }
 

@@ -21,8 +21,8 @@ use Illuminate\Support\Collection;
 class FindContentByIdTask extends Task implements FindContentByIdTaskInterface
 {
     public function __construct(
-        private ContentRepositoryInterface $contentRepository,
-        private PageRepositoryInterface    $pageRepository
+        private readonly ContentRepositoryInterface $contentRepository,
+        private readonly PageRepositoryInterface    $pageRepository
     )
     {
     }

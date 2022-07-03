@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\DB;
 
 class UpdateContentTask extends Task implements UpdateContentTaskInterface
 {
-    public function __construct(private ContentValueRepositoryInterface $repository)
+    public function __construct(
+        private readonly ContentValueRepositoryInterface $repository
+    )
     {
     }
 

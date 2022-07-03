@@ -19,13 +19,13 @@ use Illuminate\Support\Collection;
 class BuildTemplateAction extends Action implements BuildTemplateActionInterface
 {
     public function __construct(
-        private FindLanguagesTaskInterface $languageTask,
-        private FindContentsTaskInterface  $contentTask,
-        private FindTemplatesTaskInterface $templateTask,
-        private BuildTaskInterface         $buildTask,
-        private FindMenuItemsTaskInterface $menuItemsTask,
-        private FindWidgetsTaskInterface   $widgetsTask,
-        private CacheActionInterface       $cacheAction
+        private readonly FindLanguagesTaskInterface $languageTask,
+        private readonly FindContentsTaskInterface  $contentTask,
+        private readonly FindTemplatesTaskInterface $templateTask,
+        private readonly BuildTaskInterface         $buildTask,
+        private readonly FindMenuItemsTaskInterface $menuItemsTask,
+        private readonly FindWidgetsTaskInterface   $widgetsTask,
+        private readonly CacheActionInterface       $cacheAction
     )
     {
     }

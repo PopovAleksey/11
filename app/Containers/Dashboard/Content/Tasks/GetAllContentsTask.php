@@ -20,8 +20,8 @@ use Illuminate\Support\Collection;
 class GetAllContentsTask extends Task implements GetAllContentsTaskInterface
 {
     public function __construct(
-        private ContentRepositoryInterface      $contentRepository,
-        private ContentValueRepositoryInterface $contentValueRepository
+        private readonly ContentRepositoryInterface      $contentRepository,
+        private readonly ContentValueRepositoryInterface $contentValueRepository
     )
     {
     }

@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\DB;
 class UpdateContentSeoLinkTask extends Task implements UpdateContentSeoLinkTaskInterface
 {
     public function __construct(
-        private SeoRepositoryInterface     $seoRepository,
-        private SeoLinkRepositoryInterface $seoLinkRepository
+        private readonly SeoRepositoryInterface     $seoRepository,
+        private readonly SeoLinkRepositoryInterface $seoLinkRepository
     )
     {
     }

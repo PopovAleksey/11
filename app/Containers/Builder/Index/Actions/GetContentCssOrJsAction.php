@@ -5,7 +5,7 @@ namespace App\Containers\Builder\Index\Actions;
 use App\Ship\Parents\Actions\Action;
 use App\Ship\Parents\Models\TemplateInterface;
 use Illuminate\Support\Collection;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class GetContentCssOrJsAction extends Action implements GetContentCssOrJsActionInterface

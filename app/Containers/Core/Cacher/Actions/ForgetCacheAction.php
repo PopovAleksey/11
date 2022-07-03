@@ -4,7 +4,7 @@ namespace App\Containers\Core\Cacher\Actions;
 
 use App\Containers\Core\Cacher\Data\Dto\CacheDto;
 use App\Ship\Parents\Actions\Action;
-use Cache;
+use Illuminate\Support\Facades\Cache;
 
 class ForgetCacheAction extends Action implements ForgetCacheActionInterface
 {

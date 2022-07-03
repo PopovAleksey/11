@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 class GetMenuListAction extends Action implements GetMenuListActionInterface
 {
     public function __construct(
-        private GetAllPagesTaskInterface $getAllPagesTask
+        private readonly GetAllPagesTaskInterface $getAllPagesTask
     )
     {
     }

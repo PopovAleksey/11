@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\DB;
 class CreateContentAction extends Action implements CreateContentActionInterface
 {
     public function __construct(
-        private CreateContentTaskInterface        $createContentTask,
-        private UpdateContentSeoLinkTaskInterface $updateContentSeoLinkTask
+        private readonly CreateContentTaskInterface        $createContentTask,
+        private readonly UpdateContentSeoLinkTaskInterface $updateContentSeoLinkTask
     )
     {
     }

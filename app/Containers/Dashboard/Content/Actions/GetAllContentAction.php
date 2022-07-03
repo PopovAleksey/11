@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 class GetAllContentAction extends Action implements GetAllContentActionInterface
 {
     public function __construct(
-        private GetAllContentsTaskInterface $findContentByIdTask
+        private readonly GetAllContentsTaskInterface $findContentByIdTask
     )
     {
     }

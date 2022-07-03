@@ -16,9 +16,9 @@ use Symfony\Component\Translation\Exception\InvalidResourceException;
 class CreateContentTask extends Task implements CreateContentTaskInterface
 {
     public function __construct(
-        private PageRepositoryInterface         $pageRepository,
-        private ContentRepositoryInterface      $contentRepository,
-        private ContentValueRepositoryInterface $contentValueRepository
+        private readonly PageRepositoryInterface         $pageRepository,
+        private readonly ContentRepositoryInterface      $contentRepository,
+        private readonly ContentValueRepositoryInterface $contentValueRepository
     )
     {
     }

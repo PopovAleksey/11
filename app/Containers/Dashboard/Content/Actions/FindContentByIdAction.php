@@ -10,7 +10,7 @@ use App\Ship\Parents\Dto\ContentValueDto;
 class FindContentByIdAction extends Action implements FindContentByIdActionInterface
 {
     public function __construct(
-        private FindContentByIdTaskInterface $findContentByIdTask
+        private readonly FindContentByIdTaskInterface $findContentByIdTask
     )
     {
     }

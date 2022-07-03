@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\DB;
 class UpdateContentAction extends Action implements UpdateContentActionInterface
 {
     public function __construct(
-        private UpdateContentTaskInterface        $updateContentTask,
-        private UpdateContentSeoLinkTaskInterface $updateContentSeoLinkTask,
-        private ForgetCacheActionInterface        $forgetCacheAction
+        private readonly UpdateContentTaskInterface        $updateContentTask,
+        private readonly UpdateContentSeoLinkTaskInterface $updateContentSeoLinkTask,
+        private readonly ForgetCacheActionInterface        $forgetCacheAction
     )
     {
     }
