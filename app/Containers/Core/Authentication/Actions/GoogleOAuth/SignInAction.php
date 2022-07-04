@@ -12,8 +12,8 @@ use App\Ship\Parents\Actions\Action;
 class SignInAction extends Action implements SignInActionInterface
 {
     public function __construct(
-        private GetAuthCredentialsTaskInterface $getAuthCredentialsTask,
-        private LoginTaskInterface              $loginTask
+        private readonly GetAuthCredentialsTaskInterface $getAuthCredentialsTask,
+        private readonly LoginTaskInterface              $loginTask
     )
     {
     }

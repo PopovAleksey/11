@@ -9,7 +9,9 @@ use Exception;
 
 class DeleteMenuConfigurationTask extends Task implements DeleteMenuConfigurationTaskInterface
 {
-    public function __construct(private ConfigurationMenuRepositoryInterface $repository)
+    public function __construct(
+        private readonly ConfigurationMenuRepositoryInterface $repository
+    )
     {
     }
 

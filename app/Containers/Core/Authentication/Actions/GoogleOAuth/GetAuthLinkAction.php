@@ -12,7 +12,9 @@ class GetAuthLinkAction extends Action implements GetAuthLinkActionInterface
      * @param \Google_Client $googleClient
      * @throws \Google\Exception
      */
-    public function __construct(private Google_Client $googleClient)
+    public function __construct(
+        private readonly Google_Client $googleClient
+    )
     {
         $constFile = config('appSection-authentication.oauth.google.config_file');
 

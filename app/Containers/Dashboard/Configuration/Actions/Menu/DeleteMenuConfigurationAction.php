@@ -10,8 +10,8 @@ use App\Ship\Parents\Actions\Action;
 class DeleteMenuConfigurationAction extends Action implements DeleteMenuConfigurationActionInterface
 {
     public function __construct(
-        private DeleteMenuConfigurationTaskInterface $deleteConfigurationTask,
-        private ForgetCacheActionInterface           $forgetCacheAction
+        private readonly DeleteMenuConfigurationTaskInterface $deleteConfigurationTask,
+        private readonly ForgetCacheActionInterface           $forgetCacheAction
     )
     {
     }

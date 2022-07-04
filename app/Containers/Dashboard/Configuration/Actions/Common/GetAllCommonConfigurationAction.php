@@ -9,7 +9,7 @@ use App\Ship\Parents\Dto\ConfigurationCommonDto;
 class GetAllCommonConfigurationAction extends Action implements GetAllCommonConfigurationActionInterface
 {
     public function __construct(
-        private GetAllCommonConfigurationTaskInterface $getAllConfigurationTask
+        private readonly GetAllCommonConfigurationTaskInterface $getAllConfigurationTask
     )
     {
     }

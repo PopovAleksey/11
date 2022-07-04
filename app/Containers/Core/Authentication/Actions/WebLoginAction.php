@@ -14,8 +14,8 @@ use App\Ship\Parents\Actions\Action;
 class WebLoginAction extends Action implements WebLoginActionInterface
 {
     public function __construct(
-        private LoginTaskInterface                       $loginTask,
-        private CheckIfUserEmailIsConfirmedTaskInterface $checkIfUserEmailIsConfirmedTask
+        private readonly LoginTaskInterface                       $loginTask,
+        private readonly CheckIfUserEmailIsConfirmedTaskInterface $checkIfUserEmailIsConfirmedTask
     )
     {
     }

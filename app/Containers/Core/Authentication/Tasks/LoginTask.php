@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginTask extends Task implements LoginTaskInterface
 {
-    public function __construct(private UserRepositoryInterface $userRepository)
+    public function __construct(
+        private readonly UserRepositoryInterface $userRepository
+    )
     {
     }
 

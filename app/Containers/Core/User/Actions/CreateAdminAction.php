@@ -10,8 +10,8 @@ use App\Ship\Parents\Actions\Action;
 class CreateAdminAction extends Action implements CreateAdminActionInterface
 {
     public function __construct(
-        private CreateUserByCredentialsTaskInterface $createUserByCredentialsTask,
-        private AssignUserToRoleTaskInterface        $assignUserToRoleTask
+        private readonly CreateUserByCredentialsTaskInterface $createUserByCredentialsTask,
+        private readonly AssignUserToRoleTaskInterface        $assignUserToRoleTask
     )
     {
     }

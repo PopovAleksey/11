@@ -11,8 +11,8 @@ use App\Ship\Parents\Dto\ConfigurationCommonDto;
 class UpdateCommonConfigurationAction extends Action implements UpdateCommonConfigurationActionInterface
 {
     public function __construct(
-        private UpdateCommonConfigurationTaskInterface $updateConfigurationTask,
-        private ForgetCacheActionInterface             $forgetCacheAction
+        private readonly UpdateCommonConfigurationTaskInterface $updateConfigurationTask,
+        private readonly ForgetCacheActionInterface             $forgetCacheAction
     )
     {
     }

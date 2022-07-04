@@ -11,8 +11,8 @@ use App\Ship\Parents\Dto\ConfigurationMenuDto;
 class CreateMenuConfigurationAction extends Action implements CreateMenuConfigurationActionInterface
 {
     public function __construct(
-        private CreateMenuConfigurationTaskInterface $createConfigurationTask,
-        private ForgetCacheActionInterface           $forgetCacheAction
+        private readonly CreateMenuConfigurationTaskInterface $createConfigurationTask,
+        private readonly ForgetCacheActionInterface           $forgetCacheAction
     )
     {
     }

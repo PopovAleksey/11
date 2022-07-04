@@ -28,11 +28,11 @@ class GetAllCommonConfigurationTask extends Task implements GetAllCommonConfigur
      * @param \App\Ship\Parents\Repositories\ThemeRepositoryInterface               $themeRepository
      */
     public function __construct(
-        private ConfigurationCommonRepositoryInterface $configurationCommonRepository,
-        private LanguageRepositoryInterface            $languageRepository,
-        private ContentRepositoryInterface             $contentRepository,
-        private ContentValueRepositoryInterface        $contentValueRepository,
-        private ThemeRepositoryInterface               $themeRepository
+        private readonly ConfigurationCommonRepositoryInterface $configurationCommonRepository,
+        private readonly LanguageRepositoryInterface            $languageRepository,
+        private readonly ContentRepositoryInterface             $contentRepository,
+        private readonly ContentValueRepositoryInterface        $contentValueRepository,
+        private readonly ThemeRepositoryInterface               $themeRepository
     )
     {
     }

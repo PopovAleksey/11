@@ -12,9 +12,9 @@ use Illuminate\Support\Collection;
 class FindMenuConfigurationByIdAction extends Action implements FindMenuConfigurationByIdActionInterface
 {
     public function __construct(
-        private FindMenuConfigurationByIdTaskInterface $findConfigurationByIdTask,
-        private GetAllMenuPossibleListTaskInterface    $getAllMenuPossibleListTask,
-        private GetAllMenuTemplateTaskInterface        $getAllMenuTemplateTask
+        private readonly FindMenuConfigurationByIdTaskInterface $findConfigurationByIdTask,
+        private readonly GetAllMenuPossibleListTaskInterface    $getAllMenuPossibleListTask,
+        private readonly GetAllMenuTemplateTaskInterface        $getAllMenuTemplateTask
     )
     {
     }

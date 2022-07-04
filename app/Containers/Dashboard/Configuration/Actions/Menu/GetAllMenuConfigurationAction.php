@@ -10,8 +10,8 @@ use Illuminate\Support\Collection;
 class GetAllMenuConfigurationAction extends Action implements GetAllMenuConfigurationActionInterface
 {
     public function __construct(
-        private GetAllMenuConfigurationTaskInterface $getAllConfigurationTask,
-        private GetAllMenuTemplateTaskInterface      $getAllMenuTemplateTask
+        private readonly GetAllMenuConfigurationTaskInterface $getAllConfigurationTask,
+        private readonly GetAllMenuTemplateTaskInterface      $getAllMenuTemplateTask
     )
     {
     }

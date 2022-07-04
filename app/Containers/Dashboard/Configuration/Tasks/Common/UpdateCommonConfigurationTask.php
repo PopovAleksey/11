@@ -11,7 +11,9 @@ use Exception;
 
 class UpdateCommonConfigurationTask extends Task implements UpdateCommonConfigurationTaskInterface
 {
-    public function __construct(private ConfigurationCommonRepositoryInterface $repository)
+    public function __construct(
+        private readonly ConfigurationCommonRepositoryInterface $repository
+    )
     {
     }
 

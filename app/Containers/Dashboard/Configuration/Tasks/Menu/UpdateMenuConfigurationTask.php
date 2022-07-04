@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\DB;
 class UpdateMenuConfigurationTask extends Task implements UpdateMenuConfigurationTaskInterface
 {
     public function __construct(
-        private ConfigurationMenuRepositoryInterface     $configurationMenuRepository,
-        private ConfigurationMenuItemRepositoryInterface $configurationMenuItemRepository
+        private readonly ConfigurationMenuRepositoryInterface     $configurationMenuRepository,
+        private readonly ConfigurationMenuItemRepositoryInterface $configurationMenuItemRepository
     )
     {
     }

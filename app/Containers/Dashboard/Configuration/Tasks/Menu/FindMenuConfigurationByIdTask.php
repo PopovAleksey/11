@@ -11,7 +11,7 @@ use App\Ship\Parents\Tasks\Task;
 class FindMenuConfigurationByIdTask extends Task implements FindMenuConfigurationByIdTaskInterface
 {
     public function __construct(
-        private ConfigurationMenuRepositoryInterface $configurationMenuRepository,
+        private readonly ConfigurationMenuRepositoryInterface $configurationMenuRepository,
     )
     {
     }

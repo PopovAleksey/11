@@ -12,8 +12,8 @@ use Exception;
 class CacheAction extends Action implements CacheActionInterface
 {
     public function __construct(
-        private FindCacheTaskInterface   $findCacheTask,
-        private CreateCacheTaskInterface $createCacheTask
+        private readonly FindCacheTaskInterface   $findCacheTask,
+        private readonly CreateCacheTaskInterface $createCacheTask
     )
     {
     }

@@ -5,7 +5,8 @@ namespace App\Containers\Core\Cacher\Tasks;
 use App\Containers\Core\Cacher\Data\Dto\CacheDto;
 use App\Ship\Exceptions\ValidationFailedException;
 use App\Ship\Parents\Tasks\Task;
-use Cache;
+use Illuminate\Support\Facades\Cache;
+
 
 class CreateCacheTask extends Task implements CreateCacheTaskInterface
 {

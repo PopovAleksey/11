@@ -20,9 +20,9 @@ use Illuminate\Support\Collection;
 class GetAllMenuTemplateTask extends Task implements GetAllMenuTemplateTaskInterface
 {
     public function __construct(
-        private TemplateRepositoryInterface $templateRepository,
-        private ThemeRepositoryInterface    $themeRepository,
-        private LanguageRepositoryInterface $languageRepository
+        private readonly TemplateRepositoryInterface $templateRepository,
+        private readonly ThemeRepositoryInterface    $themeRepository,
+        private readonly LanguageRepositoryInterface $languageRepository
     )
     {
     }

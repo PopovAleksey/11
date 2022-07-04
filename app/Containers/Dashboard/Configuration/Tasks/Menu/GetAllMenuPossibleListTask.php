@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 class GetAllMenuPossibleListTask extends Task implements GetAllMenuPossibleListTaskInterface
 {
     public function __construct(
-        private ConfigurationMenuRepositoryInterface $configurationMenuRepository
+        private readonly ConfigurationMenuRepositoryInterface $configurationMenuRepository
     )
     {
     }

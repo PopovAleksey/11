@@ -11,8 +11,8 @@ use App\Ship\Parents\Dto\ConfigurationMenuDto;
 class UpdateMenuConfigurationAction extends Action implements UpdateMenuConfigurationActionInterface
 {
     public function __construct(
-        private UpdateMenuConfigurationTaskInterface $updateConfigurationMenuTask,
-        private ForgetCacheActionInterface           $forgetCacheAction
+        private readonly UpdateMenuConfigurationTaskInterface $updateConfigurationMenuTask,
+        private readonly ForgetCacheActionInterface           $forgetCacheAction
     )
     {
     }

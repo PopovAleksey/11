@@ -10,7 +10,9 @@ use Exception;
 
 class CreateMenuConfigurationTask extends Task implements CreateMenuConfigurationTaskInterface
 {
-    public function __construct(private ConfigurationMenuRepositoryInterface $repository)
+    public function __construct(
+        private readonly ConfigurationMenuRepositoryInterface $repository
+    )
     {
     }
 

@@ -15,11 +15,11 @@ class GetAuthCredentialsTask extends Task implements GetAuthCredentialsTaskInter
      * @throws \Google\Exception
      */
     public function __construct(
-        private Google_Client $googleClient
+        private readonly Google_Client $googleClient
     )
     {
         $this->googleService = new Google_Service_PeopleService($this->googleClient);
-        $constFile = config('appSection-authentication.oauth.google.config_file');
+        $constFile           = config('appSection-authentication.oauth.google.config_file');
 
         if (empty($constFile)) {
             $this->googleClient->setClientId(config('appSection-authentication.oauth.google.client_id'));
