@@ -5,19 +5,17 @@ namespace App\Containers\Development\Logger\Tasks;
 use App\Containers\Development\Logger\Data\Dto\LoggerDto;
 use App\Containers\Development\Logger\Data\Repositories\LoggerRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
-use DB;
 use Exception;
 use Illuminate\Database\Events\QueryExecuted;
+use Illuminate\Support\Facades\DB;
 
 class SQLLoggerTask extends Task implements SQLLoggerTaskInterface
 {
-    protected LoggerRepositoryInterface $repository;
-    private string                      $uniqHash;
+    private string $uniqHash;
 
-    public function __construct(LoggerRepositoryInterface $repository)
+    public function __construct(private readonly LoggerRepositoryInterface $repository)
     {
-        $this->repository = $repository;
-        $this->uniqHash   = uniqid('', true);
+        $this->uniqHash = uniqid('', true);
     }
 
     public function run(): void

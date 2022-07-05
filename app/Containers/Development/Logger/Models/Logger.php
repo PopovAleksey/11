@@ -3,7 +3,6 @@
 namespace App\Containers\Development\Logger\Models;
 
 use App\Ship\Parents\Models\Model;
-use DB;
 
 class Logger extends Model implements LoggerInterface
 {
@@ -18,14 +17,6 @@ class Logger extends Model implements LoggerInterface
         'query',
         'bindings',
         'time',
-    ];
-
-    protected $attributes = [
-
-    ];
-
-    protected $hidden = [
-
     ];
 
     protected $casts = [

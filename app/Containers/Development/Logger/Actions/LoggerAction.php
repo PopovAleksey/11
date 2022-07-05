@@ -7,7 +7,9 @@ use App\Ship\Parents\Actions\Action;
 
 class LoggerAction extends Action implements LoggerActionInterface
 {
-    public function __construct(private SQLLoggerTaskInterface $SQLLoggerTask)
+    public function __construct(
+        private readonly SQLLoggerTaskInterface $SQLLoggerTask
+    )
     {
     }
 

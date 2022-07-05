@@ -13,16 +13,41 @@ use JsonException;
  */
 class LoggerDto implements Arrayable
 {
-    private ?string $hash     = NULL;
-    private ?string $request  = NULL;
+    private ?string $hash     = null;
+    private ?string $request  = null;
     private string  $type     = 'sql';
-    private ?string $query    = NULL;
+    private ?string $query    = null;
     private array   $bindings = [];
-    private ?float  $time     = NULL;
+    private ?float  $time     = null;
+
+    public function setTime(float $time): self
+    {
+        $this->time = $time;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    #[Pure] #[ArrayShape(['hash' => "null|string", 'request' => "null|string", 'type' => "string", 'query' => "null|string", 'bindings' => "array", 'time' => "float", 'timeSeconds' => "int"])]
+    public function toArray(): array
+    {
+        return [
+
+            'hash'        => $this->getHash(),
+            'request'     => $this->getRequest(),
+            'type'        => $this->getType(),
+            'query'       => $this->getQuery(),
+            'bindings'    => $this->getBindings(),
+            'time'        => $this->getMilliseconds(),
+            'timeSeconds' => $this->getSeconds(),
+        ];
+    }
 
     public function getHash(): ?string
     {
-        return $this->hash ?? NULL;
+        return $this->hash ?? null;
     }
 
     public function setHash(?string $hash): self
@@ -34,7 +59,7 @@ class LoggerDto implements Arrayable
 
     public function getRequest(): ?string
     {
-        return $this->request ?? NULL;
+        return $this->request ?? null;
     }
 
     public function setRequest(string $urlPath): self
@@ -58,7 +83,7 @@ class LoggerDto implements Arrayable
 
     public function getQuery(): ?string
     {
-        return $this->query ?? NULL;
+        return $this->query ?? null;
     }
 
     public function setQuery(string $query): self
@@ -92,30 +117,5 @@ class LoggerDto implements Arrayable
     public function getSeconds(): int
     {
         return (int) (($this->time ?? 0.00) / 1000);
-    }
-
-    public function setTime(float $time): self
-    {
-        $this->time = $time;
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    #[Pure] #[ArrayShape(['hash' => "null|string", 'request' => "null|string", 'type' => "string", 'query' => "null|string", 'bindings' => "array", 'time' => "float", 'timeSeconds' => "int"])]
-    public function toArray(): array
-    {
-        return [
-
-            'hash'        => $this->getHash(),
-            'request'     => $this->getRequest(),
-            'type'        => $this->getType(),
-            'query'       => $this->getQuery(),
-            'bindings'    => $this->getBindings(),
-            'time'        => $this->getMilliseconds(),
-            'timeSeconds' => $this->getSeconds(),
-        ];
     }
 }
