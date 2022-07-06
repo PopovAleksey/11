@@ -10,7 +10,9 @@ use Exception;
 
 class CreateLanguageTask extends Task implements CreateLanguageTaskInterface
 {
-    public function __construct(private LanguageRepositoryInterface $repository)
+    public function __construct(
+        private readonly LanguageRepositoryInterface $repository
+    )
     {
     }
 
@@ -27,7 +29,7 @@ class CreateLanguageTask extends Task implements CreateLanguageTaskInterface
                 'short_name' => $data->getShortName(),
                 'active'     => $data->isActive(),
             ]);
-        } catch (Exception $exception) {
+        } catch (Exception) {
             throw new CreateResourceFailedException();
         }
     }

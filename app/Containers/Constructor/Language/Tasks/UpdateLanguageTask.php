@@ -10,7 +10,9 @@ use Exception;
 
 class UpdateLanguageTask extends Task implements UpdateLanguageTaskInterface
 {
-    public function __construct(private LanguageRepositoryInterface $repository)
+    public function __construct(
+        private readonly LanguageRepositoryInterface $repository
+    )
     {
     }
 
@@ -23,7 +25,7 @@ class UpdateLanguageTask extends Task implements UpdateLanguageTaskInterface
     {
         try {
             $this->repository->update(['active' => $data->isActive()], $data->getId());
-            
+
         } catch (Exception) {
             throw new UpdateResourceFailedException();
         }

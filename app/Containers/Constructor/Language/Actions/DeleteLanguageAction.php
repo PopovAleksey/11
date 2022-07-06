@@ -7,7 +7,9 @@ use App\Ship\Parents\Actions\Action;
 
 class DeleteLanguageAction extends Action implements DeleteLanguageActionInterface
 {
-    public function __construct(private DeleteLanguageTaskInterface $deleteLanguageTask)
+    public function __construct(
+        private readonly DeleteLanguageTaskInterface $deleteLanguageTask
+    )
     {
     }
 

@@ -9,7 +9,9 @@ use Illuminate\Support\Collection;
 
 class GetPossibleLanguagesAction extends Action implements GetPossibleLanguagesActionInterface
 {
-    public function __construct(private GetAllLanguagesTaskInterface $allLanguagesTask)
+    public function __construct(
+        private readonly GetAllLanguagesTaskInterface $allLanguagesTask
+    )
     {
     }
 

@@ -18,11 +18,11 @@ use Illuminate\Http\JsonResponse;
 class Controller extends WebController
 {
     public function __construct(
-        private CreateLanguageActionInterface       $createLanguageAction,
-        private GetAllLanguagesActionInterface      $getAllLanguagesAction,
-        private GetPossibleLanguagesActionInterface $getPossibleLanguagesAction,
-        private UpdateLanguageActionInterface       $updateLanguageAction,
-        private DeleteLanguageActionInterface       $deleteLanguageAction
+        private readonly CreateLanguageActionInterface       $createLanguageAction,
+        private readonly GetAllLanguagesActionInterface      $getAllLanguagesAction,
+        private readonly GetPossibleLanguagesActionInterface $getPossibleLanguagesAction,
+        private readonly UpdateLanguageActionInterface       $updateLanguageAction,
+        private readonly DeleteLanguageActionInterface       $deleteLanguageAction
     )
     {
     }

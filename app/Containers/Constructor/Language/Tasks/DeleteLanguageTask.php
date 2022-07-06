@@ -9,16 +9,18 @@ use Exception;
 
 class DeleteLanguageTask extends Task implements DeleteLanguageTaskInterface
 {
-    public function __construct(private LanguageRepositoryInterface $repository)
+    public function __construct(
+        private readonly LanguageRepositoryInterface $repository
+    )
     {
     }
 
     /**
-     * @param $id
-     * @return int|null
+     * @param int $id
+     * @return void
      * @throws \App\Ship\Exceptions\DeleteResourceFailedException
      */
-    public function run($id): void
+    public function run(int $id): void
     {
         try {
             $this->repository->delete($id);

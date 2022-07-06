@@ -10,7 +10,9 @@ use Illuminate\Support\Collection;
 
 class GetAllLanguagesTask extends Task implements GetAllLanguagesTaskInterface
 {
-    public function __construct(private LanguageRepositoryInterface $repository)
+    public function __construct(
+        private readonly LanguageRepositoryInterface $repository
+    )
     {
     }
 

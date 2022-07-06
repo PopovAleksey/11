@@ -12,8 +12,8 @@ use App\Ship\Parents\Dto\LanguageDto;
 class CreateLanguageAction extends Action implements CreateLanguageActionInterface
 {
     public function __construct(
-        private CreateLanguageTaskInterface  $createLanguageTask,
-        private GetAllLanguagesTaskInterface $allLanguagesTask
+        private readonly CreateLanguageTaskInterface  $createLanguageTask,
+        private readonly GetAllLanguagesTaskInterface $allLanguagesTask
     )
     {
     }

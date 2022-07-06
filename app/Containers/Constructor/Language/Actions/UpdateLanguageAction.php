@@ -9,7 +9,9 @@ use App\Ship\Parents\Dto\LanguageDto;
 
 class UpdateLanguageAction extends Action implements UpdateLanguageActionInterface
 {
-    public function __construct(private UpdateLanguageTaskInterface $languageTask)
+    public function __construct(
+        private readonly UpdateLanguageTaskInterface $languageTask
+    )
     {
     }
 
