@@ -13,7 +13,9 @@ use Exception;
 
 class FindPageByIdTask extends Task implements FindPageByIdTaskInterface
 {
-    public function __construct(private PageRepositoryInterface $repository)
+    public function __construct(
+        private readonly PageRepositoryInterface $repository
+    )
     {
     }
 

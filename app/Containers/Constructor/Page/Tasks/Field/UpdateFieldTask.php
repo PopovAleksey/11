@@ -10,7 +10,9 @@ use Exception;
 
 class UpdateFieldTask extends Task implements UpdateFieldTaskInterface
 {
-    public function __construct(private PageFieldRepositoryInterface $repository)
+    public function __construct(
+        private readonly PageFieldRepositoryInterface $repository
+    )
     {
     }
 

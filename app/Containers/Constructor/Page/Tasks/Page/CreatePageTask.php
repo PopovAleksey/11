@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\DB;
 
 class CreatePageTask extends Task implements CreatePageTaskInterface
 {
-    public function __construct(private PageRepositoryInterface $repository)
+    public function __construct(
+        private readonly PageRepositoryInterface $repository
+    )
     {
     }
 
@@ -25,7 +27,7 @@ class CreatePageTask extends Task implements CreatePageTaskInterface
     public function run(PageDto $data): int
     {
         try {
-            return DB::transaction(function () use ($data){
+            return DB::transaction(function () use ($data) {
                 /**
                  * @var \App\Ship\Parents\Models\PageInterface $page
                  */

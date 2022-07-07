@@ -8,7 +8,7 @@ use App\Ship\Parents\Actions\Action;
 class DeletePageAction extends Action implements DeletePageActionInterface
 {
     public function __construct(
-        private DeletePageTaskInterface $deletePageTask
+        private readonly DeletePageTaskInterface $deletePageTask
     )
     {
     }

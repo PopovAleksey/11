@@ -9,7 +9,9 @@ use Exception;
 
 class DeleteFieldTask extends Task implements DeleteFieldTaskInterface
 {
-    public function __construct(private PageFieldRepositoryInterface $repository)
+    public function __construct(
+        private readonly PageFieldRepositoryInterface $repository
+    )
     {
     }
 

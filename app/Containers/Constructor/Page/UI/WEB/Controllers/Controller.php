@@ -27,12 +27,12 @@ class Controller extends WebController
      * @param \App\Containers\Constructor\Page\Actions\ActivatePageActionInterface $activatePageAction
      */
     public function __construct(
-        private GetAllPagesActionInterface  $getAllPagesAction,
-        private CreatePageActionInterface   $createPageAction,
-        private FindPageByIdActionInterface $findPageByIdAction,
-        private UpdatePageActionInterface   $updatePageAction,
-        private DeletePageActionInterface   $deletePageAction,
-        private ActivatePageActionInterface $activatePageAction
+        private readonly GetAllPagesActionInterface  $getAllPagesAction,
+        private readonly CreatePageActionInterface   $createPageAction,
+        private readonly FindPageByIdActionInterface $findPageByIdAction,
+        private readonly UpdatePageActionInterface   $updatePageAction,
+        private readonly DeletePageActionInterface   $deletePageAction,
+        private readonly ActivatePageActionInterface $activatePageAction
     )
     {
     }

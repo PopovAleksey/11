@@ -10,7 +10,9 @@ use Exception;
 
 class UpdatePageTask extends Task implements UpdatePageTaskInterface
 {
-    public function __construct(private PageRepositoryInterface $repository)
+    public function __construct(
+        private readonly PageRepositoryInterface $repository
+    )
     {
     }
 

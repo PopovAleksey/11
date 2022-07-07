@@ -9,7 +9,9 @@ use Exception;
 
 class DeletePageTask extends Task implements DeletePageTaskInterface
 {
-    public function __construct(private PageRepositoryInterface $repository)
+    public function __construct(
+        private readonly PageRepositoryInterface $repository
+    )
     {
     }
 

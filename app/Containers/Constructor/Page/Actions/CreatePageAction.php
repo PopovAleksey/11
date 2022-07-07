@@ -9,7 +9,7 @@ use App\Ship\Parents\Dto\PageDto;
 class CreatePageAction extends Action implements CreatePageActionInterface
 {
     public function __construct(
-        private CreatePageTaskInterface $createPageTask
+        private readonly CreatePageTaskInterface $createPageTask
     )
     {
     }

@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\DB;
 class UpdatePageAction extends Action implements UpdatePageActionInterface
 {
     public function __construct(
-        private FindPageByIdActionInterface $findPageByIdAction,
-        private UpdatePageTaskInterface     $updatePageTask,
-        private CreateFieldTaskInterface    $createFieldTask,
-        private UpdateFieldTaskInterface    $updateFieldTask,
-        private DeleteFieldTaskInterface    $deleteFieldTask
+        private readonly FindPageByIdActionInterface $findPageByIdAction,
+        private readonly UpdatePageTaskInterface     $updatePageTask,
+        private readonly CreateFieldTaskInterface    $createFieldTask,
+        private readonly UpdateFieldTaskInterface    $updateFieldTask,
+        private readonly DeleteFieldTaskInterface    $deleteFieldTask
     )
     {
     }

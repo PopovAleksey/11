@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 class GetAllPagesAction extends Action implements GetAllPagesActionInterface
 {
     public function __construct(
-        private GetAllPagesTaskInterface $getAllPageTask
+        private readonly GetAllPagesTaskInterface $getAllPageTask
     )
     {
     }

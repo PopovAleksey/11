@@ -10,7 +10,9 @@ use Exception;
 
 class ActivatePageTask extends Task implements ActivatePageTaskInterface
 {
-    public function __construct(private PageRepositoryInterface $repository)
+    public function __construct(
+        private readonly PageRepositoryInterface $repository
+    )
     {
     }
 

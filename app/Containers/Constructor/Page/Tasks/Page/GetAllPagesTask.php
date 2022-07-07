@@ -13,7 +13,9 @@ use Illuminate\Support\Collection;
 
 class GetAllPagesTask extends Task implements GetAllPagesTaskInterface
 {
-    public function __construct(private PageRepositoryInterface $repository)
+    public function __construct(
+        private readonly PageRepositoryInterface $repository
+    )
     {
     }
 
