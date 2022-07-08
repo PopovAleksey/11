@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 class GetAllSeoAction extends Action implements GetAllSeoActionInterface
 {
     public function __construct(
-        private GetAllSeoTaskInterface $getAllSeoTask
+        private readonly GetAllSeoTaskInterface $getAllSeoTask
     )
     {
     }

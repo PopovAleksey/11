@@ -9,7 +9,7 @@ use App\Ship\Parents\Dto\SeoDto;
 class UpdateSeoAction extends Action implements UpdateSeoActionInterface
 {
     public function __construct(
-        private UpdateSeoTaskInterface $updateSeoTask
+        private readonly UpdateSeoTaskInterface $updateSeoTask
     )
     {
     }

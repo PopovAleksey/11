@@ -11,8 +11,8 @@ use App\Ship\Parents\Dto\SeoDto;
 class CreateSeoAction extends Action implements CreateSeoActionInterface
 {
     public function __construct(
-        private CreateSeoTaskInterface     $createSeoTask,
-        private FindFieldByIdTaskInterface $findFieldByIdTask
+        private readonly CreateSeoTaskInterface     $createSeoTask,
+        private readonly FindFieldByIdTaskInterface $findFieldByIdTask
     )
     {
     }

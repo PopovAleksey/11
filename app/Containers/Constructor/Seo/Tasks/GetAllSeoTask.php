@@ -15,7 +15,9 @@ use Illuminate\Support\Collection;
 
 class GetAllSeoTask extends Task implements GetAllSeoTaskInterface
 {
-    public function __construct(private SeoRepositoryInterface $repository)
+    public function __construct(
+        private readonly SeoRepositoryInterface $repository
+    )
     {
     }
 

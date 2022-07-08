@@ -10,7 +10,9 @@ use Exception;
 
 class CreateSeoTask extends Task implements CreateSeoTaskInterface
 {
-    public function __construct(private SeoRepositoryInterface $repository)
+    public function __construct(
+        private readonly SeoRepositoryInterface $repository
+    )
     {
     }
 

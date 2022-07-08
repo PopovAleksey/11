@@ -8,7 +8,7 @@ use App\Ship\Parents\Actions\Action;
 class DeleteSeoAction extends Action implements DeleteSeoActionInterface
 {
     public function __construct(
-        private DeleteSeoTaskInterface $deleteSeoTask
+        private readonly DeleteSeoTaskInterface $deleteSeoTask
     )
     {
     }

@@ -20,21 +20,13 @@ use Illuminate\Http\JsonResponse;
 
 class Controller extends WebController
 {
-    /**
-     * @param \App\Containers\Constructor\Seo\Actions\GetAllSeoActionInterface            $getAllSeoAction
-     * @param \App\Containers\Constructor\Page\Actions\GetAllPagesActionInterface         $getAllPagesAction
-     * @param \App\Containers\Constructor\Language\Actions\GetAllLanguagesActionInterface $getAllLanguagesAction
-     * @param \App\Containers\Constructor\Seo\Actions\CreateSeoActionInterface            $createSeoAction
-     * @param \App\Containers\Constructor\Seo\Actions\UpdateSeoActionInterface            $updateSeoAction
-     * @param \App\Containers\Constructor\Seo\Actions\DeleteSeoActionInterface            $deleteSeoAction
-     */
     public function __construct(
-        private GetAllSeoActionInterface       $getAllSeoAction,
-        private GetAllPagesActionInterface     $getAllPagesAction,
-        private GetAllLanguagesActionInterface $getAllLanguagesAction,
-        private CreateSeoActionInterface       $createSeoAction,
-        private UpdateSeoActionInterface       $updateSeoAction,
-        private DeleteSeoActionInterface       $deleteSeoAction
+        private readonly GetAllSeoActionInterface       $getAllSeoAction,
+        private readonly GetAllPagesActionInterface     $getAllPagesAction,
+        private readonly GetAllLanguagesActionInterface $getAllLanguagesAction,
+        private readonly CreateSeoActionInterface       $createSeoAction,
+        private readonly UpdateSeoActionInterface       $updateSeoAction,
+        private readonly DeleteSeoActionInterface       $deleteSeoAction
     )
     {
     }

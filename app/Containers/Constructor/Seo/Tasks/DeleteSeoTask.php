@@ -9,7 +9,9 @@ use Exception;
 
 class DeleteSeoTask extends Task implements DeleteSeoTaskInterface
 {
-    public function __construct(private SeoRepositoryInterface $repository)
+    public function __construct(
+        private readonly SeoRepositoryInterface $repository
+    )
     {
     }
 
