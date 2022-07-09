@@ -6,11 +6,13 @@ use App\Ship\Exceptions\DeleteResourceFailedException;
 use App\Ship\Parents\Repositories\ThemeRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class DeleteThemeTask extends Task implements DeleteThemeTaskInterface
 {
-    public function __construct(private ThemeRepositoryInterface $repository)
+    public function __construct(
+        private readonly ThemeRepositoryInterface $repository
+    )
     {
     }
 
@@ -27,7 +29,7 @@ class DeleteThemeTask extends Task implements DeleteThemeTaskInterface
 
             $this->repository->delete($theme->id);
 
-            Storage::disk('template')->deleteDir($theme->directory);
+            Storage::disk('template')->deleteDirectory($theme->directory);
 
         } catch (Exception) {
             throw new DeleteResourceFailedException();

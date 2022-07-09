@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 class GetAllThemesAction extends Action implements GetAllThemesActionInterface
 {
     public function __construct(
-        private GetAllThemesTaskInterface $getAllThemeTask
+        private readonly GetAllThemesTaskInterface $getAllThemeTask
     )
     {
     }

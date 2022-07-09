@@ -10,7 +10,9 @@ use Exception;
 
 class UpdateNameTemplateTask extends Task implements UpdateNameTemplateTaskInterface
 {
-    public function __construct(private TemplateRepositoryInterface $repository)
+    public function __construct(
+        private readonly TemplateRepositoryInterface $repository
+    )
     {
     }
 

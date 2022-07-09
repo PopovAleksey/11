@@ -9,7 +9,7 @@ use App\Ship\Parents\Dto\ThemeDto;
 class UpdateNameThemeAction extends Action implements UpdateNameThemeActionInterface
 {
     public function __construct(
-        private UpdateNameThemeTaskInterface $updateTemplatesTask
+        private readonly UpdateNameThemeTaskInterface $updateTemplatesTask
     )
     {
     }

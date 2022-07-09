@@ -14,7 +14,9 @@ use Exception;
 
 class FindThemeByIdTask extends Task implements FindThemeByIdTaskInterface
 {
-    public function __construct(private ThemeRepositoryInterface $repository)
+    public function __construct(
+        private readonly ThemeRepositoryInterface $repository
+    )
     {
     }
 

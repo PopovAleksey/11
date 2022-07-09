@@ -11,8 +11,8 @@ use App\Ship\Parents\Dto\TemplateDto;
 class CreateTemplateAction extends Action implements CreateTemplateActionInterface
 {
     public function __construct(
-        private CreateTemplateTaskInterface $createTemplateTask,
-        private ForgetCacheActionInterface  $forgetCacheAction
+        private readonly CreateTemplateTaskInterface $createTemplateTask,
+        private readonly ForgetCacheActionInterface  $forgetCacheAction
     )
     {
     }

@@ -13,10 +13,10 @@ use App\Ship\Parents\Dto\TemplateDto;
 class UpdateTemplateAction extends Action implements UpdateTemplateActionInterface
 {
     public function __construct(
-        private UpdateTemplateTaskInterface       $updateTemplateTask,
-        private UpdateNameTemplateTaskInterface   $updateNameTemplateTask,
-        private UpdateTemplateWidgetTaskInterface $updateTemplateWidgetTask,
-        private ForgetCacheActionInterface        $forgetCacheAction
+        private readonly UpdateTemplateTaskInterface       $updateTemplateTask,
+        private readonly UpdateNameTemplateTaskInterface   $updateNameTemplateTask,
+        private readonly UpdateTemplateWidgetTaskInterface $updateTemplateWidgetTask,
+        private readonly ForgetCacheActionInterface        $forgetCacheAction
     )
     {
     }

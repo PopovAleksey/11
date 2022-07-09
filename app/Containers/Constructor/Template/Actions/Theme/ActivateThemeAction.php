@@ -9,7 +9,7 @@ use App\Ship\Parents\Dto\ThemeDto;
 class ActivateThemeAction extends Action implements ActivateThemeActionInterface
 {
     public function __construct(
-        private ActivateThemeTaskInterface $activateThemeTask
+        private readonly ActivateThemeTaskInterface $activateThemeTask
     )
     {
     }

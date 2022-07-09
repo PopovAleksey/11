@@ -10,7 +10,9 @@ use Exception;
 
 class UpdateTemplateWidgetTask extends Task implements UpdateTemplateWidgetTaskInterface
 {
-    public function __construct(private TemplateWidgetRepositoryInterface $repository)
+    public function __construct(
+        private readonly TemplateWidgetRepositoryInterface $repository
+    )
     {
     }
 

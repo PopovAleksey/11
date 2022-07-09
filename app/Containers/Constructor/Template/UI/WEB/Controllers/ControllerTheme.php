@@ -21,25 +21,15 @@ use Illuminate\Http\JsonResponse;
 
 class ControllerTheme extends WebController
 {
-    /**
-     * @param \App\Containers\Constructor\Template\Actions\Theme\GetAllThemesActionInterface    $getAllThemesAction
-     * @param \App\Containers\Constructor\Template\Actions\Theme\CreateThemeActionInterface     $createThemeAction
-     * @param \App\Containers\Constructor\Template\Actions\Theme\FindThemeByIdActionInterface   $findThemeByIdAction
-     * @param \App\Containers\Constructor\Template\Actions\Theme\ActivateThemeActionInterface   $activateThemeAction
-     * @param \App\Containers\Constructor\Template\Actions\Theme\DeleteThemeActionInterface     $deleteThemeAction
-     * @param \App\Containers\Constructor\Page\Actions\GetAllPagesActionInterface               $getAllPagesAction
-     * @param \App\Containers\Constructor\Language\Actions\GetAllLanguagesActionInterface       $getAllLanguagesAction
-     * @param \App\Containers\Constructor\Template\Actions\Theme\UpdateNameThemeActionInterface $updateNameThemeAction
-     */
     public function __construct(
-        private GetAllThemesActionInterface    $getAllThemesAction,
-        private CreateThemeActionInterface     $createThemeAction,
-        private FindThemeByIdActionInterface   $findThemeByIdAction,
-        private ActivateThemeActionInterface   $activateThemeAction,
-        private DeleteThemeActionInterface     $deleteThemeAction,
-        private GetAllPagesActionInterface     $getAllPagesAction,
-        private GetAllLanguagesActionInterface $getAllLanguagesAction,
-        private UpdateNameThemeActionInterface $updateNameThemeAction
+        private readonly GetAllThemesActionInterface    $getAllThemesAction,
+        private readonly CreateThemeActionInterface     $createThemeAction,
+        private readonly FindThemeByIdActionInterface   $findThemeByIdAction,
+        private readonly ActivateThemeActionInterface   $activateThemeAction,
+        private readonly DeleteThemeActionInterface     $deleteThemeAction,
+        private readonly GetAllPagesActionInterface     $getAllPagesAction,
+        private readonly GetAllLanguagesActionInterface $getAllLanguagesAction,
+        private readonly UpdateNameThemeActionInterface $updateNameThemeAction
     )
     {
     }

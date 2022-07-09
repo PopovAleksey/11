@@ -8,11 +8,13 @@ use App\Ship\Parents\Models\ThemeInterface;
 use App\Ship\Parents\Repositories\ThemeRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class CreateThemeTask extends Task implements CreateThemeTaskInterface
 {
-    public function __construct(private ThemeRepositoryInterface $repository)
+    public function __construct(
+        private readonly ThemeRepositoryInterface $repository
+    )
     {
     }
 
@@ -55,9 +57,9 @@ class CreateThemeTask extends Task implements CreateThemeTaskInterface
             return $this->createThemeTemplateDirectories($themeName . '-copy');
         }
 
-        Storage::disk('template')->createDir($directoryName . '/' . config('constructor-template.folderName.css'));
-        Storage::disk('template')->createDir($directoryName . '/' . config('constructor-template.folderName.js'));
-        Storage::disk('template')->createDir($directoryName . '/' . config('constructor-template.folderName.view'));
+        Storage::disk('template')->makeDirectory($directoryName . '/' . config('constructor-template.folderName.css'));
+        Storage::disk('template')->makeDirectory($directoryName . '/' . config('constructor-template.folderName.js'));
+        Storage::disk('template')->makeDirectory($directoryName . '/' . config('constructor-template.folderName.view'));
 
         Storage::disk('template')->put('.gitignore', "*\n\r!templates/\n\r!.gitignore");
 

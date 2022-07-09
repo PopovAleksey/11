@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 class GetListBaseTemplatesAction extends Action implements GetListBaseTemplatesActionInterface
 {
     public function __construct(
-        private GetListBaseTemplatesTaskInterface $getAllTemplateTask
+        private readonly GetListBaseTemplatesTaskInterface $getAllTemplateTask
     )
     {
     }

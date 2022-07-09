@@ -10,8 +10,8 @@ use App\Ship\Parents\Actions\Action;
 class DeleteTemplateAction extends Action implements DeleteTemplateActionInterface
 {
     public function __construct(
-        private DeleteTemplateTaskInterface $deleteTemplateTask,
-        private ForgetCacheActionInterface  $forgetCacheAction
+        private readonly DeleteTemplateTaskInterface $deleteTemplateTask,
+        private readonly ForgetCacheActionInterface  $forgetCacheAction
     )
     {
     }

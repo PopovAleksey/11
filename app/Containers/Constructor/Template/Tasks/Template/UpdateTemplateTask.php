@@ -7,13 +7,13 @@ use App\Ship\Parents\Dto\TemplateDto;
 use App\Ship\Parents\Repositories\TemplateRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class UpdateTemplateTask extends Task implements UpdateTemplateTaskInterface
 {
     public function __construct(
-        private TemplateRepositoryInterface       $templateRepository,
-        private GetTemplatesFilepathTaskInterface $getTemplatesFilepathTask
+        private readonly TemplateRepositoryInterface       $templateRepository,
+        private readonly GetTemplatesFilepathTaskInterface $getTemplatesFilepathTask
     )
     {
     }

@@ -10,7 +10,9 @@ use Exception;
 
 class ActivateThemeTask extends Task implements ActivateThemeTaskInterface
 {
-    public function __construct(private ThemeRepositoryInterface $repository)
+    public function __construct(
+        private readonly ThemeRepositoryInterface $repository
+    )
     {
     }
 

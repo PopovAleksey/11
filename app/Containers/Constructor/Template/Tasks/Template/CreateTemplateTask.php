@@ -14,15 +14,15 @@ use App\Ship\Parents\Repositories\TemplateRepositoryInterface;
 use App\Ship\Parents\Repositories\ThemeRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class CreateTemplateTask extends Task implements CreateTemplateTaskInterface
 {
     public function __construct(
-        private ThemeRepositoryInterface    $themeRepository,
-        private TemplateRepositoryInterface $templateRepository,
-        private LanguageRepositoryInterface $languageRepository,
-        private PageRepositoryInterface     $pageRepository,
+        private readonly ThemeRepositoryInterface    $themeRepository,
+        private readonly TemplateRepositoryInterface $templateRepository,
+        private readonly LanguageRepositoryInterface $languageRepository,
+        private readonly PageRepositoryInterface     $pageRepository,
     )
     {
     }

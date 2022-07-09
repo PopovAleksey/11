@@ -11,7 +11,9 @@ use Illuminate\Support\Collection;
 
 class GetAllIncludableItemsTask extends Task implements GetAllIncludableItemsTaskInterface
 {
-    public function __construct(private TemplateRepositoryInterface $repository)
+    public function __construct(
+        private readonly TemplateRepositoryInterface $repository
+    )
     {
     }
 

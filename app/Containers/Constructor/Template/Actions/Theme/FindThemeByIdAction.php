@@ -9,7 +9,7 @@ use App\Ship\Parents\Dto\ThemeDto;
 class FindThemeByIdAction extends Action implements FindThemeByIdActionInterface
 {
     public function __construct(
-        private FindThemeByIdTaskInterface $findThemeByIdTask
+        private readonly FindThemeByIdTaskInterface $findThemeByIdTask
     )
     {
     }

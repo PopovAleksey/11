@@ -17,13 +17,13 @@ use App\Ship\Parents\Models\ThemeInterface;
 use App\Ship\Parents\Repositories\TemplateRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class FindTemplateByIdTask extends Task implements FindTemplateByIdTaskInterface
 {
     public function __construct(
-        private TemplateRepositoryInterface       $repository,
-        private GetTemplatesFilepathTaskInterface $getTemplatesFilepathTask
+        private readonly TemplateRepositoryInterface       $repository,
+        private readonly GetTemplatesFilepathTaskInterface $getTemplatesFilepathTask
     )
     {
     }

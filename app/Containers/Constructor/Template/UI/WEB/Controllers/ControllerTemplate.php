@@ -23,13 +23,13 @@ use Illuminate\Http\JsonResponse;
 class ControllerTemplate extends WebController
 {
     public function __construct(
-        private GetAllIncludableItemsActionInterface $getAllIncludableItemsAction,
-        private GetListBaseTemplatesAction           $getListBaseTemplatesAction,
-        private CreateTemplateActionInterface        $createTemplateAction,
-        private FindTemplateByIdActionInterface      $findTemplateByIdAction,
-        private UpdateTemplateActionInterface        $updateTemplateAction,
-        private DeleteTemplateActionInterface        $deleteTemplateAction,
-        private UpdateNameTemplateActionInterface    $updateNameTemplateAction
+        private readonly GetAllIncludableItemsActionInterface $getAllIncludableItemsAction,
+        private readonly GetListBaseTemplatesAction           $getListBaseTemplatesAction,
+        private readonly CreateTemplateActionInterface        $createTemplateAction,
+        private readonly FindTemplateByIdActionInterface      $findTemplateByIdAction,
+        private readonly UpdateTemplateActionInterface        $updateTemplateAction,
+        private readonly DeleteTemplateActionInterface        $deleteTemplateAction,
+        private readonly UpdateNameTemplateActionInterface    $updateNameTemplateAction
     )
     {
     }

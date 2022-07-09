@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 class GetAllIncludableItemsAction extends Action implements GetAllIncludableItemsActionInterface
 {
     public function __construct(
-        private GetAllIncludableItemsTaskInterface $getAllTemplateTask
+        private readonly GetAllIncludableItemsTaskInterface $getAllTemplateTask
     )
     {
     }

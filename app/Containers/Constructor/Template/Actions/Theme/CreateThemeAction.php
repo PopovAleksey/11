@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\DB;
 class CreateThemeAction extends Action implements CreateThemeActionInterface
 {
     public function __construct(
-        private CreateThemeTaskInterface    $createThemeTask,
-        private CreateTemplateTaskInterface $createTemplateTask,
-        private GetAllPagesTaskInterface    $getAllPagesTask
+        private readonly CreateThemeTaskInterface    $createThemeTask,
+        private readonly CreateTemplateTaskInterface $createTemplateTask,
+        private readonly GetAllPagesTaskInterface    $getAllPagesTask
     )
     {
     }

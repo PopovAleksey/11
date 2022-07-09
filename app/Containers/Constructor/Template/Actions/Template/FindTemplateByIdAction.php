@@ -9,7 +9,7 @@ use App\Ship\Parents\Dto\TemplateDto;
 class FindTemplateByIdAction extends Action implements FindTemplateByIdActionInterface
 {
     public function __construct(
-        private FindTemplateByIdTaskInterface $findTemplateByIdTask
+        private readonly FindTemplateByIdTaskInterface $findTemplateByIdTask
     )
     {
     }

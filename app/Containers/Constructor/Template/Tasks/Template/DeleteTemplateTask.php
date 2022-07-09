@@ -8,13 +8,13 @@ use App\Ship\Parents\Repositories\TemplateRepositoryInterface;
 use App\Ship\Parents\Repositories\ThemeRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class DeleteTemplateTask extends Task implements DeleteTemplateTaskInterface
 {
     public function __construct(
-        private ThemeRepositoryInterface    $themeRepository,
-        private TemplateRepositoryInterface $templateRepository
+        private readonly ThemeRepositoryInterface    $themeRepository,
+        private readonly TemplateRepositoryInterface $templateRepository
     )
     {
     }

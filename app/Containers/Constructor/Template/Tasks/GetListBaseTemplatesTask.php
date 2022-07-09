@@ -10,7 +10,9 @@ use Illuminate\Support\Collection;
 
 class GetListBaseTemplatesTask extends Task implements GetListBaseTemplatesTaskInterface
 {
-    public function __construct(private TemplateRepositoryInterface $templateRepository)
+    public function __construct(
+        private readonly TemplateRepositoryInterface $templateRepository
+    )
     {
     }
 

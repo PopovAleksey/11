@@ -8,7 +8,7 @@ use App\Ship\Parents\Actions\Action;
 class DeleteThemeAction extends Action implements DeleteThemeActionInterface
 {
     public function __construct(
-        private DeleteThemeTaskInterface $deleteThemeTask
+        private readonly DeleteThemeTaskInterface $deleteThemeTask
     )
     {
     }
