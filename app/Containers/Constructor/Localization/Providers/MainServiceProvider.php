@@ -26,6 +26,8 @@ use App\Containers\Constructor\Localization\Tasks\GetAllLocalizationsTask;
 use App\Containers\Constructor\Localization\Tasks\GetAllLocalizationsTaskInterface;
 use App\Containers\Constructor\Localization\Tasks\GetAllThemesTask;
 use App\Containers\Constructor\Localization\Tasks\GetAllThemesTaskInterface;
+use App\Containers\Constructor\Localization\Tasks\IsPointExistsTask;
+use App\Containers\Constructor\Localization\Tasks\IsPointExistsTaskInterface;
 use App\Ship\Parents\Models\Localization;
 use App\Ship\Parents\Models\LocalizationInterface;
 use App\Ship\Parents\Models\LocalizationValues;
@@ -67,6 +69,7 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(FindLocalizationByIdTaskInterface::class, FindLocalizationByIdTask::class);
         $this->app->bind(CreateLocalizationTaskInterface::class, CreateLocalizationTask::class);
         $this->app->bind(DeleteLocalizationTaskInterface::class, DeleteLocalizationTask::class);
+        $this->app->bind(IsPointExistsTaskInterface::class, IsPointExistsTask::class);
     }
 
     private function bindRepositories(): void
