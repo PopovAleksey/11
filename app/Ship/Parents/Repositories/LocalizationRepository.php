@@ -6,9 +6,9 @@ use App\Ship\Parents\Models\LanguageInterface;
 use App\Ship\Parents\Models\LocalizationInterface;
 use App\Ship\Parents\Models\LocalizationValuesInterface;
 use App\Ship\Parents\Models\ThemeInterface;
-use DB;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class LocalizationRepository extends Repository implements LocalizationRepositoryInterface
 {
@@ -18,9 +18,7 @@ class LocalizationRepository extends Repository implements LocalizationRepositor
     protected $fieldSearchable = [
         'id'          => '=',
         'point'       => 'like',
-        'language_id' => '=',
         'theme_id'    => '=',
-        'value'       => 'like',
     ];
 
     public function model(): string

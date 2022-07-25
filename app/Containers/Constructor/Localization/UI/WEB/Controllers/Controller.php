@@ -2,6 +2,7 @@
 
 namespace App\Containers\Constructor\Localization\UI\WEB\Controllers;
 
+use App\Containers\Constructor\Localization\Actions\CreateLocalizationActionInterface;
 use App\Containers\Constructor\Localization\Actions\DeleteLocalizationActionInterface;
 use App\Containers\Constructor\Localization\Actions\FindLocalizationByIdActionInterface;
 use App\Containers\Constructor\Localization\Actions\GetAllLanguagesActionInterface;
@@ -14,6 +15,8 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 
 class Controller extends WebController
 {
@@ -22,18 +25,22 @@ class Controller extends WebController
         private readonly GetAllLanguagesActionInterface      $getAllLanguagesAction,
         private readonly GetAllThemesActionInterface         $getAllThemesAction,
         private readonly FindLocalizationByIdActionInterface $findLocalizationByIdAction,
-        #private CreateLocalizationActionInterface      $createLocalizationAction,
+        private readonly CreateLocalizationActionInterface   $createLocalizationAction,
         #private UpdateLocalizationActionInterface      $updateLocalizationAction,
         private readonly DeleteLocalizationActionInterface   $deleteLocalizationAction
     )
     {
     }
 
-    public function index(): Factory|View|Application
+    public function index(): View|Factory|Redirector|RedirectResponse|Application
     {
         $localizationList = $this->getAllLocalizationsAction->run();
         $languageList     = $this->getAllLanguagesAction->run();
         $themeList        = $this->getAllThemesAction->run();
+
+        if ($languageList->count() === 0) {
+            return redirect(route('constructor_language_index'));
+        }
 
         return view('constructor@localization::list', [
             'domain'    => config('app.url'),
@@ -52,9 +59,11 @@ class Controller extends WebController
 
     public function store(StoreLocalizationRequest $request): JsonResponse
     {
-        #$this->createLocalizationAction->run($request->mapped());
+        $localizationId = $this->createLocalizationAction->run($request->mapped());
 
-        return response()->json()->setStatusCode(200);
+        return response()
+            ->json(['id' => $localizationId])
+            ->setStatusCode(200);
     }
 
     public function update(int $id, StoreLocalizationRequest $request): JsonResponse

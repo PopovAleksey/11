@@ -12,7 +12,7 @@ class StoreLocalizationRequest extends Request
     {
         return [
             'point'                => ['required', 'string'],
-            'theme_id'             => ['integer'],
+            'theme_id'             => ['integer', 'nullable'],
             'values'               => ['required', 'array'],
             'values.*.language_id' => ['required', 'integer'],
             'values.*.value'       => ['required', 'string'],

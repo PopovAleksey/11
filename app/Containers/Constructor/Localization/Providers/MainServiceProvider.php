@@ -2,6 +2,8 @@
 
 namespace App\Containers\Constructor\Localization\Providers;
 
+use App\Containers\Constructor\Localization\Actions\CreateLocalizationAction;
+use App\Containers\Constructor\Localization\Actions\CreateLocalizationActionInterface;
 use App\Containers\Constructor\Localization\Actions\DeleteLocalizationAction;
 use App\Containers\Constructor\Localization\Actions\DeleteLocalizationActionInterface;
 use App\Containers\Constructor\Localization\Actions\FindLocalizationByIdAction;
@@ -12,6 +14,8 @@ use App\Containers\Constructor\Localization\Actions\GetAllLocalizationsAction;
 use App\Containers\Constructor\Localization\Actions\GetAllLocalizationsActionInterface;
 use App\Containers\Constructor\Localization\Actions\GetAllThemesAction;
 use App\Containers\Constructor\Localization\Actions\GetAllThemesActionInterface;
+use App\Containers\Constructor\Localization\Tasks\CreateLocalizationTask;
+use App\Containers\Constructor\Localization\Tasks\CreateLocalizationTaskInterface;
 use App\Containers\Constructor\Localization\Tasks\DeleteLocalizationTask;
 use App\Containers\Constructor\Localization\Tasks\DeleteLocalizationTaskInterface;
 use App\Containers\Constructor\Localization\Tasks\FindLocalizationByIdTask;
@@ -29,6 +33,8 @@ use App\Ship\Parents\Models\LocalizationValuesInterface;
 use App\Ship\Parents\Providers\MainProvider;
 use App\Ship\Parents\Repositories\LocalizationRepository;
 use App\Ship\Parents\Repositories\LocalizationRepositoryInterface;
+use App\Ship\Parents\Repositories\LocalizationValueRepository;
+use App\Ship\Parents\Repositories\LocalizationValueRepositoryInterface;
 
 
 class MainServiceProvider extends MainProvider
@@ -49,6 +55,7 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(GetAllLanguagesActionInterface::class, GetAllLanguagesAction::class);
         $this->app->bind(GetAllThemesActionInterface::class, GetAllThemesAction::class);
         $this->app->bind(FindLocalizationByIdActionInterface::class, FindLocalizationByIdAction::class);
+        $this->app->bind(CreateLocalizationActionInterface::class, CreateLocalizationAction::class);
         $this->app->bind(DeleteLocalizationActionInterface::class, DeleteLocalizationAction::class);
     }
 
@@ -58,12 +65,14 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(GetAllLanguagesTaskInterface::class, GetAllLanguagesTask::class);
         $this->app->bind(GetAllThemesTaskInterface::class, GetAllThemesTask::class);
         $this->app->bind(FindLocalizationByIdTaskInterface::class, FindLocalizationByIdTask::class);
+        $this->app->bind(CreateLocalizationTaskInterface::class, CreateLocalizationTask::class);
         $this->app->bind(DeleteLocalizationTaskInterface::class, DeleteLocalizationTask::class);
     }
 
     private function bindRepositories(): void
     {
         $this->app->bind(LocalizationRepositoryInterface::class, LocalizationRepository::class);
+        $this->app->bind(LocalizationValueRepositoryInterface::class, LocalizationValueRepository::class);
     }
 
     private function bindModels(): void

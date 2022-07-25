@@ -243,7 +243,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($list->get($language->getId()) as $point)
+                                        @foreach($list->get($language->getId()) ?? [] as $point)
                                             <tr>
                                                 <td>{{ $point->getId() }}</td>
                                                 <td>{{ $point->getPoint() }}</td>
