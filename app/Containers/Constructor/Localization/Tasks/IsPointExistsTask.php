@@ -14,15 +14,22 @@ class IsPointExistsTask extends Task implements IsPointExistsTaskInterface
     {
     }
 
-    public function run(string $point, ?int $themeId = null): bool
+    public function run(string $point, ?int $themeId = null, ?int $pointId = null): bool
     {
         try {
+            /**
+             * @var \App\Ship\Parents\Models\LocalizationInterface $point
+             */
             $point = $this->repository->findWhere([
                 'point'    => $point,
                 'theme_id' => $themeId,
             ])->first();
 
-            return $point !== null;
+            if ($pointId === null) {
+                return $point !== null;
+            }
+
+            return $point !== null && $point->id !== $pointId;
 
         } catch (Exception) {
             return false;

@@ -8,6 +8,9 @@ use App\Containers\Constructor\Localization\Actions\FindLocalizationByIdActionIn
 use App\Containers\Constructor\Localization\Actions\GetAllLanguagesActionInterface;
 use App\Containers\Constructor\Localization\Actions\GetAllLocalizationsActionInterface;
 use App\Containers\Constructor\Localization\Actions\GetAllThemesActionInterface;
+use App\Containers\Constructor\Localization\Actions\IsPointExistsActionInterface;
+use App\Containers\Constructor\Localization\Actions\UpdateLocalizationActionInterface;
+use App\Containers\Constructor\Localization\UI\WEB\Requests\IsExistsLocalizationRequest;
 use App\Containers\Constructor\Localization\UI\WEB\Requests\StoreLocalizationRequest;
 use App\Containers\Constructor\Localization\UI\WEB\Resources\LocalizationResource;
 use App\Ship\Parents\Controllers\WebController;
@@ -26,8 +29,9 @@ class Controller extends WebController
         private readonly GetAllThemesActionInterface         $getAllThemesAction,
         private readonly FindLocalizationByIdActionInterface $findLocalizationByIdAction,
         private readonly CreateLocalizationActionInterface   $createLocalizationAction,
-        #private UpdateLocalizationActionInterface      $updateLocalizationAction,
-        private readonly DeleteLocalizationActionInterface   $deleteLocalizationAction
+        private readonly UpdateLocalizationActionInterface   $updateLocalizationAction,
+        private readonly DeleteLocalizationActionInterface   $deleteLocalizationAction,
+        private readonly IsPointExistsActionInterface        $isPointExistsAction
     )
     {
     }
@@ -66,11 +70,21 @@ class Controller extends WebController
             ->setStatusCode(200);
     }
 
+    public function isPointExists(IsExistsLocalizationRequest $request): JsonResponse
+    {
+        $localization = $request->mapped();
+        $isExists     = $this->isPointExistsAction->run($localization->getPoint(), $localization->getThemeId());
+
+        return response()
+            ->json(['exists' => $isExists])
+            ->setStatusCode(200);
+    }
+
     public function update(int $id, StoreLocalizationRequest $request): JsonResponse
     {
         $data = $request->mapped()->setId($id);
 
-        #$this->updateLocalizationAction->run($data);
+        $this->updateLocalizationAction->run($data);
 
         return response()->json()->setStatusCode(200);
     }

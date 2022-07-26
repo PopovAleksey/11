@@ -14,6 +14,10 @@ use App\Containers\Constructor\Localization\Actions\GetAllLocalizationsAction;
 use App\Containers\Constructor\Localization\Actions\GetAllLocalizationsActionInterface;
 use App\Containers\Constructor\Localization\Actions\GetAllThemesAction;
 use App\Containers\Constructor\Localization\Actions\GetAllThemesActionInterface;
+use App\Containers\Constructor\Localization\Actions\IsPointExistsAction;
+use App\Containers\Constructor\Localization\Actions\IsPointExistsActionInterface;
+use App\Containers\Constructor\Localization\Actions\UpdateLocalizationAction;
+use App\Containers\Constructor\Localization\Actions\UpdateLocalizationActionInterface;
 use App\Containers\Constructor\Localization\Tasks\CreateLocalizationTask;
 use App\Containers\Constructor\Localization\Tasks\CreateLocalizationTaskInterface;
 use App\Containers\Constructor\Localization\Tasks\DeleteLocalizationTask;
@@ -28,6 +32,8 @@ use App\Containers\Constructor\Localization\Tasks\GetAllThemesTask;
 use App\Containers\Constructor\Localization\Tasks\GetAllThemesTaskInterface;
 use App\Containers\Constructor\Localization\Tasks\IsPointExistsTask;
 use App\Containers\Constructor\Localization\Tasks\IsPointExistsTaskInterface;
+use App\Containers\Constructor\Localization\Tasks\UpdateLocalizationTask;
+use App\Containers\Constructor\Localization\Tasks\UpdateLocalizationTaskInterface;
 use App\Ship\Parents\Models\Localization;
 use App\Ship\Parents\Models\LocalizationInterface;
 use App\Ship\Parents\Models\LocalizationValues;
@@ -58,7 +64,9 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(GetAllThemesActionInterface::class, GetAllThemesAction::class);
         $this->app->bind(FindLocalizationByIdActionInterface::class, FindLocalizationByIdAction::class);
         $this->app->bind(CreateLocalizationActionInterface::class, CreateLocalizationAction::class);
+        $this->app->bind(UpdateLocalizationActionInterface::class, UpdateLocalizationAction::class);
         $this->app->bind(DeleteLocalizationActionInterface::class, DeleteLocalizationAction::class);
+        $this->app->bind(IsPointExistsActionInterface::class, IsPointExistsAction::class);
     }
 
     private function bindTasks(): void
@@ -68,6 +76,7 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(GetAllThemesTaskInterface::class, GetAllThemesTask::class);
         $this->app->bind(FindLocalizationByIdTaskInterface::class, FindLocalizationByIdTask::class);
         $this->app->bind(CreateLocalizationTaskInterface::class, CreateLocalizationTask::class);
+        $this->app->bind(UpdateLocalizationTaskInterface::class, UpdateLocalizationTask::class);
         $this->app->bind(DeleteLocalizationTaskInterface::class, DeleteLocalizationTask::class);
         $this->app->bind(IsPointExistsTaskInterface::class, IsPointExistsTask::class);
     }
