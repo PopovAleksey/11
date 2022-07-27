@@ -4,5 +4,5 @@ namespace App\Containers\Constructor\Localization\Actions;
 
 interface IsPointExistsActionInterface
 {
-    public function run(string $point, ?int $themeId = null): bool;
+    public function run(string $point, ?int $themeId = null, ?int $pointId = null): bool;
 }

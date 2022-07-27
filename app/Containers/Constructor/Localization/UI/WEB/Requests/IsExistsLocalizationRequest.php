@@ -10,6 +10,7 @@ class IsExistsLocalizationRequest extends Request
     public function rules(): array
     {
         return [
+            'id'       => ['integer', 'nullable'],
             'point'    => ['required', 'string'],
             'theme_id' => ['integer', 'nullable'],
         ];
@@ -20,6 +21,7 @@ class IsExistsLocalizationRequest extends Request
         $data = $this->validated();
 
         return (new LocalizationDto())
+            ->setId(data_get($data, 'id'))
             ->setPoint(data_get($data, 'point'))
             ->setThemeId(data_get($data, 'theme_id'));
     }

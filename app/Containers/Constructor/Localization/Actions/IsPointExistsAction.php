@@ -13,8 +13,8 @@ class IsPointExistsAction extends Action implements IsPointExistsActionInterface
     {
     }
 
-    public function run(string $point, ?int $themeId = null): bool
+    public function run(string $point, ?int $themeId = null, ?int $pointId = null): bool
     {
-        return $this->isPointExistsTask->run($point, $themeId);
+        return $this->isPointExistsTask->run($point, $themeId, $pointId);
     }
 }

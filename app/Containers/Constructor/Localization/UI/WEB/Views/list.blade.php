@@ -81,6 +81,9 @@
                 editLocalizationId = $(this).attr('data-id');
                 $('#modal-form').modal('show');
 
+                $('span#point-error').hide();
+                $('div#modal-form select').prop("disabled", true);
+                $('div#modal-form input#point').prop("disabled", true).removeClass('is-valid is-invalid');
                 $('div#modal-form input, div#modal-form select').prop("disabled", true);
                 $('div#modal-form button#save-localization-button').prop("disabled", true);
                 $('div#modal-form button#save-localization-button i').show();
@@ -121,8 +124,9 @@
                 });
             });
 
-            $('button#form-localization').on('click', function () {
-                $('input#point').val('');
+            $('button.form-localization').on('click', function () {
+                $('span#point-error').hide();
+                $('input#point').val('').prop("disabled", false).removeClass('is-valid is-invalid');
                 $('input#point-translation').val('');
                 $('select.select-theme option').prop('selected', false);
 
@@ -197,6 +201,68 @@
                     }
                 });
             });
+
+            $('input#point').on('blur', function () {
+                pointChecker();
+            });
+
+            $('select.select-theme').on('change', function () {
+                pointChecker();
+            });
+
+            function pointChecker() {
+                let point = $('input#point').val();
+                let themeId = $('select.select-theme').find(':selected').val();
+
+                $('span#point-error').hide();
+                $('div#modal-form select').prop("disabled", true);
+                $('div#modal-form input#point').prop("disabled", true).removeClass('is-valid is-invalid');
+                $('div#modal-form button#save-localization-button').prop("disabled", true);
+                $('div#modal-form button#save-localization-button i').show();
+                $('div#modal-form button#save-localization-button span').text('Checking...')
+
+                $.ajax({
+                    url: '{{ route('constructor_localization_is_exists') }}',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    data: {
+                        'id': editLocalizationId,
+                        'point': point,
+                        'theme_id': themeId
+                    },
+                    success: function (response) {
+                        let isExists = response.exists;
+
+                        if (isExists === false) {
+                            $('span#point-error').hide();
+                            $('div#modal-form input#point').addClass('is-valid');
+                            $('div#modal-form button#save-localization-button').prop("disabled", false);
+                        } else {
+                            $('div#modal-form input#point').addClass('is-invalid');
+                            $('span#point-error').show();
+                        }
+
+                        $('div#modal-form select').prop("disabled", false);
+                        $('div#modal-form input#point').prop("disabled", false);
+                        $('div#modal-form button#save-localization-button i').hide();
+                        $('div#modal-form button#save-localization-button span').text('Save');
+                    },
+                    error: function (error) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: error.responseJSON.message
+                        })
+
+                        $('div#modal-form input, div#modal-form select').prop("disabled", false);
+                        $('div#modal-form input, div#modal-form input#point').prop("disabled", false);
+                        $('div#modal-form button#save-localization-button').prop("disabled", false);
+                        $('div#modal-form button#save-localization-button i').hide();
+                        $('div#modal-form button#save-localization-button span').text('Save');
+                    }
+                });
+            }
         });
     </script>
 @stop
@@ -312,6 +378,8 @@
                     <div class="form-group">
                         <label>Point</label>
                         <input type="text" class="form-control" id="point" data-id="" placeholder="Enter Point">
+                        <span id="point-error" style="display: none"
+                              class="error invalid-feedback">Point is exists!</span>
                     </div>
                 </div>
                 <div class="modal-body border-bottom">

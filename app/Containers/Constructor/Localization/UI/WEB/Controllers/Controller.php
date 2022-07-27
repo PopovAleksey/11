@@ -73,7 +73,7 @@ class Controller extends WebController
     public function isPointExists(IsExistsLocalizationRequest $request): JsonResponse
     {
         $localization = $request->mapped();
-        $isExists     = $this->isPointExistsAction->run($localization->getPoint(), $localization->getThemeId());
+        $isExists     = $this->isPointExistsAction->run($localization->getPoint(), $localization->getThemeId(), $localization->getId());
 
         return response()
             ->json(['exists' => $isExists])
