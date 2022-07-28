@@ -11,7 +11,7 @@ class IsExistsLocalizationRequest extends Request
     {
         return [
             'id'       => ['integer', 'nullable'],
-            'point'    => ['required', 'string'],
+            'point'    => ['required', 'string', 'regex:/^[a-zA-Z0-9.]+$/i'],
             'theme_id' => ['integer', 'nullable'],
         ];
     }

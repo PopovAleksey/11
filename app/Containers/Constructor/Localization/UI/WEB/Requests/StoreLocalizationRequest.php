@@ -11,7 +11,7 @@ class StoreLocalizationRequest extends Request
     public function rules(): array
     {
         return [
-            'point'                => ['required', 'string'],
+            'point'                => ['required', 'string', 'regex:/^[a-zA-Z0-9.]+$/i'],
             'theme_id'             => ['integer', 'nullable'],
             'values'               => ['required', 'array'],
             'values.*.language_id' => ['required', 'integer'],

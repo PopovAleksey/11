@@ -55,6 +55,9 @@
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <!-- Toastr -->
     <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
+    <!-- InputMask -->
+    <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('plugins/inputmask/jquery.inputmask.min.js') }}"></script>
 
     <script>
         $(function () {
@@ -202,6 +205,8 @@
                 });
             });
 
+            $('input#point').inputmask({regex: "^[a-zA-Z0-9.]+$", placeholder: ""});
+
             $('input#point').on('blur', function () {
                 pointChecker();
             });
@@ -213,6 +218,10 @@
             function pointChecker() {
                 let point = $('input#point').val();
                 let themeId = $('select.select-theme').find(':selected').val();
+
+                if (point === '') {
+                    return;
+                }
 
                 $('span#point-error').hide();
                 $('div#modal-form select').prop("disabled", true);
@@ -255,6 +264,7 @@
                             title: error.responseJSON.message
                         })
 
+                        $('div#modal-form input#point').addClass('is-invalid');
                         $('div#modal-form input, div#modal-form select').prop("disabled", false);
                         $('div#modal-form input, div#modal-form input#point').prop("disabled", false);
                         $('div#modal-form button#save-localization-button').prop("disabled", false);
@@ -377,7 +387,8 @@
                 <div class="modal-body border-bottom">
                     <div class="form-group">
                         <label>Point</label>
-                        <input type="text" class="form-control" id="point" data-id="" placeholder="Enter Point">
+                        <input type="text" class="form-control" id="point" data-id=""
+                               placeholder="Enter Point">
                         <span id="point-error" style="display: none"
                               class="error invalid-feedback">Point is exists!</span>
                     </div>
