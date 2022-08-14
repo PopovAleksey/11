@@ -20,6 +20,14 @@
             });
             codeElem.setSize(null, 600);
 
+            $('button#localization-point-to-code').on('click', function () {
+                setCodeMirrorTarget(code);
+            });
+
+            $('button#localization-point-to-code-elem').on('click', function () {
+                setCodeMirrorTarget(codeElem);
+            });
+
             $('a.nav-link').on('click', function () {
                 setInterval(() => code.refresh(), 500);
                 setInterval(() => codeElem.refresh(), 500);
@@ -97,6 +105,12 @@
                 <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel"
                      aria-labelledby="custom-tabs-four-home-tab">
                     <div class="btn-group margin-10">
+                        <button type="button" class="btn btn-warning"
+                                id="localization-point-to-code"
+                                data-toggle="modal"
+                                data-target="#modal-localization-point">
+                            Localization
+                        </button>
                         <button type="button" class="btn btn-info" id="insert-content"
                                 data-value="{ITEMS}">
                             All Items
@@ -129,6 +143,12 @@
                 <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel"
                      aria-labelledby="custom-tabs-four-profile-tab">
                     <div class="btn-group margin-10">
+                        <button type="button" class="btn btn-warning"
+                                id="localization-point-to-code-elem"
+                                data-toggle="modal"
+                                data-target="#modal-localization-point">
+                            Localization
+                        </button>
                         <button type="button" class="btn btn-info" id="insert-element" data-value="{LINK}">
                             Link URL
                         </button>

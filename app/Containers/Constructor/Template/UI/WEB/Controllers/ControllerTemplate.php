@@ -2,6 +2,8 @@
 
 namespace App\Containers\Constructor\Template\UI\WEB\Controllers;
 
+use App\Containers\Constructor\Localization\Actions\GetAllLanguagesActionInterface;
+use App\Containers\Constructor\Localization\Actions\GetAllLocalizationsActionInterface;
 use App\Containers\Constructor\Template\Actions\GetAllIncludableItemsActionInterface;
 use App\Containers\Constructor\Template\Actions\GetListBaseTemplatesAction;
 use App\Containers\Constructor\Template\Actions\Template\CreateTemplateActionInterface;
@@ -13,6 +15,7 @@ use App\Containers\Constructor\Template\UI\WEB\Requests\StoreTemplateRequest;
 use App\Containers\Constructor\Template\UI\WEB\Requests\UpdateNameTemplateRequest;
 use App\Containers\Constructor\Template\UI\WEB\Requests\UpdateTemplateRequest;
 use App\Ship\Parents\Controllers\WebController;
+use App\Ship\Parents\Dto\LocalizationDto;
 use App\Ship\Parents\Models\TemplateInterface;
 use App\Ship\Parents\Models\TemplateWidgetInterface;
 use Illuminate\Contracts\Foundation\Application;
@@ -24,6 +27,8 @@ class ControllerTemplate extends WebController
 {
     public function __construct(
         private readonly GetAllIncludableItemsActionInterface $getAllIncludableItemsAction,
+        private readonly GetAllLocalizationsActionInterface   $getAllLocalizationsAction,
+        private readonly GetAllLanguagesActionInterface       $getAllLanguagesAction,
         private readonly GetListBaseTemplatesAction           $getListBaseTemplatesAction,
         private readonly CreateTemplateActionInterface        $createTemplateAction,
         private readonly FindTemplateByIdActionInterface      $findTemplateByIdAction,
@@ -53,7 +58,9 @@ class ControllerTemplate extends WebController
      */
     public function edit(int $id): Factory|View|Application
     {
-        $template = $this->findTemplateByIdAction->run($id);
+        $template         = $this->findTemplateByIdAction->run($id);
+        $languageList     = $this->getAllLanguagesAction->run();
+        $localizationList = $this->getAllLocalizationsAction->run();
 
         $view = match ($template->getType()) {
             TemplateInterface::MENU_TYPE, TemplateInterface::WIDGET_TYPE => 'constructor@template::editTemplateMenu',
@@ -64,7 +71,20 @@ class ControllerTemplate extends WebController
             $view = 'constructor@template::editTemplateComposite';
         }
 
-        $data = ['template' => $template];
+        /**
+         * @var \App\Ship\Parents\Dto\LanguageDto|null $defaultLanguage
+         */
+        $defaultLanguage = $languageList->first();
+
+        $localizationList = $localizationList
+            ->get($defaultLanguage?->getId())
+            ?->filter(fn(LocalizationDto $localizationDto) => in_array($localizationDto->getThemeId(), [$template->getThemeId(), null], true));
+
+        $data = [
+            'template'         => $template,
+            'languages'        => $languageList,
+            'localizationList' => $localizationList,
+        ];
 
         if (in_array($template->getType(), [TemplateInterface::BASE_TYPE, TemplateInterface::PAGE_TYPE, TemplateInterface::MENU_TYPE], true)) {
             $includableItems = $this->getAllIncludableItemsAction->run($template->getThemeId());

@@ -28,6 +28,16 @@
             });
             codeContent.setSize(null, 600);
 
+            $('button#localization-point-to-code').on('click', function () {
+                setCodeMirrorTarget(code);
+            });
+            $('button#localization-point-to-code-preview').on('click', function () {
+                setCodeMirrorTarget(codePreview);
+            });
+            $('button#localization-point-to-code-content').on('click', function () {
+                setCodeMirrorTarget(codeContent);
+            });
+
             $('a.nav-link').on('click', function () {
                 setInterval(() => code.refresh(), 500);
                 setInterval(() => codePreview.refresh(), 500);
@@ -97,6 +107,12 @@
                 <div class="tab-pane fade show active" id="custom-tabs-four-common" role="tabpanel"
                      aria-labelledby="custom-tabs-four-common-tab">
                     <div class="btn-group margin-10">
+                        <button type="button" class="btn btn-warning"
+                                id="localization-point-to-code"
+                                data-toggle="modal"
+                                data-target="#modal-localization-point">
+                            Localization
+                        </button>
                         <button type="button" class="btn btn-info" id="insert-common"
                                 data-value="{PREVIEWS}">
                             Previews Content List
@@ -115,6 +131,12 @@
                 <div class="tab-pane fade" id="custom-tabs-four-preview" role="tabpanel"
                      aria-labelledby="custom-tabs-four-preview-tab">
                     <div class="btn-group margin-10">
+                        <button type="button" class="btn btn-warning"
+                                id="localization-point-to-code-preview"
+                                data-toggle="modal"
+                                data-target="#modal-localization-point">
+                            Localization
+                        </button>
                         <button type="button" class="btn btn-info" id="insert-preview" data-value="{LINK}">
                             Link URL
                         </button>
@@ -154,6 +176,12 @@
                 <div class="tab-pane fade" id="custom-tabs-four-content" role="tabpanel"
                      aria-labelledby="custom-tabs-four-content-tab">
                     <div class="btn-group margin-10">
+                        <button type="button" class="btn btn-warning"
+                                id="localization-point-to-code-content"
+                                data-toggle="modal"
+                                data-target="#modal-localization-point">
+                            Localization
+                        </button>
                         @if($template->getChildPage() !== null)
                             @foreach($template->getChildPage()?->getFields() as $field)
                                 <button type="button" class="btn btn-default" id="insert-content"

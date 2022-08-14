@@ -19,6 +19,10 @@
             });
             code.setSize(null, 600);
 
+            $('button#localization-point-to-code').on('click', function () {
+                setCodeMirrorTarget(code);
+            });
+
             $('button#page-field').on('click', function () {
                 let fieldId = $(this).attr('data-id');
                 code.replaceSelection('{FIELD_' + fieldId + '}');
@@ -52,6 +56,12 @@
         <div class="card-header">
             @if($template->getType() === \App\Ship\Parents\Models\TemplateInterface::BASE_TYPE)
                 <div class="btn-group margin-10">
+                    <button type="button" class="btn btn-warning"
+                            id="localization-point-to-code"
+                            data-toggle="modal"
+                            data-target="#modal-localization-point">
+                        Localization
+                    </button>
                     <button type="button" class="btn btn-info" id="insert-content" data-value="{CONTENT}">
                         Content
                     </button>

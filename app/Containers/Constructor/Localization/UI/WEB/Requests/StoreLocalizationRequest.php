@@ -15,7 +15,7 @@ class StoreLocalizationRequest extends Request
             'theme_id'             => ['integer', 'nullable'],
             'values'               => ['required', 'array'],
             'values.*.language_id' => ['required', 'integer'],
-            'values.*.value'       => ['required', 'string'],
+            'values.*.value'       => ['nullable', 'string'],
         ];
     }
 
@@ -27,7 +27,7 @@ class StoreLocalizationRequest extends Request
             ->map(static function ($value) {
                 return (new LocalizationValueDto())
                     ->setLanguageId(data_get($value, 'language_id'))
-                    ->setValue(data_get($value, 'value'));
+                    ->setValue(data_get($value, 'value', ''));
             });
 
         return (new LocalizationDto())
