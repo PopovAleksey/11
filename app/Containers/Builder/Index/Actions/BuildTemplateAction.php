@@ -63,10 +63,10 @@ class BuildTemplateAction extends Action implements BuildTemplateActionInterface
      */
     private function findIds(ThemeDto $themeDto, string $findOf): Collection
     {
-        $baseHtml = $themeDto->getTemplates()?->get(TemplateInterface::BASE_TYPE)->getCommonHtml() ?? '';
-        $pageHtml = $themeDto->getTemplates()?->get(TemplateInterface::PAGE_TYPE)->getCommonHtml() ?? '';
+        $baseHtml = $themeDto->getTemplates()?->get(TemplateInterface::BASE_TYPE)?->getCommonHtml() ?? '';
+        $pageHtml = $themeDto->getTemplates()?->get(TemplateInterface::PAGE_TYPE)?->getCommonHtml() ?? '';
         $menuHtml = $themeDto->getTemplates()?->get(TemplateInterface::MENU_TYPE)
-            ->map(fn(TemplateDto $templateDto) => $templateDto->getCommonHtml() ?? '')->implode('');
+            ?->map(fn(TemplateDto $templateDto) => $templateDto->getCommonHtml() ?? '')->implode('');
 
         preg_match_all("{" . strtoupper($findOf) . "_(\d+)}", $baseHtml, $baseResult);
         preg_match_all("{" . strtoupper($findOf) . "_(\d+)}", $pageHtml, $pageResult);

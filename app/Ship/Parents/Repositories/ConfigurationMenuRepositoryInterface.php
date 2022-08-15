@@ -8,5 +8,5 @@ interface ConfigurationMenuRepositoryInterface
 {
     public function getLinkDataOfMenuItems(int $languageId, int $themeId, array|\Illuminate\Support\Collection $menuIds): Collection|array;
 
-    public function getPossibleMenuItems(): Collection|array;
+    public function getPossibleMenuItems(int $languageId): Collection|array;
 }

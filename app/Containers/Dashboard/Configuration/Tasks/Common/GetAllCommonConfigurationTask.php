@@ -2,6 +2,7 @@
 
 namespace App\Containers\Dashboard\Configuration\Tasks\Common;
 
+use App\Ship\Exceptions\NotFoundException;
 use App\Ship\Parents\Dto\ConfigurationCommonDto;
 use App\Ship\Parents\Dto\ContentValueDto;
 use App\Ship\Parents\Dto\LanguageDto;
@@ -80,13 +81,22 @@ class GetAllCommonConfigurationTask extends Task implements GetAllCommonConfigur
 
     /**
      * @return \Illuminate\Support\Collection
+     * @throws \App\Ship\Exceptions\NotFoundException
      */
     private function getContentList(): Collection
     {
         $contentList = $this->contentRepository->findByField('active', true)->keyBy('id');
+        /**
+         * @var \App\Ship\Parents\Models\LanguageInterface|null $firstLanguage
+         */
+        $firstLanguage = $this->languageRepository->first();
+
+        if ($firstLanguage === null) {
+            throw new NotFoundException('Not found any language! Create one or more languages');
+        }
 
         return $this->contentValueRepository
-            ->findByField('language_id', 1)
+            ->findByField('language_id', $firstLanguage->id)
             ->filter(fn(ContentValueInterface $value) => $contentList->get($value->content_id) !== null)
             ->groupBy('content_id')
             ->map(static function (Collection $values) {

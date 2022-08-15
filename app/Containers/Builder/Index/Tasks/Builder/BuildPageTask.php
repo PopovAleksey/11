@@ -24,7 +24,7 @@ class BuildPageTask extends Task implements BuildPageTaskInterface
         $templateDto     = $themeDto->getTemplates()?->get(TemplateInterface::PAGE_TYPE);
         $childContent    = $contentDto->getChildContent();
         $parentContentId = $contentDto->getParentContentId();
-        $html            = $parentContentId === null ? $templateDto->getCommonHtml() : $templateDto->getElementHtml();
+        $html            = ($parentContentId === null ? $templateDto?->getCommonHtml() : $templateDto?->getElementHtml()) ?? '';
 
         $this->replacePoints($contentDto->getValues(), $html);
 

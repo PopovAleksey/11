@@ -13,6 +13,7 @@ use App\Ship\Parents\Models\PageFieldInterface;
 use App\Ship\Parents\Models\PageInterface;
 use App\Ship\Parents\Repositories\ContentRepositoryInterface;
 use App\Ship\Parents\Repositories\ContentValueRepositoryInterface;
+use App\Ship\Parents\Repositories\LanguageRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 use Illuminate\Support\Collection;
@@ -21,7 +22,8 @@ class GetAllContentsTask extends Task implements GetAllContentsTaskInterface
 {
     public function __construct(
         private readonly ContentRepositoryInterface      $contentRepository,
-        private readonly ContentValueRepositoryInterface $contentValueRepository
+        private readonly ContentValueRepositoryInterface $contentValueRepository,
+        private readonly LanguageRepositoryInterface     $languageRepository
     )
     {
     }
@@ -47,10 +49,19 @@ class GetAllContentsTask extends Task implements GetAllContentsTaskInterface
                 ]);
             }
 
+            /**
+             * @var \App\Ship\Parents\Models\LanguageInterface|null $firstLanguage
+             */
+            $firstLanguage = $this->languageRepository->first();
+
+            if ($firstLanguage === null) {
+                throw new NotFoundException('Not found any language! Create one or more languages');
+            }
+
             $contentIds = $contents->map(fn(ContentInterface $content) => $content->id)->toArray();
             $values     = $this->contentValueRepository
                 ->findWhereIn('content_id', $contentIds)
-                ->filter(fn(ContentValueInterface $value) => $value->language_id === 1)
+                ->filter(fn(ContentValueInterface $value) => $value->language_id === $firstLanguage->id)
                 ->map(static function (ContentValueInterface $value) {
                     return (new ContentValueDto())
                         ->setId($value->id)

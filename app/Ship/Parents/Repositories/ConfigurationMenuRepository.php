@@ -11,9 +11,9 @@ use App\Ship\Parents\Models\PageInterface;
 use App\Ship\Parents\Models\SeoInterface;
 use App\Ship\Parents\Models\SeoLinkInterface;
 use App\Ship\Parents\Models\TemplateInterface;
-use DB;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class ConfigurationMenuRepository extends Repository implements ConfigurationMenuRepositoryInterface
 {
@@ -67,10 +67,11 @@ class ConfigurationMenuRepository extends Repository implements ConfigurationMen
     }
 
     /**
+     * @param int $languageId
      * @return \Illuminate\Database\Eloquent\Collection|array
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function getPossibleMenuItems(): Collection|array
+    public function getPossibleMenuItems(int $languageId): Collection|array
     {
         return $this->makeModel()::query()
             ->select('c.id', 'p.name', 'cv.value', 'sl.link')
@@ -81,7 +82,7 @@ class ConfigurationMenuRepository extends Repository implements ConfigurationMen
             ->rightJoin(app(SeoInterface::class)->getTable() . ' AS s', 's.id', '=', 'sl.seo_id')
             ->where('c.active', true)
             ->where('c.parent_content_id', null)
-            ->where('cv.language_id', 1)
+            ->where('cv.language_id', $languageId)
             ->where('s.language_id', DB::raw('cv.language_id'))
             ->where('cv.page_field_id', DB::raw('s.page_field_id'))
             ->get();
