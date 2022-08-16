@@ -237,7 +237,7 @@
                     },
                     success: function () {
                         if (codeMirror instanceof CodeMirror) {
-                            codeMirror.replaceSelection('{L_' + point + '}' + defaultValue + '{L}');
+                            codeMirror.replaceSelection('{L=' + point + '}' + defaultValue + '{L}');
                         }
                         $('div#modal-localization-point select').prop("disabled", false);
                         $('div#modal-localization-point input#custom-point').prop("disabled", false);
@@ -364,7 +364,7 @@
                                 <td>{{ $point->getValues()?->first()?->getValue() }}</td>
                                 <td>
                                     <button class="btn btn-sm btn-block bg-gradient-success w-100" id="insert-point"
-                                            data-value="{L_{{ $point->getPoint() }}}{{ $point->getValues()?->first()?->getValue() }}{L}">
+                                            data-value="{L={{ $point->getPoint() }}}{{ $point->getValues()?->first()?->getValue() }}{L}">
                                         <i class="fas fa-file-import"></i>&nbsp;
                                         Insert
                                     </button>

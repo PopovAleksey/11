@@ -10,15 +10,17 @@ final class LocalizationDto extends Mapper
 {
     private ?int    $id    = null;
     private ?string $point = null;
+    private ?string $html  = null;
     /**
      * \App\Ship\Parents\Dto\LocalizationValueDto[]
      * @var Collection|null
      */
-    private ?Collection $values   = null;
-    private ?int        $theme_id = null;
-    private ?ThemeDto   $theme    = null;
-    private ?Carbon     $createAt = null;
-    private ?Carbon     $updateAt = null;
+    private ?Collection $values       = null;
+    private ?string     $defaultValue = null;
+    private ?int        $theme_id     = null;
+    private ?ThemeDto   $theme        = null;
+    private ?Carbon     $createAt     = null;
+    private ?Carbon     $updateAt     = null;
 
     /**
      * @return int|null
@@ -59,6 +61,26 @@ final class LocalizationDto extends Mapper
     }
 
     /**
+     * @param string|null $html
+     * @return LocalizationDto
+     */
+    public function setHtml(?string $html): LocalizationDto
+    {
+        $this->html = $html;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getHtml(): ?string
+    {
+        return $this->html;
+    }
+
+    
+    /**
      * @return \Illuminate\Support\Collection|null
      */
     public function getValues(): ?Collection
@@ -73,6 +95,25 @@ final class LocalizationDto extends Mapper
     public function setValues(?Collection $values): LocalizationDto
     {
         $this->values = $values;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDefaultValue(): ?string
+    {
+        return $this->defaultValue;
+    }
+
+    /**
+     * @param string|null $defaultValue
+     * @return LocalizationDto
+     */
+    public function setDefaultValue(?string $defaultValue): LocalizationDto
+    {
+        $this->defaultValue = $defaultValue;
 
         return $this;
     }
