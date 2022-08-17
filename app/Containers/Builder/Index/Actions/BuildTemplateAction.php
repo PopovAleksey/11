@@ -125,9 +125,9 @@ class BuildTemplateAction extends Action implements BuildTemplateActionInterface
             TemplateInterface::BASE_TYPE => $baseHtml,
             TemplateInterface::MENU_TYPE => $menuHtml,
             TemplateInterface::PAGE_TYPE => new class($pageTemplateDto) {
-                readonly public string $common;
-                readonly public string $preview;
-                readonly public string $element;
+                public readonly string $common;
+                public readonly string $preview;
+                public readonly string $element;
 
                 public function __construct(TemplateDto $pageTemplateDto)
                 {
