@@ -20,6 +20,8 @@ use App\Containers\Builder\Index\Tasks\FindContentsTask;
 use App\Containers\Builder\Index\Tasks\FindContentsTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindLanguagesTask;
 use App\Containers\Builder\Index\Tasks\FindLanguagesTaskInterface;
+use App\Containers\Builder\Index\Tasks\FindLocalizationTask;
+use App\Containers\Builder\Index\Tasks\FindLocalizationTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindMenuItemsTask;
 use App\Containers\Builder\Index\Tasks\FindMenuItemsTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindTemplatesTask;
@@ -42,7 +44,6 @@ class MainServiceProvider extends MainProvider
     private function bindActions(): void
     {
         $this->app->bind(BuildTemplateActionInterface::class, BuildTemplateAction::class);
-
     }
 
     private function bindTasks(): void
@@ -52,6 +53,7 @@ class MainServiceProvider extends MainProvider
         $this->app->bind(FindTemplatesTaskInterface::class, FindTemplatesTask::class);
         $this->app->bind(FindMenuItemsTaskInterface::class, FindMenuItemsTask::class);
         $this->app->bind(FindWidgetsTaskInterface::class, FindWidgetsTask::class);
+        $this->app->bind(FindLocalizationTaskInterface::class, FindLocalizationTask::class);
 
         $this->app->bind(BuildTaskInterface::class, BuildTask::class);
         $this->app->bind(BuildBaseJSandCSSTaskInterface::class, BuildBaseJSandCSSTask::class);
