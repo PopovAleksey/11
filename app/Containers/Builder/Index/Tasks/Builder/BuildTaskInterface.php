@@ -8,5 +8,11 @@ use Illuminate\Support\Collection;
 
 interface BuildTaskInterface
 {
-    public function run(ThemeDto $themeDto, ContentDto $contentDto, Collection $menuList, Collection $widgetList): string;
+    public function run(
+        ThemeDto   $themeDto,
+        ContentDto $contentDto,
+        Collection $menuList,
+        Collection $widgetList,
+        Collection $localeList
+    ): string;
 }

@@ -5,6 +5,7 @@ namespace App\Containers\Builder\Index\Actions;
 use App\Containers\Builder\Index\Tasks\Builder\BuildTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindContentsTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindLanguagesTaskInterface;
+use App\Containers\Builder\Index\Tasks\FindLocalizationTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindMenuItemsTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindTemplatesTaskInterface;
 use App\Containers\Builder\Index\Tasks\FindWidgetsTaskInterface;
@@ -20,13 +21,14 @@ use Illuminate\Support\Collection;
 class BuildTemplateAction extends Action implements BuildTemplateActionInterface
 {
     public function __construct(
-        private readonly FindLanguagesTaskInterface $languageTask,
-        private readonly FindContentsTaskInterface  $contentTask,
-        private readonly FindTemplatesTaskInterface $templateTask,
-        private readonly BuildTaskInterface         $buildTask,
-        private readonly FindMenuItemsTaskInterface $menuItemsTask,
-        private readonly FindWidgetsTaskInterface   $widgetsTask,
-        private readonly CacheActionInterface       $cacheAction
+        private readonly FindLanguagesTaskInterface    $languageTask,
+        private readonly FindContentsTaskInterface     $contentTask,
+        private readonly FindTemplatesTaskInterface    $templateTask,
+        private readonly BuildTaskInterface            $buildTask,
+        private readonly FindMenuItemsTaskInterface    $menuItemsTask,
+        private readonly FindWidgetsTaskInterface      $widgetsTask,
+        private readonly FindLocalizationTaskInterface $localizationTask,
+        private readonly CacheActionInterface          $cacheAction
     )
     {
     }
@@ -53,8 +55,9 @@ class BuildTemplateAction extends Action implements BuildTemplateActionInterface
 
             $menuList   = $this->menuItemsTask->run($languageDto->getId(), $themeDto->getId(), $menuIds);
             $widgetList = $this->widgetsTask->run($languageDto->getId(), $widgetIds);
+            $localeList = $this->localizationTask->run($localePoints);
 
-            return $this->buildTask->run($themeDto, $contentDto, $menuList, $widgetList);
+            return $this->buildTask->run($themeDto, $contentDto, $menuList, $widgetList, $localeList);
         });
     }
 
@@ -81,29 +84,6 @@ class BuildTemplateAction extends Action implements BuildTemplateActionInterface
             ->unique()
             ->map(fn($id) => (int) $id)
             ->values();
-    }
-
-    /**
-     * @param \App\Ship\Parents\Dto\ThemeDto $themeDto
-     * @return \Illuminate\Support\Collection
-     */
-    private function findLocalizationPoints(ThemeDto $themeDto): Collection
-    {
-        $themeHtml  = $this->getThemeHtml($themeDto);
-        $pageMakeup = $themeHtml->get(TemplateInterface::PAGE_TYPE)->implode();
-
-        $themeHtml->put(TemplateInterface::PAGE_TYPE, $pageMakeup);
-
-        preg_match_all("/{L=([\w.\s]+)}((.*){L})+/mU", $themeHtml->implode(''), $matchResult, PREG_SET_ORDER);
-
-        return collect($matchResult)
-            ->map(static function (array $point) {
-                return (new LocalizationDto())
-                    ->setPoint(data_get($point, 1))
-                    ->setDefaultValue(data_get($point, 3))
-                    ->setHtml(data_get($point, 0));
-            })
-            ->unique(fn(LocalizationDto $point) => $point->getPoint());
     }
 
     /**
@@ -146,5 +126,28 @@ class BuildTemplateAction extends Action implements BuildTemplateActionInterface
                 }
             },
         ]);
+    }
+
+    /**
+     * @param \App\Ship\Parents\Dto\ThemeDto $themeDto
+     * @return \Illuminate\Support\Collection
+     */
+    private function findLocalizationPoints(ThemeDto $themeDto): Collection
+    {
+        $themeHtml  = $this->getThemeHtml($themeDto);
+        $pageMakeup = $themeHtml->get(TemplateInterface::PAGE_TYPE)->implode();
+
+        $themeHtml->put(TemplateInterface::PAGE_TYPE, $pageMakeup);
+
+        preg_match_all("/{L=([\w.\s]+)}((.*){L})+/mU", $themeHtml->implode(''), $matchResult, PREG_SET_ORDER);
+
+        return collect($matchResult)
+            ->map(static function (array $point) {
+                return (new LocalizationDto())
+                    ->setPoint(data_get($point, 1))
+                    ->setDefaultValue(data_get($point, 3))
+                    ->setHtml(data_get($point, 0));
+            })
+            ->unique(fn(LocalizationDto $point) => $point->getPoint());
     }
 }

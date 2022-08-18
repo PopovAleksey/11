@@ -23,9 +23,16 @@ class BuildTask extends Task implements BuildTaskInterface
      * @param \App\Ship\Parents\Dto\ContentDto $contentDto
      * @param \Illuminate\Support\Collection   $menuList
      * @param \Illuminate\Support\Collection   $widgetList
+     * @param \Illuminate\Support\Collection   $localeList
      * @return string
      */
-    public function run(ThemeDto $themeDto, ContentDto $contentDto, Collection $menuList, Collection $widgetList): string
+    public function run(
+        ThemeDto   $themeDto,
+        ContentDto $contentDto,
+        Collection $menuList,
+        Collection $widgetList,
+        Collection $localeList
+    ): string
     {
         $html = str_replace(
             '{CONTENT}',
