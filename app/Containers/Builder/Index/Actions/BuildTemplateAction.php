@@ -70,17 +70,15 @@ class BuildTemplateAction extends Action implements BuildTemplateActionInterface
     {
         $makeupHtml = $this->getThemeHtml($themeDto);
 
-        preg_match_all("{" . strtoupper($findOf) . "_(\d+)}", $makeupHtml->get(TemplateInterface::BASE_TYPE), $baseResult);
-        preg_match_all("{" . strtoupper($findOf) . "_(\d+)}", $makeupHtml->get(TemplateInterface::PAGE_TYPE)->common, $pageResult);
-        preg_match_all("{" . strtoupper($findOf) . "_(\d+)}", $makeupHtml->get(TemplateInterface::MENU_TYPE), $menuResult);
+        $makeup = implode('', [
+            $makeupHtml->get(TemplateInterface::BASE_TYPE),
+            $makeupHtml->get(TemplateInterface::PAGE_TYPE)->common,
+            $makeupHtml->get(TemplateInterface::MENU_TYPE),
+        ]);
 
-        $baseResult = collect(data_get($baseResult, 1));
-        $pageResult = collect(data_get($pageResult, 1));
-        $menuResult = collect(data_get($menuResult, 1));
+        preg_match_all("{" . strtoupper($findOf) . "_(\d+)}", $makeup, $result);
 
-        return $baseResult
-            ->merge($pageResult)
-            ->merge($menuResult)
+        return collect(data_get($result, 1))
             ->unique()
             ->map(fn($id) => (int) $id)
             ->values();
