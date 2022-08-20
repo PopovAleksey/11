@@ -19,21 +19,13 @@ use Illuminate\Http\JsonResponse;
 
 class MenuController extends DashboardController
 {
-    /**
-     * @param \App\Containers\Dashboard\Configuration\Actions\Menu\GetAllMenuConfigurationActionInterface   $allMenuConfigurationAction
-     * @param \App\Containers\Dashboard\Configuration\Actions\Menu\FindMenuConfigurationByIdActionInterface $findConfigurationByIdAction
-     * @param \App\Containers\Dashboard\Configuration\Actions\Menu\CreateMenuConfigurationActionInterface   $createMenuConfigurationAction
-     * @param \App\Containers\Dashboard\Configuration\Actions\Menu\ActivateMenuConfigurationActionInterface $activateMenuConfigurationAction
-     * @param \App\Containers\Dashboard\Configuration\Actions\Menu\UpdateMenuConfigurationActionInterface   $updateMenuConfigurationAction
-     * @param \App\Containers\Dashboard\Configuration\Actions\Menu\DeleteMenuConfigurationActionInterface   $deleteMenuConfigurationAction
-     */
     public function __construct(
-        private GetAllMenuConfigurationActionInterface   $allMenuConfigurationAction,
-        private FindMenuConfigurationByIdActionInterface $findConfigurationByIdAction,
-        private CreateMenuConfigurationActionInterface   $createMenuConfigurationAction,
-        private ActivateMenuConfigurationActionInterface $activateMenuConfigurationAction,
-        private UpdateMenuConfigurationActionInterface   $updateMenuConfigurationAction,
-        private DeleteMenuConfigurationActionInterface   $deleteMenuConfigurationAction
+        private readonly GetAllMenuConfigurationActionInterface   $allMenuConfigurationAction,
+        private readonly FindMenuConfigurationByIdActionInterface $findConfigurationByIdAction,
+        private readonly CreateMenuConfigurationActionInterface   $createMenuConfigurationAction,
+        private readonly ActivateMenuConfigurationActionInterface $activateMenuConfigurationAction,
+        private readonly UpdateMenuConfigurationActionInterface   $updateMenuConfigurationAction,
+        private readonly DeleteMenuConfigurationActionInterface   $deleteMenuConfigurationAction
     )
     {
     }

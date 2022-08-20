@@ -13,13 +13,9 @@ use Illuminate\Http\JsonResponse;
 
 class CommonController extends DashboardController
 {
-    /**
-     * @param \App\Containers\Dashboard\Configuration\Actions\Common\GetAllCommonConfigurationActionInterface $allCommonConfigurationAction
-     * @param \App\Containers\Dashboard\Configuration\Actions\Common\UpdateCommonConfigurationActionInterface $updateCommonConfigurationAction
-     */
     public function __construct(
-        private GetAllCommonConfigurationActionInterface $allCommonConfigurationAction,
-        private UpdateCommonConfigurationActionInterface $updateCommonConfigurationAction
+        private readonly GetAllCommonConfigurationActionInterface $allCommonConfigurationAction,
+        private readonly UpdateCommonConfigurationActionInterface $updateCommonConfigurationAction
     )
     {
     }
