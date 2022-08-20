@@ -1,3 +1,4 @@
+@php use App\Ship\Parents\Models\ConfigurationCommonInterface; @endphp
 @extends('dashboard.base')
 
 @section('title', 'Configuration | Common')
@@ -38,9 +39,9 @@
                 $('button#save-button').prop("disabled", true);
                 $('button#save-button i').show();
 
-                let languageId = $('select[name="{{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_LANGUAGE }}"]').val();
-                let contentId = $('select[name="{{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_INDEX }}"]').val();
-                let themeId = $('select[name="{{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_THEME }}"]').val();
+                let languageId = $('select[name="{{ ConfigurationCommonInterface::DEFAULT_LANGUAGE }}"]').val();
+                let contentId = $('select[name="{{ ConfigurationCommonInterface::DEFAULT_INDEX }}"]').val();
+                let themeId = $('select[name="{{ ConfigurationCommonInterface::DEFAULT_THEME }}"]').val();
 
                 $.ajax({
                     url: '{{ route('dashboard_configuration_common_update') }}',
@@ -49,9 +50,9 @@
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
                     data: {
-                        {{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_LANGUAGE }}: languageId,
-                        {{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_INDEX }}: contentId,
-                        {{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_THEME }}: themeId
+                        {{ ConfigurationCommonInterface::DEFAULT_LANGUAGE }}: languageId,
+                        {{ ConfigurationCommonInterface::DEFAULT_INDEX }}: contentId,
+                        {{ ConfigurationCommonInterface::DEFAULT_THEME }}: themeId
                     },
                     success: function () {
                         Toast.fire({
@@ -88,7 +89,7 @@
                         <div class="form-group">
                             <label>Default Language</label>
                             <select class="form-control select"
-                                    name="{{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_LANGUAGE }}"
+                                    name="{{ ConfigurationCommonInterface::DEFAULT_LANGUAGE }}"
                                     style="width: 100%;">
                                 <option {{ $configs->getDefaultLanguageId() === null ? 'selected="selected"' : '' }} disabled>
                                     Choose Language
@@ -106,7 +107,7 @@
                         <div class="form-group">
                             <label>Index Content</label>
                             <select class="form-control select"
-                                    name="{{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_INDEX }}"
+                                    name="{{ ConfigurationCommonInterface::DEFAULT_INDEX }}"
                                     style="width: 100%;">
                                 <option {{ $configs->getDefaultIndexContentId() === null ? 'selected="selected"' : '' }} disabled>
                                     Choose Content
@@ -124,7 +125,7 @@
                         <div class="form-group">
                             <label>Default Theme</label>
                             <select class="form-control select"
-                                    name="{{ \App\Ship\Parents\Models\ConfigurationCommonInterface::DEFAULT_THEME }}"
+                                    name="{{ ConfigurationCommonInterface::DEFAULT_THEME }}"
                                     style="width: 100%;">
                                 <option {{ $configs->getDefaultThemeId() === null ? 'selected="selected"' : '' }} disabled>
                                     Choose Theme
@@ -142,13 +143,18 @@
                 </div>
                 <!-- /.row -->
             </div>
-            <!-- /.card-body -->
-            <div class="card-footer">
-                <button id="save-button" class="btn btn-success float-right">
-                    <i class="fas fa-circle-notch fa-spin" style="display: none;"></i>&nbsp;Save
-                </button>
-            </div>
         </div>
 
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-outline">
+                    <div class="card-body pad table-responsive col-12 col-md-3 align-self-end">
+                        <button type="submit" class="btn btn-block btn-success" id="save-button">
+                            <i class="fas fa-circle-notch fa-spin" style="display: none;"></i>&nbsp;Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

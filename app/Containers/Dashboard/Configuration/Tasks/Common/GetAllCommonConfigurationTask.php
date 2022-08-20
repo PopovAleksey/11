@@ -21,13 +21,6 @@ use Illuminate\Support\Collection;
 
 class GetAllCommonConfigurationTask extends Task implements GetAllCommonConfigurationTaskInterface
 {
-    /**
-     * @param \App\Ship\Parents\Repositories\ConfigurationCommonRepositoryInterface $configurationCommonRepository
-     * @param \App\Ship\Parents\Repositories\LanguageRepositoryInterface            $languageRepository
-     * @param \App\Ship\Parents\Repositories\ContentRepositoryInterface             $contentRepository
-     * @param \App\Ship\Parents\Repositories\ContentValueRepositoryInterface        $contentValueRepository
-     * @param \App\Ship\Parents\Repositories\ThemeRepositoryInterface               $themeRepository
-     */
     public function __construct(
         private readonly ConfigurationCommonRepositoryInterface $configurationCommonRepository,
         private readonly LanguageRepositoryInterface            $languageRepository,
@@ -40,6 +33,7 @@ class GetAllCommonConfigurationTask extends Task implements GetAllCommonConfigur
 
     /**
      * @return \App\Ship\Parents\Dto\ConfigurationCommonDto
+     * @throws \App\Ship\Exceptions\NotFoundException
      */
     public function run(): ConfigurationCommonDto
     {
