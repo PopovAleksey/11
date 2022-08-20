@@ -3,6 +3,7 @@
 namespace App\Containers\Builder\Index\Tasks\Builder;
 
 use App\Ship\Parents\Dto\ContentDto;
+use App\Ship\Parents\Dto\LocalizationDto;
 use App\Ship\Parents\Dto\ThemeDto;
 use App\Ship\Parents\Tasks\Task;
 use Illuminate\Support\Collection;
@@ -40,7 +41,18 @@ class BuildTask extends Task implements BuildTaskInterface
             $this->buildBaseJSandCSSTask->run($themeDto)
         );
         $html = $this->buildMenuTask->run($themeDto, $menuList, $html);
+        $html = $this->buildWidgetTask->run($themeDto, $widgetList, $html);
 
-        return $this->buildWidgetTask->run($themeDto, $widgetList, $html);
+        $localeList->each(static function (LocalizationDto $localizationDto) use (&$html) {
+            $pointValue = $localizationDto->getValues()?->first()?->getValue();
+
+            if ($pointValue === null) {
+                return;
+            }
+
+            $html = str_replace($localizationDto->getHtml(), $pointValue, $html);
+        });
+
+        return $html;
     }
 }

@@ -8,13 +8,21 @@ use PopovAleksey\Mapper\Mapper;
 final class LocalizationValueDto extends Mapper
 {
     private ?int             $id              = null;
-    private ?string          $localization_id = null;
+    private ?int             $localization_id = null;
     private ?int             $language_id     = null;
     private ?string          $value           = null;
     private ?LocalizationDto $localization    = null;
     private ?LanguageDto     $language        = null;
     private ?Carbon          $createAt        = null;
     private ?Carbon          $updateAt        = null;
+
+    /**
+     * @return int|null
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     /**
      * @param int|null $id
@@ -28,18 +36,18 @@ final class LocalizationValueDto extends Mapper
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getId(): ?int
+    public function getLocalizationId(): ?int
     {
-        return $this->id;
+        return $this->localization_id;
     }
 
     /**
-     * @param string|null $localization_id
-     * @return LocalizationValueDto
+     * @param int|null $localization_id
+     * @return $this
      */
-    public function setLocalizationId(?string $localization_id): LocalizationValueDto
+    public function setLocalizationId(?int $localization_id): LocalizationValueDto
     {
         $this->localization_id = $localization_id;
 
@@ -47,11 +55,11 @@ final class LocalizationValueDto extends Mapper
     }
 
     /**
-     * @return string|null
+     * @return int|null
      */
-    public function getLocalizationId(): ?string
+    public function getLanguageId(): ?int
     {
-        return $this->localization_id;
+        return $this->language_id;
     }
 
     /**
@@ -66,11 +74,11 @@ final class LocalizationValueDto extends Mapper
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getLanguageId(): ?int
+    public function getValue(): ?string
     {
-        return $this->language_id;
+        return $this->value;
     }
 
     /**
@@ -85,11 +93,11 @@ final class LocalizationValueDto extends Mapper
     }
 
     /**
-     * @return string|null
+     * @return \App\Ship\Parents\Dto\LocalizationDto|null
      */
-    public function getValue(): ?string
+    public function getLocalization(): ?LocalizationDto
     {
-        return $this->value;
+        return $this->localization;
     }
 
     /**
@@ -104,11 +112,11 @@ final class LocalizationValueDto extends Mapper
     }
 
     /**
-     * @return \App\Ship\Parents\Dto\LocalizationDto|null
+     * @return \App\Ship\Parents\Dto\LanguageDto|null
      */
-    public function getLocalization(): ?LocalizationDto
+    public function getLanguage(): ?LanguageDto
     {
-        return $this->localization;
+        return $this->language;
     }
 
     /**
@@ -123,11 +131,11 @@ final class LocalizationValueDto extends Mapper
     }
 
     /**
-     * @return \App\Ship\Parents\Dto\LanguageDto|null
+     * @return \Illuminate\Support\Carbon|null
      */
-    public function getLanguage(): ?LanguageDto
+    public function getCreateAt(): ?Carbon
     {
-        return $this->language;
+        return $this->createAt;
     }
 
     /**
@@ -144,9 +152,9 @@ final class LocalizationValueDto extends Mapper
     /**
      * @return \Illuminate\Support\Carbon|null
      */
-    public function getCreateAt(): ?Carbon
+    public function getUpdateAt(): ?Carbon
     {
-        return $this->createAt;
+        return $this->updateAt;
     }
 
     /**
@@ -158,14 +166,6 @@ final class LocalizationValueDto extends Mapper
         $this->updateAt = $updateAt;
 
         return $this;
-    }
-
-    /**
-     * @return \Illuminate\Support\Carbon|null
-     */
-    public function getUpdateAt(): ?Carbon
-    {
-        return $this->updateAt;
     }
 
 

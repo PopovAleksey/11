@@ -55,7 +55,7 @@ class BuildTemplateAction extends Action implements BuildTemplateActionInterface
 
             $menuList   = $this->menuItemsTask->run($languageDto->getId(), $themeDto->getId(), $menuIds);
             $widgetList = $this->widgetsTask->run($languageDto->getId(), $widgetIds);
-            $localeList = $this->localizationTask->run($localePoints);
+            $localeList = $this->localizationTask->run($languageDto->getId(), $themeDto->getId(), $localePoints);
 
             return $this->buildTask->run($themeDto, $contentDto, $menuList, $widgetList, $localeList);
         });
