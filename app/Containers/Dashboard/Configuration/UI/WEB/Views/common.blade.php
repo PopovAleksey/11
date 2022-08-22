@@ -49,6 +49,24 @@
                 let contentId = $('select[name="{{ ConfigurationCommonInterface::DEFAULT_INDEX }}"]').val();
                 let themeId = $('select[name="{{ ConfigurationCommonInterface::DEFAULT_THEME }}"]').val();
 
+                let multiLanguage = {};
+
+                $('div.multi-language-configs input').each(function () {
+                    let langId = $(this).attr('data-lang-id');
+                    let config = $(this).attr('name');
+                    let value = $(this).val();
+
+                    if (multiLanguage[config] === undefined) {
+                        multiLanguage[config] = [];
+                    }
+
+                    multiLanguage[config].push({
+                        language_id: parseInt(langId),
+                        value: value
+                    });
+
+                });
+
                 $.ajax({
                     url: '{{ route('dashboard_configuration_common_update') }}',
                     type: 'PATCH',
@@ -58,7 +76,14 @@
                     data: {
                         {{ ConfigurationCommonInterface::DEFAULT_LANGUAGE }}: languageId,
                         {{ ConfigurationCommonInterface::DEFAULT_INDEX }}: contentId,
-                        {{ ConfigurationCommonInterface::DEFAULT_THEME }}: themeId
+                        {{ ConfigurationCommonInterface::DEFAULT_THEME }}: themeId,
+                        {{ ConfigurationCommonInterface::TITLE }}: multiLanguage['{{ ConfigurationCommonInterface::TITLE }}'],
+                        {{ ConfigurationCommonInterface::DESCRIPTION }}: multiLanguage['{{ ConfigurationCommonInterface::DESCRIPTION }}'],
+                        {{ ConfigurationCommonInterface::TITLE_SEPARATOR }}: multiLanguage['{{ ConfigurationCommonInterface::TITLE_SEPARATOR }}'],
+                        {{ ConfigurationCommonInterface::META_CHARSET }}: multiLanguage['{{ ConfigurationCommonInterface::META_CHARSET }}'],
+                        {{ ConfigurationCommonInterface::META_DESCRIPTION }}: multiLanguage['{{ ConfigurationCommonInterface::META_DESCRIPTION }}'],
+                        {{ ConfigurationCommonInterface::META_KEYWORDS }}: multiLanguage['{{ ConfigurationCommonInterface::META_KEYWORDS }}'],
+                        {{ ConfigurationCommonInterface::META_AUTHOR }}: multiLanguage['{{ ConfigurationCommonInterface::META_AUTHOR }}'],
                     },
                     success: function () {
                         Toast.fire({
@@ -171,7 +196,7 @@
                     <div class="card-body">
                         <div class="tab-content" id="custom-tabs-four-tabContent">
                             @foreach($configs->getLanguageList() as $language)
-                                <div class="tab-pane fade {{$configs->getLanguageList()->first()?->getId() === $language->getId() ? 'show active' : ''}}"
+                                <div class="tab-pane multi-language-configs fade {{$configs->getLanguageList()->first()?->getId() === $language->getId() ? 'show active' : ''}}"
                                      id="language-tab-{{ $language->getId() }}" role="tabpanel"
                                      aria-labelledby="language-tab-{{ $language->getId() }}-tab">
 
@@ -179,21 +204,27 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Title</label>
-                                                <input class="form-control input" name="title" data-lang-id="{{ $language->getId() }}" value=""
+                                                <input class="form-control input"
+                                                       name="{{ ConfigurationCommonInterface::TITLE }}"
+                                                       data-lang-id="{{ $language->getId() }}" value=""
                                                        placeholder="Enter Title ...">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Description</label>
-                                                <input class="form-control input" name="description" data-lang-id="{{ $language->getId() }}" value=""
+                                                <input class="form-control input"
+                                                       name="{{ ConfigurationCommonInterface::DESCRIPTION }}"
+                                                       data-lang-id="{{ $language->getId() }}" value=""
                                                        placeholder="Enter Description ...">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Title Separator</label>
-                                                <input class="form-control input" name="separator" data-lang-id="{{ $language->getId() }}" value=""
+                                                <input class="form-control input"
+                                                       name="{{ ConfigurationCommonInterface::TITLE_SEPARATOR }}"
+                                                       data-lang-id="{{ $language->getId() }}" value=""
                                                        placeholder="Enter Separator ...">
                                             </div>
                                         </div>
@@ -202,21 +233,27 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Meta Charset</label>
-                                                <input class="form-control input" name="meta-charset" data-lang-id="{{ $language->getId() }}" value="UTF-8"
+                                                <input class="form-control input"
+                                                       name="{{ ConfigurationCommonInterface::META_CHARSET }}"
+                                                       data-lang-id="{{ $language->getId() }}" value="UTF-8"
                                                        placeholder="Enter Meta Charset ...">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Meta Description</label>
-                                                <input class="form-control input" name="meta-description" data-lang-id="{{ $language->getId() }}" value=""
+                                                <input class="form-control input"
+                                                       name="{{ ConfigurationCommonInterface::META_DESCRIPTION }}"
+                                                       data-lang-id="{{ $language->getId() }}" value=""
                                                        placeholder="Enter Meta Description ...">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>Meta keywords</label>
-                                                <input class="form-control input" name="meta-keywords" data-lang-id="{{ $language->getId() }}" value=""
+                                                <label>Meta Keywords</label>
+                                                <input class="form-control input"
+                                                       name="{{ ConfigurationCommonInterface::META_KEYWORDS }}"
+                                                       data-lang-id="{{ $language->getId() }}" value=""
                                                        placeholder="Enter Meta keywords ...">
                                             </div>
                                         </div>
@@ -225,7 +262,9 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Meta Author</label>
-                                                <input class="form-control input" name="meta-author" data-lang-id="{{ $language->getId() }}" value=""
+                                                <input class="form-control input"
+                                                       name="{{ ConfigurationCommonInterface::META_AUTHOR }}"
+                                                       data-lang-id="{{ $language->getId() }}" value=""
                                                        placeholder="Enter Meta Author ...">
                                             </div>
                                         </div>

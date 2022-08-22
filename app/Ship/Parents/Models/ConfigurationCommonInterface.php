@@ -15,4 +15,11 @@ interface ConfigurationCommonInterface
     public const DEFAULT_INDEX    = 'default_index';
     public const DEFAULT_LANGUAGE = 'default_language';
     public const DEFAULT_THEME    = 'default_theme';
+    public const TITLE            = 'title';
+    public const DESCRIPTION      = 'description';
+    public const TITLE_SEPARATOR  = 'title_separator';
+    public const META_CHARSET     = 'meta_charset';
+    public const META_DESCRIPTION = 'meta_description';
+    public const META_KEYWORDS    = 'meta_keywords';
+    public const META_AUTHOR      = 'meta_author';
 }
