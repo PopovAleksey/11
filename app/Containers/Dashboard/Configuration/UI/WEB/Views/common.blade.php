@@ -12,6 +12,12 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    <style>
+        .border-bottom {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+        }
+    </style>
 @stop
 
 @section('js')
@@ -146,7 +152,92 @@
         </div>
 
 
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-primary card-outline card-outline-tabs">
+                    <div class="card-header p-0 border-bottom-0">
+                        <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+                            @foreach($configs->getLanguageList() as $language)
+                                <li class="nav-item">
+                                    <a class="nav-link {{$configs->getLanguageList()->first()?->getId() === $language->getId() ? 'active' : ''}}"
+                                       id="language-tab-{{ $language->getId() }}-tab"
+                                       data-toggle="pill" href="#language-tab-{{ $language->getId() }}" role="tab"
+                                       aria-controls="custom-tabs-four-home"
+                                       aria-selected="true">{{ $language->getName() }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="custom-tabs-four-tabContent">
+                            @foreach($configs->getLanguageList() as $language)
+                                <div class="tab-pane fade {{$configs->getLanguageList()->first()?->getId() === $language->getId() ? 'show active' : ''}}"
+                                     id="language-tab-{{ $language->getId() }}" role="tabpanel"
+                                     aria-labelledby="language-tab-{{ $language->getId() }}-tab">
 
+                                    <div class="row border-bottom">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Title</label>
+                                                <input class="form-control input" name="title" data-lang-id="{{ $language->getId() }}" value=""
+                                                       placeholder="Enter Title ...">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Description</label>
+                                                <input class="form-control input" name="description" data-lang-id="{{ $language->getId() }}" value=""
+                                                       placeholder="Enter Description ...">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Title Separator</label>
+                                                <input class="form-control input" name="separator" data-lang-id="{{ $language->getId() }}" value=""
+                                                       placeholder="Enter Separator ...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Meta Charset</label>
+                                                <input class="form-control input" name="meta-charset" data-lang-id="{{ $language->getId() }}" value="UTF-8"
+                                                       placeholder="Enter Meta Charset ...">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Meta Description</label>
+                                                <input class="form-control input" name="meta-description" data-lang-id="{{ $language->getId() }}" value=""
+                                                       placeholder="Enter Meta Description ...">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Meta keywords</label>
+                                                <input class="form-control input" name="meta-keywords" data-lang-id="{{ $language->getId() }}" value=""
+                                                       placeholder="Enter Meta keywords ...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Meta Author</label>
+                                                <input class="form-control input" name="meta-author" data-lang-id="{{ $language->getId() }}" value=""
+                                                       placeholder="Enter Meta Author ...">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
         <div class="row">

@@ -13,9 +13,16 @@ class CreateConfigurationCommonsTable extends Migration
         Schema::create('configuration_commons', static function (Blueprint $table) {
             $table->id();
             $table->string('config')->unique();
+            $table->bigInteger('language_id')->unsigned()->index('INDEX_configuration_common_languages');
             $table->string('value');
 
             $table->timestamps();
+
+            $table->foreign('language_id', 'FK_configuration_common_languages_foreign')
+                ->references('id')
+                ->on('languages')
+                ->onUpdate('NO ACTION')
+                ->onDelete('CASCADE');
         });
     }
 
