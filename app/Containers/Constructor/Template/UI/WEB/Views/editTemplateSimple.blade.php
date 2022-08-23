@@ -80,6 +80,10 @@
                                     data-value="{DESCRIPTION}">
                                 Site Description
                             </button>
+                            <button class="dropdown-item" href="#" id="insert-content"
+                                    data-value="{PAGE_MAIN_FIELD}">
+                                Page Main Field
+                            </button>
                         </div>
                     </div>
 
