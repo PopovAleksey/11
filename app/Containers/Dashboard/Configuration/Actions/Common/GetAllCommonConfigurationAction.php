@@ -5,6 +5,8 @@ namespace App\Containers\Dashboard\Configuration\Actions\Common;
 use App\Containers\Dashboard\Configuration\Tasks\Common\GetAllCommonConfigurationTaskInterface;
 use App\Ship\Parents\Actions\Action;
 use App\Ship\Parents\Dto\ConfigurationCommonDto;
+use App\Ship\Parents\Dto\ConfigurationMultiLanguageDto;
+use Illuminate\Support\Collection;
 
 class GetAllCommonConfigurationAction extends Action implements GetAllCommonConfigurationActionInterface
 {
@@ -16,6 +18,15 @@ class GetAllCommonConfigurationAction extends Action implements GetAllCommonConf
 
     public function run(): ConfigurationCommonDto
     {
-        return $this->getAllConfigurationTask->run();
+        $configurationCommonDto = $this->getAllConfigurationTask->run();
+
+        $configurationMultiLanguageList = $configurationCommonDto
+            ->getMultiLanguage()
+            ?->groupBy(fn(ConfigurationMultiLanguageDto $multiLanguageDto) => $multiLanguageDto->getLanguageId())
+            ?->map(static function (Collection $configsList) {
+                return $configsList->keyBy(fn(ConfigurationMultiLanguageDto $multiLanguageDto) => $multiLanguageDto->getConfig());
+            });
+
+        return $configurationCommonDto->setMultiLanguage($configurationMultiLanguageList);
     }
 }

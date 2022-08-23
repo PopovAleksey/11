@@ -4,6 +4,7 @@ namespace App\Containers\Dashboard\Configuration\Tasks\Common;
 
 use App\Ship\Exceptions\NotFoundException;
 use App\Ship\Parents\Dto\ConfigurationCommonDto;
+use App\Ship\Parents\Dto\ConfigurationMultiLanguageDto;
 use App\Ship\Parents\Dto\ContentValueDto;
 use App\Ship\Parents\Dto\LanguageDto;
 use App\Ship\Parents\Dto\ThemeDto;
@@ -42,9 +43,22 @@ class GetAllCommonConfigurationTask extends Task implements GetAllCommonConfigur
             ->setContentList($this->getContentList())
             ->setThemeList($this->getThemeList());
 
+        $configMultiLanguageList = collect();
+
         $this->configurationCommonRepository
             ->all()->collect()
-            ->each(static function (ConfigurationCommonInterface $configuration) use ($configurationDto) {
+            ->each(function (ConfigurationCommonInterface $configuration) use ($configurationDto, &$configMultiLanguageList) {
+                if ($this->isCorrectConfig($configuration->config)) {
+                    $configMultiLanguageDto = (new ConfigurationMultiLanguageDto())
+                        ->setConfig($configuration->config)
+                        ->setLanguageId($configuration->language_id)
+                        ->setValue($configuration->value);
+
+                    $configMultiLanguageList->push($configMultiLanguageDto);
+
+                    return;
+                }
+
                 match ($configuration->config) {
                     ConfigurationCommonInterface::DEFAULT_LANGUAGE => $configurationDto->setDefaultLanguageId((int) $configuration->value),
                     ConfigurationCommonInterface::DEFAULT_INDEX => $configurationDto->setDefaultIndexContentId((int) $configuration->value),
@@ -52,12 +66,9 @@ class GetAllCommonConfigurationTask extends Task implements GetAllCommonConfigur
                 };
             });
 
-        return $configurationDto;
+        return $configurationDto->setMultiLanguage($configMultiLanguageList);
     }
 
-    /**
-     * @return \Illuminate\Support\Collection
-     */
     private function getLanguageList(): Collection
     {
         return $this->languageRepository
@@ -111,9 +122,6 @@ class GetAllCommonConfigurationTask extends Task implements GetAllCommonConfigur
             ->values();
     }
 
-    /**
-     * @return \Illuminate\Support\Collection
-     */
     private function getThemeList(): Collection
     {
         return $this->themeRepository
@@ -127,5 +135,18 @@ class GetAllCommonConfigurationTask extends Task implements GetAllCommonConfigur
                     ->setCreateAt($theme->created_at)
                     ->setUpdateAt($theme->updated_at);
             });
+    }
+
+    private function isCorrectConfig(string $config): bool
+    {
+        return collect([
+                ConfigurationCommonInterface::TITLE,
+                ConfigurationCommonInterface::DESCRIPTION,
+                ConfigurationCommonInterface::TITLE_SEPARATOR,
+                ConfigurationCommonInterface::META_CHARSET,
+                ConfigurationCommonInterface::META_DESCRIPTION,
+                ConfigurationCommonInterface::META_KEYWORDS,
+                ConfigurationCommonInterface::META_AUTHOR,
+            ])->search($config) !== false;
     }
 }

@@ -206,7 +206,8 @@
                                                 <label>Title</label>
                                                 <input class="form-control input"
                                                        name="{{ ConfigurationCommonInterface::TITLE }}"
-                                                       data-lang-id="{{ $language->getId() }}" value=""
+                                                       data-lang-id="{{ $language->getId() }}"
+                                                       value="{{ $configs->getMultiLanguage()?->get($language->getId())?->get(ConfigurationCommonInterface::TITLE)?->getValue() }}"
                                                        placeholder="Enter Title ...">
                                             </div>
                                         </div>
@@ -215,7 +216,8 @@
                                                 <label>Description</label>
                                                 <input class="form-control input"
                                                        name="{{ ConfigurationCommonInterface::DESCRIPTION }}"
-                                                       data-lang-id="{{ $language->getId() }}" value=""
+                                                       data-lang-id="{{ $language->getId() }}"
+                                                       value="{{ $configs->getMultiLanguage()?->get($language->getId())?->get(ConfigurationCommonInterface::DESCRIPTION)?->getValue() }}"
                                                        placeholder="Enter Description ...">
                                             </div>
                                         </div>
@@ -224,7 +226,8 @@
                                                 <label>Title Separator</label>
                                                 <input class="form-control input"
                                                        name="{{ ConfigurationCommonInterface::TITLE_SEPARATOR }}"
-                                                       data-lang-id="{{ $language->getId() }}" value=""
+                                                       data-lang-id="{{ $language->getId() }}"
+                                                       value="{{ $configs->getMultiLanguage()?->get($language->getId())?->get(ConfigurationCommonInterface::TITLE_SEPARATOR)?->getValue() }}"
                                                        placeholder="Enter Separator ...">
                                             </div>
                                         </div>
@@ -235,7 +238,8 @@
                                                 <label>Meta Charset</label>
                                                 <input class="form-control input"
                                                        name="{{ ConfigurationCommonInterface::META_CHARSET }}"
-                                                       data-lang-id="{{ $language->getId() }}" value="UTF-8"
+                                                       data-lang-id="{{ $language->getId() }}"
+                                                       value="{{ $configs->getMultiLanguage()?->get($language->getId())?->get(ConfigurationCommonInterface::META_CHARSET)?->getValue() ?? 'UTF-8' }}"
                                                        placeholder="Enter Meta Charset ...">
                                             </div>
                                         </div>
@@ -244,7 +248,8 @@
                                                 <label>Meta Description</label>
                                                 <input class="form-control input"
                                                        name="{{ ConfigurationCommonInterface::META_DESCRIPTION }}"
-                                                       data-lang-id="{{ $language->getId() }}" value=""
+                                                       data-lang-id="{{ $language->getId() }}"
+                                                       value="{{ $configs->getMultiLanguage()?->get($language->getId())?->get(ConfigurationCommonInterface::META_DESCRIPTION)?->getValue() }}"
                                                        placeholder="Enter Meta Description ...">
                                             </div>
                                         </div>
@@ -253,7 +258,8 @@
                                                 <label>Meta Keywords</label>
                                                 <input class="form-control input"
                                                        name="{{ ConfigurationCommonInterface::META_KEYWORDS }}"
-                                                       data-lang-id="{{ $language->getId() }}" value=""
+                                                       data-lang-id="{{ $language->getId() }}"
+                                                       value="{{ $configs->getMultiLanguage()?->get($language->getId())?->get(ConfigurationCommonInterface::META_KEYWORDS)?->getValue() }}"
                                                        placeholder="Enter Meta keywords ...">
                                             </div>
                                         </div>
@@ -264,7 +270,8 @@
                                                 <label>Meta Author</label>
                                                 <input class="form-control input"
                                                        name="{{ ConfigurationCommonInterface::META_AUTHOR }}"
-                                                       data-lang-id="{{ $language->getId() }}" value=""
+                                                       data-lang-id="{{ $language->getId() }}"
+                                                       value="{{ $configs->getMultiLanguage()?->get($language->getId())?->get(ConfigurationCommonInterface::META_AUTHOR)?->getValue() }}"
                                                        placeholder="Enter Meta Author ...">
                                             </div>
                                         </div>
