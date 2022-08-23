@@ -13,6 +13,11 @@ final class ConfigurationCommonDto extends Mapper
     private ?int        $defaultIndexContentId = null;
     private ?Collection $themeList             = null;
     private ?int        $defaultThemeId        = null;
+    /**
+     * \App\Ship\Parents\Dto\ConfigurationMultiLanguageDto[]
+     * @var \Illuminate\Support\Collection|null
+     */
+    private ?Collection $multiLanguage = null;
 
     /**
      * @return \Illuminate\Support\Collection
@@ -128,5 +133,23 @@ final class ConfigurationCommonDto extends Mapper
         return $this;
     }
 
+    /**
+     * @param \Illuminate\Support\Collection|null $multiLanguage
+     * @return ConfigurationCommonDto
+     */
+    public function setMultiLanguage(?Collection $multiLanguage): ConfigurationCommonDto
+    {
+        $this->multiLanguage = $multiLanguage;
+
+        return $this;
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection|null
+     */
+    public function getMultiLanguage(): ?Collection
+    {
+        return $this->multiLanguage;
+    }
 
 }

@@ -6,5 +6,5 @@ use App\Ship\Parents\Dto\ConfigurationCommonDto;
 
 interface UpdateCommonConfigurationTaskInterface
 {
-    public function run(ConfigurationCommonDto $data): void;
+    public function run(ConfigurationCommonDto $configurationCommonDto): void;
 }

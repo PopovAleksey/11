@@ -6,12 +6,14 @@ class ConfigurationCommon extends Model implements ConfigurationCommonInterface
 {
     protected $fillable = [
         'config',
+        'language_id',
         'value',
     ];
 
     protected $casts = [
-        'config' => 'string',
-        'value'  => 'string',
+        'config'      => 'string',
+        'language_id' => 'integer',
+        'value'       => 'string',
     ];
 
     /**

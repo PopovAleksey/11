@@ -4,6 +4,7 @@ namespace App\Containers\Dashboard\Configuration\Tasks\Common;
 
 use App\Ship\Exceptions\UpdateResourceFailedException;
 use App\Ship\Parents\Dto\ConfigurationCommonDto;
+use App\Ship\Parents\Dto\ConfigurationMultiLanguageDto;
 use App\Ship\Parents\Models\ConfigurationCommonInterface;
 use App\Ship\Parents\Repositories\ConfigurationCommonRepositoryInterface;
 use App\Ship\Parents\Tasks\Task;
@@ -18,37 +19,71 @@ class UpdateCommonConfigurationTask extends Task implements UpdateCommonConfigur
     }
 
     /**
-     * @param \App\Ship\Parents\Dto\ConfigurationCommonDto $data
+     * @param \App\Ship\Parents\Dto\ConfigurationCommonDto $configurationCommonDto
      * @return void
      * @throws \App\Ship\Exceptions\UpdateResourceFailedException
      */
-    public function run(ConfigurationCommonDto $data): void
+    public function run(ConfigurationCommonDto $configurationCommonDto): void
     {
         try {
-            if ($data->getDefaultLanguageId() !== null) {
+            if ($configurationCommonDto->getDefaultLanguageId() !== null) {
                 $this->repository->updateOrCreate(
                     ['config' => ConfigurationCommonInterface::DEFAULT_LANGUAGE],
-                    ['value' => $data->getDefaultLanguageId()]
+                    ['value' => $configurationCommonDto->getDefaultLanguageId()]
                 );
             }
 
-            if ($data->getDefaultIndexContentId() !== null) {
+            if ($configurationCommonDto->getDefaultIndexContentId() !== null) {
                 $this->repository->updateOrCreate(
                     ['config' => ConfigurationCommonInterface::DEFAULT_INDEX],
-                    ['value' => $data->getDefaultIndexContentId()]
+                    ['value' => $configurationCommonDto->getDefaultIndexContentId()]
                 );
             }
 
-            if ($data->getDefaultThemeId() !== null) {
+            if ($configurationCommonDto->getDefaultThemeId() !== null) {
                 $this->repository->updateOrCreate(
                     ['config' => ConfigurationCommonInterface::DEFAULT_THEME],
-                    ['value' => $data->getDefaultThemeId()]
+                    ['value' => $configurationCommonDto->getDefaultThemeId()]
                 );
             }
 
+            $configurationCommonDto
+                ->getMultiLanguage()
+                ?->each(function (ConfigurationMultiLanguageDto $multiLanguageDto) {
+                    if (!$this->isCorrectConfig($multiLanguageDto->getConfig())) {
+                        return;
+                    }
 
-        } catch (Exception) {
-            throw new UpdateResourceFailedException();
+                    $this->repository->updateOrCreate(
+                        [
+                            'config'      => $multiLanguageDto->getConfig(),
+                            'language_id' => $multiLanguageDto->getLanguageId(),
+                        ],
+                        [
+                            'value'       => $multiLanguageDto->getValue(),
+                        ]
+                    );
+                });
+
+        } catch (Exception $exception) {
+            throw new UpdateResourceFailedException($exception->getMessage());
         }
+    }
+
+    /**
+     * @param string $config
+     * @return bool
+     */
+    private function isCorrectConfig(string $config): bool
+    {
+        return collect([
+                ConfigurationCommonInterface::TITLE,
+                ConfigurationCommonInterface::DESCRIPTION,
+                ConfigurationCommonInterface::TITLE_SEPARATOR,
+                ConfigurationCommonInterface::META_CHARSET,
+                ConfigurationCommonInterface::META_DESCRIPTION,
+                ConfigurationCommonInterface::META_KEYWORDS,
+                ConfigurationCommonInterface::META_AUTHOR,
+            ])->search($config) !== false;
     }
 }
