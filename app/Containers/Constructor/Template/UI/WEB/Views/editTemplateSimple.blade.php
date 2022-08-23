@@ -67,6 +67,48 @@
                     </button>
 
                     <div class="input-group-prepend">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                                aria-expanded="false">
+                            Title/Description
+                        </button>
+                        <div class="dropdown-menu" style="">
+                            <button class="dropdown-item" href="#" id="insert-content"
+                                    data-value="{TITLE}">
+                                Site Title
+                            </button>
+                            <button class="dropdown-item" href="#" id="insert-content"
+                                    data-value="{DESCRIPTION}">
+                                Site Description
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                                aria-expanded="false">
+                            Metadata
+                        </button>
+                        <div class="dropdown-menu" style="">
+                            <button class="dropdown-item" href="#" id="insert-content"
+                                    data-value="{META_CHARSET}">
+                                Meta Charset
+                            </button>
+                            <button class="dropdown-item" href="#" id="insert-content"
+                                    data-value="{META_DESCRIPTION}">
+                                Meta Description
+                            </button>
+                            <button class="dropdown-item" href="#" id="insert-content"
+                                    data-value="{META_KEYWORDS}">
+                                Meta Keywords
+                            </button>
+                            <button class="dropdown-item" href="#" id="insert-content"
+                                    data-value="{META_AUTHOR}">
+                                Meta Author
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="input-group-prepend">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                                 aria-expanded="false">
                             JavaScript
