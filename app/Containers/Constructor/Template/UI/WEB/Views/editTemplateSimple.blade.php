@@ -81,6 +81,10 @@
                                 Site Description
                             </button>
                             <button class="dropdown-item" href="#" id="insert-content"
+                                    data-value="{TITLE_SEPARATOR}">
+                                Title Separator
+                            </button>
+                            <button class="dropdown-item" href="#" id="insert-content"
                                     data-value="{PAGE_MAIN_FIELD}">
                                 Page Main Field
                             </button>

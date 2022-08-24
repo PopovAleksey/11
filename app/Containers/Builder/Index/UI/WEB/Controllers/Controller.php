@@ -11,8 +11,8 @@ use JetBrains\PhpStorm\NoReturn;
 class Controller extends WebController
 {
     public function __construct(
-        private BuildTemplateActionInterface     $buildTemplateAction,
-        private GetContentCssOrJsActionInterface $getContentCssOrJsAction
+        private readonly BuildTemplateActionInterface     $buildTemplateAction,
+        private readonly GetContentCssOrJsActionInterface $getContentCssOrJsAction
     )
     {
     }

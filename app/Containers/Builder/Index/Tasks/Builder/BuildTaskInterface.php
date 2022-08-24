@@ -9,6 +9,7 @@ use Illuminate\Support\Collection;
 interface BuildTaskInterface
 {
     public function run(
+        int        $languageId,
         ThemeDto   $themeDto,
         ContentDto $contentDto,
         Collection $menuList,
