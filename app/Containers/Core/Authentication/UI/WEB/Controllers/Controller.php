@@ -17,9 +17,9 @@ use Illuminate\Routing\Redirector;
 class Controller extends WebController
 {
     public function __construct(
-        private WebLogoutActionInterface   $logoutAction,
-        private GetAuthLinkActionInterface $getGoogleAuthLinkAction,
-        private SignInActionInterface      $googleSignInAction
+        private readonly WebLogoutActionInterface   $logoutAction,
+        private readonly GetAuthLinkActionInterface $getGoogleAuthLinkAction,
+        private readonly SignInActionInterface      $googleSignInAction
     )
     {
     }
@@ -35,7 +35,7 @@ class Controller extends WebController
 
         try {
             $googleLink = $this->getGoogleAuthLinkAction->run();
-        }catch (Exception){
+        } catch (Exception) {
             $googleLink = false;
         }
 
