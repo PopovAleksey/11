@@ -83,7 +83,7 @@ class ControllerTemplate extends WebController
         $data = [
             'template'         => $template,
             'languages'        => $languageList,
-            'localizationList' => $localizationList,
+            'localizationList' => $localizationList ?? [],
         ];
 
         if (in_array($template->getType(), [TemplateInterface::BASE_TYPE, TemplateInterface::PAGE_TYPE, TemplateInterface::MENU_TYPE], true)) {
