@@ -68,12 +68,12 @@ class BuildTemplateAction extends Action implements BuildTemplateActionInterface
      */
     private function findIds(ThemeDto $themeDto, string $findOf): Collection
     {
-        $makeupHtml = $this->getThemeHtml($themeDto);
-
-        $makeup = implode('', [
-            $makeupHtml->get(TemplateInterface::BASE_TYPE),
-            $makeupHtml->get(TemplateInterface::PAGE_TYPE)->common,
-            $makeupHtml->get(TemplateInterface::MENU_TYPE),
+        $makeup = implode([
+            $themeDto->getTemplates()?->get(TemplateInterface::BASE_TYPE)?->getCommonHtml(),
+            $themeDto->getTemplates()?->get(TemplateInterface::PAGE_TYPE)?->getCommonHtml(),
+            $themeDto->getTemplates()?->get(TemplateInterface::MENU_TYPE)
+                ?->map(fn(TemplateDto $templateDto) => $templateDto->getCommonHtml() ?? '')
+                ->implode(''),
         ]);
 
         preg_match_all("{" . strtoupper($findOf) . "_(\d+)}", $makeup, $result);
@@ -88,56 +88,31 @@ class BuildTemplateAction extends Action implements BuildTemplateActionInterface
      * @param \App\Ship\Parents\Dto\ThemeDto $themeDto
      * @return \Illuminate\Support\Collection
      */
-    private function getThemeHtml(ThemeDto $themeDto): Collection
-    {
-        $baseHtml = $themeDto->getTemplates()?->get(TemplateInterface::BASE_TYPE)?->getCommonHtml() ?? '';
-        $menuHtml = $themeDto->getTemplates()?->get(TemplateInterface::MENU_TYPE)
-            ?->map(fn(TemplateDto $templateDto) => $templateDto->getCommonHtml() ?? '')->implode('');
-
-        /**
-         * @var TemplateDto|null $pageTemplateDto
-         */
-        $pageTemplateDto = $themeDto->getTemplates()?->get(TemplateInterface::PAGE_TYPE);
-
-        return collect([
-            TemplateInterface::BASE_TYPE => $baseHtml,
-            TemplateInterface::MENU_TYPE => $menuHtml,
-            TemplateInterface::PAGE_TYPE => new class($pageTemplateDto) {
-                public readonly string $common;
-                public readonly string $preview;
-                public readonly string $element;
-
-                public function __construct(TemplateDto $pageTemplateDto)
-                {
-                    $this->common  = $pageTemplateDto->getCommonHtml() ?? '';
-                    $this->preview = $pageTemplateDto->getPreviewHtml() ?? '';
-                    $this->element = $pageTemplateDto->getElementHtml() ?? '';
-                }
-
-                public function implode(): string
-                {
-                    return implode([
-                        $this->common,
-                        $this->preview,
-                        $this->element,
-                    ]);
-                }
-            },
-        ]);
-    }
-
-    /**
-     * @param \App\Ship\Parents\Dto\ThemeDto $themeDto
-     * @return \Illuminate\Support\Collection
-     */
     private function findLocalizationPoints(ThemeDto $themeDto): Collection
     {
-        $themeHtml  = $this->getThemeHtml($themeDto);
-        $pageMakeup = $themeHtml->get(TemplateInterface::PAGE_TYPE)->implode();
+        $pageHtml = collect([
+            $themeDto->getTemplates()?->get(TemplateInterface::PAGE_TYPE)?->getCommonHtml(),
+            $themeDto->getTemplates()?->get(TemplateInterface::PAGE_TYPE)?->getElementHtml(),
+            $themeDto->getTemplates()?->get(TemplateInterface::PAGE_TYPE)?->getPreviewHtml(),
+        ])?->implode('') ?? '';
 
-        $themeHtml->put(TemplateInterface::PAGE_TYPE, $pageMakeup);
+        $menusAndWidgetsHtml = $themeDto->getTemplates()
+            ?->reject(fn($collect, $key) => !in_array($key, [TemplateInterface::MENU_TYPE, TemplateInterface::WIDGET_TYPE], true))
+            ?->collapse()
+            ?->map(static function (TemplateDto $templateDto) {
+                return collect([
+                    $templateDto->getCommonHtml(),
+                    $templateDto->getElementHtml(),
+                ])->implode('');
+            })?->implode('') ?? '';
 
-        preg_match_all("/{L=([\w.\s]+)}((.*){L})+/mU", $themeHtml->implode(''), $matchResult, PREG_SET_ORDER);
+        $html = collect([
+            $themeDto->getTemplates()?->get(TemplateInterface::BASE_TYPE)?->getCommonHtml(),
+            $pageHtml,
+            $menusAndWidgetsHtml,
+        ])->implode('');
+
+        preg_match_all("/{L=([\w.\s]+)}((.*){L})+/mU", $html, $matchResult, PREG_SET_ORDER);
 
         return collect($matchResult)
             ->map(static function (array $point) {
