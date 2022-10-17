@@ -65,6 +65,9 @@
                     <button type="button" class="btn btn-info" id="insert-content" data-value="{CONTENT}">
                         Content
                     </button>
+                    <button type="button" class="btn btn-default" id="insert-content" data-value="{HOME_LINK}">
+                        Home Link
+                    </button>
 
                     <div class="input-group-prepend">
                         <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"

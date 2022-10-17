@@ -115,6 +115,10 @@
                                 data-value="{ITEMS}">
                             All Items
                         </button>
+                        <button type="button" class="btn btn-default" id="insert-content"
+                                data-value="{HOME_LINK}">
+                            Home Link
+                        </button>
                     </div>
 
                     @if($template->getType() === \App\Ship\Parents\Models\TemplateInterface::MENU_TYPE)

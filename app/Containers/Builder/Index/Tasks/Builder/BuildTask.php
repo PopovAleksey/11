@@ -3,6 +3,7 @@
 namespace App\Containers\Builder\Index\Tasks\Builder;
 
 use App\Ship\Parents\Dto\ContentDto;
+use App\Ship\Parents\Dto\LanguageDto;
 use App\Ship\Parents\Dto\LocalizationDto;
 use App\Ship\Parents\Dto\ThemeDto;
 use App\Ship\Parents\Models\ConfigurationCommonInterface;
@@ -23,7 +24,7 @@ class BuildTask extends Task implements BuildTaskInterface
     }
 
     /**
-     * @param int                              $languageId
+     * @param int                              $languageDto
      * @param \App\Ship\Parents\Dto\ThemeDto   $themeDto
      * @param \App\Ship\Parents\Dto\ContentDto $contentDto
      * @param \Illuminate\Support\Collection   $menuList
@@ -32,12 +33,12 @@ class BuildTask extends Task implements BuildTaskInterface
      * @return string
      */
     public function run(
-        int        $languageId,
-        ThemeDto   $themeDto,
-        ContentDto $contentDto,
-        Collection $menuList,
-        Collection $widgetList,
-        Collection $localeList
+        LanguageDto $languageDto,
+        ThemeDto    $themeDto,
+        ContentDto  $contentDto,
+        Collection  $menuList,
+        Collection  $widgetList,
+        Collection  $localeList
     ): string
     {
         $html = str_replace(
@@ -49,7 +50,7 @@ class BuildTask extends Task implements BuildTaskInterface
         $html = $this->buildWidgetTask->run($themeDto, $widgetList, $html);
 
         $this->configurationCommonRepository
-            ->findByField('language_id', $languageId)
+            ->findByField('language_id', $languageDto->getId())
             ->collect()
             ->each(static function (ConfigurationCommonInterface $configurationCommon) use (&$html) {
                 $config = strtoupper($configurationCommon->config);
@@ -71,6 +72,10 @@ class BuildTask extends Task implements BuildTaskInterface
          */
         $pageMainField = $contentDto->getValues()?->first();
 
-        return str_replace('{PAGE_MAIN_FIELD}', $pageMainField->getValue() ?? '', $html);
+        return str_replace(
+            ['{PAGE_MAIN_FIELD}', '{HOME_LINK}'],
+            [$pageMainField->getValue() ?? '', '/' . strtolower($languageDto->getShortName())],
+            $html
+        );
     }
 }
