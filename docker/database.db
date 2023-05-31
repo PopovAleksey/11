@@ -1,4 +1,4 @@
-CREATE USER 'PageConstructor'@'%' IDENTIFIED BY 'kai7EJmnzvd0U';
+CREATE USER IF NOT EXISTS 'PageConstructor'@'%' IDENTIFIED BY 'kai7EJmnzvd0U';
 
 CREATE DATABASE IF NOT EXISTS PageConstructor;
 
