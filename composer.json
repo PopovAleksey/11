@@ -106,7 +106,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "apiato/container-installer": true,
-            "wikimedia/composer-merge-plugin": true
+            "wikimedia/composer-merge-plugin": true,
+            "php-http/discovery": true
         }
     },
     "minimum-stability": "dev",
