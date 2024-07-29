@@ -40,7 +40,7 @@ make install
  * Setup Authorized redirect URIs as ```https://page-constructor.local.com/oauth/google/callback```
 ![GoogleAuthCallback.png](doc/GoogleAuthCallback.png)
  * Save changes
- * Download **Client Secret JSON** on same page and save it in root of project
+ * Download **Client Secret JSON** on same page and save it in **/storage** folder of project
  * Add path to **Client Secret JSON** file in .env ```OAUTH_GOOGLE_CONFIG_FILE```
  * Open https://page-constructor.local.com/login and Sign In via google account
  * Open https://page-constructor.local.com/constructor/languages for starting configure your Web page.
