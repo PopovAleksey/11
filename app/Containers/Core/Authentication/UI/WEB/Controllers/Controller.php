@@ -6,13 +6,13 @@ use App\Containers\Core\Authentication\Actions\GoogleOAuth\GetAuthLinkActionInte
 use App\Containers\Core\Authentication\Actions\GoogleOAuth\SignInActionInterface;
 use App\Containers\Core\Authentication\Actions\WebLogoutActionInterface;
 use App\Ship\Parents\Controllers\WebController;
-use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use PopovAleksey\Mapper\MapperException;
 
 class Controller extends WebController
 {
@@ -25,7 +25,7 @@ class Controller extends WebController
     }
 
     /**
-     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
+     * @return View|Factory|Application|RedirectResponse
      */
     public function showLoginPage(): View|Factory|Application|RedirectResponse
     {
@@ -33,21 +33,16 @@ class Controller extends WebController
             return redirect()->secure(request()?->getRequestUri() ?? route('login'));
         }
 
-        try {
-            $googleLink = $this->getGoogleAuthLinkAction->run();
-        } catch (Exception) {
-            $googleLink = false;
-        }
-
         return view('core@authentication::login', [
-            'googleAuthLink' => $googleLink,
+            'googleAuthLink' => $this->getGoogleAuthLinkAction->run(),
+            'facebookAuthLink' => $this->getGoogleAuthLinkAction->run(),
         ]);
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \PopovAleksey\Mapper\MapperException
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws MapperException
      */
     public function googleCallback(Request $request): RedirectResponse
     {
@@ -65,7 +60,7 @@ class Controller extends WebController
     }
 
     /**
-     * @return \Illuminate\Routing\Redirector|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
+     * @return Redirector|Application|RedirectResponse
      */
     public function logout(): Redirector|Application|RedirectResponse
     {
