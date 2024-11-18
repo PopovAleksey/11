@@ -4,9 +4,13 @@
 
 <p align="center">
 <img src="https://img.shields.io/github/downloads/PopovAleksey/Page-Constructor/total" alt="Total Downloads">
+<a href="https://app.codacy.com/gh/OleksiiPopovDev/Page-Constructor/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade"><img src="https://app.codacy.com/project/badge/Grade/bbbfed7a19194d4aa545c7b93a1c1eec"/></a>
 <img src="https://img.shields.io/github/license/PopovAleksey/Page-Constructor" alt="License">
 <img src="https://img.shields.io/github/languages/code-size/PopovAleksey/Page-Constructor" alt="Code Size">
 <img src="https://img.shields.io/github/v/release/PopovAleksey/Page-Constructor" alt="Release">
+</p>
+<p align="center">
+<img src="./doc/logo.png" width="40%"  alt="Page Constructor" style="border-radius: 15%"/>
 </p>
 
 ## Installation

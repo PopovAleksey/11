@@ -32,6 +32,16 @@
                     <i class="fab fa-facebook mr-2"></i> Facebook <sup>Coming soon</sup>
                 </a>
             </div>
+            <div class="social-auth-links text-center mt-2 mb-3" disabled>
+                <a href="" class="disabled btn btn-block btn-dark">
+                    <i class="fab fa-github mr-2"></i> GitHub <sup>Coming soon</sup>
+                </a>
+            </div>
+            <div class="social-auth-links text-center mt-2 mb-3">
+                <a href="" class="disabled btn btn-block btn-primary">
+                    <i class="fab fa-linkedin mr-2"></i> LinkedIn <sup>Coming soon</sup>
+                </a>
+            </div>
             <div class="social-auth-links text-center mt-2 mb-3">
                 <a href="" class="disabled btn btn-block btn-info">
                     <i class="fab fa-twitter mr-2"></i> Twitter <sup>Coming soon</sup>
@@ -45,11 +55,6 @@
             <div class="social-auth-links text-center mt-2 mb-3">
                 <a href="" class="disabled btn btn-block btn-default">
                     <i class="fab fa-tiktok"></i> TikTok <sup>Coming soon</sup>
-                </a>
-            </div>
-            <div class="social-auth-links text-center mt-2 mb-3" disabled>
-                <a href="" class="disabled btn btn-block btn-dark">
-                    <i class="fab fa-github mr-2"></i> GitHub <sup>Coming soon</sup>
                 </a>
             </div>
             <!-- /.social-auth-links -->
