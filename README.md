@@ -3,11 +3,11 @@
 <h3 align="center">With PHP 8.1 and Laravel 8.0</h3>
 
 <p align="center">
-<img src="https://img.shields.io/github/downloads/PopovAleksey/Page-Constructor/total" alt="Total Downloads">
+<img src="https://img.shields.io/github/downloads/OleksiiPopovDev/Page-Constructor/total" alt="Total Downloads">
 <a href="https://app.codacy.com/gh/OleksiiPopovDev/Page-Constructor/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade"><img src="https://app.codacy.com/project/badge/Grade/bbbfed7a19194d4aa545c7b93a1c1eec"/></a>
-<img src="https://img.shields.io/github/license/PopovAleksey/Page-Constructor" alt="License">
-<img src="https://img.shields.io/github/languages/code-size/PopovAleksey/Page-Constructor" alt="Code Size">
-<img src="https://img.shields.io/github/v/release/PopovAleksey/Page-Constructor" alt="Release">
+<img src="https://img.shields.io/github/license/OleksiiPopovDev/Page-Constructor" alt="License">
+<img src="https://img.shields.io/github/languages/code-size/OleksiiPopovDev/Page-Constructor" alt="Code Size">
+<img src="https://img.shields.io/github/v/release/OleksiiPopovDev/Page-Constructor" alt="Release">
 </p>
 <p align="center">
 <img src="./doc/logo.png" width="40%"  alt="Page Constructor" style="border-radius: 15%"/>
@@ -23,7 +23,7 @@ cd Docker-Development-Environment
 ```
  * Add Repository and Language of **Page Constructor** to _.repository_ file of **Docker-Development-Environment**
 ```shell
- echo "\n[PHP]https://github.com/PopovAleksey/Page-Constructor.git" >> .repositories
+ echo "\n[PHP]https://github.com/OleksiiPopovDev/Page-Constructor.git" >> .repositories
 ```
  * Add record to **/etc/hosts**
 ```
